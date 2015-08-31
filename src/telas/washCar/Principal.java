@@ -37,7 +37,7 @@ public class Principal extends JFrame {
 		principal.setVisible(true);
 	}
 	
-	public void componentesTela() {
+	public void componentesTelaPrincipal() {
 		jmbPrincipal = new JMenuBar();
 		setJMenuBar(jmbPrincipal);
 
@@ -106,7 +106,7 @@ public class Principal extends JFrame {
 		setContentPane(jpPrincipal);
 		this.setExtendedState(MAXIMIZED_BOTH);
 
-		componentesTela();
+		componentesTelaPrincipal();
 
 	}
 }
