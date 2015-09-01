@@ -58,10 +58,6 @@ public class EmpresaTela extends JFrame {
 	private JLabel jlbDataAlteracao;
 	private JLabel jlbCidade;
 	private JLabel jlbPais;
-	private JButton jbtNovo;
-	private JButton jbtSalvar;
-	private JButton jbtEditar;
-	private JButton jbtFechar;
 	private JLabel jlbRegimeTributario;
 	private JLabel jlbUnidadeFederativa;
 	private JLabel jlbInscricaoMunicipal;
@@ -70,6 +66,11 @@ public class EmpresaTela extends JFrame {
 	private JRadioButton jrbLucroReal;
 	private ButtonGroup jbgRegimeTributario;
 	private JTextField jtfUnidadeFederativa;
+	private JButton jbtNovo;
+	private JButton jbtEditar;
+	private JButton jbtSalvar;
+	private JButton jbtCancelar;
+	private JButton jbtFechar;
 
 	public static void main(String[] args) {
 		EmpresaTela empresa = new EmpresaTela();
@@ -279,27 +280,6 @@ public class EmpresaTela extends JFrame {
 		jtfPais.setBounds(346, 281, 139, 20);
 		jnpEmpresa.add(jtfPais);
 		
-		jbtNovo = new JButton("Novo");
-		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 311, 139, 23);
-		jnpEmpresa.add(jbtNovo);
-		
-		jbtSalvar = new JButton("Salvar");
-		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(159, 311, 177, 23);
-		jnpEmpresa.add(jbtSalvar);
-		
-		jbtEditar = new JButton("Editar");
-		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(346, 311, 139, 23);
-		jnpEmpresa.add(jbtEditar);
-		
-		jbtFechar = new JButton("Fechar");
-		jbtFechar.setToolTipText("");
-		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(495, 311, 130, 23);
-		jnpEmpresa.add(jbtFechar);
-		
 		jlbRegimeTributario = new JLabel("Regime Tribut\u00E1rio");
 		jlbRegimeTributario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbRegimeTributario.setBounds(120, 77, 100, 14);
@@ -346,6 +326,31 @@ public class EmpresaTela extends JFrame {
 		jtfUnidadeFederativa.setColumns(10);
 		jtfUnidadeFederativa.setBounds(159, 282, 177, 20);
 		jnpEmpresa.add(jtfUnidadeFederativa);
+		
+		jbtNovo = new JButton("Novo");
+		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtNovo.setBounds(10, 311, 110, 23);
+		jnpEmpresa.add(jbtNovo);
+		
+		jbtEditar = new JButton("Editar");
+		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtEditar.setBounds(138, 311, 110, 23);
+		jnpEmpresa.add(jbtEditar);
+		
+		jbtSalvar = new JButton("Salvar");
+		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtSalvar.setBounds(265, 311, 110, 23);
+		jnpEmpresa.add(jbtSalvar);
+		
+		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtCancelar.setBounds(390, 311, 110, 23);
+		jnpEmpresa.add(jbtCancelar);
+		
+		jbtFechar = new JButton("Fechar");
+		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtFechar.setBounds(515, 311, 110, 23);
+		jnpEmpresa.add(jbtFechar);
 	}
 
 	public EmpresaTela() {

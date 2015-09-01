@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 
 public class ModeloTela extends JFrame {
 
@@ -27,11 +28,12 @@ public class ModeloTela extends JFrame {
 	private JButton jbtNovo;
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
-	private JButton jbtExcluir;
+	private JButton jbtCancelar;
 	private JButton jbtFechar;
 	private JLabel jlbCodigo;
 	private JLabel jlbNomeModelo;
 	private JLabel jlbDataAlteracao;
+	private JCheckBox jckbForaUso;
 
 	public static void main(String[] args) {
 		ModeloTela modelo = new ModeloTela();
@@ -79,18 +81,18 @@ public class ModeloTela extends JFrame {
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(95, 189, 75, 23);
+		jbtSalvar.setBounds(93, 189, 75, 23);
 		jpnModelo.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(180, 189, 75, 23);
+		jbtEditar.setBounds(178, 189, 75, 23);
 		jpnModelo.add(jbtEditar);
 		
-		jbtExcluir = new JButton("Excluir");
-		jbtExcluir.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtExcluir.setBounds(265, 189, 75, 23);
-		jpnModelo.add(jbtExcluir);
+		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtCancelar.setBounds(263, 189, 78, 23);
+		jpnModelo.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setToolTipText("");
@@ -134,13 +136,18 @@ public class ModeloTela extends JFrame {
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbDataAlteracao.setBounds(254, 78, 100, 14);
 		jpnModelo.add(jlbDataAlteracao);
+		
+		jckbForaUso = new JCheckBox("Fora de Uso");
+		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jckbForaUso.setBounds(128, 92, 97, 23);
+		jpnModelo.add(jckbForaUso);
 	}
 
 	public ModeloTela() {
 		setResizable(false);
 		setTitle("Cadastrar Modelos de Carros");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 246);
+		setBounds(100, 100, 438, 251);
 		jpnModelo = new JPanel();
 		jpnModelo.setLayout(null);
 		setLocationRelativeTo(null);

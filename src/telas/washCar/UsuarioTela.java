@@ -32,12 +32,13 @@ public class UsuarioTela extends JFrame {
 	private JLabel jlbLogin;
 	private JLabel jtfSenha;
 	private JLabel jlbConfirmarSenha;
-	private JButton jbtNovo;
-	private JButton jbtSalvar;
-	private JButton jbtEditar;
-	private JButton jbtFechar;
 	private JLabel jlbDataAlteracao;
 	private JCheckBox jcbxUsuarioForaUso;
+	private JButton jbtFechar;
+	private JButton jbtCancelar;
+	private JButton jbtEditar;
+	private JButton jbtSalvar;
+	private JButton jbtNovo;
 
 	public static void main(String[] args) {
 		UsuarioTela usuario = new UsuarioTela();
@@ -120,27 +121,6 @@ public class UsuarioTela extends JFrame {
 		jpfConfirmarSenha.setBounds(10, 232, 182, 20);
 		jpnUsuario.add(jpfConfirmarSenha);
 		
-		jbtNovo = new JButton("Novo");
-		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 293, 98, 23);
-		jpnUsuario.add(jbtNovo);
-		
-		jbtSalvar = new JButton("Salvar");
-		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(120, 293, 98, 23);
-		jpnUsuario.add(jbtSalvar);
-		
-		jbtEditar = new JButton("Editar");
-		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(230, 293, 98, 23);
-		jpnUsuario.add(jbtEditar);
-		
-		jbtFechar = new JButton("Fechar");
-		jbtFechar.setToolTipText("");
-		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(338, 293, 98, 23);
-		jpnUsuario.add(jbtFechar);
-		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbDataAlteracao.setBounds(336, 246, 98, 14);
@@ -158,6 +138,32 @@ public class UsuarioTela extends JFrame {
 		jcbxUsuarioForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jcbxUsuarioForaUso.setBounds(10, 259, 140, 23);
 		jpnUsuario.add(jcbxUsuarioForaUso);
+		
+		jbtFechar = new JButton("Fechar");
+		jbtFechar.setToolTipText("");
+		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtFechar.setBounds(359, 288, 75, 23);
+		jpnUsuario.add(jbtFechar);
+		
+		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtCancelar.setBounds(270, 288, 78, 23);
+		jpnUsuario.add(jbtCancelar);
+		
+		jbtEditar = new JButton("Editar");
+		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtEditar.setBounds(183, 288, 75, 23);
+		jpnUsuario.add(jbtEditar);
+		
+		jbtSalvar = new JButton("Salvar");
+		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtSalvar.setBounds(97, 288, 75, 23);
+		jpnUsuario.add(jbtSalvar);
+		
+		jbtNovo = new JButton("Novo");
+		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtNovo.setBounds(10, 288, 75, 23);
+		jpnUsuario.add(jbtNovo);
 	}
 
 	public UsuarioTela() {

@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.JCheckBox;
 
 public class MarcaTela extends JFrame {
 
@@ -27,7 +28,7 @@ public class MarcaTela extends JFrame {
 	private JButton jbtNovo;
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
-	private JButton jbtExcluir;
+	private JButton jbtCancelar;
 	private JButton jbtFechar;
 	private JLabel jlbCodigoMarca;
 	private JLabel lblNomeDaMarca_1;
@@ -79,18 +80,18 @@ public class MarcaTela extends JFrame {
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(95, 189, 75, 23);
+		jbtSalvar.setBounds(93, 189, 75, 23);
 		jpnMarca.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(180, 189, 75, 23);
+		jbtEditar.setBounds(178, 189, 75, 23);
 		jpnMarca.add(jbtEditar);
 		
-		jbtExcluir = new JButton("Excluir");
-		jbtExcluir.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtExcluir.setBounds(265, 189, 75, 23);
-		jpnMarca.add(jbtExcluir);
+		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtCancelar.setBounds(263, 189, 78, 23);
+		jpnMarca.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -134,13 +135,18 @@ public class MarcaTela extends JFrame {
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbDataAlteracao.setBounds(254, 78, 100, 14);
 		jpnMarca.add(jlbDataAlteracao);
+		
+		JCheckBox jckbForaUso = new JCheckBox("Fora de Uso");
+		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jckbForaUso.setBounds(125, 92, 97, 23);
+		jpnMarca.add(jckbForaUso);
 	}
 
 	public MarcaTela() {
 		setTitle("Cadastrar Marcas de Carros");
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 245);
+		setBounds(100, 100, 442, 247);
 		jpnMarca = new JPanel();
 		setLocationRelativeTo(null);
 		setContentPane(jpnMarca);

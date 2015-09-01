@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 
 public class TipoServicoTela extends JFrame {
 
@@ -28,12 +29,13 @@ public class TipoServicoTela extends JFrame {
 	private JButton jbtNovo;
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
-	private JButton jbtExcluir;
+	private JButton jbtCancelar;
 	private JButton jbtFechar;
 	private JLabel jlbCodigo;
 	private JLabel jlbNomeTipoServico;
 	private JLabel jlbDataAlteracao;
 	private JLabel jlbValor;
+	private JCheckBox jckbForaUso;
 
 	public static void main(String[] args) {
 		TipoServicoTela frame = new TipoServicoTela();
@@ -81,18 +83,18 @@ public class TipoServicoTela extends JFrame {
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(95, 189, 75, 23);
+		jbtSalvar.setBounds(93, 189, 75, 23);
 		jpnTipoServico.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(180, 189, 75, 23);
+		jbtEditar.setBounds(178, 189, 75, 23);
 		jpnTipoServico.add(jbtEditar);
 		
-		jbtExcluir = new JButton("Excluir");
-		jbtExcluir.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtExcluir.setBounds(265, 189, 75, 23);
-		jpnTipoServico.add(jbtExcluir);
+		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtCancelar.setBounds(263, 189, 78, 23);
+		jpnTipoServico.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setToolTipText("");
@@ -111,7 +113,7 @@ public class TipoServicoTela extends JFrame {
 		jtfNomeTipoServico = new JTextField();
 		jtfNomeTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeTipoServico.setColumns(10);
-		jtfNomeTipoServico.setBounds(10, 152, 330, 20);
+		jtfNomeTipoServico.setBounds(10, 152, 243, 20);
 		jpnTipoServico.add(jtfNomeTipoServico);
 		
 		jlbCodigo = new JLabel("C\u00F3digo");
@@ -141,20 +143,25 @@ public class TipoServicoTela extends JFrame {
 		jtfValor.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfValor.setColumns(10);
 		jtfValor.setBackground(Color.WHITE);
-		jtfValor.setBounds(145, 94, 150, 20);
+		jtfValor.setBounds(274, 152, 150, 20);
 		jpnTipoServico.add(jtfValor);
 		
 		jlbValor = new JLabel("Valor do Tipo de Servi\u00E7o");
 		jlbValor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbValor.setBounds(145, 77, 150, 14);
+		jlbValor.setBounds(274, 135, 150, 14);
 		jpnTipoServico.add(jlbValor);
+		
+		jckbForaUso = new JCheckBox("Fora de Uso");
+		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jckbForaUso.setBounds(170, 92, 97, 23);
+		jpnTipoServico.add(jckbForaUso);
 	}
 
 	public TipoServicoTela() {
 		setTitle("Cadastrar Tipos de Servi\u00E7o");
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 245);
+		setBounds(100, 100, 440, 250);
 		jpnTipoServico = new JPanel();
 		jpnTipoServico.setLayout(null);
 		setLocationRelativeTo(null);

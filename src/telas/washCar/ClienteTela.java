@@ -66,10 +66,6 @@ public class ClienteTela extends JFrame {
 	private JLabel jlbDataAlteracao;
 	private JLabel jlbCidade;
 	private JLabel jlbPais;
-	private JButton jbtNovo;
-	private JButton jbtSalvar;
-	private JButton jbtEditar;
-	private JButton jbtFechar;
 	private JLabel jlbTipoPessoa;
 	private JLabel jlbUnidadeFederativa;
 	private JLabel jlbInscricaoMunicipal;
@@ -85,6 +81,11 @@ public class ClienteTela extends JFrame {
 	private JCheckBox jckbForaUso;
 	private JLabel jlbSobrenomeCliente;
 	private JTextField jtfUnidadeFederativa;
+	private JButton jbtNovo;
+	private JButton jbtFechar;
+	private JButton jbtCancelar;
+	private JButton jbtSalvar;
+	private JButton jbtEditar;
 
 	public static void main(String[] args) {
 		ClienteTela cliente = new ClienteTela();
@@ -294,27 +295,6 @@ public class ClienteTela extends JFrame {
 		jtfPais.setBounds(346, 416, 139, 20);
 		jpnCliente.add(jtfPais);
 		
-		jbtNovo = new JButton("Novo");
-		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 446, 139, 23);
-		jpnCliente.add(jbtNovo);
-		
-		jbtSalvar = new JButton("Salvar");
-		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(159, 446, 177, 23);
-		jpnCliente.add(jbtSalvar);
-		
-		jbtEditar = new JButton("Editar");
-		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(346, 446, 139, 23);
-		jpnCliente.add(jbtEditar);
-		
-		jbtFechar = new JButton("Fechar");
-		jbtFechar.setToolTipText("");
-		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(495, 446, 130, 23);
-		jpnCliente.add(jbtFechar);
-		
 		jlbTipoPessoa = new JLabel("Tipo de Pessoa");
 		jlbTipoPessoa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbTipoPessoa.setBounds(120, 77, 100, 14);
@@ -437,6 +417,31 @@ public class ClienteTela extends JFrame {
 		jtfUnidadeFederativa.setColumns(10);
 		jtfUnidadeFederativa.setBounds(159, 417, 177, 20);
 		jpnCliente.add(jtfUnidadeFederativa);
+		
+		jbtNovo = new JButton("Novo");
+		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtNovo.setBounds(10, 445, 110, 23);
+		jpnCliente.add(jbtNovo);
+		
+		jbtFechar = new JButton("Fechar");
+		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtFechar.setBounds(515, 445, 110, 23);
+		jpnCliente.add(jbtFechar);
+		
+		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtCancelar.setBounds(390, 445, 110, 23);
+		jpnCliente.add(jbtCancelar);
+		
+		jbtSalvar = new JButton("Salvar");
+		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtSalvar.setBounds(265, 445, 110, 23);
+		jpnCliente.add(jbtSalvar);
+		
+		jbtEditar = new JButton("Editar");
+		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtEditar.setBounds(138, 445, 110, 23);
+		jpnCliente.add(jbtEditar);
 	}
 
 	public ClienteTela() {
