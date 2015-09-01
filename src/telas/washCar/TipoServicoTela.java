@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
-public class TipoServico extends JFrame {
+public class TipoServicoTela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnTipoServico;
@@ -36,7 +36,7 @@ public class TipoServico extends JFrame {
 	private JLabel jlbValor;
 
 	public static void main(String[] args) {
-		TipoServico frame = new TipoServico();
+		TipoServicoTela frame = new TipoServicoTela();
 		frame.setVisible(true);
 	}
 	
@@ -70,7 +70,7 @@ public class TipoServico extends JFrame {
 		jpnPesquisaTipoServico.add(jlbPesquisaNomeTipoServico);
 		
 		jbtPesquisarTipoServico = new JButton("");
-		jbtPesquisarTipoServico.setIcon(new ImageIcon(TipoServico.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisarTipoServico.setIcon(new ImageIcon(TipoServicoTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisarTipoServico.setBounds(367, 13, 40, 32);
 		jpnPesquisaTipoServico.add(jbtPesquisarTipoServico);
 		
@@ -150,7 +150,7 @@ public class TipoServico extends JFrame {
 		jpnTipoServico.add(jlbValor);
 	}
 
-	public TipoServico() {
+	public TipoServicoTela() {
 		setTitle("Cadastrar Tipos de Servi\u00E7o");
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

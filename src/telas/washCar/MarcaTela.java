@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Color;
 
-public class Marca extends JFrame {
+public class MarcaTela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnMarca;
@@ -34,7 +34,7 @@ public class Marca extends JFrame {
 	private JLabel jlbDataAlteracao;
 
 	public static void main(String[] args) {
-		Marca frame = new Marca();
+		MarcaTela frame = new MarcaTela();
 		frame.setVisible(true);
 	}
 	
@@ -70,7 +70,7 @@ public class Marca extends JFrame {
 		jbtPesquisar = new JButton("");
 		jbtPesquisar.setBounds(367, 13, 40, 32);
 		jpnPesquisaMarcas.add(jbtPesquisar);
-		jbtPesquisar.setIcon(new ImageIcon(Marca.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisar.setIcon(new ImageIcon(MarcaTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -136,7 +136,7 @@ public class Marca extends JFrame {
 		jpnMarca.add(jlbDataAlteracao);
 	}
 
-	public Marca() {
+	public MarcaTela() {
 		setTitle("Cadastrar Marcas de Carros");
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -15,10 +15,9 @@ import java.awt.Color;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
-public class Empresa extends JFrame {
+public class EmpresaTela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jnpEmpresa;
@@ -65,15 +64,15 @@ public class Empresa extends JFrame {
 	private JButton jbtFechar;
 	private JLabel jlbRegimeTributario;
 	private JLabel jlbUnidadeFederativa;
-	private JComboBox<String> jcbxUnidadeFederativa;
 	private JLabel jlbInscricaoMunicipal;
 	private JRadioButton jrbSimplesNacional;
 	private JRadioButton jrbLucroPresumido;
 	private JRadioButton jrbLucroReal;
 	private ButtonGroup jbgRegimeTributario;
+	private JTextField jtfUnidadeFederativa;
 
 	public static void main(String[] args) {
-		Empresa empresa = new Empresa();
+		EmpresaTela empresa = new EmpresaTela();
 		empresa.setVisible(true);
 	}
 	
@@ -95,7 +94,7 @@ public class Empresa extends JFrame {
 		jtfPesquisaCodigoEmpresa.setBounds(10, 27, 66, 20);
 		jpnPesquisaEmpresa.add(jtfPesquisaCodigoEmpresa);
 		
-		jlbPesquisaNomeEmpresa = new JLabel("Nome do Usu\u00E1rio");
+		jlbPesquisaNomeEmpresa = new JLabel("Nome da Empresa");
 		jlbPesquisaNomeEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbPesquisaNomeEmpresa.setBounds(86, 11, 100, 14);
 		jpnPesquisaEmpresa.add(jlbPesquisaNomeEmpresa);
@@ -107,7 +106,7 @@ public class Empresa extends JFrame {
 		jpnPesquisaEmpresa.add(jtfPesquisaNomeEmpresa);
 		
 		jbtPesquisaEmpresa = new JButton("");
-		jbtPesquisaEmpresa.setIcon(new ImageIcon(Empresa.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisaEmpresa.setIcon(new ImageIcon(EmpresaTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisaEmpresa.setBounds(565, 15, 40, 32);
 		jpnPesquisaEmpresa.add(jbtPesquisaEmpresa);
 		
@@ -282,23 +281,23 @@ public class Empresa extends JFrame {
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 311, 98, 23);
+		jbtNovo.setBounds(10, 311, 139, 23);
 		jnpEmpresa.add(jbtNovo);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(120, 311, 98, 23);
+		jbtSalvar.setBounds(159, 311, 177, 23);
 		jnpEmpresa.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(230, 311, 98, 23);
+		jbtEditar.setBounds(346, 311, 139, 23);
 		jnpEmpresa.add(jbtEditar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setToolTipText("");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(338, 311, 98, 23);
+		jbtFechar.setBounds(495, 311, 130, 23);
 		jnpEmpresa.add(jbtFechar);
 		
 		jlbRegimeTributario = new JLabel("Regime Tribut\u00E1rio");
@@ -310,38 +309,6 @@ public class Empresa extends JFrame {
 		jlbUnidadeFederativa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbUnidadeFederativa.setBounds(159, 264, 100, 14);
 		jnpEmpresa.add(jlbUnidadeFederativa);
-		
-		jcbxUnidadeFederativa = new JComboBox<String>();
-		jcbxUnidadeFederativa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jcbxUnidadeFederativa.setBounds(159, 281, 175, 20);
-		jnpEmpresa.add(jcbxUnidadeFederativa);
-		jcbxUnidadeFederativa.addItem("Acre");
-		jcbxUnidadeFederativa.addItem("Alagoas");
-		jcbxUnidadeFederativa.addItem("Amapá");
-		jcbxUnidadeFederativa.addItem("Amazonas");
-		jcbxUnidadeFederativa.addItem("Bahia");
-		jcbxUnidadeFederativa.addItem("Ceará");
-		jcbxUnidadeFederativa.addItem("Distrito Federal");
-		jcbxUnidadeFederativa.addItem("Espírito Santo");
-		jcbxUnidadeFederativa.addItem("Goiás");
-		jcbxUnidadeFederativa.addItem("Maranhão");
-		jcbxUnidadeFederativa.addItem("Mato Grosso");
-		jcbxUnidadeFederativa.addItem("Mato Grosso do Sul");
-		jcbxUnidadeFederativa.addItem("Minas Gerais");
-		jcbxUnidadeFederativa.addItem("Pará");
-		jcbxUnidadeFederativa.addItem("Paraíba");
-		jcbxUnidadeFederativa.addItem("Paraná");
-		jcbxUnidadeFederativa.addItem("Pernanbuco");
-		jcbxUnidadeFederativa.addItem("Piauí");
-		jcbxUnidadeFederativa.addItem("Rio de Janeiro");
-		jcbxUnidadeFederativa.addItem("Rio Grande do Norte");
-		jcbxUnidadeFederativa.addItem("Rio Grande do Sul");
-		jcbxUnidadeFederativa.addItem("Rondônia");
-		jcbxUnidadeFederativa.addItem("Roraima");
-		jcbxUnidadeFederativa.addItem("Santa Cartarina");
-		jcbxUnidadeFederativa.addItem("São Paulo");
-		jcbxUnidadeFederativa.addItem("Sergipe");
-		jcbxUnidadeFederativa.addItem("Tocantins");
 		
 		jlbInscricaoMunicipal = new JLabel("Inscri\u00E7\u00E3o Municipal");
 		jlbInscricaoMunicipal.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -373,9 +340,15 @@ public class Empresa extends JFrame {
 		jbgRegimeTributario.add(jrbSimplesNacional);
 		jbgRegimeTributario.add(jrbLucroReal);
 		jbgRegimeTributario.add(jrbLucroPresumido);
+		
+		jtfUnidadeFederativa = new JTextField();
+		jtfUnidadeFederativa.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfUnidadeFederativa.setColumns(10);
+		jtfUnidadeFederativa.setBounds(159, 282, 177, 20);
+		jnpEmpresa.add(jtfUnidadeFederativa);
 	}
 
-	public Empresa() {
+	public EmpresaTela() {
 		setTitle("Cadastro da Empresa");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

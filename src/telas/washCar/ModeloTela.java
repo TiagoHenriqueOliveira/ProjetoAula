@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
-public class Modelo extends JFrame {
+public class ModeloTela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnModelo;
@@ -34,7 +34,7 @@ public class Modelo extends JFrame {
 	private JLabel jlbDataAlteracao;
 
 	public static void main(String[] args) {
-		Modelo modelo = new Modelo();
+		ModeloTela modelo = new ModeloTela();
 		modelo.setVisible(true);
 	}
 	
@@ -68,7 +68,7 @@ public class Modelo extends JFrame {
 		jpnPesquisaModelo.add(jlbPesquisaNomeModelo);
 		
 		jbtPesquisaModelo = new JButton("");
-		jbtPesquisaModelo.setIcon(new ImageIcon(Modelo.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisaModelo.setIcon(new ImageIcon(ModeloTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisaModelo.setBounds(367, 13, 40, 32);
 		jpnPesquisaModelo.add(jbtPesquisaModelo);
 		
@@ -136,7 +136,7 @@ public class Modelo extends JFrame {
 		jpnModelo.add(jlbDataAlteracao);
 	}
 
-	public Modelo() {
+	public ModeloTela() {
 		setResizable(false);
 		setTitle("Cadastrar Modelos de Carros");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

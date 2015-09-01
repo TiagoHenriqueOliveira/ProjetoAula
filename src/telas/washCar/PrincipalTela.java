@@ -6,7 +6,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class Principal extends JFrame {
+public class PrincipalTela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class Principal extends JFrame {
 	private JMenuItem jmiTipoServico;
 
 	public static void main(String[] args) {
-		Principal principal = new Principal();
+		PrincipalTela principal = new PrincipalTela();
 		principal.setVisible(true);
 	}
 	
@@ -99,7 +99,7 @@ public class Principal extends JFrame {
 		jmnParametros.add(jmiTipoServico);
 	}
 
-	public Principal() {
+	public PrincipalTela() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		jpPrincipal = new JPanel();

@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import java.awt.Color;
 import javax.swing.JCheckBox;
 
-public class Usuario extends JFrame {
+public class UsuarioTela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnUsuario;
@@ -40,7 +40,7 @@ public class Usuario extends JFrame {
 	private JCheckBox jcbxUsuarioForaUso;
 
 	public static void main(String[] args) {
-		Usuario usuario = new Usuario();
+		UsuarioTela usuario = new UsuarioTela();
 		usuario.setVisible(true);
 	}
 	
@@ -74,7 +74,7 @@ public class Usuario extends JFrame {
 		jpnPesquisaUsuario.add(jtfPesquisaNomeUsuario);
 		
 		jbtPesquisaUsuario = new JButton("");
-		jbtPesquisaUsuario.setIcon(new ImageIcon(Usuario.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisaUsuario.setIcon(new ImageIcon(UsuarioTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisaUsuario.setBounds(367, 16, 40, 32);
 		jpnPesquisaUsuario.add(jbtPesquisaUsuario);
 		
@@ -160,7 +160,7 @@ public class Usuario extends JFrame {
 		jpnUsuario.add(jcbxUsuarioForaUso);
 	}
 
-	public Usuario() {
+	public UsuarioTela() {
 		setTitle("Cadastro de Usu\u00E1rios");
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
