@@ -40,11 +40,6 @@ public class UsuarioTela extends JFrame {
 	private JButton jbtSalvar;
 	private JButton jbtNovo;
 
-	public static void main(String[] args) {
-		UsuarioTela usuario = new UsuarioTela();
-		usuario.setVisible(true);
-	}
-	
 	public void componentesTelaUsuario() {
 		jpnPesquisaUsuario = new JPanel();
 		jpnPesquisaUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -167,9 +162,9 @@ public class UsuarioTela extends JFrame {
 	}
 
 	public UsuarioTela() {
-		setTitle("Cadastro de Usu\u00E1rios");
+		setTitle("Cadastro de Usuários | WashCar");
 		setResizable(false);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
 		jpnUsuario = new JPanel();
 		jpnUsuario.setLayout(null);

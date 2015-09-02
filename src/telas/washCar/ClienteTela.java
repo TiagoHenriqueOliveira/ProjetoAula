@@ -87,11 +87,6 @@ public class ClienteTela extends JFrame {
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
 
-	public static void main(String[] args) {
-		ClienteTela cliente = new ClienteTela();
-		cliente.setVisible(true);
-	}
-	
 	public void componentesTelaCliente() {
 		jpnPesquisaCliente = new JPanel();
 		jpnPesquisaCliente.setLayout(null);
@@ -161,7 +156,7 @@ public class ClienteTela extends JFrame {
 		jtfRazaoSocial.setBounds(10, 228, 300, 20);
 		jpnCliente.add(jtfRazaoSocial);
 		
-		jlbNomeFantasia = new JLabel("Nome Fant\u00E1sia");
+		jlbNomeFantasia = new JLabel("Nome Fantasia");
 		jlbNomeFantasia.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbNomeFantasia.setBounds(10, 259, 160, 14);
 		jpnCliente.add(jlbNomeFantasia);
@@ -447,7 +442,7 @@ public class ClienteTela extends JFrame {
 	public ClienteTela() {
 		setResizable(false);
 		setTitle("Cadastro de Clientes");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 640, 507);
 		jpnCliente = new JPanel();
 		jpnCliente.setLayout(null);

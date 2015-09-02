@@ -37,11 +37,6 @@ public class TipoServicoTela extends JFrame {
 	private JLabel jlbValor;
 	private JCheckBox jckbForaUso;
 
-	public static void main(String[] args) {
-		TipoServicoTela frame = new TipoServicoTela();
-		frame.setVisible(true);
-	}
-	
 	public void componenteTelaTipoServico() {
 		jpnPesquisaTipoServico = new JPanel();
 		jpnPesquisaTipoServico.setLayout(null);
@@ -93,7 +88,7 @@ public class TipoServicoTela extends JFrame {
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(263, 189, 78, 23);
+		jbtCancelar.setBounds(261, 189, 80, 23);
 		jpnTipoServico.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
@@ -158,9 +153,9 @@ public class TipoServicoTela extends JFrame {
 	}
 
 	public TipoServicoTela() {
-		setTitle("Cadastrar Tipos de Servi\u00E7o");
+		setTitle("Cadastrar Tipos de Serviço | WashCar");
 		setResizable(false);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 440, 250);
 		jpnTipoServico = new JPanel();
 		jpnTipoServico.setLayout(null);

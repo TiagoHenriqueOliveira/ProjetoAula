@@ -24,7 +24,7 @@ public class EmpresaTela extends JFrame {
 	private JTextField jtfPesquisaCodigoEmpresa;
 	private JTextField jtfPesquisaNomeEmpresa;
 	private JTextField jtfCodigo;
-	private JTextField textField_3;
+	private JTextField jtfRazaoSocial;
 	private JTextField jtfNomeFantasia;
 	private JTextField jtfCNPJ;
 	private JTextField jtfEndereco;
@@ -72,11 +72,6 @@ public class EmpresaTela extends JFrame {
 	private JButton jbtCancelar;
 	private JButton jbtFechar;
 
-	public static void main(String[] args) {
-		EmpresaTela empresa = new EmpresaTela();
-		empresa.setVisible(true);
-	}
-	
 	public void componentesTelaEmpresa() {
 		jpnPesquisaEmpresa = new JPanel();
 		jpnPesquisaEmpresa.setLayout(null);
@@ -140,13 +135,13 @@ public class EmpresaTela extends JFrame {
 		jlbRazaoSocial.setBounds(10, 124, 150, 14);
 		jnpEmpresa.add(jlbRazaoSocial);
 		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField_3.setColumns(10);
-		textField_3.setBounds(10, 140, 300, 20);
-		jnpEmpresa.add(textField_3);
+		jtfRazaoSocial = new JTextField();
+		jtfRazaoSocial.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfRazaoSocial.setColumns(10);
+		jtfRazaoSocial.setBounds(10, 140, 300, 20);
+		jnpEmpresa.add(jtfRazaoSocial);
 		
-		jlbNomeFantasia = new JLabel("Nome Fant\u00E1sia da Empresa");
+		jlbNomeFantasia = new JLabel("Nome Fantasia da Empresa");
 		jlbNomeFantasia.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbNomeFantasia.setBounds(10, 171, 160, 14);
 		jnpEmpresa.add(jlbNomeFantasia);
@@ -356,7 +351,7 @@ public class EmpresaTela extends JFrame {
 	public EmpresaTela() {
 		setTitle("Cadastro da Empresa");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 641, 373);
 		jnpEmpresa = new JPanel();
 		setLocationRelativeTo(null);

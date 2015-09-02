@@ -34,11 +34,6 @@ public class MarcaTela extends JFrame {
 	private JLabel lblNomeDaMarca_1;
 	private JLabel jlbDataAlteracao;
 
-	public static void main(String[] args) {
-		MarcaTela frame = new MarcaTela();
-		frame.setVisible(true);
-	}
-	
 	public void componentesTelaMarca() {
 		jpnPesquisaMarcas = new JPanel();
 		jpnPesquisaMarcas.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -90,7 +85,7 @@ public class MarcaTela extends JFrame {
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(263, 189, 78, 23);
+		jbtCancelar.setBounds(261, 189, 80, 23);
 		jpnMarca.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
@@ -143,9 +138,9 @@ public class MarcaTela extends JFrame {
 	}
 
 	public MarcaTela() {
-		setTitle("Cadastrar Marcas de Carros");
+		setTitle("Cadastrar Marcas de Carros | WashCar");
 		setResizable(false);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 442, 247);
 		jpnMarca = new JPanel();
 		setLocationRelativeTo(null);

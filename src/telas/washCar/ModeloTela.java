@@ -35,11 +35,6 @@ public class ModeloTela extends JFrame {
 	private JLabel jlbDataAlteracao;
 	private JCheckBox jckbForaUso;
 
-	public static void main(String[] args) {
-		ModeloTela modelo = new ModeloTela();
-		modelo.setVisible(true);
-	}
-	
 	public void componentesTelaModelo() {
 		jpnPesquisaModelo = new JPanel();
 		jpnPesquisaModelo.setLayout(null);
@@ -91,7 +86,7 @@ public class ModeloTela extends JFrame {
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(263, 189, 78, 23);
+		jbtCancelar.setBounds(261, 189, 80, 23);
 		jpnModelo.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
@@ -145,8 +140,8 @@ public class ModeloTela extends JFrame {
 
 	public ModeloTela() {
 		setResizable(false);
-		setTitle("Cadastrar Modelos de Carros");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("Cadastrar Modelos de Carros | WashCar");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 438, 251);
 		jpnModelo = new JPanel();
 		jpnModelo.setLayout(null);

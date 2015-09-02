@@ -47,11 +47,6 @@ public class CarroTela extends JFrame {
 	private JButton jbtFechar;
 	private JButton jbtCancelar;
 
-	public static void main(String[] args) {
-		CarroTela carro = new CarroTela();
-		carro.setVisible(true);
-	}
-	
 	public void componentesTelaCarro() {
 		jpnPesquisaCarro = new JPanel();
 		jpnPesquisaCarro.setLayout(null);
@@ -227,8 +222,8 @@ public class CarroTela extends JFrame {
 	}
 
 	public CarroTela() {
-		setTitle("Cadastro de Carros do Cliente");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Cadastro de Carros do Cliente | WashCar");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 649, 333);
 		jpnCarro = new JPanel();
 		jpnCarro.setLayout(null);
