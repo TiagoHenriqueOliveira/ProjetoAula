@@ -3,9 +3,12 @@ package telas.washCar;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -15,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 import java.awt.Color;
+import java.util.Vector;
 
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
@@ -69,8 +73,14 @@ public class OrdemServicoTela extends JFrame {
 	private JTabbedPane jtbOrdemServico;
 	private JRadioButton jrbPagamentoVista;
 	private JRadioButton jrbPagamentoPrazo;
+	private JPanel jpnCadastroServico;
+	private JTable jttGridItensServico;
+	private DefaultTableModel dtmGridItensServico;
+	private Vector<String> colunasGridItensServico;
+	private JScrollPane jspGridItensServico;
 
 	public void componentesTelaOrdemServico() {
+		
 		jtbOrdemServico = new JTabbedPane(JTabbedPane.TOP);
 		jtbOrdemServico.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		jtbOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -323,6 +333,27 @@ public class OrdemServicoTela extends JFrame {
 		jbgFormaPagamento = new ButtonGroup();
 		jbgFormaPagamento.add(jrbPagamentoPrazo);
 		jbgFormaPagamento.add(jrbPagamentoVista);
+		
+		jpnCadastroServico = new JPanel();
+		jtbOrdemServico.addTab("Cadastro de Servi\u00E7os", null, jpnCadastroServico, null);
+		jpnCadastroServico.setLayout(null);
+		
+		dtmGridItensServico = new DefaultTableModel();
+		colunasGridItensServico = new Vector<String>();
+		colunasGridItensServico.add("Código");
+		colunasGridItensServico.add("Descrição");
+		colunasGridItensServico.add("Valor Unitário");
+		dtmGridItensServico.setColumnIdentifiers(colunasGridItensServico);
+				
+		jttGridItensServico = new JTable();
+		jttGridItensServico.setBounds(10, 10, 200, 200);
+		jttGridItensServico.setModel(dtmGridItensServico);
+		getContentPane().add(jttGridItensServico);
+	}
+	
+	public static void main(String[] args) {
+		OrdemServicoTela teste = new OrdemServicoTela();
+		teste.setVisible(true);
 	}
 
 	public OrdemServicoTela() {
