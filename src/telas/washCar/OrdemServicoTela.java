@@ -263,27 +263,27 @@ public class OrdemServicoTela extends JFrame {
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 382, 110, 23);
+		jbtNovo.setBounds(10, 385, 110, 23);
 		jpnDadosOrdemServico.add(jbtNovo);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(138, 382, 110, 23);
+		jbtEditar.setBounds(138, 385, 110, 23);
 		jpnDadosOrdemServico.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(265, 382, 110, 23);
+		jbtSalvar.setBounds(265, 385, 110, 23);
 		jpnDadosOrdemServico.add(jbtSalvar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(515, 382, 110, 23);
+		jbtFechar.setBounds(515, 385, 110, 23);
 		jpnDadosOrdemServico.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(390, 382, 110, 23);
+		jbtCancelar.setBounds(390, 385, 110, 23);
 		jpnDadosOrdemServico.add(jbtCancelar);
 		
 		jckbOrdemServicoCancelada = new JCheckBox("Cancelada");
@@ -374,7 +374,9 @@ public class OrdemServicoTela extends JFrame {
 		colunas = new Vector<String>();
 		colunas.add("Código");
 		colunas.add("Descrição");
+		colunas.add("Quantidade");
 		colunas.add("Valor Unitário");
+		colunas.add("Valor Total");
 		dtmGridItensServico = new DefaultTableModel();
 		dtmGridItensServico.setColumnIdentifiers(colunas);
 		jttGridItensServico = new JTable();
@@ -383,8 +385,13 @@ public class OrdemServicoTela extends JFrame {
 		jttGridItensServico.getColumnModel().getColumn(0).setResizable(false);
 		jttGridItensServico.getColumnModel().getColumn(0).setPreferredWidth(20);
 		jttGridItensServico.getColumnModel().getColumn(1).setResizable(false);
-		jttGridItensServico.getColumnModel().getColumn(1).setPreferredWidth(250);
+		jttGridItensServico.getColumnModel().getColumn(1).setPreferredWidth(210);
 		jttGridItensServico.getColumnModel().getColumn(2).setResizable(false);
+		jttGridItensServico.getColumnModel().getColumn(2).setPreferredWidth(50);
+		jttGridItensServico.getColumnModel().getColumn(3).setResizable(false);
+		jttGridItensServico.getColumnModel().getColumn(3).setPreferredWidth(50);
+		jttGridItensServico.getColumnModel().getColumn(4).setResizable(false);
+		jttGridItensServico.getColumnModel().getColumn(4).setPreferredWidth(50);
 		jspGridItensServico = new JScrollPane(jttGridItensServico);
 		jpnCadastroServico.add(jspGridItensServico);
 		jspGridItensServico.setBounds(10, 10, 616, 200);
@@ -477,11 +484,6 @@ public class OrdemServicoTela extends JFrame {
 		jspObservacaoServico.setViewportView(jtaObservacaoServico);
 	}
 	
-	public static void main(String[] args) {
-		OrdemServicoTela teste = new OrdemServicoTela();
-		teste.setVisible(true);
-	}
-
 	public OrdemServicoTela() {
 		setTitle("Ordem de Servi\u00E7o | WashCar");
 		setResizable(false);
