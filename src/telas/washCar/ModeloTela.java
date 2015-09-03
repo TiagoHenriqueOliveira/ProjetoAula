@@ -34,65 +34,71 @@ public class ModeloTela extends JFrame {
 	private JLabel jlbNomeModelo;
 	private JLabel jlbDataAlteracao;
 	private JCheckBox jckbForaUso;
+	private JLabel jlbConsultaModelos;
 
 	public void componentesTelaModelo() {
 		jpnPesquisaModelo = new JPanel();
 		jpnPesquisaModelo.setLayout(null);
 		jpnPesquisaModelo.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		jpnPesquisaModelo.setBounds(10, 11, 414, 55);
+		jpnPesquisaModelo.setBounds(10, 11, 414, 86);
 		jpnModelo.add(jpnPesquisaModelo);
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textField.setColumns(10);
-		textField.setBounds(10, 24, 66, 20);
+		textField.setBounds(10, 54, 66, 20);
 		jpnPesquisaModelo.add(textField);
 		
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textField_1.setColumns(10);
-		textField_1.setBounds(86, 24, 275, 20);
+		textField_1.setBounds(86, 54, 275, 20);
 		jpnPesquisaModelo.add(textField_1);
 		
 		jlbPesquisaCodigoModelo = new JLabel("C\u00F3digo");
 		jlbPesquisaCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaCodigoModelo.setBounds(10, 8, 46, 14);
+		jlbPesquisaCodigoModelo.setBounds(10, 38, 46, 14);
 		jpnPesquisaModelo.add(jlbPesquisaCodigoModelo);
 		
 		jlbPesquisaNomeModelo = new JLabel("Nome do Modelo");
 		jlbPesquisaNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaNomeModelo.setBounds(86, 8, 100, 14);
+		jlbPesquisaNomeModelo.setBounds(86, 38, 100, 14);
 		jpnPesquisaModelo.add(jlbPesquisaNomeModelo);
 		
 		jbtPesquisaModelo = new JButton("");
 		jbtPesquisaModelo.setIcon(new ImageIcon(ModeloTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
-		jbtPesquisaModelo.setBounds(367, 13, 40, 32);
+		jbtPesquisaModelo.setBounds(367, 43, 40, 32);
 		jpnPesquisaModelo.add(jbtPesquisaModelo);
+		
+		jlbConsultaModelos = new JLabel("Consulta Modelos de Carros");
+		jlbConsultaModelos.setFont(new Font("Tahoma", Font.BOLD, 12));
+		jlbConsultaModelos.setBounds(10, 11, 200, 14);
+		jpnPesquisaModelo.add(jlbConsultaModelos);
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 189, 75, 23);
+		jbtNovo.setBounds(9, 220, 75, 23);
 		jpnModelo.add(jbtNovo);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(93, 189, 75, 23);
+		jbtSalvar.setBounds(92, 220, 75, 23);
 		jpnModelo.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(178, 189, 75, 23);
+		jbtEditar.setBounds(177, 220, 75, 23);
 		jpnModelo.add(jbtEditar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(261, 189, 80, 23);
+		jbtCancelar.setBounds(260, 220, 80, 23);
 		jpnModelo.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setToolTipText("");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(350, 189, 75, 23);
+		jbtFechar.setBounds(349, 220, 75, 23);
 		jpnModelo.add(jbtFechar);
 		
 		jtfCodigo = new JTextField();
@@ -100,23 +106,23 @@ public class ModeloTela extends JFrame {
 		jtfCodigo.setEditable(false);
 		jtfCodigo.setColumns(10);
 		jtfCodigo.setBackground(Color.YELLOW);
-		jtfCodigo.setBounds(10, 94, 86, 20);
+		jtfCodigo.setBounds(9, 125, 86, 20);
 		jpnModelo.add(jtfCodigo);
 		
 		jtfNomeModelo = new JTextField();
 		jtfNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeModelo.setColumns(10);
-		jtfNomeModelo.setBounds(10, 152, 330, 20);
+		jtfNomeModelo.setBounds(9, 183, 330, 20);
 		jpnModelo.add(jtfNomeModelo);
 		
 		jlbCodigo = new JLabel("C\u00F3digo");
 		jlbCodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigo.setBounds(10, 77, 46, 14);
+		jlbCodigo.setBounds(9, 108, 46, 14);
 		jpnModelo.add(jlbCodigo);
 		
 		jlbNomeModelo = new JLabel("Nome do Modelo");
 		jlbNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeModelo.setBounds(10, 135, 100, 14);
+		jlbNomeModelo.setBounds(9, 166, 100, 14);
 		jpnModelo.add(jlbNomeModelo);
 		
 		jtfDataAlteracao = new JTextField();
@@ -124,17 +130,17 @@ public class ModeloTela extends JFrame {
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(254, 94, 86, 20);
+		jtfDataAlteracao.setBounds(314, 125, 108, 20);
 		jpnModelo.add(jtfDataAlteracao);
 		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(254, 78, 100, 14);
+		jlbDataAlteracao.setBounds(314, 109, 108, 14);
 		jpnModelo.add(jlbDataAlteracao);
 		
 		jckbForaUso = new JCheckBox("Fora de Uso");
 		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jckbForaUso.setBounds(128, 92, 97, 23);
+		jckbForaUso.setBounds(155, 124, 97, 23);
 		jpnModelo.add(jckbForaUso);
 	}
 
@@ -142,7 +148,7 @@ public class ModeloTela extends JFrame {
 		setResizable(false);
 		setTitle("Cadastrar Modelos de Carros | WashCar");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 438, 251);
+		setBounds(100, 100, 438, 282);
 		jpnModelo = new JPanel();
 		jpnModelo.setLayout(null);
 		setLocationRelativeTo(null);

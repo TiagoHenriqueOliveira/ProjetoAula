@@ -33,107 +33,113 @@ public class MarcaTela extends JFrame {
 	private JLabel jlbCodigoMarca;
 	private JLabel lblNomeDaMarca_1;
 	private JLabel jlbDataAlteracao;
+	private JLabel jlbConsultaMarcas;
 
 	public void componentesTelaMarca() {
 		jpnPesquisaMarcas = new JPanel();
 		jpnPesquisaMarcas.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		jpnPesquisaMarcas.setBounds(10, 11, 414, 55);
+		jpnPesquisaMarcas.setBounds(10, 11, 414, 82);
 		jpnMarca.add(jpnPesquisaMarcas);
 		jpnPesquisaMarcas.setLayout(null);
 		
 		jtfPesquisaCodigoMarca = new JTextField();
 		jtfPesquisaCodigoMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfPesquisaCodigoMarca.setBounds(10, 24, 66, 20);
+		jtfPesquisaCodigoMarca.setBounds(10, 52, 66, 20);
 		jpnPesquisaMarcas.add(jtfPesquisaCodigoMarca);
 		jtfPesquisaCodigoMarca.setColumns(10);
 		
 		jtfPesquisaNomeMarca = new JTextField();
 		jtfPesquisaNomeMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfPesquisaNomeMarca.setBounds(86, 24, 275, 20);
+		jtfPesquisaNomeMarca.setBounds(86, 52, 275, 20);
 		jpnPesquisaMarcas.add(jtfPesquisaNomeMarca);
 		jtfPesquisaNomeMarca.setColumns(10);
 		
 		jlbCodigo = new JLabel("C\u00F3digo");
 		jlbCodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigo.setBounds(10, 8, 46, 14);
+		jlbCodigo.setBounds(10, 36, 46, 14);
 		jpnPesquisaMarcas.add(jlbCodigo);
 		
 		lblNomeDaMarca = new JLabel("Nome da Marca");
 		lblNomeDaMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNomeDaMarca.setBounds(86, 8, 90, 14);
+		lblNomeDaMarca.setBounds(86, 36, 90, 14);
 		jpnPesquisaMarcas.add(lblNomeDaMarca);
 		
 		jbtPesquisar = new JButton("");
-		jbtPesquisar.setBounds(367, 13, 40, 32);
+		jbtPesquisar.setBounds(367, 41, 40, 32);
 		jpnPesquisaMarcas.add(jbtPesquisar);
 		jbtPesquisar.setIcon(new ImageIcon(MarcaTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		
+		jlbConsultaMarcas = new JLabel("Consulta Marcas de Carros");
+		jlbConsultaMarcas.setFont(new Font("Tahoma", Font.BOLD, 12));
+		jlbConsultaMarcas.setBounds(10, 11, 200, 14);
+		jpnPesquisaMarcas.add(jlbConsultaMarcas);
+		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 189, 75, 23);
+		jbtNovo.setBounds(10, 216, 75, 23);
 		jpnMarca.add(jbtNovo);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(93, 189, 75, 23);
+		jbtSalvar.setBounds(93, 216, 75, 23);
 		jpnMarca.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(178, 189, 75, 23);
+		jbtEditar.setBounds(178, 216, 75, 23);
 		jpnMarca.add(jbtEditar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(261, 189, 80, 23);
+		jbtCancelar.setBounds(261, 216, 80, 23);
 		jpnMarca.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtFechar.setToolTipText("");
-		jbtFechar.setBounds(350, 189, 75, 23);
+		jbtFechar.setBounds(350, 216, 75, 23);
 		jpnMarca.add(jbtFechar);
 		
 		jtfCodigoMarca = new JTextField();
 		jtfCodigoMarca.setBackground(Color.YELLOW);
 		jtfCodigoMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCodigoMarca.setEditable(false);
-		jtfCodigoMarca.setBounds(10, 94, 86, 20);
+		jtfCodigoMarca.setBounds(10, 121, 86, 20);
 		jpnMarca.add(jtfCodigoMarca);
 		jtfCodigoMarca.setColumns(10);
 		
 		jtfNomeMarca = new JTextField();
 		jtfNomeMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfNomeMarca.setBounds(10, 152, 330, 20);
+		jtfNomeMarca.setBounds(10, 179, 330, 20);
 		jpnMarca.add(jtfNomeMarca);
 		jtfNomeMarca.setColumns(10);
 		
 		jlbCodigoMarca = new JLabel("C\u00F3digo");
 		jlbCodigoMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoMarca.setBounds(10, 77, 46, 14);
+		jlbCodigoMarca.setBounds(10, 104, 46, 14);
 		jpnMarca.add(jlbCodigoMarca);
 		
 		lblNomeDaMarca_1 = new JLabel("Nome da Marca");
 		lblNomeDaMarca_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNomeDaMarca_1.setBounds(10, 135, 100, 14);
+		lblNomeDaMarca_1.setBounds(10, 162, 100, 14);
 		jpnMarca.add(lblNomeDaMarca_1);
 		
 		jtfDataAlteracao = new JTextField();
 		jtfDataAlteracao.setBackground(Color.YELLOW);
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setEditable(false);
-		jtfDataAlteracao.setBounds(254, 94, 86, 20);
+		jtfDataAlteracao.setBounds(324, 121, 100, 20);
 		jpnMarca.add(jtfDataAlteracao);
 		jtfDataAlteracao.setColumns(10);
 		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(254, 78, 100, 14);
+		jlbDataAlteracao.setBounds(324, 105, 100, 14);
 		jpnMarca.add(jlbDataAlteracao);
 		
 		JCheckBox jckbForaUso = new JCheckBox("Fora de Uso");
 		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jckbForaUso.setBounds(125, 92, 97, 23);
+		jckbForaUso.setBounds(156, 120, 97, 23);
 		jpnMarca.add(jckbForaUso);
 	}
 
@@ -141,7 +147,7 @@ public class MarcaTela extends JFrame {
 		setTitle("Cadastrar Marcas de Carros | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 442, 247);
+		setBounds(100, 100, 442, 279);
 		jpnMarca = new JPanel();
 		setLocationRelativeTo(null);
 		setContentPane(jpnMarca);

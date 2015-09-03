@@ -22,6 +22,7 @@ import java.util.Vector;
 
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+import javax.swing.JTextArea;
 
 public class OrdemServicoTela extends JFrame {
 
@@ -65,6 +66,8 @@ public class OrdemServicoTela extends JFrame {
 	private JLabel jlbDataAlteracao;
 	private JLabel jlbCodigo;
 	private JLabel jlbPesquisaPlacaCarroOrdemServico;
+	private JLabel jlbDescricao;
+	private JLabel jlbConsultaOrdemServico;
 	private JButton jbtPesquisaOrdemServico;
 	private JLabel jlbPesquisaNomeClienteOrdemServico;
 	private JLabel jlbPesquisaCodigoOrdemServico;
@@ -76,16 +79,30 @@ public class OrdemServicoTela extends JFrame {
 	private JPanel jpnCadastroServico;
 	private JTable jttGridItensServico;
 	private DefaultTableModel dtmGridItensServico;
-	private Vector<String> colunasGridItensServico;
+	private Vector<String> colunas;
 	private JScrollPane jspGridItensServico;
+	private JTextField jtfDescricao;
+	private JTextField jtfCodigoTipoServico;
+	private JTextField jtfQuantidade;
+	private JTextField jtfValorUnitario;
+	private JTextField jtfValorTotalItemServico;
+	private JTextArea jtaObservacaoServico;
+	private JScrollPane jspObservacaoServico;
+	private JPanel jpnObservacaoServico;
+	private JButton jbtCancelarItemServico;
+	private JButton jbtSalvarItemServico;
+	private JButton jbtEditarItemServico;
+	private JButton jbtNovoItemServico;
+	private JLabel jlbValorTotalItemServico;
+	private JLabel jlbDataServico;
+	private JTextField jtfDataServico;
 
 	public void componentesTelaOrdemServico() {
-		
 		jtbOrdemServico = new JTabbedPane(JTabbedPane.TOP);
 		jtbOrdemServico.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		jtbOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtbOrdemServico.setToolTipText("");
-		jtbOrdemServico.setBounds(10, 11, 647, 423);
+		jtbOrdemServico.setBounds(10, 11, 647, 451);
 		jpnOrdemServico.add(jtbOrdemServico);
 		
 		jpnDadosOrdemServico = new JPanel();
@@ -95,50 +112,55 @@ public class OrdemServicoTela extends JFrame {
 		jpnPesquisaOrdemServico = new JPanel();
 		jpnPesquisaOrdemServico.setLayout(null);
 		jpnPesquisaOrdemServico.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		jpnPesquisaOrdemServico.setBounds(10, 11, 615, 55);
+		jpnPesquisaOrdemServico.setBounds(10, 11, 615, 83);
 		jpnDadosOrdemServico.add(jpnPesquisaOrdemServico);
 		
-		jlbPesquisaCodigoOrdemServico = new JLabel("C\u00F3digo");
+		jlbPesquisaCodigoOrdemServico = new JLabel("Código OSV");
 		jlbPesquisaCodigoOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaCodigoOrdemServico.setBounds(10, 11, 46, 14);
+		jlbPesquisaCodigoOrdemServico.setBounds(10, 36, 70, 14);
 		jpnPesquisaOrdemServico.add(jlbPesquisaCodigoOrdemServico);
 		
 		jtfPesquisaCodigoOrdemServico = new JTextField();
 		jtfPesquisaCodigoOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCodigoOrdemServico.setColumns(10);
-		jtfPesquisaCodigoOrdemServico.setBounds(10, 27, 66, 20);
+		jtfPesquisaCodigoOrdemServico.setBounds(10, 52, 66, 20);
 		jpnPesquisaOrdemServico.add(jtfPesquisaCodigoOrdemServico);
 		
 		jlbPesquisaNomeClienteOrdemServico = new JLabel("Nome do Cliente");
 		jlbPesquisaNomeClienteOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaNomeClienteOrdemServico.setBounds(86, 11, 100, 14);
+		jlbPesquisaNomeClienteOrdemServico.setBounds(86, 36, 100, 14);
 		jpnPesquisaOrdemServico.add(jlbPesquisaNomeClienteOrdemServico);
 		
 		jtfPesquisaNomeClienteOrdemServico = new JTextField();
 		jtfPesquisaNomeClienteOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaNomeClienteOrdemServico.setColumns(10);
-		jtfPesquisaNomeClienteOrdemServico.setBounds(86, 27, 275, 20);
+		jtfPesquisaNomeClienteOrdemServico.setBounds(86, 52, 275, 20);
 		jpnPesquisaOrdemServico.add(jtfPesquisaNomeClienteOrdemServico);
 		
 		jbtPesquisaOrdemServico = new JButton("");
 		jbtPesquisaOrdemServico.setIcon(new ImageIcon(OrdemServicoTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
-		jbtPesquisaOrdemServico.setBounds(565, 15, 40, 32);
+		jbtPesquisaOrdemServico.setBounds(565, 40, 40, 32);
 		jpnPesquisaOrdemServico.add(jbtPesquisaOrdemServico);
 		
 		jtfPesquisaPlacaCarroOrdemServico = new JTextField();
 		jtfPesquisaPlacaCarroOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaPlacaCarroOrdemServico.setColumns(10);
-		jtfPesquisaPlacaCarroOrdemServico.setBounds(371, 27, 165, 20);
+		jtfPesquisaPlacaCarroOrdemServico.setBounds(371, 52, 165, 20);
 		jpnPesquisaOrdemServico.add(jtfPesquisaPlacaCarroOrdemServico);
 		
 		jlbPesquisaPlacaCarroOrdemServico = new JLabel("Placa do Carro");
 		jlbPesquisaPlacaCarroOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaPlacaCarroOrdemServico.setBounds(371, 11, 100, 14);
+		jlbPesquisaPlacaCarroOrdemServico.setBounds(371, 36, 100, 14);
 		jpnPesquisaOrdemServico.add(jlbPesquisaPlacaCarroOrdemServico);
+		
+		jlbConsultaOrdemServico = new JLabel("Consulta de Ordens de Servi\u00E7o");
+		jlbConsultaOrdemServico.setFont(new Font("Tahoma", Font.BOLD, 12));
+		jlbConsultaOrdemServico.setBounds(10, 11, 200, 14);
+		jpnPesquisaOrdemServico.add(jlbConsultaOrdemServico);
 		
 		jlbCodigo = new JLabel("C\u00F3digo");
 		jlbCodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigo.setBounds(10, 77, 46, 14);
+		jlbCodigo.setBounds(10, 105, 46, 14);
 		jpnDadosOrdemServico.add(jlbCodigo);
 		
 		jtfCodigo = new JTextField();
@@ -146,12 +168,12 @@ public class OrdemServicoTela extends JFrame {
 		jtfCodigo.setEditable(false);
 		jtfCodigo.setColumns(10);
 		jtfCodigo.setBackground(Color.YELLOW);
-		jtfCodigo.setBounds(10, 93, 66, 20);
+		jtfCodigo.setBounds(10, 121, 66, 20);
 		jpnDadosOrdemServico.add(jtfCodigo);
 		
 		jlbDataAlteracao = new JLabel("Data Alteracao");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(495, 77, 130, 14);
+		jlbDataAlteracao.setBounds(495, 105, 130, 14);
 		jpnDadosOrdemServico.add(jlbDataAlteracao);
 		
 		jtfDataAlteracao = new JTextField();
@@ -159,152 +181,152 @@ public class OrdemServicoTela extends JFrame {
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(495, 93, 130, 20);
+		jtfDataAlteracao.setBounds(495, 121, 130, 20);
 		jpnDadosOrdemServico.add(jtfDataAlteracao);
 		
 		jlbNomeCliente = new JLabel("Nome do Cliente");
 		jlbNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeCliente.setBounds(10, 124, 150, 14);
+		jlbNomeCliente.setBounds(10, 152, 150, 14);
 		jpnDadosOrdemServico.add(jlbNomeCliente);
 		
 		jtfNomeCliente = new JTextField();
 		jtfNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCliente.setColumns(10);
-		jtfNomeCliente.setBounds(10, 140, 381, 20);
+		jtfNomeCliente.setBounds(10, 168, 381, 20);
 		jpnDadosOrdemServico.add(jtfNomeCliente);
 		
 		jlbCpf = new JLabel("CPF");
 		jlbCpf.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCpf.setBounds(460, 124, 100, 14);
+		jlbCpf.setBounds(460, 152, 100, 14);
 		jpnDadosOrdemServico.add(jlbCpf);
 		
 		jtfCpf = new JTextField();
 		jtfCpf.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCpf.setColumns(10);
-		jtfCpf.setBounds(460, 140, 165, 20);
+		jtfCpf.setBounds(460, 168, 165, 20);
 		jpnDadosOrdemServico.add(jtfCpf);
 		
 		jlbRazaoSocial = new JLabel("Raz\u00E3o Social");
 		jlbRazaoSocial.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbRazaoSocial.setBounds(10, 171, 150, 14);
+		jlbRazaoSocial.setBounds(10, 199, 150, 14);
 		jpnDadosOrdemServico.add(jlbRazaoSocial);
 		
 		jtfRazaoSocial = new JTextField();
 		jtfRazaoSocial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfRazaoSocial.setColumns(10);
-		jtfRazaoSocial.setBounds(10, 187, 381, 20);
+		jtfRazaoSocial.setBounds(10, 215, 381, 20);
 		jpnDadosOrdemServico.add(jtfRazaoSocial);
 		
 		jlbCnpj = new JLabel("CNPJ");
 		jlbCnpj.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCnpj.setBounds(460, 171, 100, 14);
+		jlbCnpj.setBounds(460, 199, 100, 14);
 		jpnDadosOrdemServico.add(jlbCnpj);
 		
 		jtfCnpj = new JTextField();
 		jtfCnpj.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCnpj.setColumns(10);
-		jtfCnpj.setBounds(460, 187, 165, 20);
+		jtfCnpj.setBounds(460, 215, 165, 20);
 		jpnDadosOrdemServico.add(jtfCnpj);
 		
 		jlbNomeCarro = new JLabel("Nome do Carro");
 		jlbNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeCarro.setBounds(10, 218, 150, 14);
+		jlbNomeCarro.setBounds(10, 246, 150, 14);
 		jpnDadosOrdemServico.add(jlbNomeCarro);
 		
 		jtfNomeCarro = new JTextField();
 		jtfNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCarro.setColumns(10);
-		jtfNomeCarro.setBounds(10, 234, 265, 20);
+		jtfNomeCarro.setBounds(10, 262, 265, 20);
 		jpnDadosOrdemServico.add(jtfNomeCarro);
 		
 		jlbModelo = new JLabel("Modelo do Carro");
 		jlbModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbModelo.setBounds(10, 265, 150, 14);
+		jlbModelo.setBounds(10, 293, 150, 14);
 		jpnDadosOrdemServico.add(jlbModelo);
 		
 		jtfModelo = new JTextField();
 		jtfModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfModelo.setColumns(10);
-		jtfModelo.setBounds(10, 281, 165, 20);
+		jtfModelo.setBounds(10, 309, 165, 20);
 		jpnDadosOrdemServico.add(jtfModelo);
 		
 		jtfPlaca = new JTextField();
 		jtfPlaca.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPlaca.setColumns(10);
-		jtfPlaca.setBounds(185, 281, 165, 20);
+		jtfPlaca.setBounds(185, 309, 165, 20);
 		jpnDadosOrdemServico.add(jtfPlaca);
 		
 		jlbPlaca = new JLabel("Placa do Carro");
 		jlbPlaca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPlaca.setBounds(185, 265, 100, 14);
+		jlbPlaca.setBounds(185, 293, 100, 14);
 		jpnDadosOrdemServico.add(jlbPlaca);
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 354, 110, 23);
+		jbtNovo.setBounds(10, 382, 110, 23);
 		jpnDadosOrdemServico.add(jbtNovo);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(138, 354, 110, 23);
+		jbtEditar.setBounds(138, 382, 110, 23);
 		jpnDadosOrdemServico.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(265, 354, 110, 23);
+		jbtSalvar.setBounds(265, 382, 110, 23);
 		jpnDadosOrdemServico.add(jbtSalvar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(515, 354, 110, 23);
+		jbtFechar.setBounds(515, 382, 110, 23);
 		jpnDadosOrdemServico.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(390, 354, 110, 23);
+		jbtCancelar.setBounds(390, 382, 110, 23);
 		jpnDadosOrdemServico.add(jbtCancelar);
 		
 		jckbOrdemServicoCancelada = new JCheckBox("Cancelada");
 		jckbOrdemServicoCancelada.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jckbOrdemServicoCancelada.setBounds(346, 92, 97, 23);
+		jckbOrdemServicoCancelada.setBounds(346, 120, 97, 23);
 		jpnDadosOrdemServico.add(jckbOrdemServicoCancelada);
 		
 		jlbFormaPagamento = new JLabel("Forma de Pagamento");
 		jlbFormaPagamento.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbFormaPagamento.setBounds(124, 77, 130, 14);
+		jlbFormaPagamento.setBounds(124, 105, 130, 14);
 		jpnDadosOrdemServico.add(jlbFormaPagamento);
 		
 		jlbTelefoneComercial = new JLabel("Telefone Comercial");
 		jlbTelefoneComercial.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbTelefoneComercial.setBounds(495, 218, 130, 14);
+		jlbTelefoneComercial.setBounds(495, 246, 130, 14);
 		jpnDadosOrdemServico.add(jlbTelefoneComercial);
 		
 		jtfTelefoneComercial = new JTextField();
 		jtfTelefoneComercial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneComercial.setColumns(10);
-		jtfTelefoneComercial.setBounds(495, 234, 130, 20);
+		jtfTelefoneComercial.setBounds(495, 262, 130, 20);
 		jpnDadosOrdemServico.add(jtfTelefoneComercial);
 		
 		jlbTelefoneResidencial = new JLabel("Telefone Residencial");
 		jlbTelefoneResidencial.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbTelefoneResidencial.setBounds(495, 263, 130, 14);
+		jlbTelefoneResidencial.setBounds(495, 291, 130, 14);
 		jpnDadosOrdemServico.add(jlbTelefoneResidencial);
 		
 		jtfTelefoneResidencial = new JTextField();
 		jtfTelefoneResidencial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneResidencial.setColumns(10);
-		jtfTelefoneResidencial.setBounds(495, 278, 130, 20);
+		jtfTelefoneResidencial.setBounds(495, 306, 130, 20);
 		jpnDadosOrdemServico.add(jtfTelefoneResidencial);
 		
 		jlbTelefoneCelular = new JLabel("Telefone Celular");
 		jlbTelefoneCelular.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbTelefoneCelular.setBounds(495, 307, 130, 14);
+		jlbTelefoneCelular.setBounds(495, 335, 130, 14);
 		jpnDadosOrdemServico.add(jlbTelefoneCelular);
 		
 		jtfTelefoneCelular = new JTextField();
 		jtfTelefoneCelular.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneCelular.setColumns(10);
-		jtfTelefoneCelular.setBounds(495, 323, 130, 20);
+		jtfTelefoneCelular.setBounds(495, 351, 130, 20);
 		jpnDadosOrdemServico.add(jtfTelefoneCelular);
 		
 		jtfValorTotal = new JTextField();
@@ -312,43 +334,147 @@ public class OrdemServicoTela extends JFrame {
 		jtfValorTotal.setEditable(false);
 		jtfValorTotal.setColumns(10);
 		jtfValorTotal.setBackground(Color.YELLOW);
-		jtfValorTotal.setBounds(10, 323, 130, 20);
+		jtfValorTotal.setBounds(10, 351, 130, 20);
 		jpnDadosOrdemServico.add(jtfValorTotal);
 		
 		jlbValorTotal = new JLabel("Valor Total");
 		jlbValorTotal.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbValorTotal.setBounds(10, 307, 130, 14);
+		jlbValorTotal.setBounds(10, 335, 130, 14);
 		jpnDadosOrdemServico.add(jlbValorTotal);
 		
 		jrbPagamentoVista = new JRadioButton("\u00C0 Vista");
 		jrbPagamentoVista.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jrbPagamentoVista.setBounds(124, 92, 109, 23);
+		jrbPagamentoVista.setBounds(124, 120, 109, 23);
 		jpnDadosOrdemServico.add(jrbPagamentoVista);
 		
 		jrbPagamentoPrazo = new JRadioButton("\u00C0 Prazo");
 		jrbPagamentoPrazo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jrbPagamentoPrazo.setBounds(241, 92, 109, 23);
+		jrbPagamentoPrazo.setBounds(241, 120, 109, 23);
 		jpnDadosOrdemServico.add(jrbPagamentoPrazo);
 		
 		jbgFormaPagamento = new ButtonGroup();
 		jbgFormaPagamento.add(jrbPagamentoPrazo);
 		jbgFormaPagamento.add(jrbPagamentoVista);
 		
+		jlbDataServico = new JLabel("Data do Servi\u00E7o");
+		jlbDataServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbDataServico.setBounds(261, 340, 130, 14);
+		jpnDadosOrdemServico.add(jlbDataServico);
+		
+		jtfDataServico = new JTextField();
+		jtfDataServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfDataServico.setColumns(10);
+		jtfDataServico.setBounds(261, 356, 130, 20);
+		jpnDadosOrdemServico.add(jtfDataServico);
+		
 		jpnCadastroServico = new JPanel();
 		jtbOrdemServico.addTab("Cadastro de Servi\u00E7os", null, jpnCadastroServico, null);
 		jpnCadastroServico.setLayout(null);
 		
+		colunas = new Vector<String>();
+		colunas.add("Código");
+		colunas.add("Descrição");
+		colunas.add("Valor Unitário");
 		dtmGridItensServico = new DefaultTableModel();
-		colunasGridItensServico = new Vector<String>();
-		colunasGridItensServico.add("Código");
-		colunasGridItensServico.add("Descrição");
-		colunasGridItensServico.add("Valor Unitário");
-		dtmGridItensServico.setColumnIdentifiers(colunasGridItensServico);
-				
+		dtmGridItensServico.setColumnIdentifiers(colunas);
 		jttGridItensServico = new JTable();
-		jttGridItensServico.setBounds(10, 10, 200, 200);
 		jttGridItensServico.setModel(dtmGridItensServico);
-		getContentPane().add(jttGridItensServico);
+		jttGridItensServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jttGridItensServico.getColumnModel().getColumn(0).setResizable(false);
+		jttGridItensServico.getColumnModel().getColumn(0).setPreferredWidth(20);
+		jttGridItensServico.getColumnModel().getColumn(1).setResizable(false);
+		jttGridItensServico.getColumnModel().getColumn(1).setPreferredWidth(250);
+		jttGridItensServico.getColumnModel().getColumn(2).setResizable(false);
+		jspGridItensServico = new JScrollPane(jttGridItensServico);
+		jpnCadastroServico.add(jspGridItensServico);
+		jspGridItensServico.setBounds(10, 10, 616, 200);
+		
+		jlbDescricao = new JLabel("Descrição");
+		jlbDescricao.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbDescricao.setBounds(155, 221, 135, 14);
+		jpnCadastroServico.add(jlbDescricao);
+		
+		jtfDescricao = new JTextField();
+		jtfDescricao.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfDescricao.setColumns(10);
+		jtfDescricao.setBounds(155, 238, 324, 20);
+		jpnCadastroServico.add(jtfDescricao);
+		
+		jtfCodigoTipoServico = new JTextField();
+		jtfCodigoTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfCodigoTipoServico.setColumns(10);
+		jtfCodigoTipoServico.setBounds(10, 238, 135, 20);
+		jpnCadastroServico.add(jtfCodigoTipoServico);
+		
+		JLabel jlbCodigoTipoServico = new JLabel("C\u00F3digo Tipo de Servi\u00E7o");
+		jlbCodigoTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbCodigoTipoServico.setBounds(10, 221, 135, 14);
+		jpnCadastroServico.add(jlbCodigoTipoServico);
+		
+		jtfQuantidade = new JTextField();
+		jtfQuantidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfQuantidade.setColumns(10);
+		jtfQuantidade.setBounds(10, 286, 70, 20);
+		jpnCadastroServico.add(jtfQuantidade);
+		
+		JLabel jlbQuantidade = new JLabel("Quantidade");
+		jlbQuantidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbQuantidade.setBounds(10, 269, 70, 14);
+		jpnCadastroServico.add(jlbQuantidade);
+		
+		jtfValorUnitario = new JTextField();
+		jtfValorUnitario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfValorUnitario.setColumns(10);
+		jtfValorUnitario.setBounds(155, 286, 135, 20);
+		jpnCadastroServico.add(jtfValorUnitario);
+		
+		JLabel jlbValorUnitario = new JLabel("Valor Unit\u00E1rio");
+		jlbValorUnitario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbValorUnitario.setBounds(155, 269, 106, 14);
+		jpnCadastroServico.add(jlbValorUnitario);
+		
+		jtfValorTotalItemServico = new JTextField();
+		jtfValorTotalItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfValorTotalItemServico.setColumns(10);
+		jtfValorTotalItemServico.setBounds(344, 286, 135, 20);
+		jpnCadastroServico.add(jtfValorTotalItemServico);
+		
+		jlbValorTotalItemServico = new JLabel("Valor Total");
+		jlbValorTotalItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbValorTotalItemServico.setBounds(344, 269, 106, 14);
+		jpnCadastroServico.add(jlbValorTotalItemServico);
+		
+		jbtNovoItemServico = new JButton("Novo");
+		jbtNovoItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtNovoItemServico.setBounds(10, 382, 110, 23);
+		jpnCadastroServico.add(jbtNovoItemServico);
+		
+		jbtEditarItemServico = new JButton("Editar");
+		jbtEditarItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtEditarItemServico.setBounds(138, 382, 110, 23);
+		jpnCadastroServico.add(jbtEditarItemServico);
+		
+		jbtSalvarItemServico = new JButton("Salvar");
+		jbtSalvarItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtSalvarItemServico.setBounds(265, 382, 110, 23);
+		jpnCadastroServico.add(jbtSalvarItemServico);
+		
+		jbtCancelarItemServico = new JButton("Cancelar");
+		jbtCancelarItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtCancelarItemServico.setBounds(390, 382, 110, 23);
+		jpnCadastroServico.add(jbtCancelarItemServico);
+		
+		jpnObservacaoServico = new JPanel();
+		jpnObservacaoServico.setBounds(10, 317, 616, 54);
+		jpnCadastroServico.add(jpnObservacaoServico);
+		jpnObservacaoServico.setLayout(null);
+		
+		jspObservacaoServico = new JScrollPane();
+		jspObservacaoServico.setBounds(0, 0, 616, 54);
+		jpnObservacaoServico.add(jspObservacaoServico);
+		
+		jtaObservacaoServico = new JTextArea();
+		jspObservacaoServico.setViewportView(jtaObservacaoServico);
 	}
 	
 	public static void main(String[] args) {
@@ -360,7 +486,7 @@ public class OrdemServicoTela extends JFrame {
 		setTitle("Ordem de Servi\u00E7o | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 673, 466);
+		setBounds(100, 100, 673, 501);
 		jpnOrdemServico = new JPanel();
 		jpnOrdemServico.setLayout(null);
 		setLocationRelativeTo(null);
