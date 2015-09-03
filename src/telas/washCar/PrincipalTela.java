@@ -19,7 +19,6 @@ public class PrincipalTela extends JFrame {
 	private JMenuItem jmiCliente;
 	private JMenu mnUsurios;
 	private JMenuItem jmiCadastroUsuario;
-	private JMenuItem jmiAlteracaoSenha;
 	private JMenuItem jmiSair;
 	private JMenu jmnServios;
 	private JMenuItem jmiAgenda;
@@ -58,10 +57,7 @@ public class PrincipalTela extends JFrame {
 		jmiCadastroUsuario = new JMenuItem("Cadastro de Usu\u00E1rio");
 		mnUsurios.add(jmiCadastroUsuario);
 		
-		jmiAlteracaoSenha = new JMenuItem("Altera\u00E7\u00E3o de Senha");
-		mnUsurios.add(jmiAlteracaoSenha);
-		
-		jmiSair = new JMenuItem("Sair");
+		jmiSair = new JMenuItem("Sair do Sistema");
 		jmnCadastro.add(jmiSair);
 		
 		jmnServios = new JMenu("Servi\u00E7os");
@@ -103,7 +99,7 @@ public class PrincipalTela extends JFrame {
 
 	public PrincipalTela() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 500, 300);
 		jpPrincipal = new JPanel();
 		setLocationRelativeTo(null);
 		setContentPane(jpPrincipal);
@@ -141,7 +137,7 @@ public class PrincipalTela extends JFrame {
 		jmiSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiSair) {
-					dispose();
+					System.exit(0);
 				}
 			}
 		});
