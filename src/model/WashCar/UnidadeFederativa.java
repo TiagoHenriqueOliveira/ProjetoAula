@@ -6,6 +6,7 @@ public class UnidadeFederativa {
 	private String nome;
 	private Pais pais;
 	
+	//construtor com atributos
 	public UnidadeFederativa(Integer idUnidadeFederativa, String nome, Pais pais) {
 		super();
 		this.idUnidadeFederativa = idUnidadeFederativa;
@@ -13,6 +14,7 @@ public class UnidadeFederativa {
 		this.pais = pais;
 	}
 	
+	//gets e sets das variaveis
 	public Integer getIdUnidadeFederativa() {
 		return idUnidadeFederativa;
 	}

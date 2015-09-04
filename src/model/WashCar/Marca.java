@@ -1,28 +1,28 @@
 package model.WashCar;
 
-public class Pais {
+public class Marca {
 	
-	private Integer idPais;
+	private Integer idMarca;
 	private String nome;
 	
 	//construtor com atributos
-	public Pais(Integer idPais, String nome) {
+	public Marca(Integer idMarca, String nome) {
 		super();
-		this.idPais = idPais;
+		this.idMarca = idMarca;
 		this.nome = nome;
 	}
-		
+	
 	//gets e sets das variaveis
-	public Integer getIdPais() {
-		return idPais;
+	public Integer getIdMarca() {
+		return idMarca;
 	}
-	public void setIdPais(Integer idPais) {
-		this.idPais = idPais;
+	public void setIdMarca(Integer idMarca) {
+		this.idMarca = idMarca;
 	}
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}	
+	}
 }

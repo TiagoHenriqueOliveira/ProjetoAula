@@ -6,6 +6,7 @@ public class Cidade {
 	private String nome;
 	private UnidadeFederativa unidadeFederativa;
 	
+	//construtor com atributos
 	public Cidade(Integer idCidade, String nome,
 			UnidadeFederativa unidadeFederativa) {
 		super();
@@ -14,6 +15,7 @@ public class Cidade {
 		this.unidadeFederativa = unidadeFederativa;
 	}
 	
+	//gets e sets das variaveis
 	public Integer getIdCidade() {
 		return idCidade;
 	}
