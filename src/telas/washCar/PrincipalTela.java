@@ -32,11 +32,6 @@ public class PrincipalTela extends JFrame {
 	private JMenuItem jmiMarca;
 	private JMenuItem jmiModelo;
 	private JMenuItem jmiTipoServico;
-
-	public static void main(String[] args) {
-		PrincipalTela principal = new PrincipalTela();
-		principal.setVisible(true);
-	}
 	
 	public void componentesTelaPrincipal() {
 		jmbPrincipal = new JMenuBar();
