@@ -22,7 +22,6 @@ public class UsuarioTela extends JFrame {
 	private JTextField jtfNome;
 	private JTextField jtfLogin;
 	private JPasswordField jpfSenha;
-	private JPasswordField jpfConfirmarSenha;
 	private JTextField jtfDataAlteracao;
 	private JPanel jpnPesquisaUsuario;
 	private JLabel jlbPesquisaCodigoUsuario;
@@ -31,7 +30,6 @@ public class UsuarioTela extends JFrame {
 	private JLabel jlbNome;
 	private JLabel jlbLogin;
 	private JLabel jtfSenha;
-	private JLabel jlbConfirmarSenha;
 	private JLabel jlbDataAlteracao;
 	private JCheckBox jcbxUsuarioForaUso;
 	private JButton jbtFechar;
@@ -112,19 +110,9 @@ public class UsuarioTela extends JFrame {
 		jpfSenha.setBounds(10, 212, 182, 20);
 		jpnUsuario.add(jpfSenha);
 		
-		jlbConfirmarSenha = new JLabel("Confirmar Senha do Usu\u00E1rio");
-		jlbConfirmarSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbConfirmarSenha.setBounds(10, 243, 170, 14);
-		jpnUsuario.add(jlbConfirmarSenha);
-		
-		jpfConfirmarSenha = new JPasswordField();
-		jpfConfirmarSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jpfConfirmarSenha.setBounds(10, 258, 182, 20);
-		jpnUsuario.add(jpfConfirmarSenha);
-		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(336, 272, 98, 14);
+		jlbDataAlteracao.setBounds(336, 266, 98, 14);
 		jpnUsuario.add(jlbDataAlteracao);
 		
 		jtfDataAlteracao = new JTextField();
@@ -132,12 +120,12 @@ public class UsuarioTela extends JFrame {
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(336, 288, 98, 20);
+		jtfDataAlteracao.setBounds(336, 282, 98, 20);
 		jpnUsuario.add(jtfDataAlteracao);
 		
 		jcbxUsuarioForaUso = new JCheckBox("Usu\u00E1rio Fora de Uso");
 		jcbxUsuarioForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jcbxUsuarioForaUso.setBounds(10, 285, 140, 23);
+		jcbxUsuarioForaUso.setBounds(10, 279, 140, 23);
 		jpnUsuario.add(jcbxUsuarioForaUso);
 		
 		jbtFechar = new JButton("Fechar");
