@@ -487,7 +487,7 @@ public class OrdemServicoTela extends JFrame {
 	public OrdemServicoTela() {
 		setTitle("Ordem de Servi\u00E7o | WashCar");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 673, 501);
 		jpnOrdemServico = new JPanel();
 		jpnOrdemServico.setLayout(null);

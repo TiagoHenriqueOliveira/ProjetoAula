@@ -16,7 +16,7 @@ public class AgendaTela extends JFrame {
 	public AgendaTela() {
 		setResizable(false);
 		setTitle("Agenda | WashCar");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		jpnAgenda = new JPanel();
 		setContentPane(jpnAgenda);

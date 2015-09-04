@@ -147,7 +147,7 @@ public class ModeloTela extends JFrame {
 	public ModeloTela() {
 		setResizable(false);
 		setTitle("Cadastrar Modelos de Carros | WashCar");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 438, 282);
 		jpnModelo = new JPanel();
 		jpnModelo.setLayout(null);

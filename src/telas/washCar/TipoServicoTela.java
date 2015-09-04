@@ -161,7 +161,7 @@ public class TipoServicoTela extends JFrame {
 	public TipoServicoTela() {
 		setTitle("Cadastrar Tipos de Serviço | WashCar");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 440, 283);
 		jpnTipoServico = new JPanel();
 		jpnTipoServico.setLayout(null);

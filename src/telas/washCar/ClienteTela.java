@@ -448,7 +448,7 @@ public class ClienteTela extends JFrame {
 	public ClienteTela() {
 		setResizable(false);
 		setTitle("Cadastro de Clientes");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 640, 533);
 		jpnCliente = new JPanel();
 		jpnCliente.setLayout(null);

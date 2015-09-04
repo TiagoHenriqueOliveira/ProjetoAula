@@ -146,7 +146,7 @@ public class MarcaTela extends JFrame {
 	public MarcaTela() {
 		setTitle("Cadastrar Marcas de Carros | WashCar");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 442, 279);
 		jpnMarca = new JPanel();
 		setLocationRelativeTo(null);

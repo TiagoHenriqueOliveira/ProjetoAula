@@ -31,7 +31,7 @@ public class EmpresaTela extends JFrame {
 	private JTextField jtfBairro;
 	private JTextField jtfNumero;
 	private JTextField jtfTelefoneComercial;
-	private JTextField textField_10;
+	private JTextField jtfTelefoneCelular;
 	private JTextField jtfFax;
 	private JTextField jtfInscricaoEstadual;
 	private JTextField jtfDataAlteracao;
@@ -218,11 +218,11 @@ public class EmpresaTela extends JFrame {
 		jlbTelefoneCelular.setBounds(495, 248, 130, 14);
 		jnpEmpresa.add(jlbTelefoneCelular);
 		
-		textField_10 = new JTextField();
-		textField_10.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField_10.setColumns(10);
-		textField_10.setBounds(495, 264, 130, 20);
-		jnpEmpresa.add(textField_10);
+		jtfTelefoneCelular = new JTextField();
+		jtfTelefoneCelular.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfTelefoneCelular.setColumns(10);
+		jtfTelefoneCelular.setBounds(495, 264, 130, 20);
+		jnpEmpresa.add(jtfTelefoneCelular);
 		
 		jlbFax = new JLabel("Fax");
 		jlbFax.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -357,7 +357,7 @@ public class EmpresaTela extends JFrame {
 	public EmpresaTela() {
 		setTitle("Cadastro da Empresa");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 641, 405);
 		jnpEmpresa = new JPanel();
 		setLocationRelativeTo(null);

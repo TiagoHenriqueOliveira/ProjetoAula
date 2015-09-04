@@ -229,7 +229,7 @@ public class CarroTela extends JFrame {
 
 	public CarroTela() {
 		setTitle("Cadastro de Carros do Cliente | WashCar");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 642, 356);
 		jpnCarro = new JPanel();
 		jpnCarro.setLayout(null);

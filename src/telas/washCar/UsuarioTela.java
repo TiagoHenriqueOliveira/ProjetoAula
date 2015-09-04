@@ -170,7 +170,7 @@ public class UsuarioTela extends JFrame {
 	public UsuarioTela() {
 		setTitle("Cadastro de Usuários | WashCar");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 376);
 		jpnUsuario = new JPanel();
 		jpnUsuario.setLayout(null);
