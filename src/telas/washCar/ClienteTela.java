@@ -17,6 +17,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+import com.toedter.calendar.JDateChooser;
 
 public class ClienteTela extends JFrame {
 
@@ -45,7 +46,6 @@ public class ClienteTela extends JFrame {
 	private JTextField jtfNome;
 	private JTextField jtfCPF;
 	private JTextField jtfRG;
-	private JTextField jtfDataNascimento;
 	private JTextField jtfSobrenomeCliente;
 	private JPanel jpnPesquisaCliente;
 	private JLabel jlbPesquisaCodigoCliente;
@@ -87,6 +87,7 @@ public class ClienteTela extends JFrame {
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
 	private JLabel jlbConsultaCliente;
+	private JDateChooser jdtcDataNascimento;
 
 	public void componentesTelaCliente() {
 		jpnPesquisaCliente = new JPanel();
@@ -386,12 +387,6 @@ public class ClienteTela extends JFrame {
 		jtfRG.setBounds(320, 210, 165, 20);
 		jpnCliente.add(jtfRG);
 		
-		jtfDataNascimento = new JTextField();
-		jtfDataNascimento.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfDataNascimento.setColumns(10);
-		jtfDataNascimento.setBounds(495, 166, 130, 20);
-		jpnCliente.add(jtfDataNascimento);
-		
 		jlbDataNascimento = new JLabel("Data de Nascimento");
 		jlbDataNascimento.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbDataNascimento.setBounds(495, 150, 130, 14);
@@ -443,6 +438,10 @@ public class ClienteTela extends JFrame {
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtEditar.setBounds(138, 471, 110, 23);
 		jpnCliente.add(jbtEditar);
+		
+		jdtcDataNascimento = new JDateChooser();
+		jdtcDataNascimento.setBounds(495, 166, 130, 20);
+		jpnCliente.add(jdtcDataNascimento);
 	}
 
 	public ClienteTela() {

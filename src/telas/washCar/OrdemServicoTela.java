@@ -24,6 +24,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 
+import com.toedter.calendar.JDateChooser;
+
 public class OrdemServicoTela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -95,7 +97,7 @@ public class OrdemServicoTela extends JFrame {
 	private JButton jbtNovoItemServico;
 	private JLabel jlbValorTotalItemServico;
 	private JLabel jlbDataServico;
-	private JTextField jtfDataServico;
+	private JDateChooser jdtcDataAgendamento;
 
 	public void componentesTelaOrdemServico() {
 		jtbOrdemServico = new JTabbedPane(JTabbedPane.TOP);
@@ -356,16 +358,14 @@ public class OrdemServicoTela extends JFrame {
 		jbgFormaPagamento.add(jrbPagamentoPrazo);
 		jbgFormaPagamento.add(jrbPagamentoVista);
 		
-		jlbDataServico = new JLabel("Data do Servi\u00E7o");
+		jlbDataServico = new JLabel("Data do Serviço");
 		jlbDataServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbDataServico.setBounds(261, 340, 130, 14);
 		jpnDadosOrdemServico.add(jlbDataServico);
 		
-		jtfDataServico = new JTextField();
-		jtfDataServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfDataServico.setColumns(10);
-		jtfDataServico.setBounds(261, 356, 130, 20);
-		jpnDadosOrdemServico.add(jtfDataServico);
+		jdtcDataAgendamento = new JDateChooser();
+		jdtcDataAgendamento.setBounds(261, 354, 130, 20);
+		jpnDadosOrdemServico.add(jdtcDataAgendamento);
 		
 		jpnCadastroServico = new JPanel();
 		jtbOrdemServico.addTab("Cadastro de Servi\u00E7os", null, jpnCadastroServico, null);
