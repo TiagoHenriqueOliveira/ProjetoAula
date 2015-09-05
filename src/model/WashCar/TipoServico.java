@@ -1,17 +1,23 @@
 package model.WashCar;
 
+import java.time.LocalDate;
+
 public class TipoServico {
 	
 	private Integer idTipoServico;
 	private String nome;
 	private Double valor;
+	private LocalDate dataAltercacao;
+	private LocalDate dataInclusao;
 	
 	//construtor com atributos
-	public TipoServico(Integer idTipoServico, String nome, Double valor) {
+	public TipoServico(Integer idTipoServico, String nome, Double valor, LocalDate dataAltercacao, LocalDate dataInclusao) {
 		super();
 		this.idTipoServico = idTipoServico;
 		this.nome = nome;
 		this.valor = valor;
+		this.dataAltercacao = dataAltercacao;
+		this.dataInclusao = dataInclusao;
 	}
 
 	//gets e sets das variaveis
@@ -37,5 +43,21 @@ public class TipoServico {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+
+	public LocalDate getDataAltercacao() {
+		return dataAltercacao;
+	}
+
+	public void setDataAltercacao(LocalDate dataAltercacao) {
+		this.dataAltercacao = dataAltercacao;
+	}
+
+	public LocalDate getDataInclusao() {
+		return dataInclusao;
+	}
+
+	public void setDataInclusao(LocalDate dataInclusao) {
+		this.dataInclusao = dataInclusao;
 	}
 }

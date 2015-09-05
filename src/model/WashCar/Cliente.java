@@ -24,6 +24,8 @@ public class Cliente {
 	private String email;
 	private Empresa empresa;
 	private Cidade cidade;
+	private LocalDate dataAltercacao;
+	private LocalDate dataInclusao;
 	
 	//construtor com atributos
 	public Cliente(Integer idCliente, String nome, String cpf, String rg,
@@ -31,7 +33,8 @@ public class Cliente {
 			String cnpj, String inscricaoEstadual, String inscricaoMunicipal,
 			String endereco, Integer numero, String bairro,
 			String telefoneComercial, String telefoneResidencial,
-			String telefoneCelular, String fax, String email, Empresa empresa, Cidade cidade) {
+			String telefoneCelular, String fax, String email, Empresa empresa, Cidade cidade,
+			LocalDate dataAltercacao, LocalDate dataInclusao) {
 		super();
 		this.idCliente = idCliente;
 		this.nome = nome;
@@ -53,6 +56,8 @@ public class Cliente {
 		this.email = email;
 		this.empresa = empresa;
 		this.cidade = cidade;
+		this.dataAltercacao = dataAltercacao;
+		this.dataInclusao = dataInclusao;
 	}
 
 	//gets e sets das variaveis
@@ -214,5 +219,21 @@ public class Cliente {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+
+	public LocalDate getDataAltercacao() {
+		return dataAltercacao;
+	}
+
+	public void setDataAltercacao(LocalDate dataAltercacao) {
+		this.dataAltercacao = dataAltercacao;
+	}
+
+	public LocalDate getDataInclusao() {
+		return dataInclusao;
+	}
+
+	public void setDataInclusao(LocalDate dataInclusao) {
+		this.dataInclusao = dataInclusao;
 	}
 }

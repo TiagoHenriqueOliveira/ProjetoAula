@@ -1,5 +1,7 @@
 package model.WashCar;
 
+import java.time.LocalDate;
+
 public class Empresa {
 	
 	private Integer idEmpresa;
@@ -16,13 +18,15 @@ public class Empresa {
 	private String fax;
 	private String regimeTributario;
 	private Cidade cidade;
+	private LocalDate dataAltercacao;
+	private LocalDate dataInclusao;
 	
 	//construtor com atributos
 	public Empresa(Integer idEmpresa, String razaoSocial, String nomeFantasia,
 			String cnpj, String inscricaoEstadual, String inscricaoMunicipal,
 			String endereco, String bairro, Integer numero,
 			String telefoneComercial, String telefoneCelular, String fax,
-			String regimeTributario, Cidade cidade) {
+			String regimeTributario, Cidade cidade, LocalDate dataAltercacao, LocalDate dataInclusao) {
 		super();
 		this.idEmpresa = idEmpresa;
 		this.razaoSocial = razaoSocial;
@@ -38,6 +42,8 @@ public class Empresa {
 		this.fax = fax;
 		this.regimeTributario = regimeTributario;
 		this.cidade = cidade;
+		this.dataAltercacao = dataAltercacao;
+		this.dataInclusao = dataInclusao;
 	}
 	
 	//gets e sets das variaveis
@@ -124,5 +130,21 @@ public class Empresa {
 	}
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
-	}	
+	}
+
+	public LocalDate getDataAltercacao() {
+		return dataAltercacao;
+	}
+
+	public void setDataAltercacao(LocalDate dataAltercacao) {
+		this.dataAltercacao = dataAltercacao;
+	}
+
+	public LocalDate getDataInclusao() {
+		return dataInclusao;
+	}
+
+	public void setDataInclusao(LocalDate dataInclusao) {
+		this.dataInclusao = dataInclusao;
+	}
 }

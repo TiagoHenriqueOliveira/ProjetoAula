@@ -9,16 +9,20 @@ public class OrdemServico {
 	private Double valorTotal;
 	private Cliente cliente;
 	private Carro carro;
+	private LocalDate dataAltercacao;
+	private LocalDate dataInclusao;
 	
 	//construtor com atributos
 	public OrdemServico(Integer idOrdemServico, LocalDate dataAgendamento,
-			Double valorTotal, Cliente cliente, Carro carro) {
+			Double valorTotal, Cliente cliente, Carro carro, LocalDate dataAltercacao, LocalDate dataInclusao) {
 		super();
 		this.idOrdemServico = idOrdemServico;
 		this.dataAgendamento = dataAgendamento;
 		this.valorTotal = valorTotal;
 		this.cliente = cliente;
 		this.carro = carro;
+		this.dataAltercacao = dataAltercacao;
+		this.dataInclusao = dataInclusao;
 	}
 
 	//gets e sets das variaveis
@@ -60,5 +64,21 @@ public class OrdemServico {
 
 	public void setCarro(Carro carro) {
 		this.carro = carro;
+	}
+
+	public LocalDate getDataAltercacao() {
+		return dataAltercacao;
+	}
+
+	public void setDataAltercacao(LocalDate dataAltercacao) {
+		this.dataAltercacao = dataAltercacao;
+	}
+
+	public LocalDate getDataInclusao() {
+		return dataInclusao;
+	}
+
+	public void setDataInclusao(LocalDate dataInclusao) {
+		this.dataInclusao = dataInclusao;
 	}
 }
