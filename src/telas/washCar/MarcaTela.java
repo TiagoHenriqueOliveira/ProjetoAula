@@ -8,8 +8,12 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JCheckBox;
 
 public class MarcaTela extends JFrame {
@@ -34,6 +38,7 @@ public class MarcaTela extends JFrame {
 	private JLabel lblNomeDaMarca_1;
 	private JLabel jlbDataAlteracao;
 	private JLabel jlbConsultaMarcas;
+	private JCheckBox jckbForaUso;
 
 	public void componentesTelaMarca() {
 		jpnPesquisaMarcas = new JPanel();
@@ -80,16 +85,19 @@ public class MarcaTela extends JFrame {
 		jpnMarca.add(jbtNovo);
 		
 		jbtSalvar = new JButton("Salvar");
+		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtSalvar.setBounds(93, 216, 75, 23);
 		jpnMarca.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
+		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtEditar.setBounds(178, 216, 75, 23);
 		jpnMarca.add(jbtEditar);
 		
 		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtCancelar.setBounds(261, 216, 80, 23);
 		jpnMarca.add(jbtCancelar);
@@ -109,6 +117,7 @@ public class MarcaTela extends JFrame {
 		jtfCodigoMarca.setColumns(10);
 		
 		jtfNomeMarca = new JTextField();
+		jtfNomeMarca.setEnabled(false);
 		jtfNomeMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeMarca.setBounds(10, 179, 330, 20);
 		jpnMarca.add(jtfNomeMarca);
@@ -137,10 +146,34 @@ public class MarcaTela extends JFrame {
 		jlbDataAlteracao.setBounds(324, 105, 100, 14);
 		jpnMarca.add(jlbDataAlteracao);
 		
-		JCheckBox jckbForaUso = new JCheckBox("Fora de Uso");
+		jckbForaUso = new JCheckBox("Fora de Uso");
+		jckbForaUso.setEnabled(false);
 		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jckbForaUso.setBounds(156, 120, 97, 23);
 		jpnMarca.add(jckbForaUso);
+	}
+	
+	public void novoCadastro() {
+		jbtNovo.setEnabled(false);
+		jtfNomeMarca.setEnabled(true);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+	}
+	
+	public void salvarCadastro() {
+		
+	}
+	
+	public void editarCadastro() {
+		
+	}
+	
+	public void cancelarCadastro() {
+		jbtNovo.setEnabled(true);
+		jtfNomeMarca.setEnabled(false);
+		jtfNomeMarca.setText("");
+		jbtSalvar.setEnabled(false);
+		jbtCancelar.setEnabled(false);
 	}
 
 	public MarcaTela() {
@@ -154,6 +187,40 @@ public class MarcaTela extends JFrame {
 		jpnMarca.setLayout(null);
 		
 		componentesTelaMarca();
-
+		
+		jbtNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtNovo) {
+					novoCadastro();
+				}
+			}
+		});
+		
+		jbtSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		jbtEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		jbtCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtCancelar) {
+					cancelarCadastro();
+				}
+			}
+		});
+		
+		jbtFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtFechar) {
+					dispose();
+				}
+			}
+		});
 	}
 }

@@ -5,10 +5,16 @@ import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
+
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
@@ -83,16 +89,19 @@ public class TipoServicoTela extends JFrame {
 		jpnTipoServico.add(jbtNovo);
 		
 		jbtSalvar = new JButton("Salvar");
+		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtSalvar.setBounds(93, 218, 75, 23);
 		jpnTipoServico.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
+		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtEditar.setBounds(178, 218, 75, 23);
 		jpnTipoServico.add(jbtEditar);
 		
 		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtCancelar.setBounds(261, 218, 80, 23);
 		jpnTipoServico.add(jbtCancelar);
@@ -112,6 +121,7 @@ public class TipoServicoTela extends JFrame {
 		jpnTipoServico.add(jtfCodigo);
 		
 		jtfNomeTipoServico = new JTextField();
+		jtfNomeTipoServico.setEnabled(false);
 		jtfNomeTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeTipoServico.setColumns(10);
 		jtfNomeTipoServico.setBounds(10, 181, 243, 20);
@@ -141,6 +151,7 @@ public class TipoServicoTela extends JFrame {
 		jpnTipoServico.add(jlbDataAlteracao);
 		
 		jtfValor = new JTextField();
+		jtfValor.setEnabled(false);
 		jtfValor.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfValor.setColumns(10);
 		jtfValor.setBackground(Color.WHITE);
@@ -153,9 +164,36 @@ public class TipoServicoTela extends JFrame {
 		jpnTipoServico.add(jlbValor);
 		
 		jckbForaUso = new JCheckBox("Fora de Uso");
+		jckbForaUso.setEnabled(false);
 		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jckbForaUso.setBounds(170, 121, 97, 23);
 		jpnTipoServico.add(jckbForaUso);
+	}
+	
+	public void novoCadastro() {
+		jbtNovo.setEnabled(false);
+		jtfNomeTipoServico.setEnabled(true);
+		jtfValor.setEnabled(true);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+	}
+	
+	public void salvarCadastro() {
+		
+	}
+	
+	public void editarCadastro() {
+		
+	}
+	
+	public void cancelarCadastro() {
+		jbtNovo.setEnabled(true);
+		jtfNomeTipoServico.setEnabled(false);
+		jtfValor.setEnabled(false);
+		jtfNomeTipoServico.setText("");
+		jtfValor.setText("");
+		jbtSalvar.setEnabled(false);
+		jbtCancelar.setEnabled(false);
 	}
 
 	public TipoServicoTela() {
@@ -169,6 +207,40 @@ public class TipoServicoTela extends JFrame {
 		setContentPane(jpnTipoServico);
 		
 		componenteTelaTipoServico();
-
+		
+		jbtNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtNovo) {
+					novoCadastro();
+				}
+			}
+		});
+		
+		jbtSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		jbtEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		jbtCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtCancelar) {
+					cancelarCadastro();
+				}
+			}
+		});
+		
+		jbtFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtFechar) {
+					dispose();
+				}
+			}
+		});
 	}
 }

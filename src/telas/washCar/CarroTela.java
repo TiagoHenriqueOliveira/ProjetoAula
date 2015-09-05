@@ -5,11 +5,16 @@ import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CarroTela extends JFrame {
 
@@ -130,6 +135,7 @@ public class CarroTela extends JFrame {
 		jpnCarro.add(jlbNomeCliente);
 		
 		jtfNomeCliente = new JTextField();
+		jtfNomeCliente.setEnabled(false);
 		jtfNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCliente.setColumns(10);
 		jtfNomeCliente.setBounds(10, 170, 381, 20);
@@ -141,6 +147,7 @@ public class CarroTela extends JFrame {
 		jpnCarro.add(jlbCpfCliente);
 		
 		jtfCpfCliente = new JTextField();
+		jtfCpfCliente.setEnabled(false);
 		jtfCpfCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCpfCliente.setColumns(10);
 		jtfCpfCliente.setBounds(460, 170, 165, 20);
@@ -152,6 +159,7 @@ public class CarroTela extends JFrame {
 		jpnCarro.add(jlbRazaoSocialCliente);
 		
 		jtfRazaoSocialCliente = new JTextField();
+		jtfRazaoSocialCliente.setEnabled(false);
 		jtfRazaoSocialCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfRazaoSocialCliente.setColumns(10);
 		jtfRazaoSocialCliente.setBounds(10, 217, 381, 20);
@@ -163,6 +171,7 @@ public class CarroTela extends JFrame {
 		jpnCarro.add(jlbCnpjCliente);
 		
 		jtfCnpjCliente = new JTextField();
+		jtfCnpjCliente.setEnabled(false);
 		jtfCnpjCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCnpjCliente.setColumns(10);
 		jtfCnpjCliente.setBounds(460, 217, 165, 20);
@@ -174,6 +183,7 @@ public class CarroTela extends JFrame {
 		jpnCarro.add(jlbNomeCarro);
 		
 		jtfNomeCarro = new JTextField();
+		jtfNomeCarro.setEnabled(false);
 		jtfNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCarro.setColumns(10);
 		jtfNomeCarro.setBounds(10, 264, 265, 20);
@@ -185,12 +195,14 @@ public class CarroTela extends JFrame {
 		jpnCarro.add(jlbModeloCarro);
 		
 		jtfModeloCarro = new JTextField();
+		jtfModeloCarro.setEnabled(false);
 		jtfModeloCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfModeloCarro.setColumns(10);
 		jtfModeloCarro.setBounds(285, 264, 165, 20);
 		jpnCarro.add(jtfModeloCarro);
 		
 		jtfPlacaCarro = new JTextField();
+		jtfPlacaCarro.setEnabled(false);
 		jtfPlacaCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPlacaCarro.setColumns(10);
 		jtfPlacaCarro.setBounds(460, 264, 165, 20);
@@ -207,11 +219,13 @@ public class CarroTela extends JFrame {
 		jpnCarro.add(jbtNovo);
 		
 		jbtEditar = new JButton("Editar");
+		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtEditar.setBounds(138, 295, 110, 23);
 		jpnCarro.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
+		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtSalvar.setBounds(265, 295, 110, 23);
 		jpnCarro.add(jbtSalvar);
@@ -222,11 +236,53 @@ public class CarroTela extends JFrame {
 		jpnCarro.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtCancelar.setBounds(390, 295, 110, 23);
 		jpnCarro.add(jbtCancelar);
 	}
 
+	public void novoCadastro() {
+		jbtNovo.setEnabled(false);
+		jtfNomeCliente.setEnabled(true);
+		jtfCpfCliente.setEnabled(true);
+		jtfRazaoSocialCliente.setEnabled(true);
+		jtfCnpjCliente.setEnabled(true);
+		jtfNomeCarro.setEnabled(true);
+		jtfModeloCarro.setEnabled(true);
+		jtfPlacaCarro.setEnabled(true);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+	}
+	
+	public void salvarCadastro() {
+		
+	}
+	
+	public void editarCadastro() {
+		
+	}
+	
+	public void cancelarCadastro() {
+		jbtNovo.setEnabled(true);
+		jtfNomeCliente.setEnabled(false);
+		jtfCpfCliente.setEnabled(false);
+		jtfRazaoSocialCliente.setEnabled(false);
+		jtfCnpjCliente.setEnabled(false);
+		jtfNomeCarro.setEnabled(false);
+		jtfModeloCarro.setEnabled(false);
+		jtfPlacaCarro.setEnabled(false);
+		jtfNomeCliente.setText("");
+		jtfCpfCliente.setText("");
+		jtfRazaoSocialCliente.setText("");
+		jtfCnpjCliente.setText("");
+		jtfNomeCarro.setText("");
+		jtfModeloCarro.setText("");
+		jtfPlacaCarro.setText("");
+		jbtSalvar.setEnabled(false);
+		jbtCancelar.setEnabled(false);
+	}
+	
 	public CarroTela() {
 		setTitle("Cadastro de Carros do Cliente | WashCar");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -239,5 +295,39 @@ public class CarroTela extends JFrame {
 				
 		componentesTelaCarro();
 		
+		jbtNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtNovo) {
+					novoCadastro();
+				}
+			}
+		});
+		
+		jbtSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		jbtEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		jbtCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtCancelar) {
+					cancelarCadastro();
+				}
+			}
+		});
+		
+		jbtFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtFechar) {
+					dispose();
+				}
+			}
+		});
 	}
 }

@@ -5,10 +5,16 @@ import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
+
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
@@ -81,16 +87,19 @@ public class ModeloTela extends JFrame {
 		jpnModelo.add(jbtNovo);
 		
 		jbtSalvar = new JButton("Salvar");
+		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtSalvar.setBounds(92, 220, 75, 23);
 		jpnModelo.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
+		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtEditar.setBounds(177, 220, 75, 23);
 		jpnModelo.add(jbtEditar);
 		
 		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtCancelar.setBounds(260, 220, 80, 23);
 		jpnModelo.add(jbtCancelar);
@@ -110,6 +119,7 @@ public class ModeloTela extends JFrame {
 		jpnModelo.add(jtfCodigo);
 		
 		jtfNomeModelo = new JTextField();
+		jtfNomeModelo.setEnabled(false);
 		jtfNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeModelo.setColumns(10);
 		jtfNomeModelo.setBounds(9, 183, 330, 20);
@@ -139,9 +149,33 @@ public class ModeloTela extends JFrame {
 		jpnModelo.add(jlbDataAlteracao);
 		
 		jckbForaUso = new JCheckBox("Fora de Uso");
+		jckbForaUso.setEnabled(false);
 		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jckbForaUso.setBounds(155, 124, 97, 23);
 		jpnModelo.add(jckbForaUso);
+	}
+	
+	public void novoCadastro() {
+		jbtNovo.setEnabled(false);
+		jtfNomeModelo.setEnabled(true);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+	}
+	
+	public void salvarCadastro() {
+		
+	}
+	
+	public void editarCadastro() {
+		
+	}
+	
+	public void cancelarCadastro() {
+		jbtNovo.setEnabled(true);
+		jtfNomeModelo.setEnabled(false);
+		jtfNomeModelo.setText("");
+		jbtSalvar.setEnabled(false);
+		jbtCancelar.setEnabled(false);
 	}
 
 	public ModeloTela() {
@@ -156,5 +190,39 @@ public class ModeloTela extends JFrame {
 		
 		componentesTelaModelo();
 		
+		jbtNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtNovo) {
+					novoCadastro();
+				}
+			}
+		});
+		
+		jbtSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		jbtEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		jbtCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtCancelar) {
+					cancelarCadastro();
+				}
+			}
+		});
+		
+		jbtFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtFechar) {
+					dispose();
+				}
+			}
+		});
 	}
 }

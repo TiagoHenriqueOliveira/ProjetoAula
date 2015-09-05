@@ -12,6 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UsuarioTela extends JFrame {
 
@@ -29,7 +31,7 @@ public class UsuarioTela extends JFrame {
 	private JButton jbtPesquisaUsuario;
 	private JLabel jlbNome;
 	private JLabel jlbLogin;
-	private JLabel jtfSenha;
+	private JLabel jlbSenha;
 	private JLabel jlbDataAlteracao;
 	private JCheckBox jcbxUsuarioForaUso;
 	private JButton jbtFechar;
@@ -79,6 +81,7 @@ public class UsuarioTela extends JFrame {
 		jpnPesquisaUsuario.add(jlbConsultaUsuario);
 		
 		jtfNome = new JTextField();
+		jtfNome.setEnabled(false);
 		jtfNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNome.setColumns(10);
 		jtfNome.setBounds(10, 119, 275, 20);
@@ -90,6 +93,7 @@ public class UsuarioTela extends JFrame {
 		jpnUsuario.add(jlbNome);
 		
 		jtfLogin = new JTextField();
+		jtfLogin.setEnabled(false);
 		jtfLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfLogin.setColumns(10);
 		jtfLogin.setBounds(10, 166, 275, 20);
@@ -100,12 +104,13 @@ public class UsuarioTela extends JFrame {
 		jlbLogin.setBounds(10, 150, 100, 14);
 		jpnUsuario.add(jlbLogin);
 		
-		jtfSenha = new JLabel("Senha do Usu\u00E1rio");
-		jtfSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfSenha.setBounds(10, 197, 100, 14);
-		jpnUsuario.add(jtfSenha);
+		jlbSenha = new JLabel("Senha do Usu\u00E1rio");
+		jlbSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbSenha.setBounds(10, 197, 100, 14);
+		jpnUsuario.add(jlbSenha);
 		
 		jpfSenha = new JPasswordField();
+		jpfSenha.setEnabled(false);
 		jpfSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jpfSenha.setBounds(10, 212, 182, 20);
 		jpnUsuario.add(jpfSenha);
@@ -124,6 +129,7 @@ public class UsuarioTela extends JFrame {
 		jpnUsuario.add(jtfDataAlteracao);
 		
 		jcbxUsuarioForaUso = new JCheckBox("Usu\u00E1rio Fora de Uso");
+		jcbxUsuarioForaUso.setEnabled(false);
 		jcbxUsuarioForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jcbxUsuarioForaUso.setBounds(10, 279, 140, 23);
 		jpnUsuario.add(jcbxUsuarioForaUso);
@@ -135,16 +141,19 @@ public class UsuarioTela extends JFrame {
 		jpnUsuario.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtCancelar.setBounds(269, 314, 81, 23);
 		jpnUsuario.add(jbtCancelar);
 		
 		jbtEditar = new JButton("Editar");
+		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtEditar.setBounds(183, 314, 75, 23);
 		jpnUsuario.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
+		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtSalvar.setBounds(97, 314, 75, 23);
 		jpnUsuario.add(jbtSalvar);
@@ -153,6 +162,35 @@ public class UsuarioTela extends JFrame {
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtNovo.setBounds(10, 314, 75, 23);
 		jpnUsuario.add(jbtNovo);
+	}
+	
+	public void novoCadastro() {
+		jbtNovo.setEnabled(false);
+		jtfNome.setEnabled(true);
+		jtfLogin.setEnabled(true);
+		jpfSenha.setEnabled(true);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+	}
+	
+	public void salvarCadastro() {
+		
+	}
+	
+	public void editarCadastro() {
+		
+	}
+	
+	public void cancelarCadastro() {
+		jbtNovo.setEnabled(true);
+		jtfNome.setEnabled(false);
+		jtfLogin.setEnabled(false);
+		jpfSenha.setEnabled(false);
+		jtfNome.setText("");
+		jtfLogin.setText("");
+		jpfSenha.setText("");
+		jbtSalvar.setEnabled(false);
+		jbtCancelar.setEnabled(false);
 	}
 
 	public UsuarioTela() {
@@ -166,6 +204,41 @@ public class UsuarioTela extends JFrame {
 		setContentPane(jpnUsuario);
 		
 		componentesTelaUsuario();
+		
+		jbtNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtNovo) {
+					novoCadastro();
+				}
+			}
+		});
+		
+		jbtSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		jbtEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		jbtCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtCancelar) {
+					cancelarCadastro();
+				}
+			}
+		});
+		
+		jbtFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtFechar) {
+					dispose();
+				}
+			}
+		});
 		
 	}
 }

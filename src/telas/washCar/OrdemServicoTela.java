@@ -18,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.JRadioButton;
@@ -83,7 +85,7 @@ public class OrdemServicoTela extends JFrame {
 	private DefaultTableModel dtmGridItensServico;
 	private Vector<String> colunas;
 	private JScrollPane jspGridItensServico;
-	private JTextField jtfDescricao;
+	private JTextField jtfDescricaoTipoServico;
 	private JTextField jtfCodigoTipoServico;
 	private JTextField jtfQuantidade;
 	private JTextField jtfValorUnitario;
@@ -95,9 +97,12 @@ public class OrdemServicoTela extends JFrame {
 	private JButton jbtSalvarItemServico;
 	private JButton jbtEditarItemServico;
 	private JButton jbtNovoItemServico;
+	private JLabel jlbValorUnitario;
+	private JLabel jlbQuantidade;
+	private JLabel jlbCodigoTipoServico;
 	private JLabel jlbValorTotalItemServico;
 	private JLabel jlbDataServico;
-	private JDateChooser jdtcDataAgendamento;
+	private JDateChooser jctDataAgendamento;
 
 	public void componentesTelaOrdemServico() {
 		jtbOrdemServico = new JTabbedPane(JTabbedPane.TOP);
@@ -192,6 +197,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbNomeCliente);
 		
 		jtfNomeCliente = new JTextField();
+		jtfNomeCliente.setEnabled(false);
 		jtfNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCliente.setColumns(10);
 		jtfNomeCliente.setBounds(10, 168, 381, 20);
@@ -203,6 +209,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbCpf);
 		
 		jtfCpf = new JTextField();
+		jtfCpf.setEnabled(false);
 		jtfCpf.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCpf.setColumns(10);
 		jtfCpf.setBounds(460, 168, 165, 20);
@@ -214,6 +221,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbRazaoSocial);
 		
 		jtfRazaoSocial = new JTextField();
+		jtfRazaoSocial.setEnabled(false);
 		jtfRazaoSocial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfRazaoSocial.setColumns(10);
 		jtfRazaoSocial.setBounds(10, 215, 381, 20);
@@ -225,6 +233,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbCnpj);
 		
 		jtfCnpj = new JTextField();
+		jtfCnpj.setEnabled(false);
 		jtfCnpj.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCnpj.setColumns(10);
 		jtfCnpj.setBounds(460, 215, 165, 20);
@@ -236,6 +245,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbNomeCarro);
 		
 		jtfNomeCarro = new JTextField();
+		jtfNomeCarro.setEnabled(false);
 		jtfNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCarro.setColumns(10);
 		jtfNomeCarro.setBounds(10, 262, 265, 20);
@@ -247,12 +257,14 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbModelo);
 		
 		jtfModelo = new JTextField();
+		jtfModelo.setEnabled(false);
 		jtfModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfModelo.setColumns(10);
 		jtfModelo.setBounds(10, 309, 165, 20);
 		jpnDadosOrdemServico.add(jtfModelo);
 		
 		jtfPlaca = new JTextField();
+		jtfPlaca.setEnabled(false);
 		jtfPlaca.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPlaca.setColumns(10);
 		jtfPlaca.setBounds(185, 309, 165, 20);
@@ -269,11 +281,13 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jbtNovo);
 		
 		jbtEditar = new JButton("Editar");
+		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtEditar.setBounds(138, 385, 110, 23);
 		jpnDadosOrdemServico.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
+		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtSalvar.setBounds(265, 385, 110, 23);
 		jpnDadosOrdemServico.add(jbtSalvar);
@@ -284,11 +298,13 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtCancelar.setBounds(390, 385, 110, 23);
 		jpnDadosOrdemServico.add(jbtCancelar);
 		
 		jckbOrdemServicoCancelada = new JCheckBox("Cancelada");
+		jckbOrdemServicoCancelada.setEnabled(false);
 		jckbOrdemServicoCancelada.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jckbOrdemServicoCancelada.setBounds(346, 120, 97, 23);
 		jpnDadosOrdemServico.add(jckbOrdemServicoCancelada);
@@ -304,6 +320,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbTelefoneComercial);
 		
 		jtfTelefoneComercial = new JTextField();
+		jtfTelefoneComercial.setEnabled(false);
 		jtfTelefoneComercial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneComercial.setColumns(10);
 		jtfTelefoneComercial.setBounds(495, 262, 130, 20);
@@ -315,6 +332,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbTelefoneResidencial);
 		
 		jtfTelefoneResidencial = new JTextField();
+		jtfTelefoneResidencial.setEnabled(false);
 		jtfTelefoneResidencial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneResidencial.setColumns(10);
 		jtfTelefoneResidencial.setBounds(495, 306, 130, 20);
@@ -326,6 +344,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbTelefoneCelular);
 		
 		jtfTelefoneCelular = new JTextField();
+		jtfTelefoneCelular.setEnabled(false);
 		jtfTelefoneCelular.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneCelular.setColumns(10);
 		jtfTelefoneCelular.setBounds(495, 351, 130, 20);
@@ -340,16 +359,18 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jtfValorTotal);
 		
 		jlbValorTotal = new JLabel("Valor Total");
-		jlbValorTotal.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbValorTotal.setFont(new Font("Tahoma", Font.BOLD, 12));
 		jlbValorTotal.setBounds(10, 335, 130, 14);
 		jpnDadosOrdemServico.add(jlbValorTotal);
 		
 		jrbPagamentoVista = new JRadioButton("\u00C0 Vista");
+		jrbPagamentoVista.setEnabled(false);
 		jrbPagamentoVista.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jrbPagamentoVista.setBounds(124, 120, 109, 23);
 		jpnDadosOrdemServico.add(jrbPagamentoVista);
 		
 		jrbPagamentoPrazo = new JRadioButton("\u00C0 Prazo");
+		jrbPagamentoPrazo.setEnabled(false);
 		jrbPagamentoPrazo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jrbPagamentoPrazo.setBounds(241, 120, 109, 23);
 		jpnDadosOrdemServico.add(jrbPagamentoPrazo);
@@ -363,9 +384,10 @@ public class OrdemServicoTela extends JFrame {
 		jlbDataServico.setBounds(261, 340, 130, 14);
 		jpnDadosOrdemServico.add(jlbDataServico);
 		
-		jdtcDataAgendamento = new JDateChooser();
-		jdtcDataAgendamento.setBounds(261, 354, 130, 20);
-		jpnDadosOrdemServico.add(jdtcDataAgendamento);
+		jctDataAgendamento = new JDateChooser();
+		jctDataAgendamento.setEnabled(false);
+		jctDataAgendamento.setBounds(261, 354, 130, 20);
+		jpnDadosOrdemServico.add(jctDataAgendamento);
 		
 		jpnCadastroServico = new JPanel();
 		jtbOrdemServico.addTab("Cadastro de Servi\u00E7os", null, jpnCadastroServico, null);
@@ -401,46 +423,51 @@ public class OrdemServicoTela extends JFrame {
 		jlbDescricao.setBounds(155, 221, 135, 14);
 		jpnCadastroServico.add(jlbDescricao);
 		
-		jtfDescricao = new JTextField();
-		jtfDescricao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfDescricao.setColumns(10);
-		jtfDescricao.setBounds(155, 238, 324, 20);
-		jpnCadastroServico.add(jtfDescricao);
+		jtfDescricaoTipoServico = new JTextField();
+		jtfDescricaoTipoServico.setEnabled(false);
+		jtfDescricaoTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfDescricaoTipoServico.setColumns(10);
+		jtfDescricaoTipoServico.setBounds(155, 238, 324, 20);
+		jpnCadastroServico.add(jtfDescricaoTipoServico);
 		
 		jtfCodigoTipoServico = new JTextField();
+		jtfCodigoTipoServico.setEnabled(false);
 		jtfCodigoTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCodigoTipoServico.setColumns(10);
 		jtfCodigoTipoServico.setBounds(10, 238, 135, 20);
 		jpnCadastroServico.add(jtfCodigoTipoServico);
 		
-		JLabel jlbCodigoTipoServico = new JLabel("C\u00F3digo Tipo de Servi\u00E7o");
+		jlbCodigoTipoServico = new JLabel("C\u00F3digo Tipo de Servi\u00E7o");
 		jlbCodigoTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbCodigoTipoServico.setBounds(10, 221, 135, 14);
 		jpnCadastroServico.add(jlbCodigoTipoServico);
 		
 		jtfQuantidade = new JTextField();
+		jtfQuantidade.setEnabled(false);
 		jtfQuantidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfQuantidade.setColumns(10);
 		jtfQuantidade.setBounds(10, 286, 70, 20);
 		jpnCadastroServico.add(jtfQuantidade);
 		
-		JLabel jlbQuantidade = new JLabel("Quantidade");
+		jlbQuantidade = new JLabel("Quantidade");
 		jlbQuantidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbQuantidade.setBounds(10, 269, 70, 14);
 		jpnCadastroServico.add(jlbQuantidade);
 		
 		jtfValorUnitario = new JTextField();
+		jtfValorUnitario.setEnabled(false);
 		jtfValorUnitario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfValorUnitario.setColumns(10);
 		jtfValorUnitario.setBounds(155, 286, 135, 20);
 		jpnCadastroServico.add(jtfValorUnitario);
 		
-		JLabel jlbValorUnitario = new JLabel("Valor Unit\u00E1rio");
+		jlbValorUnitario = new JLabel("Valor Unit\u00E1rio");
 		jlbValorUnitario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbValorUnitario.setBounds(155, 269, 106, 14);
 		jpnCadastroServico.add(jlbValorUnitario);
 		
 		jtfValorTotalItemServico = new JTextField();
+		jtfValorTotalItemServico.setEnabled(false);
 		jtfValorTotalItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfValorTotalItemServico.setColumns(10);
 		jtfValorTotalItemServico.setBounds(344, 286, 135, 20);
@@ -457,16 +484,19 @@ public class OrdemServicoTela extends JFrame {
 		jpnCadastroServico.add(jbtNovoItemServico);
 		
 		jbtEditarItemServico = new JButton("Editar");
+		jbtEditarItemServico.setEnabled(false);
 		jbtEditarItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtEditarItemServico.setBounds(138, 382, 110, 23);
 		jpnCadastroServico.add(jbtEditarItemServico);
 		
 		jbtSalvarItemServico = new JButton("Salvar");
+		jbtSalvarItemServico.setEnabled(false);
 		jbtSalvarItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtSalvarItemServico.setBounds(265, 382, 110, 23);
 		jpnCadastroServico.add(jbtSalvarItemServico);
 		
 		jbtCancelarItemServico = new JButton("Cancelar");
+		jbtCancelarItemServico.setEnabled(false);
 		jbtCancelarItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtCancelarItemServico.setBounds(390, 382, 110, 23);
 		jpnCadastroServico.add(jbtCancelarItemServico);
@@ -481,7 +511,96 @@ public class OrdemServicoTela extends JFrame {
 		jpnObservacaoServico.add(jspObservacaoServico);
 		
 		jtaObservacaoServico = new JTextArea();
+		jtaObservacaoServico.setEnabled(false);
 		jspObservacaoServico.setViewportView(jtaObservacaoServico);
+	}
+	
+	public void novoCadastroOsv() {
+		jbtNovo.setEnabled(false);
+		jckbOrdemServicoCancelada.setEnabled(true);
+		jrbPagamentoPrazo.setEnabled(true);
+		jrbPagamentoVista.setEnabled(true);
+		jtfNomeCliente.setEnabled(true);
+		jtfCpf.setEnabled(true);
+		jtfRazaoSocial.setEnabled(true);
+		jtfCnpj.setEnabled(true);
+		jtfTelefoneCelular.setEnabled(true);
+		jtfTelefoneComercial.setEnabled(true);
+		jtfTelefoneResidencial.setEnabled(true);
+		jtfNomeCarro.setEnabled(true);
+		jtfModelo.setEnabled(true);
+		jtfPlaca.setEnabled(true);
+		jctDataAgendamento.setEnabled(true);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+	}
+	
+	public void novoCadastroItemOsv() {
+		jbtNovoItemServico.setEnabled(false);
+		jtfCodigoTipoServico.setEnabled(true);
+		jtfDescricaoTipoServico.setEnabled(true);
+		jtfQuantidade.setEnabled(true);
+		jtfValorUnitario.setEnabled(true);
+		jtfValorTotalItemServico.setEnabled(true);
+		jtaObservacaoServico.setEnabled(true);
+		jbtSalvarItemServico.setEnabled(true);
+		jbtCancelarItemServico.setEnabled(true);
+	}
+	
+	public void salvarCadastro() {
+		
+	}
+	
+	public void editarCadastro() {
+		
+	}
+	
+	public void cancelarCadastroOsv() {
+		jbtNovo.setEnabled(true);
+		jrbPagamentoPrazo.setEnabled(false);
+		jrbPagamentoVista.setEnabled(false);
+		jckbOrdemServicoCancelada.setEnabled(false);
+		jtfNomeCliente.setEnabled(false);
+		jtfCpf.setEnabled(false);
+		jtfRazaoSocial.setEnabled(false);
+		jtfCnpj.setEnabled(false);
+		jtfTelefoneCelular.setEnabled(false);
+		jtfTelefoneComercial.setEnabled(false);
+		jtfTelefoneResidencial.setEnabled(false);
+		jtfNomeCarro.setEnabled(false);
+		jtfModelo.setEnabled(false);
+		jtfPlaca.setEnabled(false);
+		jctDataAgendamento.setEnabled(false);
+		jtfNomeCliente.setText("");
+		jtfCpf.setText("");
+		jtfRazaoSocial.setText("");
+		jtfCnpj.setText("");
+		jtfTelefoneCelular.setText("");
+		jtfTelefoneComercial.setText("");
+		jtfTelefoneResidencial.setText("");
+		jtfNomeCarro.setText("");
+		jtfModelo.setText("");
+		jtfPlaca.setText("");
+		jbtSalvar.setEnabled(false);
+		jbtCancelar.setEnabled(false);
+	}
+	
+	public void cancelarCadastroItemOsv() {
+		jbtNovoItemServico.setEnabled(true);
+		jtfCodigoTipoServico.setEnabled(false);
+		jtfDescricaoTipoServico.setEnabled(false);
+		jtfQuantidade.setEnabled(false);
+		jtfValorUnitario.setEnabled(false);
+		jtfValorTotalItemServico.setEnabled(false);
+		jtaObservacaoServico.setEnabled(false);
+		jtfCodigoTipoServico.setText("");
+		jtfDescricaoTipoServico.setText("");
+		jtfQuantidade.setText("");
+		jtfValorUnitario.setText("");
+		jtfValorTotalItemServico.setText("");
+		jtaObservacaoServico.setText("");
+		jbtSalvarItemServico.setEnabled(false);
+		jbtCancelarItemServico.setEnabled(false);
 	}
 	
 	public OrdemServicoTela() {
@@ -496,5 +615,55 @@ public class OrdemServicoTela extends JFrame {
 				
 		componentesTelaOrdemServico();
 		
+		jbtNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtNovo) {
+					novoCadastroOsv();
+				}
+			}
+		});
+		
+		jbtNovoItemServico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtNovoItemServico) {
+					novoCadastroItemOsv();
+				}
+			}
+		});
+		
+		jbtSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		jbtEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		jbtCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtCancelar) {
+					cancelarCadastroOsv();
+				}
+			}
+		});
+		
+		jbtCancelarItemServico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtCancelarItemServico) {
+					cancelarCadastroItemOsv();;
+				}
+			}
+		});
+		
+		jbtFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtFechar) {
+					dispose();
+				}
+			}
+		});
 	}
 }

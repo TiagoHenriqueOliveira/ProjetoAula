@@ -12,11 +12,14 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+
 import com.toedter.calendar.JDateChooser;
 
 public class ClienteTela extends JFrame {
@@ -25,7 +28,7 @@ public class ClienteTela extends JFrame {
 	private JPanel jpnCliente;
 	private JTextField jtfPesquisaCodigoCliente;
 	private JTextField jtfPesquisaNomeCliente;
-	private JTextField jtfCnpjDoCliente;
+	private JTextField jtfPesquisaCnpjCliente;
 	private JTextField jtfCodigo;
 	private JTextField jtfRazaoSocial;
 	private JTextField jtfNomeFantasia;
@@ -87,7 +90,7 @@ public class ClienteTela extends JFrame {
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
 	private JLabel jlbConsultaCliente;
-	private JDateChooser jdtcDataNascimento;
+	private JDateChooser jctDataNascimento;
 
 	public void componentesTelaCliente() {
 		jpnPesquisaCliente = new JPanel();
@@ -123,11 +126,11 @@ public class ClienteTela extends JFrame {
 		jbtPesquisaCliente.setBounds(565, 38, 40, 32);
 		jpnPesquisaCliente.add(jbtPesquisaCliente);
 		
-		jtfCnpjDoCliente = new JTextField();
-		jtfCnpjDoCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfCnpjDoCliente.setColumns(10);
-		jtfCnpjDoCliente.setBounds(371, 50, 165, 20);
-		jpnPesquisaCliente.add(jtfCnpjDoCliente);
+		jtfPesquisaCnpjCliente = new JTextField();
+		jtfPesquisaCnpjCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfPesquisaCnpjCliente.setColumns(10);
+		jtfPesquisaCnpjCliente.setBounds(371, 50, 165, 20);
+		jpnPesquisaCliente.add(jtfPesquisaCnpjCliente);
 		
 		jlbCnpjDoCliente = new JLabel("CNPJ do Cliente");
 		jlbCnpjDoCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -158,6 +161,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbRazaoSocial);
 		
 		jtfRazaoSocial = new JTextField();
+		jtfRazaoSocial.setEnabled(false);
 		jtfRazaoSocial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfRazaoSocial.setColumns(10);
 		jtfRazaoSocial.setBounds(10, 254, 300, 20);
@@ -169,6 +173,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbNomeFantasia);
 		
 		jtfNomeFantasia = new JTextField();
+		jtfNomeFantasia.setEnabled(false);
 		jtfNomeFantasia.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeFantasia.setColumns(10);
 		jtfNomeFantasia.setBounds(10, 301, 300, 20);
@@ -180,6 +185,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbCNPJ);
 		
 		jtfCNPJ = new JTextField();
+		jtfCNPJ.setEnabled(false);
 		jtfCNPJ.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCNPJ.setColumns(10);
 		jtfCNPJ.setBounds(320, 301, 165, 20);
@@ -191,6 +197,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbEndereco);
 		
 		jtfEndereco = new JTextField();
+		jtfEndereco.setEnabled(false);
 		jtfEndereco.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfEndereco.setColumns(10);
 		jtfEndereco.setBounds(10, 395, 250, 20);
@@ -202,6 +209,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbBairro);
 		
 		jtfBairro = new JTextField();
+		jtfBairro.setEnabled(false);
 		jtfBairro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfBairro.setColumns(10);
 		jtfBairro.setBounds(346, 395, 139, 20);
@@ -213,6 +221,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbNumero);
 		
 		jtfNumero = new JTextField();
+		jtfNumero.setEnabled(false);
 		jtfNumero.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNumero.setColumns(10);
 		jtfNumero.setBounds(270, 395, 66, 20);
@@ -224,6 +233,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbTelefoneComercial);
 		
 		jtfTelefoneComercial = new JTextField();
+		jtfTelefoneComercial.setEnabled(false);
 		jtfTelefoneComercial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneComercial.setColumns(10);
 		jtfTelefoneComercial.setBounds(495, 301, 130, 20);
@@ -235,6 +245,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbTelefoneCelular);
 		
 		jtfTelefoneCelular = new JTextField();
+		jtfTelefoneCelular.setEnabled(false);
 		jtfTelefoneCelular.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneCelular.setColumns(10);
 		jtfTelefoneCelular.setBounds(495, 395, 130, 20);
@@ -246,6 +257,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbFax);
 		
 		jtfFax = new JTextField();
+		jtfFax.setEnabled(false);
 		jtfFax.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfFax.setColumns(10);
 		jtfFax.setBounds(495, 442, 130, 20);
@@ -257,6 +269,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbInscricaoEstadual);
 		
 		jtfInscricaoEstadual = new JTextField();
+		jtfInscricaoEstadual.setEnabled(false);
 		jtfInscricaoEstadual.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfInscricaoEstadual.setColumns(10);
 		jtfInscricaoEstadual.setBounds(320, 348, 165, 20);
@@ -281,6 +294,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbCidade);
 		
 		jtfCidade = new JTextField();
+		jtfCidade.setEnabled(false);
 		jtfCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCidade.setColumns(10);
 		jtfCidade.setBounds(10, 442, 139, 20);
@@ -292,6 +306,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbPais);
 		
 		jtfPais = new JTextField();
+		jtfPais.setEnabled(false);
 		jtfPais.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPais.setColumns(10);
 		jtfPais.setBounds(346, 442, 139, 20);
@@ -313,17 +328,20 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbInscricaoMunicipal);
 		
 		jtfInscricaoMunicipal = new JTextField();
+		jtfInscricaoMunicipal.setEnabled(false);
 		jtfInscricaoMunicipal.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfInscricaoMunicipal.setColumns(10);
 		jtfInscricaoMunicipal.setBounds(320, 254, 165, 20);
 		getContentPane().add(jtfInscricaoMunicipal);
 		
 		jrbFisica = new JRadioButton("Pessoa F\u00EDsica");
+		jrbFisica.setEnabled(false);
 		jrbFisica.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jrbFisica.setBounds(120, 119, 120, 23);
 		getContentPane().add(jrbFisica);
 		
 		jrbJuridica = new JRadioButton("Pessoa Jur\u00EDdica");
+		jrbJuridica.setEnabled(false);
 		jrbJuridica.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jrbJuridica.setBounds(242, 118, 120, 23);
 		getContentPane().add(jrbJuridica);
@@ -333,6 +351,7 @@ public class ClienteTela extends JFrame {
 		jbgTipoPessoa.add(jrbJuridica);
 		
 		jtfTelefoneResidencial = new JTextField();
+		jtfTelefoneResidencial.setEnabled(false);
 		jtfTelefoneResidencial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneResidencial.setColumns(10);
 		jtfTelefoneResidencial.setBounds(495, 348, 130, 20);
@@ -349,6 +368,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbEmail);
 		
 		jtfEmail = new JTextField();
+		jtfEmail.setEnabled(false);
 		jtfEmail.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfEmail.setColumns(10);
 		jtfEmail.setBounds(10, 348, 300, 20);
@@ -360,6 +380,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbNome);
 		
 		jtfNome = new JTextField();
+		jtfNome.setEnabled(false);
 		jtfNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNome.setColumns(10);
 		jtfNome.setBounds(10, 166, 300, 20);
@@ -371,6 +392,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbCPF);
 		
 		jtfCPF = new JTextField();
+		jtfCPF.setEnabled(false);
 		jtfCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCPF.setColumns(10);
 		jtfCPF.setBounds(320, 166, 165, 20);
@@ -382,6 +404,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbRG);
 		
 		jtfRG = new JTextField();
+		jtfRG.setEnabled(false);
 		jtfRG.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfRG.setColumns(10);
 		jtfRG.setBounds(320, 210, 165, 20);
@@ -393,11 +416,13 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbDataNascimento);
 		
 		jckbForaUso = new JCheckBox("Fora de Uso");
+		jckbForaUso.setEnabled(false);
 		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jckbForaUso.setBounds(364, 118, 97, 23);
 		jpnCliente.add(jckbForaUso);
 		
 		jtfSobrenomeCliente = new JTextField();
+		jtfSobrenomeCliente.setEnabled(false);
 		jtfSobrenomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfSobrenomeCliente.setColumns(10);
 		jtfSobrenomeCliente.setBounds(10, 210, 300, 20);
@@ -409,6 +434,7 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jlbSobrenomeCliente);
 		
 		jtfUnidadeFederativa = new JTextField();
+		jtfUnidadeFederativa.setEnabled(false);
 		jtfUnidadeFederativa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfUnidadeFederativa.setColumns(10);
 		jtfUnidadeFederativa.setBounds(159, 443, 177, 20);
@@ -425,23 +451,110 @@ public class ClienteTela extends JFrame {
 		jpnCliente.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
+		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtCancelar.setBounds(390, 471, 110, 23);
 		jpnCliente.add(jbtCancelar);
 		
 		jbtSalvar = new JButton("Salvar");
+		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtSalvar.setBounds(265, 471, 110, 23);
 		jpnCliente.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
+		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtEditar.setBounds(138, 471, 110, 23);
 		jpnCliente.add(jbtEditar);
 		
-		jdtcDataNascimento = new JDateChooser();
-		jdtcDataNascimento.setBounds(495, 166, 130, 20);
-		jpnCliente.add(jdtcDataNascimento);
+		jctDataNascimento = new JDateChooser();
+		jctDataNascimento.setBounds(495, 166, 130, 20);
+		jctDataNascimento.setEnabled(false);
+		jpnCliente.add(jctDataNascimento);
+	}
+	
+	public void novoCadastro() {
+		jbtNovo.setEnabled(false);
+		jrbFisica.setEnabled(true);
+		jrbJuridica.setEnabled(true);
+		jtfNome.setEnabled(true);
+		jctDataNascimento.setEnabled(true);
+		jtfCPF.setEnabled(true);
+		jtfRG.setEnabled(true);
+		jtfRazaoSocial.setEnabled(true);
+		jtfNomeFantasia.setEnabled(true);
+		jtfCNPJ.setEnabled(true);
+		jtfInscricaoEstadual.setEnabled(true);
+		jtfInscricaoMunicipal.setEnabled(true);
+		jtfEmail.setEnabled(true);
+		jtfTelefoneCelular.setEnabled(true);
+		jtfTelefoneComercial.setEnabled(true);
+		jtfTelefoneResidencial.setEnabled(true);
+		jtfFax.setEnabled(true);
+		jtfEndereco.setEnabled(true);
+		jtfNumero.setEnabled(true);
+		jtfBairro.setEnabled(true);
+		jtfUnidadeFederativa.setEnabled(true);
+		jtfCidade.setEnabled(true);
+		jtfPais.setEnabled(true);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+	}
+	
+	public void salvarCadastro() {
+		
+	}
+	
+	public void editarCadastro() {
+		
+	}
+	
+	public void cancelarCadastro() {
+		jbtNovo.setEnabled(true);
+		jrbFisica.setEnabled(false);
+		jrbJuridica.setEnabled(false);
+		jtfNome.setEnabled(false);
+		jctDataNascimento.setEnabled(false);
+		jtfCPF.setEnabled(false);
+		jtfRG.setEnabled(false);
+		jtfRazaoSocial.setEnabled(false);
+		jtfNomeFantasia.setEnabled(false);
+		jtfCNPJ.setEnabled(false);
+		jtfInscricaoEstadual.setEnabled(false);
+		jtfInscricaoMunicipal.setEnabled(false);
+		jtfEmail.setEnabled(false);
+		jtfTelefoneCelular.setEnabled(false);
+		jtfTelefoneComercial.setEnabled(false);
+		jtfTelefoneResidencial.setEnabled(false);
+		jtfFax.setEnabled(false);
+		jtfEndereco.setEnabled(false);
+		jtfNumero.setEnabled(false);
+		jtfBairro.setEnabled(false);
+		jtfUnidadeFederativa.setEnabled(false);
+		jtfCidade.setEnabled(false);
+		jtfPais.setEnabled(false);
+		jtfNome.setText("");
+		jtfCPF.setText("");
+		jtfRG.setText("");
+		jtfRazaoSocial.setText("");
+		jtfNomeFantasia.setText("");
+		jtfCNPJ.setText("");
+		jtfInscricaoEstadual.setText("");
+		jtfInscricaoMunicipal.setText("");
+		jtfEmail.setText("");
+		jtfTelefoneCelular.setText("");
+		jtfTelefoneComercial.setText("");
+		jtfTelefoneResidencial.setText("");
+		jtfFax.setText("");
+		jtfEndereco.setText("");
+		jtfNumero.setText("");
+		jtfBairro.setText("");
+		jtfUnidadeFederativa.setText("");
+		jtfCidade.setText("");
+		jtfPais.setText("");
+		jbtSalvar.setEnabled(false);
+		jbtCancelar.setEnabled(false);
 	}
 
 	public ClienteTela() {
@@ -455,6 +568,40 @@ public class ClienteTela extends JFrame {
 		setContentPane(jpnCliente);
 		
 		componentesTelaCliente();
-
+		
+		jbtNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtNovo) {
+					novoCadastro();
+				}
+			}
+		});
+		
+		jbtSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		jbtEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		jbtCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtCancelar) {
+					cancelarCadastro();
+				}
+			}
+		});
+		
+		jbtFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtFechar) {
+					dispose();
+				}
+			}
+		});
 	}
 }
