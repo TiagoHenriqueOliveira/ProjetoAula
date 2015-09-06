@@ -231,6 +231,7 @@ CREATE TABLE `item_tiposervico` (
   `quantidade` int(11) NOT NULL,
   `idOrdemServico` int(11) NOT NULL,
   `idTipoServico` int(11) NOT NULL,
+  `observacoesItem` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`idItemTipoServico`),
   KEY `idOrdemServico` (`idOrdemServico`),
   KEY `idTipoServico` (`idTipoServico`),
@@ -510,4 +511,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-04 20:51:06
+-- Dump completed on 2015-09-05  0:12:53
