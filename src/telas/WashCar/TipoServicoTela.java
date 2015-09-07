@@ -1,4 +1,4 @@
-package telas.washCar;
+package telas.WashCar;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -19,6 +19,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+
+import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
+import validacaoCampos.WashCar.ValidaCampoValor;
 
 public class TipoServicoTela extends JFrame {
 
@@ -54,6 +57,7 @@ public class TipoServicoTela extends JFrame {
 		jpnTipoServico.add(jpnPesquisaTipoServico);
 		
 		jtfPesquisaCodigoTipoServico = new JTextField();
+		jtfPesquisaCodigoTipoServico.setDocument(new ValidaCampoNumeroInteiro());
 		jtfPesquisaCodigoTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCodigoTipoServico.setColumns(10);
 		jtfPesquisaCodigoTipoServico.setBounds(10, 52, 66, 20);
@@ -157,6 +161,7 @@ public class TipoServicoTela extends JFrame {
 		jpnTipoServico.add(jlbDataAlteracao);
 		
 		jtfValor = new JTextField();
+		jtfValor.setDocument(new ValidaCampoValor());
 		jtfValor.setEnabled(false);
 		jtfValor.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfValor.setColumns(10);

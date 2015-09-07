@@ -1,4 +1,4 @@
-package telas.washCar;
+package telas.WashCar;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -20,12 +20,14 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
+import validacaoCampos.WashCar.ValidaCampoString;
+
 public class ModeloTela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnModelo;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField jtfPesquisaCodigoModelo;
+	private JTextField jtfPesquisaNomeModelo;
 	private JTextField jtfCodigo;
 	private JTextField jtfNomeModelo;
 	private JTextField jtfDataAlteracao;
@@ -51,17 +53,18 @@ public class ModeloTela extends JFrame {
 		jpnPesquisaModelo.setBounds(10, 11, 414, 86);
 		jpnModelo.add(jpnPesquisaModelo);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField.setColumns(10);
-		textField.setBounds(10, 54, 66, 20);
-		jpnPesquisaModelo.add(textField);
+		jtfPesquisaCodigoModelo = new JTextField();
+		jtfPesquisaCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfPesquisaCodigoModelo.setColumns(10);
+		jtfPesquisaCodigoModelo.setBounds(10, 54, 66, 20);
+		jpnPesquisaModelo.add(jtfPesquisaCodigoModelo);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(86, 54, 275, 20);
-		jpnPesquisaModelo.add(textField_1);
+		jtfPesquisaNomeModelo = new JTextField();
+		jtfPesquisaNomeModelo.setDocument(new ValidaCampoString());
+		jtfPesquisaNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfPesquisaNomeModelo.setColumns(10);
+		jtfPesquisaNomeModelo.setBounds(86, 54, 275, 20);
+		jpnPesquisaModelo.add(jtfPesquisaNomeModelo);
 		
 		jlbPesquisaCodigoModelo = new JLabel("C\u00F3digo");
 		jlbPesquisaCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));

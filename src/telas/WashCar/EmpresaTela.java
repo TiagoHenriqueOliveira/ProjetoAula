@@ -1,4 +1,4 @@
-package telas.washCar;
+package telas.WashCar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,6 +20,11 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
 import javax.swing.JRadioButton;
+
+import validacaoCampos.WashCar.ValidaCampoDocumentoJuridico;
+import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
+import validacaoCampos.WashCar.ValidaCampoString;
+import validacaoCampos.WashCar.ValidaCampoTelefone;
 
 public class EmpresaTela extends JFrame {
 
@@ -90,6 +95,7 @@ public class EmpresaTela extends JFrame {
 		jpnPesquisaEmpresa.add(jlbPesquisaCodigoEmpresa);
 		
 		jtfPesquisaCodigoEmpresa = new JTextField();
+		jtfPesquisaCodigoEmpresa.setDocument(new ValidaCampoNumeroInteiro());
 		jtfPesquisaCodigoEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCodigoEmpresa.setColumns(10);
 		jtfPesquisaCodigoEmpresa.setBounds(10, 54, 66, 20);
@@ -101,6 +107,7 @@ public class EmpresaTela extends JFrame {
 		jpnPesquisaEmpresa.add(jlbPesquisaNomeEmpresa);
 		
 		jtfPesquisaNomeEmpresa = new JTextField();
+		jtfPesquisaNomeEmpresa.setDocument(new ValidaCampoString());
 		jtfPesquisaNomeEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaNomeEmpresa.setColumns(10);
 		jtfPesquisaNomeEmpresa.setBounds(86, 54, 275, 20);
@@ -150,6 +157,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbRazaoSocial);
 		
 		jtfRazaoSocial = new JTextField();
+		jtfRazaoSocial.setDocument(new ValidaCampoString());
 		jtfRazaoSocial.setEnabled(false);
 		jtfRazaoSocial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfRazaoSocial.setColumns(10);
@@ -162,6 +170,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbNomeFantasia);
 		
 		jtfNomeFantasia = new JTextField();
+		jtfNomeFantasia.setDocument(new ValidaCampoString());
 		jtfNomeFantasia.setEnabled(false);
 		jtfNomeFantasia.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeFantasia.setColumns(10);
@@ -190,6 +199,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbEndereco);
 		
 		jtfEndereco = new JTextField();
+		jtfEndereco.setDocument(new ValidaCampoString());
 		jtfEndereco.setEnabled(false);
 		jtfEndereco.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfEndereco.setColumns(10);
@@ -202,6 +212,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbBairro);
 		
 		jtfBairro = new JTextField();
+		jtfBairro.setDocument(new ValidaCampoString());
 		jtfBairro.setEnabled(false);
 		jtfBairro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfBairro.setColumns(10);
@@ -214,6 +225,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbNumero);
 		
 		jtfNumero = new JTextField();
+		jtfNumero.setDocument(new ValidaCampoNumeroInteiro());
 		jtfNumero.setEnabled(false);
 		jtfNumero.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNumero.setColumns(10);
@@ -226,6 +238,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbTelefoneComercial);
 		
 		jtfTelefoneComercial = new JTextField();
+		jtfTelefoneComercial.setDocument(new ValidaCampoTelefone());
 		jtfTelefoneComercial.setEnabled(false);
 		jtfTelefoneComercial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneComercial.setColumns(10);
@@ -238,6 +251,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbTelefoneCelular);
 		
 		jtfTelefoneCelular = new JTextField();
+		jtfTelefoneCelular.setDocument(new ValidaCampoTelefone());
 		jtfTelefoneCelular.setEnabled(false);
 		jtfTelefoneCelular.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneCelular.setColumns(10);
@@ -250,6 +264,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbFax);
 		
 		jtfFax = new JTextField();
+		jtfFax.setDocument(new ValidaCampoTelefone());
 		jtfFax.setEnabled(false);
 		jtfFax.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfFax.setColumns(10);
@@ -262,6 +277,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbInscricaoEstadual);
 		
 		jtfInscricaoEstadual = new JTextField();
+		jtfInscricaoEstadual.setDocument(new ValidaCampoDocumentoJuridico());
 		jtfInscricaoEstadual.setEnabled(false);
 		jtfInscricaoEstadual.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfInscricaoEstadual.setColumns(10);
@@ -291,6 +307,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbCidade);
 		
 		jtfCidade = new JTextField();
+		jtfCidade.setDocument(new ValidaCampoString());
 		jtfCidade.setEnabled(false);
 		jtfCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCidade.setColumns(10);
@@ -303,6 +320,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbPais);
 		
 		jtfPais = new JTextField();
+		jtfPais.setDocument(new ValidaCampoString());
 		jtfPais.setEnabled(false);
 		jtfPais.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPais.setColumns(10);
@@ -325,6 +343,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jlbInscricaoMunicipal);
 		
 		jtfInscricaoMunicipal = new JTextField();
+		jtfInscricaoMunicipal.setDocument(new ValidaCampoDocumentoJuridico());
 		jtfInscricaoMunicipal.setEnabled(false);
 		jtfInscricaoMunicipal.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfInscricaoMunicipal.setColumns(10);
@@ -355,6 +374,7 @@ public class EmpresaTela extends JFrame {
 		jbgRegimeTributario.add(jrbLucroPresumido);
 		
 		jtfUnidadeFederativa = new JTextField();
+		jtfUnidadeFederativa.setDocument(new ValidaCampoString());
 		jtfUnidadeFederativa.setEnabled(false);
 		jtfUnidadeFederativa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfUnidadeFederativa.setColumns(10);

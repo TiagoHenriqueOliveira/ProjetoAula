@@ -1,4 +1,4 @@
-package telas.washCar;
+package telas.WashCar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +18,9 @@ import javax.swing.JPasswordField;
 import java.awt.Color;
 
 import javax.swing.JCheckBox;
+
+import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
+import validacaoCampos.WashCar.ValidaCampoString;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -61,6 +64,7 @@ public class UsuarioTela extends JFrame {
 		jpnPesquisaUsuario.add(jlbPesquisaCodigoUsuario);
 		
 		jtfPesquisaCodigoUsuario = new JTextField();
+		jtfPesquisaCodigoUsuario.setDocument(new ValidaCampoNumeroInteiro());
 		jtfPesquisaCodigoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCodigoUsuario.setColumns(10);
 		jtfPesquisaCodigoUsuario.setBounds(10, 49, 66, 20);
@@ -72,6 +76,7 @@ public class UsuarioTela extends JFrame {
 		jpnPesquisaUsuario.add(jlbPesquisaNomeUsuario);
 		
 		jtfPesquisaNomeUsuario = new JTextField();
+		jtfPesquisaNomeUsuario.setDocument(new ValidaCampoString());
 		jtfPesquisaNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaNomeUsuario.setColumns(10);
 		jtfPesquisaNomeUsuario.setBounds(86, 49, 275, 20);
@@ -88,6 +93,7 @@ public class UsuarioTela extends JFrame {
 		jpnPesquisaUsuario.add(jlbConsultaUsuario);
 		
 		jtfNome = new JTextField();
+		jtfNome.setDocument(new ValidaCampoString());
 		jtfNome.setEnabled(false);
 		jtfNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNome.setColumns(10);
@@ -100,6 +106,7 @@ public class UsuarioTela extends JFrame {
 		jpnUsuario.add(jlbNome);
 		
 		jtfLogin = new JTextField();
+		jtfLogin.setDocument(new ValidaCampoString());
 		jtfLogin.setEnabled(false);
 		jtfLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfLogin.setColumns(10);

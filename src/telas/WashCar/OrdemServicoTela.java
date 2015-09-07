@@ -1,4 +1,4 @@
-package telas.washCar;
+package telas.WashCar;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFormattedTextField;
@@ -27,6 +27,10 @@ import java.util.Vector;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
+
+import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
+import validacaoCampos.WashCar.ValidaCampoString;
+import validacaoCampos.WashCar.ValidaCampoValor;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -130,6 +134,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnPesquisaOrdemServico.add(jlbPesquisaCodigoOrdemServico);
 		
 		jtfPesquisaCodigoOrdemServico = new JTextField();
+		jtfPesquisaCodigoOrdemServico.setDocument(new ValidaCampoNumeroInteiro());
 		jtfPesquisaCodigoOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCodigoOrdemServico.setColumns(10);
 		jtfPesquisaCodigoOrdemServico.setBounds(10, 52, 66, 20);
@@ -141,6 +146,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnPesquisaOrdemServico.add(jlbPesquisaNomeClienteOrdemServico);
 		
 		jtfPesquisaNomeClienteOrdemServico = new JTextField();
+		jtfPesquisaNomeClienteOrdemServico.setDocument(new ValidaCampoString());
 		jtfPesquisaNomeClienteOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaNomeClienteOrdemServico.setColumns(10);
 		jtfPesquisaNomeClienteOrdemServico.setBounds(86, 52, 275, 20);
@@ -203,6 +209,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbNomeCliente);
 		
 		jtfNomeCliente = new JTextField();
+		jtfNomeCliente.setDocument(new ValidaCampoString());
 		jtfNomeCliente.setEnabled(false);
 		jtfNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCliente.setColumns(10);
@@ -231,6 +238,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jlbRazaoSocial);
 		
 		jtfRazaoSocial = new JTextField();
+		jtfRazaoSocial.setDocument(new ValidaCampoString());
 		jtfRazaoSocial.setEnabled(false);
 		jtfRazaoSocial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfRazaoSocial.setColumns(10);
@@ -365,6 +373,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jtfTelefoneCelular);
 		
 		jtfValorTotal = new JTextField();
+		jtfValorTotal.setDocument(new ValidaCampoValor());
 		jtfValorTotal.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfValorTotal.setEditable(false);
 		jtfValorTotal.setColumns(10);
@@ -445,6 +454,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnCadastroServico.add(jtfDescricaoTipoServico);
 		
 		jtfCodigoTipoServico = new JTextField();
+		jtfCodigoTipoServico.setDocument(new ValidaCampoNumeroInteiro());
 		jtfCodigoTipoServico.setEnabled(false);
 		jtfCodigoTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCodigoTipoServico.setColumns(10);
@@ -457,6 +467,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnCadastroServico.add(jlbCodigoTipoServico);
 		
 		jtfQuantidade = new JTextField();
+		jtfQuantidade.setDocument(new ValidaCampoNumeroInteiro());
 		jtfQuantidade.setEnabled(false);
 		jtfQuantidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfQuantidade.setColumns(10);
@@ -469,6 +480,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnCadastroServico.add(jlbQuantidade);
 		
 		jtfValorUnitario = new JTextField();
+		jtfValorUnitario.setDocument(new ValidaCampoValor());
 		jtfValorUnitario.setEnabled(false);
 		jtfValorUnitario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfValorUnitario.setColumns(10);
@@ -481,6 +493,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnCadastroServico.add(jlbValorUnitario);
 		
 		jtfValorTotalItemServico = new JTextField();
+		jtfValorTotalItemServico.setDocument(new ValidaCampoValor());
 		jtfValorTotalItemServico.setEnabled(false);
 		jtfValorTotalItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfValorTotalItemServico.setColumns(10);
@@ -535,9 +548,7 @@ public class OrdemServicoTela extends JFrame {
 		jrbPagamentoPrazo.setEnabled(true);
 		jrbPagamentoVista.setEnabled(true);
 		jtfNomeCliente.setEnabled(true);
-		jtfCpf.setEnabled(true);
 		jtfRazaoSocial.setEnabled(true);
-		jtfCnpj.setEnabled(true);
 		jtfTelefoneCelular.setEnabled(true);
 		jtfTelefoneComercial.setEnabled(true);
 		jtfTelefoneResidencial.setEnabled(true);
@@ -575,9 +586,7 @@ public class OrdemServicoTela extends JFrame {
 		jrbPagamentoVista.setEnabled(false);
 		jckbOrdemServicoCancelada.setEnabled(false);
 		jtfNomeCliente.setEnabled(false);
-		jtfCpf.setEnabled(false);
 		jtfRazaoSocial.setEnabled(false);
-		jtfCnpj.setEnabled(false);
 		jtfTelefoneCelular.setEnabled(false);
 		jtfTelefoneComercial.setEnabled(false);
 		jtfTelefoneResidencial.setEnabled(false);

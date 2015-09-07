@@ -1,4 +1,4 @@
-package telas.washCar;
+package telas.WashCar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,6 +17,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
+
+import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 
 public class MarcaTela extends JFrame {
 
@@ -50,6 +52,7 @@ public class MarcaTela extends JFrame {
 		jpnPesquisaMarcas.setLayout(null);
 		
 		jtfPesquisaCodigoMarca = new JTextField();
+		jtfPesquisaCodigoMarca.setDocument(new ValidaCampoNumeroInteiro());
 		jtfPesquisaCodigoMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCodigoMarca.setBounds(10, 52, 66, 20);
 		jpnPesquisaMarcas.add(jtfPesquisaCodigoMarca);

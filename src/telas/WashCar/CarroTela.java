@@ -1,4 +1,4 @@
-package telas.washCar;
+package telas.WashCar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,6 +13,10 @@ import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+
+import validacaoCampos.WashCar.ValidaCampoData;
+import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
+import validacaoCampos.WashCar.ValidaCampoString;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -68,17 +72,19 @@ public class CarroTela extends JFrame {
 		jpnPesquisaCarro.add(jlbPesquisaCodigoCarro);
 		
 		jtfPesquisaCodigoCarro = new JTextField();
+		jtfPesquisaCodigoCarro.setDocument(new ValidaCampoNumeroInteiro());
 		jtfPesquisaCodigoCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCodigoCarro.setColumns(10);
 		jtfPesquisaCodigoCarro.setBounds(10, 54, 66, 20);
 		jpnPesquisaCarro.add(jtfPesquisaCodigoCarro);
 		
-		jlbPesquisaNomeCarro = new JLabel("Nome do Cliente");
+		jlbPesquisaNomeCarro = new JLabel("Nome do Cliente / Nome Fantasia");
 		jlbPesquisaNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaNomeCarro.setBounds(86, 38, 100, 14);
+		jlbPesquisaNomeCarro.setBounds(86, 38, 217, 14);
 		jpnPesquisaCarro.add(jlbPesquisaNomeCarro);
 		
 		jtfPesquisaNomeCarro = new JTextField();
+		jtfPesquisaNomeCarro.setDocument(new ValidaCampoString());
 		jtfPesquisaNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaNomeCarro.setColumns(10);
 		jtfPesquisaNomeCarro.setBounds(86, 54, 275, 20);
@@ -111,6 +117,7 @@ public class CarroTela extends JFrame {
 		jpnCarro.add(jlbCodigo);
 		
 		jtfCodigo = new JTextField();
+		jtfCodigo.setDocument(new ValidaCampoNumeroInteiro());
 		jtfCodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCodigo.setEditable(false);
 		jtfCodigo.setColumns(10);
@@ -128,6 +135,7 @@ public class CarroTela extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		jtfDataAlteracao.setDocument(new ValidaCampoData());
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
@@ -163,12 +171,13 @@ public class CarroTela extends JFrame {
 		jtfCpfCliente.setBounds(460, 170, 165, 20);
 		jpnCarro.add(jtfCpfCliente);
 		
-		jlbRazaoSocialCliente = new JLabel("Raz\u00E3o Social");
+		jlbRazaoSocialCliente = new JLabel("Nome Fantasia");
 		jlbRazaoSocialCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbRazaoSocialCliente.setBounds(10, 201, 150, 14);
 		jpnCarro.add(jlbRazaoSocialCliente);
 		
 		jtfRazaoSocialCliente = new JTextField();
+		jtfRazaoSocialCliente.setDocument(new ValidaCampoString());
 		jtfRazaoSocialCliente.setEnabled(false);
 		jtfRazaoSocialCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfRazaoSocialCliente.setColumns(10);
@@ -259,9 +268,7 @@ public class CarroTela extends JFrame {
 	public void novoCadastro() {
 		jbtNovo.setEnabled(false);
 		jtfNomeCliente.setEnabled(true);
-		jtfCpfCliente.setEnabled(true);
 		jtfRazaoSocialCliente.setEnabled(true);
-		jtfCnpjCliente.setEnabled(true);
 		jtfNomeCarro.setEnabled(true);
 		jtfModeloCarro.setEnabled(true);
 		jtfPlacaCarro.setEnabled(true);
@@ -280,9 +287,7 @@ public class CarroTela extends JFrame {
 	public void cancelarCadastro() {
 		jbtNovo.setEnabled(true);
 		jtfNomeCliente.setEnabled(false);
-		jtfCpfCliente.setEnabled(false);
 		jtfRazaoSocialCliente.setEnabled(false);
-		jtfCnpjCliente.setEnabled(false);
 		jtfNomeCarro.setEnabled(false);
 		jtfModeloCarro.setEnabled(false);
 		jtfPlacaCarro.setEnabled(false);
