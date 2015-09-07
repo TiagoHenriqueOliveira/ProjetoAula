@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.text.MaskFormatter;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -133,7 +135,11 @@ public class MarcaTela extends JFrame {
 		lblNomeDaMarca_1.setBounds(10, 162, 100, 14);
 		jpnMarca.add(lblNomeDaMarca_1);
 		
-		jtfDataAlteracao = new JTextField();
+		try {
+			jtfDataAlteracao = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfDataAlteracao.setBackground(Color.YELLOW);
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setEditable(false);

@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -17,6 +18,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import javax.swing.JRadioButton;
 
 public class EmpresaTela extends JFrame {
@@ -109,7 +111,11 @@ public class EmpresaTela extends JFrame {
 		jbtPesquisaEmpresa.setBounds(565, 42, 40, 32);
 		jpnPesquisaEmpresa.add(jbtPesquisaEmpresa);
 		
-		jtfPesquisaCNPJEmpresa = new JTextField();
+		try {
+			jtfPesquisaCNPJEmpresa = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfPesquisaCNPJEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCNPJEmpresa.setColumns(10);
 		jtfPesquisaCNPJEmpresa.setBounds(371, 54, 165, 20);
@@ -167,7 +173,11 @@ public class EmpresaTela extends JFrame {
 		jlbCNPJ.setBounds(320, 154, 100, 14);
 		jnpEmpresa.add(jlbCNPJ);
 		
-		jtfCNPJ = new JTextField();
+		try {
+			jtfCNPJ= new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfCNPJ.setEnabled(false);
 		jtfCNPJ.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCNPJ.setColumns(10);
@@ -260,15 +270,19 @@ public class EmpresaTela extends JFrame {
 		
 		jlbDataAlteracao = new JLabel("Data Alteracao");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(495, 107, 130, 14);
+		jlbDataAlteracao.setBounds(525, 107, 100, 14);
 		jnpEmpresa.add(jlbDataAlteracao);
 		
-		jtfDataAlteracao = new JTextField();
+		try {
+			jtfDataAlteracao = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfDataAlteracao.setBackground(Color.YELLOW);
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setColumns(10);
-		jtfDataAlteracao.setBounds(495, 123, 130, 20);
+		jtfDataAlteracao.setBounds(525, 123, 100, 20);
 		jnpEmpresa.add(jtfDataAlteracao);
 		
 		jlbCidade = new JLabel("Cidade");

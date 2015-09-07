@@ -4,14 +4,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
+
 import java.awt.Color;
+
 import javax.swing.JCheckBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -120,7 +127,11 @@ public class UsuarioTela extends JFrame {
 		jlbDataAlteracao.setBounds(336, 266, 98, 14);
 		jpnUsuario.add(jlbDataAlteracao);
 		
-		jtfDataAlteracao = new JTextField();
+		try {
+			jtfDataAlteracao = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);

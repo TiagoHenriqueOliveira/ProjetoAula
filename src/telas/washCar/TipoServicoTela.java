@@ -1,9 +1,11 @@
 package telas.washCar;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JTextField;
 
 import java.awt.Font;
@@ -137,7 +139,11 @@ public class TipoServicoTela extends JFrame {
 		jlbNomeTipoServico.setBounds(10, 164, 150, 14);
 		jpnTipoServico.add(jlbNomeTipoServico);
 		
-		jtfDataAlteracao = new JTextField();
+		try {
+			jtfDataAlteracao = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);

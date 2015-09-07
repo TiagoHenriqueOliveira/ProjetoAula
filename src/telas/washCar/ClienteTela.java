@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -16,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFormattedTextField;
 import javax.swing.JRadioButton;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -126,7 +128,11 @@ public class ClienteTela extends JFrame {
 		jbtPesquisaCliente.setBounds(565, 38, 40, 32);
 		jpnPesquisaCliente.add(jbtPesquisaCliente);
 		
-		jtfPesquisaCnpjCliente = new JTextField();
+		try {
+			jtfPesquisaCnpjCliente = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfPesquisaCnpjCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCnpjCliente.setColumns(10);
 		jtfPesquisaCnpjCliente.setBounds(371, 50, 165, 20);
@@ -184,7 +190,11 @@ public class ClienteTela extends JFrame {
 		jlbCNPJ.setBounds(320, 285, 100, 14);
 		jpnCliente.add(jlbCNPJ);
 		
-		jtfCNPJ = new JTextField();
+		try {
+			jtfCNPJ = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfCNPJ.setEnabled(false);
 		jtfCNPJ.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCNPJ.setColumns(10);
@@ -277,15 +287,19 @@ public class ClienteTela extends JFrame {
 		
 		jlbDataAlteracao = new JLabel("Data Alteracao");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(495, 103, 130, 14);
+		jlbDataAlteracao.setBounds(525, 103, 100, 14);
 		jpnCliente.add(jlbDataAlteracao);
 		
-		jtfDataAlteracao = new JTextField();
+		try {
+			jtfDataAlteracao = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(495, 119, 130, 20);
+		jtfDataAlteracao.setBounds(525, 119, 100, 20);
 		jpnCliente.add(jtfDataAlteracao);
 		
 		jlbCidade = new JLabel("Cidade");
@@ -391,7 +405,11 @@ public class ClienteTela extends JFrame {
 		jlbCPF.setBounds(320, 150, 100, 14);
 		jpnCliente.add(jlbCPF);
 		
-		jtfCPF = new JTextField();
+		try {
+			jtfCPF = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfCPF.setEnabled(false);
 		jtfCPF.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCPF.setColumns(10);

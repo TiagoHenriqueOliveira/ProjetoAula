@@ -4,11 +4,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 
 import java.awt.Font;
 
 import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
@@ -118,15 +120,19 @@ public class CarroTela extends JFrame {
 		
 		jlbDataAlteracao = new JLabel("Data Alteracao");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(495, 107, 130, 14);
+		jlbDataAlteracao.setBounds(525, 107, 100, 14);
 		jpnCarro.add(jlbDataAlteracao);
 		
-		jtfDataAlteracao = new JTextField();
+		try {
+			jtfDataAlteracao = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(495, 123, 130, 20);
+		jtfDataAlteracao.setBounds(525, 123, 100, 20);
 		jpnCarro.add(jtfDataAlteracao);
 		
 		jlbNomeCliente = new JLabel("Nome do Cliente");
@@ -146,7 +152,11 @@ public class CarroTela extends JFrame {
 		jlbCpfCliente.setBounds(460, 154, 100, 14);
 		jpnCarro.add(jlbCpfCliente);
 		
-		jtfCpfCliente = new JTextField();
+		try {
+			jtfCpfCliente = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfCpfCliente.setEnabled(false);
 		jtfCpfCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCpfCliente.setColumns(10);
@@ -170,7 +180,11 @@ public class CarroTela extends JFrame {
 		jlbCnpjCliente.setBounds(460, 201, 100, 14);
 		jpnCarro.add(jlbCnpjCliente);
 		
-		jtfCnpjCliente = new JTextField();
+		try {
+			jtfCnpjCliente = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfCnpjCliente.setEnabled(false);
 		jtfCnpjCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCnpjCliente.setColumns(10);

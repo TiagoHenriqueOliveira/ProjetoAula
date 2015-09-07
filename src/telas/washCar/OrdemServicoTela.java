@@ -1,6 +1,7 @@
 package telas.washCar;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -9,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -180,15 +182,19 @@ public class OrdemServicoTela extends JFrame {
 		
 		jlbDataAlteracao = new JLabel("Data Alteracao");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(495, 105, 130, 14);
+		jlbDataAlteracao.setBounds(525, 105, 100, 14);
 		jpnDadosOrdemServico.add(jlbDataAlteracao);
 		
-		jtfDataAlteracao = new JTextField();
+		try {
+			jtfDataAlteracao = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(495, 121, 130, 20);
+		jtfDataAlteracao.setBounds(525, 121, 100, 20);
 		jpnDadosOrdemServico.add(jtfDataAlteracao);
 		
 		jlbNomeCliente = new JLabel("Nome do Cliente");
@@ -208,7 +214,11 @@ public class OrdemServicoTela extends JFrame {
 		jlbCpf.setBounds(460, 152, 100, 14);
 		jpnDadosOrdemServico.add(jlbCpf);
 		
-		jtfCpf = new JTextField();
+		try {
+			jtfCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfCpf.setEnabled(false);
 		jtfCpf.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCpf.setColumns(10);
@@ -232,7 +242,11 @@ public class OrdemServicoTela extends JFrame {
 		jlbCnpj.setBounds(460, 199, 100, 14);
 		jpnDadosOrdemServico.add(jlbCnpj);
 		
-		jtfCnpj = new JTextField();
+		try {
+			jtfCnpj = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		jtfCnpj.setEnabled(false);
 		jtfCnpj.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCnpj.setColumns(10);
