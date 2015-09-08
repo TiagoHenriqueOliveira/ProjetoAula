@@ -1,0 +1,9 @@
+Para a configuração da biblioteca JCalendar é necessário seguir os passos abaixo.
+
+> Acessar a pasta eclipse (varia de computador, depende aonde ela está) no seguinte caminho: eclipse\configuration\org.eclipse.osgi\742\0\.cp\libraries
+
+> Descompactar o arquivo jcalendar-1.4.zip
+> Abrir a pasta lib copiar todos os arquivos e colar dentro do diretório do eclipse (diretório acima)
+> No eclipse adicionar as bibliotecas .jar no patch do projeto.
+
+E aí tudo dará certo.
