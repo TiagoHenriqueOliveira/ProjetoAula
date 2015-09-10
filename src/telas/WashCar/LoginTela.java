@@ -22,7 +22,7 @@ public class LoginTela extends JFrame {
 	private JTextField jtfLoginUsuario;
 	private JPasswordField jpfSenhaUsuario;
 	private JLabel jlbLogo;
-	private JLabel lblLoginDoUsurio;
+	private JLabel jlbLoginUsuario;
 	private JLabel jlbSenhaUsuario;
 	private JButton jbtLogin;
 	private JButton jbtSair;	
@@ -33,10 +33,10 @@ public class LoginTela extends JFrame {
 		jlbLogo.setBounds(10, 11, 262, 206);
 		jpnLogin.add(jlbLogo);
 		
-		lblLoginDoUsurio = new JLabel("Login do Usu\u00E1rio");
-		lblLoginDoUsurio.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblLoginDoUsurio.setBounds(10, 228, 187, 14);
-		jpnLogin.add(lblLoginDoUsurio);
+		jlbLoginUsuario = new JLabel("Login do Usu\u00E1rio");
+		jlbLoginUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
+		jlbLoginUsuario.setBounds(10, 228, 187, 14);
+		jpnLogin.add(jlbLoginUsuario);
 		
 		jtfLoginUsuario = new JTextField();
 		jtfLoginUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
