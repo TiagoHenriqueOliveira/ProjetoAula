@@ -69,7 +69,7 @@ public class LoginTela extends JFrame {
 		LoginTela login = new LoginTela();
 		login.setVisible(true);
 	}
-
+//SENHA DO ADMIN 452758
 	public LoginTela() {
 		setTitle("Login | WashCar");
 		setResizable(false);
