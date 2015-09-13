@@ -9,12 +9,13 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private Empresa empresa;
+	private boolean foraUso = false;
 	private LocalDate dataAltercacao;
 	private LocalDate dataInclusao;
 	
 	//construtor com atributos
 	public Usuario(Integer idUsuario, String nome, String login, String senha,
-			Empresa empresa, LocalDate dataAltercacao, LocalDate dataInclusao) {
+			Empresa empresa, LocalDate dataAltercacao, LocalDate dataInclusao, boolean foraUso) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nome = nome;
@@ -23,6 +24,11 @@ public class Usuario {
 		this.empresa = empresa;
 		this.dataAltercacao = dataAltercacao;
 		this.dataInclusao = dataInclusao;
+		this.foraUso = foraUso;
+	}
+	
+	public Usuario() {
+		
 	}
 
 	//gets e sets das variaveis
@@ -80,5 +86,13 @@ public class Usuario {
 
 	public void setDataInclusao(LocalDate dataInclusao) {
 		this.dataInclusao = dataInclusao;
+	}
+
+	public boolean isForaUso() {
+		return foraUso;
+	}
+
+	public void setForaUso(boolean foraUso) {
+		this.foraUso = foraUso;
 	}
 }
