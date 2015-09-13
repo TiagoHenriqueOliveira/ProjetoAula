@@ -8,12 +8,21 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
+import validacaoCampos.WashCar.ValidaCampoString;
+import model.WashCar.Usuario;
+import conexao.ConexaoUtil;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginTela extends JFrame {
 
@@ -25,7 +34,15 @@ public class LoginTela extends JFrame {
 	private JLabel jlbLoginUsuario;
 	private JLabel jlbSenhaUsuario;
 	private JButton jbtLogin;
-	private JButton jbtSair;	
+	private JButton jbtSair;
+	private Connection con;
+	private Usuario usuario;
+	private PrincipalTela principal;
+	
+	public static void main(String[] args) {
+		LoginTela login = new LoginTela();
+		login.setVisible(true);
+	}
 	
 	public void componentesTelaLogin() {
 		jlbLogo = new JLabel("");
@@ -33,12 +50,13 @@ public class LoginTela extends JFrame {
 		jlbLogo.setBounds(10, 11, 262, 206);
 		jpnLogin.add(jlbLogo);
 		
-		jlbLoginUsuario = new JLabel("Login do Usu\u00E1rio");
+		jlbLoginUsuario = new JLabel("Login do Usuário");
 		jlbLoginUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
 		jlbLoginUsuario.setBounds(10, 228, 187, 14);
 		jpnLogin.add(jlbLoginUsuario);
 		
 		jtfLoginUsuario = new JTextField();
+		jtfLoginUsuario.setDocument(new ValidaCampoString());
 		jtfLoginUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfLoginUsuario.setBounds(10, 253, 187, 20);
 		jpnLogin.add(jtfLoginUsuario);
@@ -65,11 +83,35 @@ public class LoginTela extends JFrame {
 		jpnLogin.add(jbtSair);
 	}
 
-	public static void main(String[] args) {
-		LoginTela login = new LoginTela();
-		login.setVisible(true);
-	}
-//SENHA DO ADMIN 452758
+	@SuppressWarnings("deprecation")
+	public void acesso(Usuario usuario) {
+		String sql = "select * from usuario";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				if(jtfLoginUsuario.getText().equals(rs.getString("nomeUsuario"))
+					&& jpfSenhaUsuario.getText().equals(rs.getString("senhaUsuario"))) {
+					JOptionPane.showMessageDialog(null, "Usuario Conectado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+					principal = new PrincipalTela();
+					principal.show();
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "Usuario ou senha Incorretos", "Aviso", JOptionPane.WARNING_MESSAGE);
+					jtfLoginUsuario.setText("");
+					jpfSenhaUsuario.setText("");
+					jtfLoginUsuario.requestFocus();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}	
+	
+	/*
+	 * Usuario: ADMIN
+	 * Senha: 452758
+	 */
 	public LoginTela() {
 		setTitle("Login | WashCar");
 		setResizable(false);
@@ -80,14 +122,13 @@ public class LoginTela extends JFrame {
 		setContentPane(jpnLogin);
 		setLocationRelativeTo(null);
 		jpnLogin.setLayout(null);
+		con = ConexaoUtil.getCon();
 		
 		componentesTelaLogin();
 		
 		jbtLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PrincipalTela principal = new PrincipalTela();
-				principal.setVisible(true);
-				dispose();
+				acesso(usuario);
 			}
 		});
 		
@@ -95,7 +136,6 @@ public class LoginTela extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
-		});
-		
+		});		
 	}
 }
