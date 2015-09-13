@@ -77,9 +77,6 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				usuario.setIdUsuario(rs.getInt("idCadastroUsuario"));
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
-				usuario.setSenha(rs.getString("senhaUsuario"));
-				usuario.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				usuario.setForaUso(rs.getBoolean("foraUso"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,9 +98,6 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				usuario.setIdUsuario(rs.getInt("idCadastroUsuario"));
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
-				usuario.setSenha(rs.getString("senhaUsuario"));
-				usuario.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				usuario.setForaUso(rs.getBoolean("foraUso"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
