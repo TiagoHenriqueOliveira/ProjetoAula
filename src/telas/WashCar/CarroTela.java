@@ -21,6 +21,7 @@ import validacaoCampos.WashCar.ValidaCampoString;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 
 public class CarroTela extends JFrame {
 
@@ -303,6 +304,7 @@ public class CarroTela extends JFrame {
 	}
 	
 	public CarroTela() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CarroTela.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro de Carros do Cliente | WashCar");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 642, 356);

@@ -23,6 +23,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.Toolkit;
 
 public class LoginTela extends JFrame {
 
@@ -39,9 +40,10 @@ public class LoginTela extends JFrame {
 	private Usuario usuario;
 	private PrincipalTela principal;
 	
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		LoginTela login = new LoginTela();
-		login.setVisible(true);
+		login.show();
 	}
 	
 	public void componentesTelaLogin() {
@@ -92,12 +94,12 @@ public class LoginTela extends JFrame {
 			while(rs.next()) {
 				if(jtfLoginUsuario.getText().equals(rs.getString("nomeUsuario"))
 					&& jpfSenhaUsuario.getText().equals(rs.getString("senhaUsuario"))) {
-					JOptionPane.showMessageDialog(null, "Usuario Conectado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 					principal = new PrincipalTela();
 					principal.show();
 					dispose();
 				} else {
-					JOptionPane.showMessageDialog(null, "Usuario ou senha Incorretos", "Aviso", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Usuario ou senha Incorretos",
+																				"Aviso", JOptionPane.WARNING_MESSAGE);
 					jtfLoginUsuario.setText("");
 					jpfSenhaUsuario.setText("");
 					jtfLoginUsuario.requestFocus();
@@ -113,15 +115,16 @@ public class LoginTela extends JFrame {
 	 * Senha: 452758
 	 */
 	public LoginTela() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginTela.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Login | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 245, 438);
+		setLocationRelativeTo(null);
 		jpnLogin = new JPanel();
 		jpnLogin.setBorder(new EmptyBorder(0, 0, 0, 0));
-		setContentPane(jpnLogin);
-		setLocationRelativeTo(null);
 		jpnLogin.setLayout(null);
+		setContentPane(jpnLogin);
 		con = ConexaoUtil.getCon();
 		
 		componentesTelaLogin();

@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JCheckBox;
 
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
+import java.awt.Toolkit;
 
 public class MarcaTela extends JFrame {
 
@@ -186,6 +187,7 @@ public class MarcaTela extends JFrame {
 	}
 
 	public MarcaTela() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MarcaTela.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastrar Marcas de Carros | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

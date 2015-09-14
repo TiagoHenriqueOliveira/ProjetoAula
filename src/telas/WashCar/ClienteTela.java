@@ -29,6 +29,7 @@ import validacaoCampos.WashCar.ValidaCampoString;
 import validacaoCampos.WashCar.ValidaCampoTelefone;
 
 import com.toedter.calendar.JDateChooser;
+import java.awt.Toolkit;
 
 public class ClienteTela extends JFrame {
 
@@ -605,6 +606,7 @@ public class ClienteTela extends JFrame {
 	}
 
 	public ClienteTela() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ClienteTela.class.getResource("/Imagens/washCar.jpeg")));
 		setResizable(false);
 		setTitle("Cadastro de Clientes");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

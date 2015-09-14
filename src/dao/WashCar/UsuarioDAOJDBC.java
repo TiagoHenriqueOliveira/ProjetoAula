@@ -23,7 +23,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	@Override
 	public void inserir(Usuario usuario) {
 		String sql = "inser into usuario(nomeUsuario, loginUsuario, senhaUsuario"
-							+"dataInclusao, dataAlteracao, EMPRESA, foraUso)"
+							+"dataAlteracao, EMPRESA, foraUso)"
 							+ "values(?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -31,10 +31,9 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 			pstmt.setString(2, usuario.getLogin());
 			pstmt.setString(3, usuario.getSenha());
 			pstmt.setString(4, usuario.getSenha());
-			pstmt.setDate(5, Date.valueOf(usuario.getDataInclusao().now()));
-			pstmt.setDate(6, Date.valueOf(usuario.getDataAltercacao().now()));
-			pstmt.setInt(7, Integer.valueOf(usuario.getEmpresa().getIdEmpresa()));
-			pstmt.setBoolean(8, usuario.isForaUso());
+			pstmt.setDate(5, Date.valueOf(usuario.getDataAltercacao().now()));
+			pstmt.setInt(6,  Integer.valueOf(usuario.getEmpresa().getIdEmpresa()));
+			pstmt.setBoolean(7, usuario.isForaUso());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

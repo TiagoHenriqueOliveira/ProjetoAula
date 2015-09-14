@@ -26,7 +26,6 @@ CREATE TABLE `carro` (
   `idCarro` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   `placa` varchar(8) NOT NULL,
-  `dataInclusao` date NOT NULL,
   `dataAlteracao` date NOT NULL,
   `MODELO` int(11) NOT NULL,
   `CLIENTE` int(11) NOT NULL,
@@ -92,7 +91,6 @@ CREATE TABLE `cliente` (
   `telefoneCelular` varchar(20) DEFAULT NULL,
   `fax` varchar(20) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `dataInclusao` date NOT NULL,
   `dataAlteracao` date NOT NULL,
   `EMPRESA` int(11) NOT NULL,
   `foraUso` tinyint(1) DEFAULT NULL,
@@ -196,8 +194,7 @@ CREATE TABLE `empresa` (
   `telefoneComercial` varchar(12) DEFAULT NULL,
   `telefoneCelular` varchar(11) DEFAULT NULL,
   `fax` varchar(12) DEFAULT NULL,
-  `regimeTributario` varchar(15) NOT NULL,
-  `dataInclusao` date NOT NULL,
+  `regimeTributario` varchar(20) DEFAULT NULL,
   `dataAlteracao` date NOT NULL,
   `CIDADE` int(11) NOT NULL,
   `inscricaoMunicipal` varchar(17) DEFAULT NULL,
@@ -206,7 +203,7 @@ CREATE TABLE `empresa` (
   UNIQUE KEY `inscricaoEstadual_UNIQUE` (`inscricaoEstadual`),
   KEY `fk_EMPRESA_MATRIZ1_idx` (`CIDADE`),
   CONSTRAINT `fk_EMPRESA_MATRIZ1` FOREIGN KEY (`CIDADE`) REFERENCES `cidade` (`idCidade`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,6 +212,7 @@ CREATE TABLE `empresa` (
 
 LOCK TABLES `empresa` WRITE;
 /*!40000 ALTER TABLE `empresa` DISABLE KEYS */;
+INSERT INTO `empresa` VALUES (1,'Amarildo Bonato LTDA','RichCar lavagens','76114112000135','948.358.050','Rua Benedito Feraz','Maria Clara','254',NULL,NULL,NULL,'Simples Nacional','2015-09-10',4702,NULL);
 /*!40000 ALTER TABLE `empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,7 +257,6 @@ DROP TABLE IF EXISTS `marca`;
 CREATE TABLE `marca` (
   `idMarca` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
-  `dataInclusao` date NOT NULL,
   `dataAlteracao` date NOT NULL,
   `foraUso` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idMarca`)
@@ -285,7 +282,6 @@ DROP TABLE IF EXISTS `modelo`;
 CREATE TABLE `modelo` (
   `idModelo` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
-  `dataInclusao` date NOT NULL,
   `dataAlteracao` date NOT NULL,
   `MARCA` int(11) NOT NULL,
   `foraUso` tinyint(1) DEFAULT NULL,
@@ -314,7 +310,6 @@ DROP TABLE IF EXISTS `ordem_servico`;
 CREATE TABLE `ordem_servico` (
   `idOrdemServico` int(11) NOT NULL AUTO_INCREMENT,
   `valorTotal` double NOT NULL,
-  `dataInclusao` date NOT NULL,
   `dataAlteracao` date NOT NULL,
   `CARRO` int(11) NOT NULL,
   `dataAgendamento` date NOT NULL,
@@ -428,7 +423,6 @@ CREATE TABLE `tipo_servico` (
   `idTipoServico` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   `valor` double NOT NULL,
-  `dataInclusao` date NOT NULL,
   `dataAlteracao` date NOT NULL,
   `foraUso` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idTipoServico`)
@@ -483,14 +477,13 @@ CREATE TABLE `usuario` (
   `nomeUsuario` varchar(50) NOT NULL,
   `loginUsuario` varchar(15) NOT NULL,
   `senhaUsuario` varchar(15) NOT NULL,
-  `dataInclusao` date NOT NULL,
   `dataAlteracao` date NOT NULL,
   `EMPRESA` int(11) NOT NULL,
   `foraUso` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idCadastroUsuario`),
   KEY `fk_USUARIO1_idx` (`EMPRESA`),
   CONSTRAINT `fk_USUARIO1` FOREIGN KEY (`EMPRESA`) REFERENCES `empresa` (`idEmpresa`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -499,6 +492,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'ADMIN','ADMIN','452758','2015-09-10',1,NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -511,4 +505,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-05  0:12:53
+-- Dump completed on 2015-09-13 22:20:56

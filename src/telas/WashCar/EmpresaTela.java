@@ -25,6 +25,7 @@ import validacaoCampos.WashCar.ValidaCampoDocumentoJuridico;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
 import validacaoCampos.WashCar.ValidaCampoTelefone;
+import java.awt.Toolkit;
 
 public class EmpresaTela extends JFrame {
 
@@ -479,6 +480,7 @@ public class EmpresaTela extends JFrame {
 	}
 
 	public EmpresaTela() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EmpresaTela.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro da Empresa");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

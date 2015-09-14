@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
 import validacaoCampos.WashCar.ValidaCampoString;
+import java.awt.Toolkit;
 
 public class ModeloTela extends JFrame {
 
@@ -188,6 +189,7 @@ public class ModeloTela extends JFrame {
 	}
 
 	public ModeloTela() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ModeloTela.class.getResource("/Imagens/washCar.jpeg")));
 		setResizable(false);
 		setTitle("Cadastrar Modelos de Carros | WashCar");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

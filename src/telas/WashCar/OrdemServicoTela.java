@@ -33,6 +33,7 @@ import validacaoCampos.WashCar.ValidaCampoString;
 import validacaoCampos.WashCar.ValidaCampoValor;
 
 import com.toedter.calendar.JDateChooser;
+import java.awt.Toolkit;
 
 public class OrdemServicoTela extends JFrame {
 
@@ -89,7 +90,7 @@ public class OrdemServicoTela extends JFrame {
 	private JPanel jpnCadastroServico;
 	private JTable jttGridItensServico;
 	private DefaultTableModel dtmGridItensServico;
-	private Vector<String> colunas;
+	private Vector<String> dados;
 	private JScrollPane jspGridItensServico;
 	private JTextField jtfDescricaoTipoServico;
 	private JTextField jtfCodigoTipoServico;
@@ -413,17 +414,17 @@ public class OrdemServicoTela extends JFrame {
 		jpnDadosOrdemServico.add(jctDataAgendamento);
 		
 		jpnCadastroServico = new JPanel();
-		jtbOrdemServico.addTab("Cadastro de Servi\u00E7os", null, jpnCadastroServico, null);
+		jtbOrdemServico.addTab("Cadastro de Serviços", null, jpnCadastroServico, null);
 		jpnCadastroServico.setLayout(null);
 		
-		colunas = new Vector<String>();
-		colunas.add("Código");
-		colunas.add("Descrição");
-		colunas.add("Quantidade");
-		colunas.add("Valor Unitário");
-		colunas.add("Valor Total");
+		dados = new Vector<String>();
+		dados.add("Código");
+		dados.add("Descrição");
+		dados.add("Quantidade");
+		dados.add("Valor Unitário");
+		dados.add("Valor Total");
 		dtmGridItensServico = new DefaultTableModel();
-		dtmGridItensServico.setColumnIdentifiers(colunas);
+		dtmGridItensServico.setColumnIdentifiers(dados);
 		jttGridItensServico = new JTable();
 		jttGridItensServico.setModel(dtmGridItensServico);
 		jttGridItensServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -627,6 +628,7 @@ public class OrdemServicoTela extends JFrame {
 	}
 	
 	public OrdemServicoTela() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(OrdemServicoTela.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Ordem de Servi\u00E7o | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

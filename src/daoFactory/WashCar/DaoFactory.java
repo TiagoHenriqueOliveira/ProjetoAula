@@ -18,7 +18,7 @@ public class DaoFactory {
 	 * Constroi a fabrica correta de DAO.
 	 * @return
 	 */
-	public static DaoFactory get(){
+	public static DaoFactory getFactory(){
 		if(factory == null){
 			factory = new DaoFactory();
 		}

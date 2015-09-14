@@ -19,11 +19,15 @@ import java.awt.Color;
 
 import javax.swing.JCheckBox;
 
+import daoFactory.WashCar.DaoFactory;
+import model.WashCar.Usuario;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+import java.sql.Date;
 
 public class UsuarioTela extends JFrame {
 
@@ -50,6 +54,8 @@ public class UsuarioTela extends JFrame {
 	private JButton jbtSalvar;
 	private JButton jbtNovo;
 	private JLabel jlbConsultaUsuario;
+	private Usuario usuario;
+	private static UsuarioTela usuarioTela;
 
 	public void componentesTelaUsuario() {
 		jpnPesquisaUsuario = new JPanel();
@@ -191,8 +197,15 @@ public class UsuarioTela extends JFrame {
 		jbtCancelar.setEnabled(true);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void salvarCadastro() {
-		
+		this.usuario = new Usuario();
+		this.usuario.setNome(jtfNome.getText());
+		this.usuario.setLogin(jtfLogin.getText());
+		this.usuario.setSenha(jpfSenha.getText());
+		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao()).toLocalDate());
+		this.usuario.setForaUso(Boolean.valueOf(jcbxUsuarioForaUso.isSelected()));
+		DaoFactory.getFactory().usuarioDao().inserir(usuario);
 	}
 	
 	public void editarCadastro() {
@@ -211,7 +224,9 @@ public class UsuarioTela extends JFrame {
 		jbtCancelar.setEnabled(false);
 	}
 
+	
 	public UsuarioTela() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UsuarioTela.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro de Usuários | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -223,6 +238,14 @@ public class UsuarioTela extends JFrame {
 		
 		componentesTelaUsuario();
 		
+		jbtPesquisaUsuario.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				ListaUsuario listaUsuario = new ListaUsuario(usuarioTela);
+				listaUsuario.show();
+			}
+		});
+		
 		jbtNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtNovo) {
@@ -233,6 +256,9 @@ public class UsuarioTela extends JFrame {
 		
 		jbtSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtSalvar) {
+					salvarCadastro();
+				}
 			}
 		});
 		
@@ -257,6 +283,5 @@ public class UsuarioTela extends JFrame {
 				}
 			}
 		});
-		
 	}
 }

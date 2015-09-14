@@ -22,6 +22,7 @@ import javax.swing.JCheckBox;
 
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoValor;
+import java.awt.Toolkit;
 
 public class TipoServicoTela extends JFrame {
 
@@ -208,6 +209,7 @@ public class TipoServicoTela extends JFrame {
 	}
 
 	public TipoServicoTela() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TipoServicoTela.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastrar Tipos de Serviço | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
