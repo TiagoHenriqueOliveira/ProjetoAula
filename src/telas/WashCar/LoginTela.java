@@ -131,7 +131,10 @@ public class LoginTela extends JFrame {
 		
 		jbtLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				acesso(usuario);
+			//	acesso(usuario);
+				principal = new PrincipalTela();
+				principal.show();
+				dispose();
 			}
 		});
 		
