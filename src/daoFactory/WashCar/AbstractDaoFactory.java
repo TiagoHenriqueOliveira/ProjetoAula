@@ -1,5 +1,6 @@
 package daoFactory.WashCar;
 
+import dao.WashCar.EmpresaDAO;
 import dao.WashCar.UsuarioDAO;
 
 public interface AbstractDaoFactory {
@@ -9,4 +10,5 @@ public interface AbstractDaoFactory {
 	 * @return ProdutoDAO
 	 */
 	UsuarioDAO usuarioDao();
+	EmpresaDAO empresaDao();
 }

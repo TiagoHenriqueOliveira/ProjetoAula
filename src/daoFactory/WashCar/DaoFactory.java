@@ -1,5 +1,6 @@
 package daoFactory.WashCar;
 
+import dao.WashCar.EmpresaDAO;
 import dao.WashCar.UsuarioDAO;
 
 /**
@@ -31,5 +32,9 @@ public class DaoFactory {
 	 */
 	public UsuarioDAO usuarioDao() {
 		return daoFactory.usuarioDao();
+	}
+	
+	public EmpresaDAO empreDao() {
+		return daoFactory.empresaDao();
 	}
 }
