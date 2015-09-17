@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexao.ConexaoUtil;
+import model.WashCar.Empresa;
 import model.WashCar.Usuario;
 
 public class UsuarioDAOJDBC implements UsuarioDAO{
@@ -121,7 +122,11 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				usuario.setIdUsuario(rs.getInt("idCadastroUsuario"));
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
-			}
+				usuario.setSenha(rs.getString("senhaUsuario"));
+				usuario.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
+				usuario.setEmpresa(new Empresa(rs.getInt("empresa")));
+				usuarios.add(usuario);
+		}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

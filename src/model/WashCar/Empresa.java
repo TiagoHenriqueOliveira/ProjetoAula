@@ -21,29 +21,12 @@ public class Empresa {
 	private LocalDate dataAltercacao;
 	private LocalDate dataInclusao;
 	
-	//construtor com atributos
-	public Empresa(Integer idEmpresa, String razaoSocial, String nomeFantasia,
-			String cnpj, String inscricaoEstadual, String inscricaoMunicipal,
-			String endereco, String bairro, Integer numero,
-			String telefoneComercial, String telefoneCelular, String fax,
-			String regimeTributario, Cidade cidade, LocalDate dataAltercacao, LocalDate dataInclusao) {
-		super();
+	public Empresa() {
+		
+	}
+	
+	public Empresa(Integer idEmpresa) {
 		this.idEmpresa = idEmpresa;
-		this.razaoSocial = razaoSocial;
-		this.nomeFantasia = nomeFantasia;
-		this.cnpj = cnpj;
-		this.inscricaoEstadual = inscricaoEstadual;
-		this.inscricaoMunicipal = inscricaoMunicipal;
-		this.endereco = endereco;
-		this.bairro = bairro;
-		this.numero = numero;
-		this.telefoneComercial = telefoneComercial;
-		this.telefoneCelular = telefoneCelular;
-		this.fax = fax;
-		this.regimeTributario = regimeTributario;
-		this.cidade = cidade;
-		this.dataAltercacao = dataAltercacao;
-		this.dataInclusao = dataInclusao;
 	}
 	
 	//gets e sets das variaveis

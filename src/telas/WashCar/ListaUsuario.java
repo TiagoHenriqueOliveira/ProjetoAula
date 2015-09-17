@@ -1,15 +1,21 @@
 package telas.WashCar;
 
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.Font;
-import java.awt.Toolkit;
-import java.util.Vector;
-import javax.swing.JButton;
+import model.WashCar.Usuario;
+import dao.WashCar.UsuarioDAOJDBC;
 
 public class ListaUsuario extends JFrame {
 
@@ -19,6 +25,9 @@ public class ListaUsuario extends JFrame {
 	private JTable jttListaUsuario;
 	private DefaultTableModel dtmListaUsuario;
 	private JScrollPane jspListaUsuario;
+	private JButton jbtSelecionarUsuario;
+	private JButton jbtCancelarPesquisa;
+	private List<Usuario> listaUsuarios;
 	private UsuarioTela usuarioTela;
 
 	public void componentesListaUsuario() {
@@ -41,12 +50,12 @@ public class ListaUsuario extends JFrame {
 		jspListaUsuario.setBounds(10, 10, 500, 300);
 		jpnListaUsuario.add(jspListaUsuario);
 		
-		JButton jbtSelecionarUsuario = new JButton("Selecionar");
+		jbtSelecionarUsuario = new JButton("Selecionar");
 		jbtSelecionarUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtSelecionarUsuario.setBounds(10, 338, 110, 23);
 		jpnListaUsuario.add(jbtSelecionarUsuario);
 		
-		JButton jbtCancelarPesquisa = new JButton("Cancelar");
+		jbtCancelarPesquisa = new JButton("Cancelar");
 		jbtCancelarPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtCancelarPesquisa.setBounds(130, 339, 110, 23);
 		jpnListaUsuario.add(jbtCancelarPesquisa);
@@ -66,5 +75,23 @@ public class ListaUsuario extends JFrame {
 		setContentPane(jpnListaUsuario);
 		
 		componentesListaUsuario();
+		
+		listaUsuarios = new UsuarioDAOJDBC().todos();
+		for(Usuario todos : listaUsuarios) {
+			dtmListaUsuario.addRow(new String[] {
+					todos.getIdUsuario().toString(), todos.getNome(), todos.getLogin()
+			});
+		}
+				
+		jbtSelecionarUsuario.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtSelecionarUsuario) {
+					Integer usuarioSelecionado = jttListaUsuario.getSelectedRow();
+					Usuario usuario = listaUsuarios.get(usuarioSelecionado);
+					usuarioTela.preencherCampos(usuario);
+				}
+			}
+		});
 	}
 }

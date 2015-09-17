@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -188,7 +189,7 @@ public class UsuarioTela extends JFrame {
 		jpnUsuario.add(jbtNovo);
 	}
 	
-	public void novoCadastro() {
+	public void novoCadastroUsuario() {
 		jbtNovo.setEnabled(false);
 		jtfNome.setEnabled(true);
 		jtfLogin.setEnabled(true);
@@ -197,22 +198,30 @@ public class UsuarioTela extends JFrame {
 		jbtCancelar.setEnabled(true);
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void salvarCadastro() {
+	@SuppressWarnings({ "deprecation", "static-access" })
+	public void salvarCadastroUsuario() {
 		this.usuario = new Usuario();
 		this.usuario.setNome(jtfNome.getText());
 		this.usuario.setLogin(jtfLogin.getText());
 		this.usuario.setSenha(jpfSenha.getText());
-		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao()).toLocalDate());
+		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
 		this.usuario.setForaUso(Boolean.valueOf(jcbxUsuarioForaUso.isSelected()));
 		DaoFactory.getFactory().usuarioDao().inserir(usuario);
+		JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
+																	"Confirmação", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	public void editarCadastro() {
-		
+	public void editarCadastroUsuario() {
+		jbtNovo.setEnabled(false);
+		jtfNome.setEnabled(true);
+		jtfLogin.setEnabled(true);
+		jpfSenha.setEnabled(true);
+		jcbxUsuarioForaUso.setEnabled(true);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
 	}
 	
-	public void cancelarCadastro() {
+	public void cancelarCadastroUsuario() {
 		jbtNovo.setEnabled(true);
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
@@ -220,8 +229,16 @@ public class UsuarioTela extends JFrame {
 		jtfNome.setText("");
 		jtfLogin.setText("");
 		jpfSenha.setText("");
-		jbtSalvar.setEnabled(false);
 		jbtCancelar.setEnabled(false);
+		jbtSalvar.setEnabled(false);
+		jbtEditar.setEnabled(false);
+	}
+	
+	public void preencherCampos(Usuario usuario) {
+		jtfNome.setText(usuario.getNome());
+		jtfLogin.setText(usuario.getLogin());
+		jpfSenha.setText(usuario.getSenha());
+		jtfDataAlteracao.setText(usuario.getDataAltercacao().toString());
 	}
 
 	
@@ -241,15 +258,18 @@ public class UsuarioTela extends JFrame {
 		jbtPesquisaUsuario.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				ListaUsuario listaUsuario = new ListaUsuario(usuarioTela);
-				listaUsuario.show();
+				if(e.getSource() == jbtPesquisaUsuario) {
+					ListaUsuario listaUsuario = new ListaUsuario(usuarioTela);
+					listaUsuario.show();
+					jbtEditar.setEnabled(true);
+				}
 			}
 		});
 		
 		jbtNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtNovo) {
-					novoCadastro();
+					novoCadastroUsuario();
 				}
 			}
 		});
@@ -257,21 +277,21 @@ public class UsuarioTela extends JFrame {
 		jbtSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtSalvar) {
-					salvarCadastro();
+					salvarCadastroUsuario();
 				}
 			}
 		});
 		
 		jbtEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				editarCadastroUsuario();
 			}
 		});
 		
 		jbtCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtCancelar) {
-					cancelarCadastro();
+					cancelarCadastroUsuario();
 				}
 			}
 		});
