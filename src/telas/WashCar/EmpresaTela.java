@@ -21,10 +21,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
 import javax.swing.JRadioButton;
 
+import model.WashCar.Empresa;
 import validacaoCampos.WashCar.ValidaCampoDocumentoJuridico;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
 import validacaoCampos.WashCar.ValidaCampoTelefone;
+
 import java.awt.Toolkit;
 
 public class EmpresaTela extends JFrame {
@@ -82,6 +84,7 @@ public class EmpresaTela extends JFrame {
 	private JButton jbtCancelar;
 	private JButton jbtFechar;
 	private JLabel jlbConsultaEmpresa;
+	private static EmpresaTela empresaTela;
 
 	public void componentesTelaEmpresa() {
 		jpnPesquisaEmpresa = new JPanel();
@@ -478,6 +481,10 @@ public class EmpresaTela extends JFrame {
 		jbtSalvar.setEnabled(false);
 		jbtCancelar.setEnabled(false);
 	}
+	
+	public void preencherCampos(Empresa empresa) {
+		
+	}
 
 	public EmpresaTela() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(EmpresaTela.class.getResource("/Imagens/washCar.jpeg")));
@@ -491,6 +498,18 @@ public class EmpresaTela extends JFrame {
 		setContentPane(jnpEmpresa);
 
 		componentesTelaEmpresa();
+		
+		jbtPesquisaEmpresa.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtPesquisaEmpresa) {
+					ListaEmpresa listaEmpresa = new ListaEmpresa(empresaTela);
+					listaEmpresa.show();
+					jbtEditar.setEnabled(true);
+				}
+			}
+		});
 		
 		jbtNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
