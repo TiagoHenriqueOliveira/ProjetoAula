@@ -1,4 +1,4 @@
-package telas.WashCar;
+package forms.WashCar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -6,6 +6,7 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -13,15 +14,19 @@ import javax.swing.ImageIcon;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 
 import javax.swing.JCheckBox;
 
+import daoFactory.WashCar.DaoFactory;
+import model.WashCar.Marca;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
-import java.awt.Toolkit;
+import validacaoCampos.WashCar.ValidaCampoString;
 
-public class MarcaTela extends JFrame {
+public class MarcaForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnMarca;
@@ -43,7 +48,10 @@ public class MarcaTela extends JFrame {
 	private JLabel lblNomeDaMarca_1;
 	private JLabel jlbDataAlteracao;
 	private JLabel jlbConsultaMarcas;
-	private JCheckBox jckbForaUso;
+	private JCheckBox jcbxForaUso;
+	private Marca marca;
+	private static MarcaForm marcaForm;
+	
 
 	public void componentesTelaMarca() {
 		jpnPesquisaMarcas = new JPanel();
@@ -78,7 +86,7 @@ public class MarcaTela extends JFrame {
 		jbtPesquisar = new JButton("");
 		jbtPesquisar.setBounds(367, 41, 40, 32);
 		jpnPesquisaMarcas.add(jbtPesquisar);
-		jbtPesquisar.setIcon(new ImageIcon(MarcaTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisar.setIcon(new ImageIcon(MarcaForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		
 		jlbConsultaMarcas = new JLabel("Consulta Marcas de Carros");
 		jlbConsultaMarcas.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -123,6 +131,7 @@ public class MarcaTela extends JFrame {
 		jtfCodigoMarca.setColumns(10);
 		
 		jtfNomeMarca = new JTextField();
+		jtfNomeMarca.setDocument(new ValidaCampoString());
 		jtfNomeMarca.setEnabled(false);
 		jtfNomeMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeMarca.setBounds(10, 179, 330, 20);
@@ -156,11 +165,11 @@ public class MarcaTela extends JFrame {
 		jlbDataAlteracao.setBounds(324, 105, 100, 14);
 		jpnMarca.add(jlbDataAlteracao);
 		
-		jckbForaUso = new JCheckBox("Fora de Uso");
-		jckbForaUso.setEnabled(false);
-		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jckbForaUso.setBounds(156, 120, 97, 23);
-		jpnMarca.add(jckbForaUso);
+		jcbxForaUso = new JCheckBox("Fora de Uso");
+		jcbxForaUso.setEnabled(false);
+		jcbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jcbxForaUso.setBounds(156, 120, 97, 23);
+		jpnMarca.add(jcbxForaUso);
 	}
 	
 	public void novoCadastro() {
@@ -170,8 +179,21 @@ public class MarcaTela extends JFrame {
 		jbtCancelar.setEnabled(true);
 	}
 	
+	@SuppressWarnings("static-access")
 	public void salvarCadastro() {
-		
+		this.marca = new Marca();
+		if(jtfNomeMarca.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeMarca.requestFocus();
+		} else {
+			this.marca.setNome(jtfNomeMarca.getText());
+			this.marca.setDataAltercacao(Date.valueOf(marca.getDataAltercacao().now()).toLocalDate());
+			this.marca.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+			DaoFactory.getFactory().marcaDao().inserir(marca);
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
+					"Confirmação", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	public void editarCadastro() {
@@ -185,9 +207,69 @@ public class MarcaTela extends JFrame {
 		jbtSalvar.setEnabled(false);
 		jbtCancelar.setEnabled(false);
 	}
+	
+	public void acionarBotaoPesquisar() {
+		jbtPesquisar.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtPesquisar) {
+					ListaMarcaForm listaMarcaForm = new ListaMarcaForm(marcaForm);
+					listaMarcaForm.show();
+				}
+			}
+		});
+	}
+	
+	public void acionarBotaoNovo() {
+		jbtNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtNovo) {
+					novoCadastro();
+				}
+			}
+		});
+	}
+	
+	public void acionarBotaoSalvar() {
+		jbtSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				salvarCadastro();
+			}
+		});
+	}
+	
+	public void acionarBotaoEdtiar() {
+		jbtEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+	}
+	
+	public void acionarBotaoCancelar() {
+		jbtCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtCancelar) {
+					cancelarCadastro();
+				}
+			}
+		});
+	}
+	
+	public void acionarBotaoFechar() {
+		jbtFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtFechar) {
+					dispose();
+				}
+			}
+		});
+	}
 
-	public MarcaTela() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MarcaTela.class.getResource("/Imagens/washCar.jpeg")));
+	public MarcaForm() {
+		marcaForm = this;
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MarcaForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastrar Marcas de Carros | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -198,40 +280,11 @@ public class MarcaTela extends JFrame {
 		jpnMarca.setLayout(null);
 		
 		componentesTelaMarca();
-		
-		jbtNovo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtNovo) {
-					novoCadastro();
-				}
-			}
-		});
-		
-		jbtSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		
-		jbtEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		
-		jbtCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtCancelar) {
-					cancelarCadastro();
-				}
-			}
-		});
-		
-		jbtFechar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtFechar) {
-					dispose();
-				}
-			}
-		});
+		acionarBotaoPesquisar();
+		acionarBotaoNovo();
+		acionarBotaoSalvar();
+		acionarBotaoEdtiar();
+		acionarBotaoCancelar();
+		acionarBotaoFechar();
 	}
 }

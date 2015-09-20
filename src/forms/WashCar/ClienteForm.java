@@ -1,4 +1,4 @@
-package telas.WashCar;
+package forms.WashCar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,7 +31,7 @@ import validacaoCampos.WashCar.ValidaCampoTelefone;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Toolkit;
 
-public class ClienteTela extends JFrame {
+public class ClienteForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnCliente;
@@ -133,7 +133,7 @@ public class ClienteTela extends JFrame {
 		jpnPesquisaCliente.add(jtfPesquisaNomeCliente);
 		
 		jbtPesquisaCliente = new JButton("");
-		jbtPesquisaCliente.setIcon(new ImageIcon(ClienteTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisaCliente.setIcon(new ImageIcon(ClienteForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisaCliente.setBounds(565, 38, 40, 32);
 		jpnPesquisaCliente.add(jbtPesquisaCliente);
 		
@@ -605,8 +605,8 @@ public class ClienteTela extends JFrame {
 		jbtCancelar.setEnabled(false);
 	}
 
-	public ClienteTela() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ClienteTela.class.getResource("/Imagens/washCar.jpeg")));
+	public ClienteForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ClienteForm.class.getResource("/Imagens/washCar.jpeg")));
 		setResizable(false);
 		setTitle("Cadastro de Clientes");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

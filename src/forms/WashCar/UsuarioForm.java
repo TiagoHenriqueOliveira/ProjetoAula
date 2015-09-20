@@ -1,36 +1,34 @@
-package telas.WashCar;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.text.MaskFormatter;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.JPasswordField;
+package forms.WashCar;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.text.MaskFormatter;
 
-import daoFactory.WashCar.DaoFactory;
+import model.WashCar.Empresa;
 import model.WashCar.Usuario;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
+import daoFactory.WashCar.DaoFactory;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
-import java.sql.Date;
-
-public class UsuarioTela extends JFrame {
+public class UsuarioForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnUsuario;
@@ -38,6 +36,7 @@ public class UsuarioTela extends JFrame {
 	private JTextField jtfPesquisaNomeUsuario;
 	private JTextField jtfNome;
 	private JTextField jtfLogin;
+	private JTextField jtfCodigo;
 	private JPasswordField jpfSenha;
 	private JTextField jtfDataAlteracao;
 	private JPanel jpnPesquisaUsuario;
@@ -47,6 +46,7 @@ public class UsuarioTela extends JFrame {
 	private JLabel jlbNome;
 	private JLabel jlbLogin;
 	private JLabel jlbSenha;
+	private JLabel jlbCodigo;
 	private JLabel jlbDataAlteracao;
 	private JCheckBox jcbxUsuarioForaUso;
 	private JButton jbtFechar;
@@ -56,9 +56,9 @@ public class UsuarioTela extends JFrame {
 	private JButton jbtNovo;
 	private JLabel jlbConsultaUsuario;
 	private Usuario usuario;
-	private static UsuarioTela usuarioTela;
+	private static UsuarioForm usuarioForm;
 
-	public void componentesTelaUsuario() {
+	public void componentesFormUsuario() {
 		jpnPesquisaUsuario = new JPanel();
 		jpnPesquisaUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		jpnPesquisaUsuario.setBounds(10, 11, 424, 81);
@@ -90,7 +90,7 @@ public class UsuarioTela extends JFrame {
 		jpnPesquisaUsuario.add(jtfPesquisaNomeUsuario);
 		
 		jbtPesquisaUsuario = new JButton("");
-		jbtPesquisaUsuario.setIcon(new ImageIcon(UsuarioTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisaUsuario.setIcon(new ImageIcon(UsuarioForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisaUsuario.setBounds(367, 38, 40, 32);
 		jpnPesquisaUsuario.add(jbtPesquisaUsuario);
 		
@@ -104,12 +104,12 @@ public class UsuarioTela extends JFrame {
 		jtfNome.setEnabled(false);
 		jtfNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNome.setColumns(10);
-		jtfNome.setBounds(10, 119, 275, 20);
+		jtfNome.setBounds(10, 159, 275, 20);
 		jpnUsuario.add(jtfNome);
 		
 		jlbNome = new JLabel("Nome do Usu\u00E1rio");
 		jlbNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNome.setBounds(10, 103, 100, 14);
+		jlbNome.setBounds(10, 143, 100, 14);
 		jpnUsuario.add(jlbNome);
 		
 		jtfLogin = new JTextField();
@@ -117,23 +117,23 @@ public class UsuarioTela extends JFrame {
 		jtfLogin.setEnabled(false);
 		jtfLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfLogin.setColumns(10);
-		jtfLogin.setBounds(10, 166, 275, 20);
+		jtfLogin.setBounds(10, 206, 275, 20);
 		jpnUsuario.add(jtfLogin);
 		
 		jlbLogin = new JLabel("Login do Usu\u00E1rio");
 		jlbLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbLogin.setBounds(10, 150, 100, 14);
+		jlbLogin.setBounds(10, 190, 100, 14);
 		jpnUsuario.add(jlbLogin);
 		
 		jlbSenha = new JLabel("Senha do Usu\u00E1rio");
 		jlbSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbSenha.setBounds(10, 197, 100, 14);
+		jlbSenha.setBounds(10, 237, 100, 14);
 		jpnUsuario.add(jlbSenha);
 		
 		jpfSenha = new JPasswordField();
 		jpfSenha.setEnabled(false);
 		jpfSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jpfSenha.setBounds(10, 212, 182, 20);
+		jpfSenha.setBounds(10, 252, 182, 20);
 		jpnUsuario.add(jpfSenha);
 		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
@@ -187,28 +187,62 @@ public class UsuarioTela extends JFrame {
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtNovo.setBounds(10, 314, 75, 23);
 		jpnUsuario.add(jbtNovo);
+		
+		jtfCodigo = new JTextField();
+		jtfCodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfCodigo.setEditable(false);
+		jtfCodigo.setColumns(10);
+		jtfCodigo.setBackground(Color.YELLOW);
+		jtfCodigo.setBounds(10, 119, 66, 20);
+		jpnUsuario.add(jtfCodigo);
+		
+		jlbCodigo = new JLabel("C\u00F3digo");
+		jlbCodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbCodigo.setBounds(10, 103, 46, 14);
+		jpnUsuario.add(jlbCodigo);
 	}
 	
 	public void novoCadastroUsuario() {
+		jtfCodigo.setText("");
+		jtfNome.setText("");
+		jtfLogin.setText("");
+		jpfSenha.setText("");
 		jbtNovo.setEnabled(false);
 		jtfNome.setEnabled(true);
 		jtfLogin.setEnabled(true);
 		jpfSenha.setEnabled(true);
+		jcbxUsuarioForaUso.setSelected(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
+		jbtEditar.setEnabled(false);
 	}
 	
 	@SuppressWarnings({ "deprecation", "static-access" })
 	public void salvarCadastroUsuario() {
 		this.usuario = new Usuario();
+		if(jtfNome.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNome.requestFocus();
+		} else if(jtfLogin.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o login do usuário!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfLogin.requestFocus();
+		} else if(jpfSenha.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a senha do usuário!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jpfSenha.requestFocus();
+		} else {
 		this.usuario.setNome(jtfNome.getText());
 		this.usuario.setLogin(jtfLogin.getText());
 		this.usuario.setSenha(jpfSenha.getText());
 		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
 		this.usuario.setForaUso(Boolean.valueOf(jcbxUsuarioForaUso.isSelected()));
+		this.usuario.setEmpresa(new Empresa(usuario.getEmpresa().getIdEmpresa()));
 		DaoFactory.getFactory().usuarioDao().inserir(usuario);
 		JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
-																	"Confirmação", JOptionPane.INFORMATION_MESSAGE);
+				"Confirmação", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	public void editarCadastroUsuario() {
@@ -221,11 +255,28 @@ public class UsuarioTela extends JFrame {
 		jbtCancelar.setEnabled(true);
 	}
 	
+	public void efetuarPesquisa() {
+		jbtEditar.setEnabled(true);
+		jtfNome.setEnabled(false);
+		jtfLogin.setEnabled(false);
+		jpfSenha.setEnabled(false);
+		jcbxUsuarioForaUso.setEnabled(false);
+		jcbxUsuarioForaUso.setSelected(false);
+		jtfCodigo.setText("");
+		jtfNome.setText("");
+		jtfLogin.setText("");
+		jpfSenha.setText("");
+		jbtNovo.setEnabled(false);
+	}
+	
 	public void cancelarCadastroUsuario() {
 		jbtNovo.setEnabled(true);
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
 		jpfSenha.setEnabled(false);
+		jcbxUsuarioForaUso.setEnabled(false);
+		jcbxUsuarioForaUso.setSelected(false);
+		jtfCodigo.setText("");
 		jtfNome.setText("");
 		jtfLogin.setText("");
 		jpfSenha.setText("");
@@ -235,15 +286,85 @@ public class UsuarioTela extends JFrame {
 	}
 	
 	public void preencherCampos(Usuario usuario) {
+		jtfCodigo.setText(String.valueOf(usuario.getIdUsuario()));
 		jtfNome.setText(usuario.getNome());
 		jtfLogin.setText(usuario.getLogin());
 		jpfSenha.setText(usuario.getSenha());
-		jtfDataAlteracao.setText(usuario.getDataAltercacao().toString());
+		jtfDataAlteracao.setText(usuario.getDataAltercacao().format(
+				DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		if(usuario.isForaUso()) {
+			jcbxUsuarioForaUso.setSelected(true);
+		} else {
+			jcbxUsuarioForaUso.setSelected(false);
+		}
 	}
-
 	
-	public UsuarioTela() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(UsuarioTela.class.getResource("/Imagens/washCar.jpeg")));
+	public void acionarBotaoNovo() {
+		jbtNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtNovo) {
+					novoCadastroUsuario();
+				}
+			}
+		});
+	}
+	
+	public void acionarBotaoSalvar() {
+		jbtSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtSalvar) {
+					salvarCadastroUsuario();
+				}
+			}
+		});
+	}
+	
+	public void acionarBotaoEditar() {
+		jbtEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtEditar) {
+					editarCadastroUsuario();
+				}
+			}
+		});
+	}
+	
+	public void acionarBotaoCancelar() {
+		jbtCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtCancelar) {
+					cancelarCadastroUsuario();
+				}
+			}
+		});
+	}
+	
+	public void acionarBotaoFechar() {
+		jbtFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtFechar) {
+					dispose();
+				}
+			}
+		});
+	}
+	
+	public void acionarBotaoPesquisar() {
+		jbtPesquisaUsuario.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtPesquisaUsuario) {
+					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
+					listaUsuario.show();
+					efetuarPesquisa();
+				}
+			}
+		});
+	}
+		
+	public UsuarioForm() {
+		usuarioForm = this;
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UsuarioForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro de Usuários | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -253,55 +374,12 @@ public class UsuarioTela extends JFrame {
 		setLocationRelativeTo(null);
 		setContentPane(jpnUsuario);
 		
-		componentesTelaUsuario();
-		
-		jbtPesquisaUsuario.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtPesquisaUsuario) {
-					ListaUsuario listaUsuario = new ListaUsuario(usuarioTela);
-					listaUsuario.show();
-					jbtEditar.setEnabled(true);
-				}
-			}
-		});
-		
-		jbtNovo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtNovo) {
-					novoCadastroUsuario();
-				}
-			}
-		});
-		
-		jbtSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtSalvar) {
-					salvarCadastroUsuario();
-				}
-			}
-		});
-		
-		jbtEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				editarCadastroUsuario();
-			}
-		});
-		
-		jbtCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtCancelar) {
-					cancelarCadastroUsuario();
-				}
-			}
-		});
-		
-		jbtFechar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtFechar) {
-					dispose();
-				}
-			}
-		});
+		componentesFormUsuario();
+		acionarBotaoNovo();
+		acionarBotaoSalvar();
+		acionarBotaoEditar();
+		acionarBotaoCancelar();
+		acionarBotaoFechar();
+		acionarBotaoPesquisar();
 	}
 }

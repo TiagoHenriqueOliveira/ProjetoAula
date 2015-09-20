@@ -1,15 +1,16 @@
-package telas.WashCar;
+package forms.WashCar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
-public class PrincipalTela extends JFrame {
+public class PrincipalForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,6 +34,15 @@ public class PrincipalTela extends JFrame {
 	private JMenuItem jmiMarca;
 	private JMenuItem jmiModelo;
 	private JMenuItem jmiTipoServico;
+	private static UsuarioForm usuarioForm;
+	private static CarroForm carroForm;
+	private static ClienteForm clienteForm;
+	private static AgendaForm agendaForm;
+	private static OrdemServicoForm ordemServicoForm;
+	private static EmpresaForm empresaForm;
+	private static ModeloForm modeloForm;
+	private static MarcaForm marcaForm;
+	private static TipoServicoForm tipoServicoForm;
 	
 	public void componentesTelaPrincipal() {
 		jmbPrincipal = new JMenuBar();
@@ -93,41 +103,43 @@ public class PrincipalTela extends JFrame {
 		jmnParametros.add(jmiTipoServico);
 	}
 
-	public PrincipalTela() {
+	public PrincipalForm() {
 		setTitle("WashCar Lavagens");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PrincipalTela.class.getResource("/Imagens/washCar.jpeg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PrincipalForm.class.getResource("/Imagens/washCar.jpeg")));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 300);
+		setBounds(100, 100, 500, 400);
 		jpPrincipal = new JPanel();
 		setLocationRelativeTo(null);
 		setContentPane(jpPrincipal);
-		//this.setExtendedState(MAXIMIZED_BOTH);
 
 		componentesTelaPrincipal();
 		
 		jmiCarro.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCarro) {
-					CarroTela cadastroCarro = new CarroTela();
-					cadastroCarro.setVisible(true);
+					carroForm = new CarroForm();
+					carroForm.show();
 				}
 			}
 		});
 		
 		jmiCliente.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCliente) {
-					ClienteTela cadastroCliente = new ClienteTela();
-					cadastroCliente.setVisible(true);
+					clienteForm = new ClienteForm();
+					clienteForm.show();
 				}
 			}
 		});
 		
 		jmiCadastroUsuario.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCadastroUsuario) {
-					UsuarioTela cadastroUsuario = new UsuarioTela();
-					cadastroUsuario.setVisible(true);
+					usuarioForm = new UsuarioForm();
+					usuarioForm.show();
 				}
 			}
 		});
@@ -141,46 +153,51 @@ public class PrincipalTela extends JFrame {
 		});
 		
 		jmiOrdemServico.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiOrdemServico) {
-					OrdemServicoTela cadastrarOrdemServico = new OrdemServicoTela();
-					cadastrarOrdemServico.setVisible(true);
+					ordemServicoForm = new OrdemServicoForm();
+					ordemServicoForm.show();
 				}
 			}
 		});
 		
 		jmiEmpresa.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiEmpresa) {
-					EmpresaTela cadastroEmpresa = new EmpresaTela();
-					cadastroEmpresa.setVisible(true);
+					empresaForm = new EmpresaForm();
+					empresaForm.show();
 				}
 			}
 		});
 		
 		jmiMarca.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiMarca) {
-					MarcaTela cadastraMarca = new MarcaTela();
-					cadastraMarca.setVisible(true);
+					marcaForm = new MarcaForm();
+					marcaForm.show();
 				}
 			}
 		});
 		
 		jmiModelo.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiModelo) {
-					ModeloTela cadastraModelo = new ModeloTela();
-					cadastraModelo.setVisible(true);
+					modeloForm = new ModeloForm();
+					modeloForm.show();
 				}
 			}
 		});
 		
 		jmiTipoServico.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiTipoServico) {
-					TipoServicoTela cadastraTipoServico = new TipoServicoTela();
-					cadastraTipoServico.setVisible(true);
+					tipoServicoForm = new TipoServicoForm();
+					tipoServicoForm.show();
 				}
 			}
 		});

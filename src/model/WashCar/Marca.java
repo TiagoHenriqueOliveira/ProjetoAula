@@ -7,17 +7,17 @@ public class Marca {
 	private Integer idMarca;
 	private String nome;
 	private LocalDate dataAltercacao;
-	private LocalDate dataInclusao;
+	private Boolean foraUso;
 	
 	//construtor com atributos
-	public Marca(Integer idMarca, String nome, LocalDate dataAltercacao, LocalDate dataInclusao) {
-		super();
+	public Marca(Integer idMarca) {
 		this.idMarca = idMarca;
-		this.nome = nome;
-		this.dataAltercacao = dataAltercacao;
-		this.dataInclusao = dataInclusao;
 	}
 	
+	public Marca() {
+		
+	}
+
 	//gets e sets das variaveis
 	public Integer getIdMarca() {
 		return idMarca;
@@ -40,11 +40,11 @@ public class Marca {
 		this.dataAltercacao = dataAltercacao;
 	}
 
-	public LocalDate getDataInclusao() {
-		return dataInclusao;
+	public Boolean isForaUso() {
+		return foraUso;
 	}
 
-	public void setDataInclusao(LocalDate dataInclusao) {
-		this.dataInclusao = dataInclusao;
+	public void setForaUso(Boolean foraUso) {
+		this.foraUso = foraUso;
 	}
 }

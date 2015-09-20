@@ -1,4 +1,4 @@
-package telas.WashCar;
+package forms.WashCar;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFormattedTextField;
@@ -35,7 +35,7 @@ import validacaoCampos.WashCar.ValidaCampoValor;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Toolkit;
 
-public class OrdemServicoTela extends JFrame {
+public class OrdemServicoForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnOrdemServico;
@@ -154,7 +154,7 @@ public class OrdemServicoTela extends JFrame {
 		jpnPesquisaOrdemServico.add(jtfPesquisaNomeClienteOrdemServico);
 		
 		jbtPesquisaOrdemServico = new JButton("");
-		jbtPesquisaOrdemServico.setIcon(new ImageIcon(OrdemServicoTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisaOrdemServico.setIcon(new ImageIcon(OrdemServicoForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisaOrdemServico.setBounds(565, 40, 40, 32);
 		jpnPesquisaOrdemServico.add(jbtPesquisaOrdemServico);
 		
@@ -627,8 +627,8 @@ public class OrdemServicoTela extends JFrame {
 		jbtCancelarItemServico.setEnabled(false);
 	}
 	
-	public OrdemServicoTela() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(OrdemServicoTela.class.getResource("/Imagens/washCar.jpeg")));
+	public OrdemServicoForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(OrdemServicoForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Ordem de Servi\u00E7o | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

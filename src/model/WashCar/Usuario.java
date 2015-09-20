@@ -9,7 +9,7 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private Empresa empresa;
-	private boolean foraUso = false;
+	private Boolean foraUso;
 	private LocalDate dataAltercacao;
 	
 	public Usuario() {
@@ -65,11 +65,11 @@ public class Usuario {
 		this.dataAltercacao = dataAltercacao;
 	}
 
-	public boolean isForaUso() {
+	public Boolean isForaUso() {
 		return foraUso;
 	}
 
-	public void setForaUso(boolean foraUso) {
+	public void setForaUso(Boolean foraUso) {
 		this.foraUso = foraUso;
 	}
 }

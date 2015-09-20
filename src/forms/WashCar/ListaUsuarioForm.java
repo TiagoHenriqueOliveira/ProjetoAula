@@ -1,4 +1,4 @@
-package telas.WashCar;
+package forms.WashCar;
 
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,9 +18,11 @@ import javax.swing.table.DefaultTableModel;
 import model.WashCar.Usuario;
 import dao.WashCar.UsuarioDAOJDBC;
 
-public class ListaUsuario extends JFrame {
-
+public class ListaUsuarioForm extends JFrame {
+	
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
+	private UsuarioForm usuarioForm;
 	private JPanel jpnListaUsuario;
 	private Vector<String> dados;
 	private JTable jttListaUsuario;
@@ -28,7 +31,6 @@ public class ListaUsuario extends JFrame {
 	private JButton jbtSelecionarUsuario;
 	private JButton jbtCancelarPesquisa;
 	private List<Usuario> listaUsuarios;
-	private UsuarioTela usuarioTela;
 
 	public void componentesListaUsuario() {
 		dados = new Vector<String>();
@@ -60,10 +62,49 @@ public class ListaUsuario extends JFrame {
 		jbtCancelarPesquisa.setBounds(130, 339, 110, 23);
 		jpnListaUsuario.add(jbtCancelarPesquisa);
 	}
+	
+	public void preencherDadosTabela() {
+		listaUsuarios = new UsuarioDAOJDBC().todos();
+		for(Usuario todos : listaUsuarios) {
+			dtmListaUsuario.addRow(new String[] {
+					todos.getIdUsuario().toString(), todos.getNome(), todos.getLogin()
+			});
+		}
+	}
+	
+	public void acionarBotaoSelecionar() {
+		jbtSelecionarUsuario.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtSelecionarUsuario) {
+					Integer usuarioSelecionado = jttListaUsuario.getSelectedRow();
+					if(usuarioSelecionado != -1) {
+						Usuario usuario = listaUsuarios.get(usuarioSelecionado);
+						usuarioForm.preencherCampos(usuario);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null,
+								"Nenhum usuário foi selecionado!!!\n"
+								+ "Por gentileza, selecionar um usuário!!!",
+								"Erro", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+	}
+	
+	public void acionarBotaoCancelar() {
+		jbtCancelarPesquisa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+	}
 
-	public ListaUsuario(UsuarioTela usuarioTela) {
-		this.usuarioTela = usuarioTela;
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaUsuario.class.getResource("/Imagens/washCar.jpeg")));
+	public ListaUsuarioForm(UsuarioForm usuarioTela) {
+		this.usuarioForm = usuarioTela;
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaUsuarioForm.class.getResource("/Imagens/washCar.jpeg")));
 		setFont(new Font("Tahoma", Font.PLAIN, 12));
 		setResizable(false);
 		setTitle("Lista de Usuários");
@@ -75,23 +116,8 @@ public class ListaUsuario extends JFrame {
 		setContentPane(jpnListaUsuario);
 		
 		componentesListaUsuario();
-		
-		listaUsuarios = new UsuarioDAOJDBC().todos();
-		for(Usuario todos : listaUsuarios) {
-			dtmListaUsuario.addRow(new String[] {
-					todos.getIdUsuario().toString(), todos.getNome(), todos.getLogin()
-			});
-		}
-				
-		jbtSelecionarUsuario.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtSelecionarUsuario) {
-					Integer usuarioSelecionado = jttListaUsuario.getSelectedRow();
-					Usuario usuario = listaUsuarios.get(usuarioSelecionado);
-					usuarioTela.preencherCampos(usuario);
-				}
-			}
-		});
+		preencherDadosTabela();
+		acionarBotaoSelecionar();
+		acionarBotaoCancelar();
 	}
 }

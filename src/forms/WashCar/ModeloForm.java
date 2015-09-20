@@ -1,4 +1,4 @@
-package telas.WashCar;
+package forms.WashCar;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -23,7 +23,7 @@ import javax.swing.JCheckBox;
 import validacaoCampos.WashCar.ValidaCampoString;
 import java.awt.Toolkit;
 
-public class ModeloTela extends JFrame {
+public class ModeloForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnModelo;
@@ -78,7 +78,7 @@ public class ModeloTela extends JFrame {
 		jpnPesquisaModelo.add(jlbPesquisaNomeModelo);
 		
 		jbtPesquisaModelo = new JButton("");
-		jbtPesquisaModelo.setIcon(new ImageIcon(ModeloTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisaModelo.setIcon(new ImageIcon(ModeloForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisaModelo.setBounds(367, 43, 40, 32);
 		jpnPesquisaModelo.add(jbtPesquisaModelo);
 		
@@ -188,8 +188,8 @@ public class ModeloTela extends JFrame {
 		jbtCancelar.setEnabled(false);
 	}
 
-	public ModeloTela() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ModeloTela.class.getResource("/Imagens/washCar.jpeg")));
+	public ModeloForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ModeloForm.class.getResource("/Imagens/washCar.jpeg")));
 		setResizable(false);
 		setTitle("Cadastrar Modelos de Carros | WashCar");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

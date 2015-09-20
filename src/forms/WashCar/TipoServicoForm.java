@@ -1,4 +1,4 @@
-package telas.WashCar;
+package forms.WashCar;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -24,7 +24,7 @@ import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoValor;
 import java.awt.Toolkit;
 
-public class TipoServicoTela extends JFrame {
+public class TipoServicoForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnTipoServico;
@@ -81,7 +81,7 @@ public class TipoServicoTela extends JFrame {
 		jpnPesquisaTipoServico.add(jlbPesquisaNomeTipoServico);
 		
 		jbtPesquisarTipoServico = new JButton("");
-		jbtPesquisarTipoServico.setIcon(new ImageIcon(TipoServicoTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisarTipoServico.setIcon(new ImageIcon(TipoServicoForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisarTipoServico.setBounds(367, 41, 40, 32);
 		jpnPesquisaTipoServico.add(jbtPesquisarTipoServico);
 		
@@ -208,8 +208,8 @@ public class TipoServicoTela extends JFrame {
 		jbtCancelar.setEnabled(false);
 	}
 
-	public TipoServicoTela() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(TipoServicoTela.class.getResource("/Imagens/washCar.jpeg")));
+	public TipoServicoForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TipoServicoForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastrar Tipos de Serviço | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

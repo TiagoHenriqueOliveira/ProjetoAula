@@ -184,7 +184,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	@Override
 	public List<Empresa> todos() {
 		List<Empresa> empresas = new ArrayList<Empresa>();
-		sql = "select * from empresas";
+		sql = "select * from empresa";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();

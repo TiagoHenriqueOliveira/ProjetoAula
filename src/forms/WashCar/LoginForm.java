@@ -1,4 +1,4 @@
-package telas.WashCar;
+package forms.WashCar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,7 +25,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.Toolkit;
 
-public class LoginTela extends JFrame {
+public class LoginForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnLogin;
@@ -38,17 +38,17 @@ public class LoginTela extends JFrame {
 	private JButton jbtSair;
 	private Connection con;
 	private Usuario usuario;
-	private PrincipalTela principal;
+	private static PrincipalForm principal;
 	
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-		LoginTela login = new LoginTela();
+		LoginForm login = new LoginForm();
 		login.show();
 	}
 	
 	public void componentesTelaLogin() {
 		jlbLogo = new JLabel("");
-		jlbLogo.setIcon(new ImageIcon(LoginTela.class.getResource("/Imagens/washCar.jpeg")));
+		jlbLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/Imagens/washCar.jpeg")));
 		jlbLogo.setBounds(10, 11, 262, 206);
 		jpnLogin.add(jlbLogo);
 		
@@ -94,7 +94,7 @@ public class LoginTela extends JFrame {
 			while(rs.next()) {
 				if(jtfLoginUsuario.getText().equals(rs.getString("nomeUsuario"))
 					&& jpfSenhaUsuario.getText().equals(rs.getString("senhaUsuario"))) {
-					principal = new PrincipalTela();
+					principal = new PrincipalForm();
 					principal.show();
 					dispose();
 				} else {
@@ -114,8 +114,8 @@ public class LoginTela extends JFrame {
 	 * Usuario: ADMIN
 	 * Senha: 452758
 	 */
-	public LoginTela() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginTela.class.getResource("/Imagens/washCar.jpeg")));
+	public LoginForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Login | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -132,7 +132,7 @@ public class LoginTela extends JFrame {
 		jbtLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			//	acesso(usuario);
-				principal = new PrincipalTela();
+				principal = new PrincipalForm();
 				principal.show();
 				dispose();
 			}

@@ -1,4 +1,4 @@
-package telas.WashCar;
+package forms.WashCar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 import model.WashCar.Empresa;
@@ -29,7 +30,7 @@ import validacaoCampos.WashCar.ValidaCampoTelefone;
 
 import java.awt.Toolkit;
 
-public class EmpresaTela extends JFrame {
+public class EmpresaForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jnpEmpresa;
@@ -84,7 +85,8 @@ public class EmpresaTela extends JFrame {
 	private JButton jbtCancelar;
 	private JButton jbtFechar;
 	private JLabel jlbConsultaEmpresa;
-	private static EmpresaTela empresaTela;
+	private static EmpresaForm empresaTela;
+	private Empresa empresa;
 
 	public void componentesTelaEmpresa() {
 		jpnPesquisaEmpresa = new JPanel();
@@ -118,7 +120,7 @@ public class EmpresaTela extends JFrame {
 		jpnPesquisaEmpresa.add(jtfPesquisaNomeEmpresa);
 		
 		jbtPesquisaEmpresa = new JButton("");
-		jbtPesquisaEmpresa.setIcon(new ImageIcon(EmpresaTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisaEmpresa.setIcon(new ImageIcon(EmpresaForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisaEmpresa.setBounds(565, 42, 40, 32);
 		jpnPesquisaEmpresa.add(jbtPesquisaEmpresa);
 		
@@ -414,7 +416,7 @@ public class EmpresaTela extends JFrame {
 		jnpEmpresa.add(jbtFechar);
 	}
 	
-	public void novoCadastro() {
+	public void novoCadastroEmpresa() {
 		jbtNovo.setEnabled(false);
 		jrbLucroPresumido.setEnabled(true);
 		jrbLucroReal.setEnabled(true);
@@ -437,15 +439,56 @@ public class EmpresaTela extends JFrame {
 		jbtCancelar.setEnabled(true);
 	}
 	
-	public void salvarCadastro() {
-		
+	public void salvarCadastroEmpresa() {
+		if(jtfRazaoSocial.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a razão social!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if(jtfNomeFantasia.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome fantasia!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if(jtfCNPJ.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o Cnpj!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if(jtfEndereco.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o endereço!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if(jtfBairro.getText().equals(""))	 {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if(jtfNumero.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o número do estabelecimento!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			this.empresa = new Empresa();
+			this.empresa.setRazaoSocial(jtfRazaoSocial.getText());
+			
+		}
 	}
 	
-	public void editarCadastro() {
-		
+	public void editarCadastroEmpresa() {
+		jbtNovo.setEnabled(false);
+		jrbLucroPresumido.setEnabled(true);
+		jrbLucroReal.setEnabled(true);
+		jrbSimplesNacional.setEnabled(true);
+		jtfNomeFantasia.setEnabled(true);
+		jtfRazaoSocial.setEnabled(true);
+		jtfCNPJ.setEnabled(true);
+		jtfInscricaoEstadual.setEnabled(true);
+		jtfInscricaoMunicipal.setEnabled(true);
+		jtfTelefoneCelular.setEnabled(true);
+		jtfTelefoneComercial.setEnabled(true);
+		jtfFax.setEnabled(true);
+		jtfEndereco.setEnabled(true);
+		jtfNumero.setEnabled(true);
+		jtfBairro.setEnabled(true);
+		jtfCidade.setEnabled(true);
+		jtfUnidadeFederativa.setEnabled(true);
+		jtfPais.setEnabled(true);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
 	}
 	
-	public void cancelarCadastro() {
+	public void cancelarCadastroEmpresa() {
 		jbtNovo.setEnabled(true);
 		jrbLucroPresumido.setEnabled(false);
 		jrbLucroReal.setEnabled(false);
@@ -478,16 +521,24 @@ public class EmpresaTela extends JFrame {
 		jtfCidade.setText("");
 		jtfUnidadeFederativa.setText("");
 		jtfPais.setText("");
-		jbtSalvar.setEnabled(false);
 		jbtCancelar.setEnabled(false);
+		jbtSalvar.setEnabled(false);
+		jbtEditar.setEnabled(false);
 	}
 	
 	public void preencherCampos(Empresa empresa) {
+		jtfCodigo.setText(String.valueOf(empresa.getIdEmpresa()));
+		jtfRazaoSocial.setText(empresa.getRazaoSocial());
+		jtfNomeFantasia.setText(empresa.getNomeFantasia());
+		jtfCNPJ.setText(empresa.getCnpj());
+		jtfInscricaoEstadual.setText(empresa.getInscricaoEstadual());
+		jtfInscricaoMunicipal.setText(empresa.getInscricaoMunicipal());
+		jtfTelefoneCelular.setText(empresa.getTelefoneCelular());
 		
 	}
 
-	public EmpresaTela() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(EmpresaTela.class.getResource("/Imagens/washCar.jpeg")));
+	public EmpresaForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EmpresaForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro da Empresa");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -504,7 +555,7 @@ public class EmpresaTela extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtPesquisaEmpresa) {
-					ListaEmpresa listaEmpresa = new ListaEmpresa(empresaTela);
+					ListaEmpresaForm listaEmpresa = new ListaEmpresaForm(empresaTela);
 					listaEmpresa.show();
 					jbtEditar.setEnabled(true);
 				}
@@ -514,26 +565,31 @@ public class EmpresaTela extends JFrame {
 		jbtNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtNovo) {
-					novoCadastro();
+					novoCadastroEmpresa();
 				}
 			}
 		});
 		
 		jbtSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtSalvar) {
+					salvarCadastroEmpresa();
+				}
 			}
 		});
 		
 		jbtEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if(e.getSource() == jbtEditar) {
+					editarCadastroEmpresa();
+				}
 			}
 		});
 		
 		jbtCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtCancelar) {
-					cancelarCadastro();
+					cancelarCadastroEmpresa();
 				}
 			}
 		});

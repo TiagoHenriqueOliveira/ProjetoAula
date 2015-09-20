@@ -1,4 +1,4 @@
-package telas.WashCar;
+package forms.WashCar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,7 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Toolkit;
 
-public class CarroTela extends JFrame {
+public class CarroForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnCarro;
@@ -92,7 +92,7 @@ public class CarroTela extends JFrame {
 		jpnPesquisaCarro.add(jtfPesquisaNomeCarro);
 		
 		jbtPesquisa = new JButton("");
-		jbtPesquisa.setIcon(new ImageIcon(CarroTela.class.getResource("/Imagens/lupaPesquisa.jpeg")));
+		jbtPesquisa.setIcon(new ImageIcon(CarroForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		jbtPesquisa.setBounds(565, 42, 40, 32);
 		jpnPesquisaCarro.add(jbtPesquisa);
 		
@@ -303,8 +303,8 @@ public class CarroTela extends JFrame {
 		jbtCancelar.setEnabled(false);
 	}
 	
-	public CarroTela() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(CarroTela.class.getResource("/Imagens/washCar.jpeg")));
+	public CarroForm() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CarroForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro de Carros do Cliente | WashCar");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 642, 356);
