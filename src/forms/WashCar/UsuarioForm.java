@@ -28,6 +28,9 @@ import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
 import daoFactory.WashCar.DaoFactory;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 public class UsuarioForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -361,6 +364,32 @@ public class UsuarioForm extends JFrame {
 			}
 		});
 	}
+	
+	public void pesquisarAcionandoEnter() {
+		jtfPesquisaNomeUsuario.addKeyListener(new KeyAdapter() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
+					listaUsuario.show();
+					efetuarPesquisa();
+				}
+			}
+		});
+		
+		jtfPesquisaCodigoUsuario.addKeyListener(new KeyAdapter() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
+					listaUsuario.show();
+					efetuarPesquisa();
+				}
+			}
+		});
+	}
 		
 	public UsuarioForm() {
 		usuarioForm = this;
@@ -381,5 +410,6 @@ public class UsuarioForm extends JFrame {
 		acionarBotaoCancelar();
 		acionarBotaoFechar();
 		acionarBotaoPesquisar();
+		pesquisarAcionandoEnter();
 	}
 }

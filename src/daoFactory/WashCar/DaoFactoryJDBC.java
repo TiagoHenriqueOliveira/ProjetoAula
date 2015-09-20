@@ -5,7 +5,7 @@ import dao.WashCar.EmpresaDAOJDBC;
 import dao.WashCar.MarcaDAO;
 import dao.WashCar.UsuarioDAO;
 import dao.WashCar.UsuarioDAOJDBC;
-import forms.WashCar.MarcaDAOJDBC;
+import dao.WashCar.MarcaDAOJDBC;
 
 public class DaoFactoryJDBC implements AbstractDaoFactory{
 

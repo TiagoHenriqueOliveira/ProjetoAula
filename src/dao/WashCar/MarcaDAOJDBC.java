@@ -1,4 +1,4 @@
-package forms.WashCar;
+package dao.WashCar;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -25,7 +25,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	@Override
 	public void inserir(Marca marca) {
 		sql = "insert into marca(nome, dataAlteracao, foraUso)"
-				+ "values(?, ?, ?)";
+				+ "values(?,?,?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, marca.getNome());

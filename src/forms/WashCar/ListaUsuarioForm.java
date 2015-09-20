@@ -21,7 +21,6 @@ import dao.WashCar.UsuarioDAOJDBC;
 public class ListaUsuarioForm extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("unused")
 	private UsuarioForm usuarioForm;
 	private JPanel jpnListaUsuario;
 	private Vector<String> dados;

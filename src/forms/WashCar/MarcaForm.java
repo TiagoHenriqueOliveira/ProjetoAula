@@ -190,9 +190,6 @@ public class MarcaForm extends JFrame {
 			this.marca.setNome(jtfNomeMarca.getText());
 			this.marca.setDataAltercacao(Date.valueOf(marca.getDataAltercacao().now()).toLocalDate());
 			this.marca.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
-			DaoFactory.getFactory().marcaDao().inserir(marca);
-			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
-					"Confirmação", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
@@ -235,6 +232,9 @@ public class MarcaForm extends JFrame {
 		jbtSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				salvarCadastro();
+				DaoFactory.getFactory().marcaDao().inserir(marca);
+				JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
+						"Confirmação", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 	}

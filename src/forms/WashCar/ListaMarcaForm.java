@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
+import dao.WashCar.MarcaDAOJDBC;
 import model.WashCar.Marca;
 
 import java.awt.Font;
