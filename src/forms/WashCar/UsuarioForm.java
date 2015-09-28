@@ -30,6 +30,7 @@ import daoFactory.WashCar.DaoFactory;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.SwingConstants;
 
 public class UsuarioForm extends JFrame {
 
@@ -146,6 +147,7 @@ public class UsuarioForm extends JFrame {
 		
 		try {
 			jtfDataAlteracao = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			jtfDataAlteracao.setHorizontalAlignment(SwingConstants.RIGHT);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
