@@ -241,7 +241,7 @@ public class UsuarioForm extends JFrame {
 		this.usuario.setSenha(jpfSenha.getText());
 		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
 		this.usuario.setForaUso(Boolean.valueOf(jcbxUsuarioForaUso.isSelected()));
-		this.usuario.setEmpresa(new Empresa(usuario.getEmpresa().getIdEmpresa()));
+		this.usuario.setEmpresa(new Empresa(1));
 		DaoFactory.getFactory().usuarioDao().inserir(usuario);
 		JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
 				"Confirmação", JOptionPane.INFORMATION_MESSAGE);

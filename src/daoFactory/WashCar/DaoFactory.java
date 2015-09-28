@@ -24,6 +24,7 @@ public class DaoFactory {
 		if(factory == null) {
 			factory = new DaoFactory();
 		}
+		daoFactory = new DaoFactoryJDBC();
 		return factory;
 	}
 

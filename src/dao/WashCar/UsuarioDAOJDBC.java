@@ -24,7 +24,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	@SuppressWarnings("static-access")
 	@Override
 	public void inserir(Usuario usuario) {
-		sql = "inser into usuario(nomeUsuario, loginUsuario, senhaUsuario"
+		sql = "insert into usuario(nomeUsuario, loginUsuario, senhaUsuario, "
 							+"dataAlteracao, empresa, foraUso)"
 							+ "values(?,?,?,?,?,?)";
 		try {
@@ -33,7 +33,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 			pstmt.setString(2, usuario.getLogin());
 			pstmt.setString(3, usuario.getSenha());
 			pstmt.setDate(4, Date.valueOf(usuario.getDataAltercacao().now()));
-			pstmt.setInt(5,  Integer.valueOf(usuario.getEmpresa().getIdEmpresa()));
+			pstmt.setInt(5,  usuario.getEmpresa().getIdEmpresa());
 			pstmt.setBoolean(6, usuario.isForaUso());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
