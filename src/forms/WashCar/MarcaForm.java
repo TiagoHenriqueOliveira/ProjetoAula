@@ -52,8 +52,6 @@ public class MarcaForm extends JFrame {
 	private Marca marca;
 	private static MarcaForm marcaForm;
 	
-
-	//teste
 	public void componentesTelaMarca() {
 		jpnPesquisaMarcas = new JPanel();
 		jpnPesquisaMarcas.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
