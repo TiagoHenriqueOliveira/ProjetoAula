@@ -53,6 +53,7 @@ public class MarcaForm extends JFrame {
 	private static MarcaForm marcaForm;
 	
 
+	//teste
 	public void componentesTelaMarca() {
 		jpnPesquisaMarcas = new JPanel();
 		jpnPesquisaMarcas.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -183,7 +184,7 @@ public class MarcaForm extends JFrame {
 	public void salvarCadastro() {
 		this.marca = new Marca();
 		if(jtfNomeMarca.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca!!!",
+			JOptionPane.showMessageDialog(null, "Obrigatï¿½rio informar o nome da marca!!!",
 					"Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeMarca.requestFocus();
 		} else {
@@ -234,7 +235,7 @@ public class MarcaForm extends JFrame {
 				salvarCadastro();
 				DaoFactory.getFactory().marcaDao().inserir(marca);
 				JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
-						"Confirmação", JOptionPane.INFORMATION_MESSAGE);
+						"Confirmaï¿½ï¿½o", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 	}
