@@ -87,7 +87,8 @@ public class LoginForm extends JFrame {
 
 	@SuppressWarnings("deprecation")
 	public void acesso(Usuario usuario) {
-		String sql = "select * from usuario";
+		String sql = "select * from usuario u"
+							+ " where u.nomeUsuario = ?";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
@@ -131,10 +132,10 @@ public class LoginForm extends JFrame {
 		
 		jbtLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			//	acesso(usuario);
-				principal = new PrincipalForm();
-				principal.show();
-				dispose();
+				acesso(usuario);
+//				principal = new PrincipalForm();
+//				principal.show();
+//				dispose();
 			}
 		});
 		

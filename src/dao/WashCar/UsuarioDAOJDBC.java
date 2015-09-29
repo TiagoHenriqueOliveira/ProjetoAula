@@ -38,8 +38,6 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			
 		}
 	}
 
