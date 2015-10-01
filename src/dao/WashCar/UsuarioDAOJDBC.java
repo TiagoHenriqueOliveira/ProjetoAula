@@ -21,7 +21,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 		con = ConexaoUtil.getCon();
 	}
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access"})
 	@Override
 	public void inserir(Usuario usuario) {
 		sql = "insert into usuario(nomeUsuario, loginUsuario, senhaUsuario, "
@@ -38,6 +38,8 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			
 		}
 	}
 

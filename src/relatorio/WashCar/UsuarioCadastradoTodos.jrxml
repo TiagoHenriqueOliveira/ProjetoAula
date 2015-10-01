@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2015-10-01T20:14:00 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UsuarioCadastradoTodos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3c386a6e-5da0-443b-aed9-84561c29348c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="d2FzaGNhci51c3VhcmlvICwxNSwxNSw1Y2E3YzBiOS0zOWNjLTRlOGYtODk1YS0zZDQ3M2FjYTcw&#xA;Mjg7"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="WashCar"/>
+	<queryString>
+		<![CDATA[SELECT washcar.usuario.`idCadastroUsuario`,
+	washcar.usuario.`nomeUsuario`,
+	washcar.usuario.`loginUsuario`,
+	washcar.usuario.`foraUso`
+FROM washcar.usuario]]>
+	</queryString>
+	<field name="idCadastroUsuario" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeUsuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="loginUsuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="foraUso" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="127" y="10" width="300" height="20" uuid="e518870c-eb96-49b2-8223-a3673bc710b0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="16"/>
+				</textElement>
+				<text><![CDATA[Relatório Geral - Todos usuários cadastrados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="60" height="20" uuid="bf4b4c1a-1322-4d31-a7b1-e7b4086c4d75"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="0" width="120" height="20" uuid="389e7860-c2fe-4eb6-bfef-0824ae3ebdcf"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[Nome do Usuário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="0" width="130" height="20" uuid="5d32723e-f9cd-4844-837c-d807cae59808"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[Login do Usuário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="147" height="20" uuid="b6bfd259-37d2-412d-927e-caebce482cf1"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[Usuário Ativos/Desativados]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="-1" y="10" width="21" height="20" uuid="dea86973-e968-42a9-85fc-666131ebe3a3"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idCadastroUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="10" width="160" height="20" uuid="d549aae0-4a29-44dc-be19-514e2475d434"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="10" width="130" height="20" uuid="b42e9f47-c2ca-44d7-917d-33f9b89a8872"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{loginUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="10" width="100" height="20" uuid="a0723b92-87c4-439b-bbf3-ee9878a6e6f0"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{foraUso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

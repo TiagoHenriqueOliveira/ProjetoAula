@@ -26,4 +26,12 @@ public class ConexaoUtil {
 	public static Connection getCon() {
 		return connection;
 	}
+	
+	public void closeConexao() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -31,6 +31,9 @@ import daoFactory.WashCar.DaoFactory;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.SwingConstants;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class UsuarioForm extends JFrame {
 
@@ -61,11 +64,14 @@ public class UsuarioForm extends JFrame {
 	private JLabel jlbConsultaUsuario;
 	private Usuario usuario;
 	private static UsuarioForm usuarioForm;
+	private JMenuBar jmbUsuario;
+	private JMenu jmnRelatorio;
+	private JMenuItem jmiUsuarioCadastradoTodos;
 
 	public void componentesFormUsuario() {
 		jpnPesquisaUsuario = new JPanel();
 		jpnPesquisaUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		jpnPesquisaUsuario.setBounds(10, 11, 424, 81);
+		jpnPesquisaUsuario.setBounds(10, 11, 540, 81);
 		jpnUsuario.add(jpnPesquisaUsuario);
 		jpnPesquisaUsuario.setLayout(null);
 		
@@ -142,7 +148,7 @@ public class UsuarioForm extends JFrame {
 		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(336, 266, 98, 14);
+		jlbDataAlteracao.setBounds(452, 266, 98, 14);
 		jpnUsuario.add(jlbDataAlteracao);
 		
 		try {
@@ -155,7 +161,7 @@ public class UsuarioForm extends JFrame {
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(336, 282, 98, 20);
+		jtfDataAlteracao.setBounds(452, 282, 98, 20);
 		jpnUsuario.add(jtfDataAlteracao);
 		
 		jcbxUsuarioForaUso = new JCheckBox("Usu\u00E1rio Fora de Uso");
@@ -167,30 +173,30 @@ public class UsuarioForm extends JFrame {
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setToolTipText("");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(359, 314, 75, 23);
+		jbtFechar.setBounds(450, 314, 100, 23);
 		jpnUsuario.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(269, 314, 81, 23);
+		jbtCancelar.setBounds(340, 314, 100, 23);
 		jpnUsuario.add(jbtCancelar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(183, 314, 75, 23);
+		jbtEditar.setBounds(230, 314, 100, 23);
 		jpnUsuario.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(97, 314, 75, 23);
+		jbtSalvar.setBounds(120, 314, 100, 23);
 		jpnUsuario.add(jbtSalvar);
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 314, 75, 23);
+		jbtNovo.setBounds(10, 314, 100, 23);
 		jpnUsuario.add(jbtNovo);
 		
 		jtfCodigo = new JTextField();
@@ -205,9 +211,19 @@ public class UsuarioForm extends JFrame {
 		jlbCodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbCodigo.setBounds(10, 103, 46, 14);
 		jpnUsuario.add(jlbCodigo);
+		
+		jmbUsuario = new JMenuBar();
+		setJMenuBar(jmbUsuario);
+		
+		jmnRelatorio = new JMenu("Relat\u00F3rios");
+		jmbUsuario.add(jmnRelatorio);
+		
+		jmiUsuarioCadastradoTodos = new JMenuItem("Usu\u00E1rios Cadastrados - Todos");
+		jmnRelatorio.add(jmiUsuarioCadastradoTodos);
 	}
 	
 	public void novoCadastroUsuario() {
+		jtfNome.requestFocus();
 		jtfCodigo.setText("");
 		jtfNome.setText("");
 		jtfLogin.setText("");
@@ -247,7 +263,17 @@ public class UsuarioForm extends JFrame {
 		DaoFactory.getFactory().usuarioDao().inserir(usuario);
 		JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
 				"Confirmação", JOptionPane.INFORMATION_MESSAGE);
+		jtfNome.setEnabled(false);
+		jtfLogin.setEnabled(false);
+		jpfSenha.setEnabled(false);
+		jbtSalvar.setEnabled(false);
+		jbtEditar.setEnabled(true);
+		jbtNovo.setEnabled(true);
 		}
+	}
+	
+	public void salvarEdicaoUsuario() {
+		
 	}
 	
 	public void editarCadastroUsuario() {
@@ -394,12 +420,12 @@ public class UsuarioForm extends JFrame {
 	}
 		
 	public UsuarioForm() {
+		setResizable(false);
 		usuarioForm = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UsuarioForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro de Usuários | WashCar");
-		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 376);
+		setBounds(100, 100, 565, 395);
 		jpnUsuario = new JPanel();
 		jpnUsuario.setLayout(null);
 		setLocationRelativeTo(null);
