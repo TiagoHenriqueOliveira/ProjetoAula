@@ -116,11 +116,6 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	}
 
 	@Override
-	public Usuario buscarDocumento(String codDocumento) {
-		return null;
-	}
-
-	@Override
 	public List<Usuario> todos() {
 		List<Usuario> usuarios = new ArrayList<>();
 		sql = "select * from usuario";
@@ -142,5 +137,27 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 			e.printStackTrace();
 		}
 		return usuarios;
+	}
+
+	@Override
+	public Usuario login(String login, String senha) {
+		Usuario usuario = null;
+		sql = "select * from usuario u"
+				+ " where u.loginUsuario = ?"
+				+ " and u.senhaUsuario = ?";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, login);
+			pstmt.setString(2, senha);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				usuario = new Usuario();
+				usuario.setLogin(rs.getString("loginUsuario"));
+				usuario.setSenha(rs.getString("senhaUsuario"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return usuario;
 	}
 }

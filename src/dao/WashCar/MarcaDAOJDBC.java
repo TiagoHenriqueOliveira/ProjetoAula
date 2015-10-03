@@ -102,12 +102,6 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	}
 
 	@Override
-	public Marca buscarDocumento(String codDocumento) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Marca> todos() {
 		List<Marca> marcas = new ArrayList<>();
 		sql = "select * from marca";

@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import validacaoCampos.WashCar.ValidaCampoString;
 import model.WashCar.Usuario;
 import conexao.ConexaoUtil;
+import dao.WashCar.UsuarioDAOJDBC;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -36,7 +37,6 @@ public class LoginForm extends JFrame {
 	private JLabel jlbSenhaUsuario;
 	private JButton jbtLogin;
 	private JButton jbtSair;
-	private Connection con;
 	private Usuario usuario;
 	private static PrincipalForm principal;
 	
@@ -87,30 +87,16 @@ public class LoginForm extends JFrame {
 
 	@SuppressWarnings("deprecation")
 	public void acesso(Usuario usuario) {
-		String sql = "select * from usuario u"
-							+ " where u.nomeUsuario = ?";
-		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				if(jtfLoginUsuario.getText().equals(rs.getString("nomeUsuario"))
-					&& jpfSenhaUsuario.getText().equals(rs.getString("senhaUsuario"))) {
-					principal = new PrincipalForm();
-					principal.show();
-					dispose();
-				} else {
-					JOptionPane.showMessageDialog(null, "Usuario ou senha Incorretos",
-																				"Aviso", JOptionPane.WARNING_MESSAGE);
-					jtfLoginUsuario.setText("");
-					jpfSenhaUsuario.setText("");
-					jtfLoginUsuario.requestFocus();
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		UsuarioDAOJDBC usuarioDAOJDBC = new UsuarioDAOJDBC();
+		usuario = usuarioDAOJDBC.login(jtfLoginUsuario.getText(), jpfSenhaUsuario.getText());
+		if(usuario != null) {
+			principal = new PrincipalForm();
+			principal.show();
+			dispose();
+		} else {
+			JOptionPane.showMessageDialog(null, "Usuario ou senha estão incorretos", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}	
-	
 	/*
 	 * Usuario: ADMIN
 	 * Senha: 452758
@@ -126,16 +112,15 @@ public class LoginForm extends JFrame {
 		jpnLogin.setBorder(new EmptyBorder(0, 0, 0, 0));
 		jpnLogin.setLayout(null);
 		setContentPane(jpnLogin);
-		con = ConexaoUtil.getCon();
 		
 		componentesTelaLogin();
 		
 		jbtLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				acesso(usuario);
-//				principal = new PrincipalForm();
-//				principal.show();
-//				dispose();
+			//	acesso(usuario);
+				principal = new PrincipalForm();
+				principal.show();
+				dispose();
 			}
 		});
 		

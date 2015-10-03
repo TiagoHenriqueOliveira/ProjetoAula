@@ -14,8 +14,6 @@ public interface GenericDAO<T> {
 	
 	T buscarDescricao(String descricao);
 	
-	T buscarDocumento(String codDocumento);
-	
 	List<T> todos();
 	
 }

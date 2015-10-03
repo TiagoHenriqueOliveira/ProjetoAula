@@ -150,7 +150,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	}
 
 	@Override
-	public Empresa buscarDocumento(String codDocumento) {
+	public void buscarDocumento(String codDocumento) {
 		Empresa empresa = null;
 		sql = "select * from empresa e"
 				+ "where e.cnpj = ?";
@@ -178,7 +178,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return empresa;
+		return;
 	}
 
 	@Override
