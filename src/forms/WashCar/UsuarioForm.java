@@ -213,33 +213,38 @@ public class UsuarioForm extends JFrame {
 		jpnUsuario.add(jlbCodigo);
 		
 		jmbUsuario = new JMenuBar();
+		jmbUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		setJMenuBar(jmbUsuario);
 		
 		jmnRelatorio = new JMenu("Relat\u00F3rios");
+		jmnRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jmbUsuario.add(jmnRelatorio);
 		
 		jmiUsuarioCadastradoTodos = new JMenuItem("Usu\u00E1rios Cadastrados - Todos");
+		jmiUsuarioCadastradoTodos.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jmnRelatorio.add(jmiUsuarioCadastradoTodos);
 	}
 	
-	public void novoCadastroUsuario() {
+	public void acionarBotaoNovo() {
 		jtfNome.requestFocus();
 		jtfCodigo.setText("");
 		jtfNome.setText("");
 		jtfLogin.setText("");
 		jpfSenha.setText("");
+		jtfDataAlteracao.setText("");
 		jbtNovo.setEnabled(false);
 		jtfNome.setEnabled(true);
 		jtfLogin.setEnabled(true);
 		jpfSenha.setEnabled(true);
 		jcbxUsuarioForaUso.setSelected(false);
+		jcbxUsuarioForaUso.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
 		jbtEditar.setEnabled(false);
 	}
 	
 	@SuppressWarnings({ "deprecation", "static-access" })
-	public void salvarCadastroUsuario() {
+	public void salvarCadastroUsuario() throws Exception{
 		this.usuario = new Usuario();
 		if(jtfNome.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!",
@@ -261,8 +266,9 @@ public class UsuarioForm extends JFrame {
 		this.usuario.setForaUso(Boolean.valueOf(jcbxUsuarioForaUso.isSelected()));
 		this.usuario.setEmpresa(new Empresa(1));
 		DaoFactory.getFactory().usuarioDao().inserir(usuario);
-		JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
-				"Confirmação", JOptionPane.INFORMATION_MESSAGE);
+		jtfCodigo.setText(String.valueOf(this.usuario.getIdUsuario()));
+		jtfDataAlteracao.setText(this.usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
 		jpfSenha.setEnabled(false);
@@ -272,11 +278,42 @@ public class UsuarioForm extends JFrame {
 		}
 	}
 	
-	public void salvarEdicaoUsuario() {
-		
+	@SuppressWarnings({ "deprecation", "static-access" })
+	public void salvarEdicaoUsuario() throws Exception {
+		this.usuario = new Usuario();
+		if(jtfNome.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNome.requestFocus();
+		} else if(jtfLogin.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o login do usuário!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfLogin.requestFocus();
+		} else if(jpfSenha.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a senha do usuário!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jpfSenha.requestFocus();
+		} else {
+		this.usuario.setNome(jtfNome.getText());
+		this.usuario.setLogin(jtfLogin.getText());
+		this.usuario.setSenha(jpfSenha.getText());
+		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
+		this.usuario.setForaUso(Boolean.valueOf(jcbxUsuarioForaUso.isSelected()));
+		this.usuario.setIdUsuario(Integer.valueOf(jtfCodigo.getText()));
+		DaoFactory.getFactory().usuarioDao().alterar(usuario);
+		jtfDataAlteracao.setText(this.usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+		jtfNome.setEnabled(false);
+		jtfLogin.setEnabled(false);
+		jpfSenha.setEnabled(false);
+		jcbxUsuarioForaUso.setEnabled(false);
+		jbtSalvar.setEnabled(false);
+		jbtEditar.setEnabled(true);
+		jbtNovo.setEnabled(true);
+		}
 	}
 	
-	public void editarCadastroUsuario() {
+	public void acionarBotaoEditar() {
 		jbtNovo.setEnabled(false);
 		jtfNome.setEnabled(true);
 		jtfLogin.setEnabled(true);
@@ -286,7 +323,7 @@ public class UsuarioForm extends JFrame {
 		jbtCancelar.setEnabled(true);
 	}
 	
-	public void efetuarPesquisa() {
+	public void acionarBotaoPesquisa() {
 		jbtEditar.setEnabled(true);
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
@@ -297,10 +334,10 @@ public class UsuarioForm extends JFrame {
 		jtfNome.setText("");
 		jtfLogin.setText("");
 		jpfSenha.setText("");
-		jbtNovo.setEnabled(false);
+		jbtSalvar.setEnabled(false);
 	}
 	
-	public void cancelarCadastroUsuario() {
+	public void acionarBotaoCancelar() {
 		jbtNovo.setEnabled(true);
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
@@ -330,78 +367,80 @@ public class UsuarioForm extends JFrame {
 		}
 	}
 	
-	public void acionarBotaoNovo() {
+	public void acoesDosBotoes() {
 		jbtNovo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtNovo) {
-					novoCadastroUsuario();
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtNovo) {
+					acionarBotaoNovo();
 				}
 			}
 		});
-	}
-	
-	public void acionarBotaoSalvar() {
+		
 		jbtSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtSalvar) {
-					salvarCadastroUsuario();
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtSalvar) {
+					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
+						try {
+							salvarEdicaoUsuario();
+						} catch (Exception edicao) {
+							edicao.printStackTrace();
+						}
+					} else {
+						try {
+							salvarCadastroUsuario();
+						} catch (Exception salvar) {
+							salvar.printStackTrace();
+						}
+					}
 				}
 			}
 		});
-	}
-	
-	public void acionarBotaoEditar() {
+		
 		jbtEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtEditar) {
-					editarCadastroUsuario();
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtEditar) {
+					acionarBotaoEditar();
 				}
 			}
 		});
-	}
-	
-	public void acionarBotaoCancelar() {
+		
 		jbtCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtCancelar) {
-					cancelarCadastroUsuario();
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtCancelar) {
+					acionarBotaoCancelar();
 				}
 			}
 		});
-	}
-	
-	public void acionarBotaoFechar() {
+		
 		jbtFechar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtFechar) {
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtFechar) {
 					dispose();
 				}
 			}
 		});
-	}
-	
-	public void acionarBotaoPesquisar() {
+		
 		jbtPesquisaUsuario.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtPesquisaUsuario) {
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtPesquisaUsuario) {
 					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
 					listaUsuario.show();
-					efetuarPesquisa();
+					acionarBotaoPesquisa();
 				}
 			}
 		});
 	}
 	
-	public void pesquisarAcionandoEnter() {
+	public void pesquisarConteudoTextField() {
 		jtfPesquisaNomeUsuario.addKeyListener(new KeyAdapter() {
 			@SuppressWarnings("deprecation")
 			@Override
-			public void keyPressed(KeyEvent evt) {
-				if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
 					listaUsuario.show();
-					efetuarPesquisa();
+					acionarBotaoPesquisa();
 				}
 			}
 		});
@@ -409,11 +448,11 @@ public class UsuarioForm extends JFrame {
 		jtfPesquisaCodigoUsuario.addKeyListener(new KeyAdapter() {
 			@SuppressWarnings("deprecation")
 			@Override
-			public void keyPressed(KeyEvent evt) {
-				if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
 					listaUsuario.show();
-					efetuarPesquisa();
+					acionarBotaoPesquisa();
 				}
 			}
 		});
@@ -432,12 +471,7 @@ public class UsuarioForm extends JFrame {
 		setContentPane(jpnUsuario);
 		
 		componentesFormUsuario();
-		acionarBotaoNovo();
-		acionarBotaoSalvar();
-		acionarBotaoEditar();
-		acionarBotaoCancelar();
-		acionarBotaoFechar();
-		acionarBotaoPesquisar();
-		pesquisarAcionandoEnter();
+		acoesDosBotoes();
+		pesquisarConteudoTextField();
 	}
 }
