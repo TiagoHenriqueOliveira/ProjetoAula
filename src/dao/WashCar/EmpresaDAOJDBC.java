@@ -17,7 +17,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	private String sql;
 	
 	public EmpresaDAOJDBC() {
-		con = ConexaoUtil.getCon();
+		con = ConexaoUtil.openConnection();
 	}
 	
 	@SuppressWarnings("static-access")

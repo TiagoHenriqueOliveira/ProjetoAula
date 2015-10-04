@@ -23,11 +23,11 @@ public class ConexaoUtil {
 		}
 	}
 	
-	public static Connection getCon() {
+	public static Connection openConnection() {
 		return connection;
 	}
 	
-	public void closeConexao() {
+	public void closeConnection() {
 		try {
 			connection.close();
 		} catch (SQLException e) {
