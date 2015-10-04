@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.ToDoubleBiFunction;
 
 import conexao.ConexaoUtil;
 import model.WashCar.Empresa;
@@ -14,21 +15,22 @@ import model.WashCar.Usuario;
 
 public class UsuarioDAOJDBC implements UsuarioDAO{
 	
-	private Connection con;
+	private Connection connection;
 	private String sql;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
 	
 	public UsuarioDAOJDBC() {
-		con = ConexaoUtil.getCon();
+		connection = ConexaoUtil.openConnection();
 	}
 
 	@SuppressWarnings({ "static-access"})
 	@Override
-	public void inserir(Usuario usuario) {
-		sql = "insert into usuario(nomeUsuario, loginUsuario, senhaUsuario, "
-							+"dataAlteracao, empresa, foraUso)"
-							+ "values(?,?,?,?,?,?)";
+	public void inserir(Usuario usuario) throws Exception {
+		sql = "insert into usuario(nomeUsuario, loginUsuario, senhaUsuario, dataAlteracao, empresa, foraUso)"
+				+ "values(?,?,?,?,?,?)";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, usuario.getNome());
 			pstmt.setString(2, usuario.getLogin());
 			pstmt.setString(3, usuario.getSenha());
@@ -36,6 +38,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 			pstmt.setInt(5,  usuario.getEmpresa().getIdEmpresa());
 			pstmt.setBoolean(6, usuario.isForaUso());
 			pstmt.executeUpdate();
+			usuario.setIdUsuario(obterUltimoID(pstmt, rs));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,18 +46,18 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void alterar(Usuario usuario) {
-		sql = "update usuario u"
-				+ "set u.nomeUsuario = ?, u.loginUsuario = ?, u.senhaUsuario = ?"
-				+ "u.dataAlteracao = ?, u.foraUso = ?"
-				+ "where u.idCadastroUsuario =  ?";
+	public void alterar(Usuario usuario) throws Exception{
+		sql = "update usuario u "
+				+"set u.nomeUsuario = ?, u.loginUsuario = ?, u.senhaUsuario = ?, u.dataAlteracao = ?, u.foraUso = ? "
+				+"where u.idCadastroUsuario = ?";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, usuario.getNome());
 			pstmt.setString(2, usuario.getLogin());
 			pstmt.setString(3, usuario.getSenha());
 			pstmt.setDate(4, Date.valueOf(usuario.getDataAltercacao().now()));
 			pstmt.setBoolean(5, usuario.isForaUso());
+			pstmt.setInt(6, usuario.getIdUsuario());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -62,16 +65,17 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	}
 
 	@Override
-	public void excluir(Usuario usuario) {
+	public void excluir(Usuario usuario) throws Exception{
+		
 	}
 
 	@Override
 	public Usuario buscarId(Integer id) {
 		Usuario usuario = null;
 		sql = "select * from usuario u"
-							+ "where u.idCadastroUsuario = ?";
+				+ "where u.idCadastroUsuario = ?";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -94,9 +98,9 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	public Usuario buscarDescricao(String nome) {
 		Usuario usuario = null;
 		sql = "select * from usuario u"
-							+ "where u.nomeUsuario like ?";
+				+ "where u.nomeUsuario like ?";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, nome);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -120,7 +124,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 		List<Usuario> usuarios = new ArrayList<>();
 		sql = "select * from usuario";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Usuario usuario = new Usuario();
@@ -132,7 +136,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
 				usuario.setEmpresa(new Empresa(rs.getInt("empresa")));
 				usuarios.add(usuario);
-		}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -146,7 +150,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				+ " where u.loginUsuario = ?"
 				+ " and u.senhaUsuario = ?";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, login);
 			pstmt.setString(2, senha);
 			ResultSet rs = pstmt.executeQuery();
@@ -154,10 +158,25 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				usuario = new Usuario();
 				usuario.setLogin(rs.getString("loginUsuario"));
 				usuario.setSenha(rs.getString("senhaUsuario"));
+				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return usuario;
 	}
+
+	@Override
+	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws Exception {
+		try {
+			rs = pstmt.executeQuery("select last_insert_id()");
+			while(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
