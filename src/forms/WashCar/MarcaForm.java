@@ -25,6 +25,9 @@ import daoFactory.WashCar.DaoFactory;
 import model.WashCar.Marca;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class MarcaForm extends JFrame {
 
@@ -49,13 +52,16 @@ public class MarcaForm extends JFrame {
 	private JLabel jlbDataAlteracao;
 	private JLabel jlbConsultaMarcas;
 	private JCheckBox jcbxForaUso;
+	private JMenuItem jmiRelatorioGeral;
+	private JMenu jmnRelatorio;
+	private JMenuBar jmbMarcas;
 	private Marca marca;
 	private static MarcaForm marcaForm;
 	
 	public void componentesTelaMarca() {
 		jpnPesquisaMarcas = new JPanel();
 		jpnPesquisaMarcas.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		jpnPesquisaMarcas.setBounds(10, 11, 414, 82);
+		jpnPesquisaMarcas.setBounds(10, 11, 540, 82);
 		jpnMarca.add(jpnPesquisaMarcas);
 		jpnPesquisaMarcas.setLayout(null);
 		
@@ -94,31 +100,31 @@ public class MarcaForm extends JFrame {
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 216, 75, 23);
+		jbtNovo.setBounds(10, 210, 100, 23);
 		jpnMarca.add(jbtNovo);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(93, 216, 75, 23);
+		jbtSalvar.setBounds(120, 210, 100, 23);
 		jpnMarca.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(178, 216, 75, 23);
+		jbtEditar.setBounds(230, 210, 100, 23);
 		jpnMarca.add(jbtEditar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(261, 216, 80, 23);
+		jbtCancelar.setBounds(340, 210, 100, 23);
 		jpnMarca.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtFechar.setToolTipText("");
-		jbtFechar.setBounds(350, 216, 75, 23);
+		jbtFechar.setBounds(450, 210, 100, 23);
 		jpnMarca.add(jbtFechar);
 		
 		jtfCodigoMarca = new JTextField();
@@ -133,7 +139,7 @@ public class MarcaForm extends JFrame {
 		jtfNomeMarca.setDocument(new ValidaCampoString());
 		jtfNomeMarca.setEnabled(false);
 		jtfNomeMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfNomeMarca.setBounds(10, 179, 330, 20);
+		jtfNomeMarca.setBounds(10, 169, 330, 20);
 		jpnMarca.add(jtfNomeMarca);
 		jtfNomeMarca.setColumns(10);
 		
@@ -144,7 +150,7 @@ public class MarcaForm extends JFrame {
 		
 		lblNomeDaMarca_1 = new JLabel("Nome da Marca");
 		lblNomeDaMarca_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNomeDaMarca_1.setBounds(10, 162, 100, 14);
+		lblNomeDaMarca_1.setBounds(10, 152, 100, 14);
 		jpnMarca.add(lblNomeDaMarca_1);
 		
 		try {
@@ -155,20 +161,34 @@ public class MarcaForm extends JFrame {
 		jtfDataAlteracao.setBackground(Color.YELLOW);
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setEditable(false);
-		jtfDataAlteracao.setBounds(324, 121, 100, 20);
+		jtfDataAlteracao.setBounds(450, 121, 100, 20);
 		jpnMarca.add(jtfDataAlteracao);
 		jtfDataAlteracao.setColumns(10);
 		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(324, 105, 100, 14);
+		jlbDataAlteracao.setBounds(450, 105, 100, 14);
 		jpnMarca.add(jlbDataAlteracao);
 		
 		jcbxForaUso = new JCheckBox("Fora de Uso");
 		jcbxForaUso.setEnabled(false);
 		jcbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jcbxForaUso.setBounds(156, 120, 97, 23);
+		jcbxForaUso.setBounds(450, 168, 100, 23);
 		jpnMarca.add(jcbxForaUso);
+		
+		jmbMarcas = new JMenuBar();
+		jmbMarcas.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		setJMenuBar(jmbMarcas);
+		
+		jmnRelatorio = new JMenu("Relat\u00F3rios");
+		jmnRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jmbMarcas.add(jmnRelatorio);
+		
+		jmiRelatorioGeral = new JMenuItem("Relat\u00F3rio Geral - Todas as Marcas");
+		jmiRelatorioGeral.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jmnRelatorio.add(jmiRelatorioGeral);
+		setContentPane(jpnMarca);
+		jpnMarca.setLayout(null);
 	}
 	
 	public void novoCadastro() {
@@ -179,7 +199,7 @@ public class MarcaForm extends JFrame {
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarCadastro() {
+	public void salvarCadastro() throws Exception {
 		this.marca = new Marca();
 		if(jtfNomeMarca.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigat�rio informar o nome da marca!!!",
@@ -189,6 +209,9 @@ public class MarcaForm extends JFrame {
 			this.marca.setNome(jtfNomeMarca.getText());
 			this.marca.setDataAltercacao(Date.valueOf(marca.getDataAltercacao().now()).toLocalDate());
 			this.marca.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+			DaoFactory.getFactory().marcaDao().inserir(marca);
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
+					"Confirma��o", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
@@ -230,10 +253,11 @@ public class MarcaForm extends JFrame {
 	public void acionarBotaoSalvar() {
 		jbtSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				salvarCadastro();
-				DaoFactory.getFactory().marcaDao().inserir(marca);
-				JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
-						"Confirma��o", JOptionPane.INFORMATION_MESSAGE);
+				try {
+					salvarCadastro();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
@@ -272,11 +296,9 @@ public class MarcaForm extends JFrame {
 		setTitle("Cadastrar Marcas de Carros | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 442, 279);
+		setBounds(100, 100, 566, 295);
 		jpnMarca = new JPanel();
 		setLocationRelativeTo(null);
-		setContentPane(jpnMarca);
-		jpnMarca.setLayout(null);
 		
 		componentesTelaMarca();
 		acionarBotaoPesquisar();
