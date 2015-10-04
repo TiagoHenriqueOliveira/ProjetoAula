@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 public class ListaMarcaForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("unused")
 	private MarcaForm marcaForm;
 	private JPanel jpnListaMarca;
 	private Vector<String> dados;
@@ -77,12 +76,12 @@ public class ListaMarcaForm extends JFrame {
 				if(e.getSource() == jbtSelecionarMarca) {
 					Integer marcaSelecionada = jttListaMarca.getSelectedRow();
 					if(marcaSelecionada != -1) {
-						
+						Marca marca = listaMarcas.get(marcaSelecionada);
+						marcaForm.preencherCampos(marca);
+						dispose();
 					} else {
-						JOptionPane.showMessageDialog(null,
-								"Nenhuma marca foi selecionada!!!\n"
-								+ "Por gentileza, selecionar uma marca!!!",
-								"Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Nenhuma marca foi selecionada!!!\n"
+						+ "Por gentileza, selecionar uma marca!!!", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
@@ -94,7 +93,7 @@ public class ListaMarcaForm extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtCancelarPesquisa) {
-					
+					dispose();
 				}
 			}
 		});
@@ -105,13 +104,14 @@ public class ListaMarcaForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaMarcaForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Lista de Marcas");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		jpnListaMarca = new JPanel();
 		jpnListaMarca.setLayout(null);
 		setContentPane(jpnListaMarca);
 				
 		componenteListaMarca();
+		preencherDadosTabela();
 		acionarBotaoSelecionar();
 		acionarBotaoCancelar();
 	}

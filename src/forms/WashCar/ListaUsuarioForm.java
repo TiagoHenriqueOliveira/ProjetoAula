@@ -1,5 +1,6 @@
 package forms.WashCar;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -30,6 +31,8 @@ public class ListaUsuarioForm extends JFrame {
 	private JButton jbtSelecionarUsuario;
 	private JButton jbtCancelarPesquisa;
 	private List<Usuario> listaUsuarios;
+	private UsuarioForm codigoUsuario;
+	private UsuarioForm nomeUsuario;
 
 	public void componentesListaUsuario() {
 		dados = new Vector<String>();
@@ -82,10 +85,8 @@ public class ListaUsuarioForm extends JFrame {
 						usuarioForm.preencherCampos(usuario);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(null,
-								"Nenhum usuário foi selecionado!!!\n"
-								+ "Por gentileza, selecionar um usuário!!!",
-								"Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Nenhum usuário foi selecionado!!!\n"
+						+ "Por gentileza, selecionar um usuário!!!", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
