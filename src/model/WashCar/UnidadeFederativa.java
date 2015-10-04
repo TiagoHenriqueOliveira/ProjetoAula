@@ -7,11 +7,12 @@ public class UnidadeFederativa {
 	private Pais pais;
 	
 	//construtor com atributos
-	public UnidadeFederativa(Integer idUnidadeFederativa, String nome, Pais pais) {
-		super();
+	public UnidadeFederativa(Integer idUnidadeFederativa) {
 		this.idUnidadeFederativa = idUnidadeFederativa;
-		this.nome = nome;
-		this.pais = pais;
+	}
+	
+	public UnidadeFederativa() {
+		
 	}
 	
 	//gets e sets das variaveis

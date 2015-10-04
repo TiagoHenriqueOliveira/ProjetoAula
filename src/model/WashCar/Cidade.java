@@ -7,12 +7,12 @@ public class Cidade {
 	private UnidadeFederativa unidadeFederativa;
 	
 	//construtor com atributos
-	public Cidade(Integer idCidade, String nome,
-			UnidadeFederativa unidadeFederativa) {
-		super();
+	public Cidade(Integer idCidade) {
 		this.idCidade = idCidade;
-		this.nome = nome;
-		this.unidadeFederativa = unidadeFederativa;
+	}
+	
+	public Cidade() {
+		
 	}
 	
 	//gets e sets das variaveis

@@ -6,10 +6,12 @@ public class Pais {
 	private String nome;
 	
 	//construtor com atributos
-	public Pais(Integer idPais, String nome) {
-		super();
+	public Pais(Integer idPais) {
 		this.idPais = idPais;
-		this.nome = nome;
+	}
+	
+	public Pais() {
+		
 	}
 		
 	//gets e sets das variaveis
