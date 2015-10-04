@@ -85,16 +85,20 @@ public class LoginForm extends JFrame {
 		jpnLogin.add(jbtSair);
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation" })
 	public void acesso(Usuario usuario) {
 		UsuarioDAOJDBC usuarioDAOJDBC = new UsuarioDAOJDBC();
 		usuario = usuarioDAOJDBC.login(jtfLoginUsuario.getText(), jpfSenhaUsuario.getText());
-		if(usuario != null) {
+		if(usuario != null && !usuario.isForaUso()) {
 			principal = new PrincipalForm();
 			principal.show();
 			dispose();
 		} else {
-			JOptionPane.showMessageDialog(null, "Usuario ou senha estão incorretos", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Usuario ou senha estão incorretos!!!\n"
+			+ "Se o problema persistir, entre em contato com o Administrador!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfLoginUsuario.setText("");
+			jpfSenhaUsuario.setText("");
+			jtfLoginUsuario.requestFocus();
 		}
 	}	
 	/*
@@ -117,7 +121,7 @@ public class LoginForm extends JFrame {
 		
 		jbtLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			//	acesso(usuario);
+				//acesso(usuario);
 				principal = new PrincipalForm();
 				principal.show();
 				dispose();
