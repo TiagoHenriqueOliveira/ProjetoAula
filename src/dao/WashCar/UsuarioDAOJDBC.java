@@ -124,8 +124,8 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 		List<Usuario> usuarios = new ArrayList<>();
 		sql = "select * from usuario";
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
+			pstmt = connection.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario.setIdUsuario(rs.getInt("idCadastroUsuario"));

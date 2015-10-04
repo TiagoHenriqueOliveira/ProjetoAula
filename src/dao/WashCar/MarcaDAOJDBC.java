@@ -25,7 +25,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void inserir(Marca marca) {
+	public void inserir(Marca marca) throws Exception{
 		sql = "insert into marca(nome, dataAlteracao, foraUso)"
 				+ "values(?,?,?)";
 		try {
@@ -34,20 +34,24 @@ public class MarcaDAOJDBC implements MarcaDAO{
 			pstmt.setDate(2, Date.valueOf(marca.getDataAltercacao().now()));
 			pstmt.setBoolean(3, marca.isForaUso());
 			pstmt.executeUpdate();
+			marca.setIdMarca(obterUltimoID(pstmt, rs));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void alterar(Marca marca) {
-		sql = "update marca m"
-				+ "set m.nome = ?, m.foraUso = ?"
+		sql = "update marca m "
+				+ "set m.nome = ?, m.foraUso = ?, m.dataAlteracao = ? "
 				+ "where m.idMarca = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, marca.getNome());
 			pstmt.setBoolean(2, marca.isForaUso());
+			pstmt.setDate(3, Date.valueOf(marca.getDataAltercacao().now().toString()));
+			pstmt.setInt(4, marca.getIdMarca());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,7 +116,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Marca marca = new Marca();
-				marca.setIdMarca(Integer.valueOf(rs.getInt("idMarca")));
+				marca.setIdMarca(rs.getInt("idMarca"));
 				marca.setNome(rs.getString("nome"));
 				marca.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
 				marca.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
@@ -122,5 +126,18 @@ public class MarcaDAOJDBC implements MarcaDAO{
 			e.printStackTrace();
 		}
 		return marcas;
+	}
+
+	@Override
+	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws Exception {
+		try {
+			rs = pstmt.executeQuery("select last_insert_id()");
+			while(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
