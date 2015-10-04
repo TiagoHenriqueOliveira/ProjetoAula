@@ -62,11 +62,13 @@ public class UsuarioForm extends JFrame {
 	private JButton jbtSalvar;
 	private JButton jbtNovo;
 	private JLabel jlbConsultaUsuario;
-	private Usuario usuario;
-	private static UsuarioForm usuarioForm;
 	private JMenuBar jmbUsuario;
 	private JMenu jmnRelatorio;
 	private JMenuItem jmiUsuarioCadastradoTodos;
+	private Usuario usuario;
+	private static UsuarioForm usuarioForm;
+	private static String nomeUsuario;
+	private static String codigoUsuario;
 
 	public void componentesFormUsuario() {
 		jpnPesquisaUsuario = new JPanel();
@@ -323,7 +325,10 @@ public class UsuarioForm extends JFrame {
 		jbtCancelar.setEnabled(true);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void acionarBotaoPesquisa() {
+		ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
+		listaUsuario.show();
 		jbtEditar.setEnabled(true);
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
@@ -358,8 +363,7 @@ public class UsuarioForm extends JFrame {
 		jtfNome.setText(usuario.getNome());
 		jtfLogin.setText(usuario.getLogin());
 		jpfSenha.setText(usuario.getSenha());
-		jtfDataAlteracao.setText(usuario.getDataAltercacao().format(
-				DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		jtfDataAlteracao.setText(usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 		if(usuario.isForaUso()) {
 			jcbxUsuarioForaUso.setSelected(true);
 		} else {
@@ -421,11 +425,8 @@ public class UsuarioForm extends JFrame {
 		});
 		
 		jbtPesquisaUsuario.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent acvt) {
 				if(acvt.getSource() == jbtPesquisaUsuario) {
-					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
-					listaUsuario.show();
 					acionarBotaoPesquisa();
 				}
 			}
@@ -438,6 +439,7 @@ public class UsuarioForm extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					nomeUsuario = jtfPesquisaNomeUsuario.getText();
 					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
 					listaUsuario.show();
 					acionarBotaoPesquisa();
@@ -450,6 +452,7 @@ public class UsuarioForm extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					codigoUsuario = jtfPesquisaCodigoUsuario.getText();
 					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
 					listaUsuario.show();
 					acionarBotaoPesquisa();
@@ -459,7 +462,6 @@ public class UsuarioForm extends JFrame {
 	}
 		
 	public UsuarioForm() {
-		setResizable(false);
 		usuarioForm = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UsuarioForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro de Usuários | WashCar");
@@ -468,6 +470,7 @@ public class UsuarioForm extends JFrame {
 		jpnUsuario = new JPanel();
 		jpnUsuario.setLayout(null);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		setContentPane(jpnUsuario);
 		
 		componentesFormUsuario();
