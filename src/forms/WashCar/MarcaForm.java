@@ -18,6 +18,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JCheckBox;
 
@@ -191,7 +192,8 @@ public class MarcaForm extends JFrame {
 		jpnMarca.setLayout(null);
 	}
 	
-	public void novoCadastro() {
+	public void acionarBotaoNovo() {
+		jtfNomeMarca.requestFocus();
 		jbtNovo.setEnabled(false);
 		jtfNomeMarca.setEnabled(true);
 		jbtSalvar.setEnabled(true);
@@ -199,96 +201,140 @@ public class MarcaForm extends JFrame {
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarCadastro() throws Exception {
+	public void salvarCadastroMarca() throws Exception {
 		this.marca = new Marca();
 		if(jtfNomeMarca.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatï¿½rio informar o nome da marca!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeMarca.requestFocus();
 		} else {
 			this.marca.setNome(jtfNomeMarca.getText());
 			this.marca.setDataAltercacao(Date.valueOf(marca.getDataAltercacao().now()).toLocalDate());
 			this.marca.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
 			DaoFactory.getFactory().marcaDao().inserir(marca);
-			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!",
-					"Confirmaï¿½ï¿½o", JOptionPane.INFORMATION_MESSAGE);
+			jtfCodigoMarca.setText(String.valueOf(this.marca.getIdMarca()));
+			jtfDataAlteracao.setText(this.marca.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			jtfNomeMarca.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
-	public void editarCadastro() {
-		
+	@SuppressWarnings("static-access")
+	public void salvarEdicaoMarca() throws Exception{
+		this.marca = new Marca();
+		if(jtfNomeMarca.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeMarca.requestFocus();
+		} else {
+			this.marca.setNome(jtfNomeMarca.getText());
+			this.marca.setDataAltercacao(Date.valueOf(marca.getDataAltercacao().now()).toLocalDate());
+			this.marca.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+			this.marca.setIdMarca(Integer.valueOf(jtfCodigoMarca.getText()));
+			DaoFactory.getFactory().marcaDao().alterar(marca);
+			jtfDataAlteracao.setText(this.marca.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			jtfNomeMarca.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
-	public void cancelarCadastro() {
+	public void acionarBotaoEditar() {
+		jtfNomeMarca.setEnabled(true);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+		jbtNovo.setEnabled(false);
+		jcbxForaUso.setEnabled(true);
+	}
+	
+	public void acionarBotaoCancelar() {
 		jbtNovo.setEnabled(true);
 		jtfNomeMarca.setEnabled(false);
 		jtfNomeMarca.setText("");
 		jbtSalvar.setEnabled(false);
 		jbtCancelar.setEnabled(false);
+		jbtEditar.setEnabled(false);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void acionarBotaoPesquisar() {
-		jbtPesquisar.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtPesquisar) {
-					ListaMarcaForm listaMarcaForm = new ListaMarcaForm(marcaForm);
-					listaMarcaForm.show();
-				}
-			}
-		});
+		ListaMarcaForm listaMarcaForm = new ListaMarcaForm(marcaForm);
+		listaMarcaForm.show();
+		jbtEditar.setEnabled(true);
+		jbtNovo.setEnabled(true);
+		jbtCancelar.setEnabled(false);
+		jbtSalvar.setEnabled(false);
 	}
 	
-	public void acionarBotaoNovo() {
+	public void preencherCampos(Marca marca) {
+		jtfCodigoMarca.setText(String.valueOf(marca.getIdMarca()));
+		jtfNomeMarca.setText(marca.getNome());
+		jtfDataAlteracao.setText(marca.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		if(marca.isForaUso()) {
+			jcbxForaUso.setSelected(true);
+		} else {
+			jcbxForaUso.setSelected(false);
+		}
+	}
+	
+	public void acoesDosBotoes() {
 		jbtNovo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtNovo) {
-					novoCadastro();
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtNovo) {
+					acionarBotaoNovo();
 				}
 			}
 		});
-	}
-	
-	public void acionarBotaoSalvar() {
+		
 		jbtSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					salvarCadastro();
-				} catch (Exception e1) {
-					e1.printStackTrace();
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtSalvar) {
+					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
+						try {
+							salvarEdicaoMarca();
+						} catch (Exception salvarEdicao) {
+							salvarEdicao.printStackTrace();
+						}
+					} else {
+						try {
+							salvarCadastroMarca();
+						} catch (Exception salvar) {
+							salvar.printStackTrace();
+						}
+					}
 				}
 			}
 		});
-	}
-	
-	public void acionarBotaoEdtiar() {
+		
 		jbtEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent acvt) {
+				acionarBotaoEditar();
 			}
 		});
-	}
-	
-	public void acionarBotaoCancelar() {
+		
 		jbtCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtCancelar) {
-					cancelarCadastro();
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtCancelar) {
+					acionarBotaoCancelar();
 				}
 			}
 		});
-	}
-	
-	public void acionarBotaoFechar() {
+		
 		jbtFechar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtFechar) {
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtFechar) {
 					dispose();
 				}
 			}
 		});
+		
+		jbtPesquisar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtPesquisar) {
+					acionarBotaoPesquisar();
+				}
+			}
+		});
 	}
+	
 
 	public MarcaForm() {
 		marcaForm = this;
@@ -297,15 +343,10 @@ public class MarcaForm extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 566, 295);
-		jpnMarca = new JPanel();
 		setLocationRelativeTo(null);
+		jpnMarca = new JPanel();		
 		
 		componentesTelaMarca();
-		acionarBotaoPesquisar();
-		acionarBotaoNovo();
-		acionarBotaoSalvar();
-		acionarBotaoEdtiar();
-		acionarBotaoCancelar();
-		acionarBotaoFechar();
+		acoesDosBotoes();
 	}
 }
