@@ -79,7 +79,7 @@ public class UsuarioForm extends JFrame {
 		
 		jlbPesquisaCodigoUsuario = new JLabel("C\u00F3digo");
 		jlbPesquisaCodigoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaCodigoUsuario.setBounds(10, 33, 46, 14);
+		jlbPesquisaCodigoUsuario.setBounds(10, 33, 66, 14);
 		jpnPesquisaUsuario.add(jlbPesquisaCodigoUsuario);
 		
 		jtfPesquisaCodigoUsuario = new JTextField();
@@ -91,7 +91,7 @@ public class UsuarioForm extends JFrame {
 		
 		jlbPesquisaNomeUsuario = new JLabel("Nome do Usu\u00E1rio");
 		jlbPesquisaNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaNomeUsuario.setBounds(86, 33, 100, 14);
+		jlbPesquisaNomeUsuario.setBounds(86, 33, 196, 14);
 		jpnPesquisaUsuario.add(jlbPesquisaNomeUsuario);
 		
 		jtfPesquisaNomeUsuario = new JTextField();
@@ -108,7 +108,7 @@ public class UsuarioForm extends JFrame {
 		
 		jlbConsultaUsuario = new JLabel("Consulta de Usu\u00E1rios");
 		jlbConsultaUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		jlbConsultaUsuario.setBounds(10, 8, 143, 14);
+		jlbConsultaUsuario.setBounds(10, 8, 196, 14);
 		jpnPesquisaUsuario.add(jlbConsultaUsuario);
 		
 		jtfNome = new JTextField();
@@ -121,7 +121,7 @@ public class UsuarioForm extends JFrame {
 		
 		jlbNome = new JLabel("Nome do Usu\u00E1rio");
 		jlbNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNome.setBounds(10, 143, 100, 14);
+		jlbNome.setBounds(10, 143, 182, 14);
 		jpnUsuario.add(jlbNome);
 		
 		jtfLogin = new JTextField();
@@ -134,12 +134,12 @@ public class UsuarioForm extends JFrame {
 		
 		jlbLogin = new JLabel("Login do Usu\u00E1rio");
 		jlbLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbLogin.setBounds(10, 190, 100, 14);
+		jlbLogin.setBounds(10, 190, 182, 14);
 		jpnUsuario.add(jlbLogin);
 		
 		jlbSenha = new JLabel("Senha do Usu\u00E1rio");
 		jlbSenha.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbSenha.setBounds(10, 237, 100, 14);
+		jlbSenha.setBounds(10, 237, 182, 14);
 		jpnUsuario.add(jlbSenha);
 		
 		jpfSenha = new JPasswordField();
@@ -169,7 +169,7 @@ public class UsuarioForm extends JFrame {
 		jcbxUsuarioForaUso = new JCheckBox("Usu\u00E1rio Fora de Uso");
 		jcbxUsuarioForaUso.setEnabled(false);
 		jcbxUsuarioForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jcbxUsuarioForaUso.setBounds(10, 279, 140, 23);
+		jcbxUsuarioForaUso.setBounds(10, 279, 182, 23);
 		jpnUsuario.add(jcbxUsuarioForaUso);
 		
 		jbtFechar = new JButton("Fechar");
@@ -211,7 +211,7 @@ public class UsuarioForm extends JFrame {
 		
 		jlbCodigo = new JLabel("C\u00F3digo");
 		jlbCodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigo.setBounds(10, 103, 46, 14);
+		jlbCodigo.setBounds(10, 103, 66, 14);
 		jpnUsuario.add(jlbCodigo);
 		
 		jmbUsuario = new JMenuBar();

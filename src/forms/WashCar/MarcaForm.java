@@ -29,6 +29,7 @@ import validacaoCampos.WashCar.ValidaCampoString;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
 
 public class MarcaForm extends JFrame {
 
@@ -156,6 +157,7 @@ public class MarcaForm extends JFrame {
 		
 		try {
 			jtfDataAlteracao = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			jtfDataAlteracao.setHorizontalAlignment(SwingConstants.RIGHT);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
