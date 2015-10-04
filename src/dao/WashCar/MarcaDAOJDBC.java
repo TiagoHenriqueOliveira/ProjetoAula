@@ -14,13 +14,13 @@ import dao.WashCar.MarcaDAO;
 
 public class MarcaDAOJDBC implements MarcaDAO{
 	
-	private Connection con;
+	private Connection connection;
 	private String sql;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
 	public MarcaDAOJDBC() {
-		con = ConexaoUtil.openConnection();
+		connection = ConexaoUtil.openConnection();
 	}
 
 	@SuppressWarnings("static-access")
@@ -29,7 +29,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 		sql = "insert into marca(nome, dataAlteracao, foraUso)"
 				+ "values(?,?,?)";
 		try {
-			pstmt = con.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, marca.getNome());
 			pstmt.setDate(2, Date.valueOf(marca.getDataAltercacao().now()));
 			pstmt.setBoolean(3, marca.isForaUso());
@@ -47,7 +47,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 				+ "set m.nome = ?, m.foraUso = ?, m.dataAlteracao = ? "
 				+ "where m.idMarca = ?";
 		try {
-			pstmt = con.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, marca.getNome());
 			pstmt.setBoolean(2, marca.isForaUso());
 			pstmt.setDate(3, Date.valueOf(marca.getDataAltercacao().now().toString()));
@@ -69,7 +69,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 		sql = "select * from marca m"
 				+ "where m.idMarca = ?";
 		try {
-			pstmt = con.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -91,7 +91,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 		sql = "select * from marca m"
 				+ "where m.nome like ?";
 		try {
-			pstmt = con.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, nome);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -112,7 +112,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 		List<Marca> marcas = new ArrayList<>();
 		sql = "select * from marca";
 		try {
-			pstmt = con.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Marca marca = new Marca();
