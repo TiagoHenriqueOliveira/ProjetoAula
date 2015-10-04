@@ -7,17 +7,17 @@ public class Modelo {
 	private Integer idModelo;
 	private String nome;
 	private Marca marca;
+	private Boolean foraUso;
 	private LocalDate dataAltercacao;
 	private LocalDate dataInclusao;
 	
 	//construtor com atributos
-	public Modelo(Integer idModelo, String nome, Marca marca, LocalDate dataAltercacao, LocalDate dataInclusao) {
-		super();
+	public Modelo(Integer idModelo) {
 		this.idModelo = idModelo;
-		this.nome = nome;
-		this.marca = marca;
-		this.dataAltercacao = dataAltercacao;
-		this.dataInclusao = dataInclusao;
+	}
+	
+	public Modelo() {
+		
 	}
 	
 	//gets e sets das variaveis
@@ -54,5 +54,13 @@ public class Modelo {
 
 	public void setDataInclusao(LocalDate dataInclusao) {
 		this.dataInclusao = dataInclusao;
+	}
+
+	public Boolean isForaUso() {
+		return foraUso;
+	}
+
+	public void setForaUso(Boolean foraUso) {
+		this.foraUso = foraUso;
 	}
 }
