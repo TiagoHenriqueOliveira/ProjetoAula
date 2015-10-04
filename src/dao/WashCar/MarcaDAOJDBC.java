@@ -16,9 +16,11 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	
 	private Connection con;
 	private String sql;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
 	
 	public MarcaDAOJDBC() {
-		con = ConexaoUtil.getCon();
+		con = ConexaoUtil.openConnection();
 	}
 
 	@SuppressWarnings("static-access")
@@ -27,7 +29,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 		sql = "insert into marca(nome, dataAlteracao, foraUso)"
 				+ "values(?,?,?)";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, marca.getNome());
 			pstmt.setDate(2, Date.valueOf(marca.getDataAltercacao().now()));
 			pstmt.setBoolean(3, marca.isForaUso());
@@ -43,7 +45,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 				+ "set m.nome = ?, m.foraUso = ?"
 				+ "where m.idMarca = ?";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, marca.getNome());
 			pstmt.setBoolean(2, marca.isForaUso());
 			pstmt.executeUpdate();
@@ -63,9 +65,9 @@ public class MarcaDAOJDBC implements MarcaDAO{
 		sql = "select * from marca m"
 				+ "where m.idMarca = ?";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, id);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				marca = new Marca();
 				marca.setIdMarca(Integer.valueOf(rs.getInt("idMarca")));
@@ -85,9 +87,9 @@ public class MarcaDAOJDBC implements MarcaDAO{
 		sql = "select * from marca m"
 				+ "where m.nome like ?";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, nome);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				marca = new Marca();
 				marca.setIdMarca(Integer.valueOf(rs.getInt("idMarca")));
@@ -106,8 +108,8 @@ public class MarcaDAOJDBC implements MarcaDAO{
 		List<Marca> marcas = new ArrayList<>();
 		sql = "select * from marca";
 		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Marca marca = new Marca();
 				marca.setIdMarca(Integer.valueOf(rs.getInt("idMarca")));
