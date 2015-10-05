@@ -9,7 +9,6 @@ public class Modelo {
 	private Marca marca;
 	private Boolean foraUso;
 	private LocalDate dataAltercacao;
-	private LocalDate dataInclusao;
 	
 	//construtor com atributos
 	public Modelo(Integer idModelo) {
@@ -46,14 +45,6 @@ public class Modelo {
 
 	public void setDataAltercacao(LocalDate dataAltercacao) {
 		this.dataAltercacao = dataAltercacao;
-	}
-
-	public LocalDate getDataInclusao() {
-		return dataInclusao;
-	}
-
-	public void setDataInclusao(LocalDate dataInclusao) {
-		this.dataInclusao = dataInclusao;
 	}
 
 	public Boolean isForaUso() {
