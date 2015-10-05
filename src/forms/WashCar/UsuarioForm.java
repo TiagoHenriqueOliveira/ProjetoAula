@@ -329,7 +329,6 @@ public class UsuarioForm extends JFrame {
 	public void acionarBotaoPesquisa() {
 		ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
 		listaUsuario.show();
-		jbtEditar.setEnabled(true);
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
 		jpfSenha.setEnabled(false);
@@ -339,7 +338,9 @@ public class UsuarioForm extends JFrame {
 		jtfNome.setText("");
 		jtfLogin.setText("");
 		jpfSenha.setText("");
+		jbtEditar.setEnabled(true);
 		jbtSalvar.setEnabled(false);
+		jbtCancelar.setEnabled(true);
 	}
 	
 	public void acionarBotaoCancelar() {
@@ -386,14 +387,14 @@ public class UsuarioForm extends JFrame {
 					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
 						try {
 							salvarEdicaoUsuario();
-						} catch (Exception edicao) {
-							edicao.printStackTrace();
+						} catch (Exception salvarEdicao) {
+							salvarEdicao.printStackTrace();
 						}
 					} else {
 						try {
 							salvarCadastroUsuario();
-						} catch (Exception salvar) {
-							salvar.printStackTrace();
+						} catch (Exception salvarCadastro) {
+							salvarCadastro.printStackTrace();
 						}
 					}
 				}

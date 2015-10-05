@@ -259,9 +259,15 @@ public class MarcaForm extends JFrame {
 	public void acionarBotaoPesquisar() {
 		ListaMarcaForm listaMarcaForm = new ListaMarcaForm(marcaForm);
 		listaMarcaForm.show();
+		jtfNomeMarca.setEnabled(false);
+		jtfNomeMarca.setText("");
+		jtfCodigoMarca.setText("");
+		jtfDataAlteracao.setText("");
+		jcbxForaUso.setSelected(false);
+		jcbxForaUso.setEnabled(false);
 		jbtEditar.setEnabled(true);
 		jbtNovo.setEnabled(true);
-		jbtCancelar.setEnabled(false);
+		jbtCancelar.setEnabled(true);
 		jbtSalvar.setEnabled(false);
 	}
 	
@@ -297,8 +303,8 @@ public class MarcaForm extends JFrame {
 					} else {
 						try {
 							salvarCadastroMarca();
-						} catch (Exception salvar) {
-							salvar.printStackTrace();
+						} catch (Exception salvarCadastro) {
+							salvarCadastro.printStackTrace();
 						}
 					}
 				}
