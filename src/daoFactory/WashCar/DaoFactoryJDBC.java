@@ -6,6 +6,8 @@ import dao.WashCar.MarcaDAO;
 import dao.WashCar.UsuarioDAO;
 import dao.WashCar.UsuarioDAOJDBC;
 import dao.WashCar.MarcaDAOJDBC;
+import dao.WashCar.ModeloDAO;
+import dao.WashCar.ModeloDAOJDBC;
 
 public class DaoFactoryJDBC implements AbstractDaoFactory{
 
@@ -21,5 +23,10 @@ public class DaoFactoryJDBC implements AbstractDaoFactory{
 	
 	public MarcaDAO marcaDao() {
 		return new MarcaDAOJDBC();
+	}
+
+	@Override
+	public ModeloDAO modeloDao() {
+		return new ModeloDAOJDBC();
 	}
 }
