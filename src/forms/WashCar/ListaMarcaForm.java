@@ -51,12 +51,12 @@ public class ListaMarcaForm extends JFrame {
 				
 		jbtSelecionarMarca = new JButton("Selecionar");
 		jbtSelecionarMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSelecionarMarca.setBounds(10, 228, 120, 23);
+		jbtSelecionarMarca.setBounds(10, 228, 110, 23);
 		jpnListaMarca.add(jbtSelecionarMarca);
 		
 		jbtCancelarPesquisa = new JButton("Cancelar");
 		jbtCancelarPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelarPesquisa.setBounds(140, 228, 120, 23);
+		jbtCancelarPesquisa.setBounds(140, 228, 110, 23);
 		jpnListaMarca.add(jbtCancelarPesquisa);
 	}
 	
