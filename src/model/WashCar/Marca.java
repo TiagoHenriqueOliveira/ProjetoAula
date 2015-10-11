@@ -2,6 +2,8 @@ package model.WashCar;
 
 import java.time.LocalDate;
 
+import daoFactory.WashCar.DaoFactory;
+
 public class Marca {
 	
 	private Integer idMarca;
