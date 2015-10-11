@@ -36,7 +36,7 @@ public class ModeloForm extends JFrame {
 	private JPanel jpnModelo;
 	private JTextField jtfPesquisaCodigoModelo;
 	private JTextField jtfPesquisaNomeModelo;
-	private JTextField jtfCodigo;
+	private JTextField jtfCodigoModelo;
 	private JTextField jtfNomeModelo;
 	private JTextField jtfDataAlteracao;
 	private JPanel jpnPesquisaModelo;
@@ -53,25 +53,26 @@ public class ModeloForm extends JFrame {
 	private JLabel jlbDataAlteracao;
 	private JCheckBox jckbForaUso;
 	private JLabel jlbConsultaModelos;
-	private JTextField jtfCodigoModelo;
+	private JTextField jtfCodigoMarca;
 	private JTextField jtfNomeMarca;
 	private JMenuItem jmiRelatorioGeralTodos;
 	private JMenu jmnRelatorio;
 	private JMenuBar jmbModelo;
 	private JLabel jlbNomeMarca;
 	private JLabel jlbCodigoMarca;
+	private static ModeloForm modeloForm;
 
 	public void componentesTelaModelo() {
 		jpnPesquisaModelo = new JPanel();
 		jpnPesquisaModelo.setLayout(null);
 		jpnPesquisaModelo.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		jpnPesquisaModelo.setBounds(10, 11, 540, 86);
+		jpnPesquisaModelo.setBounds(10, 11, 640, 86);
 		jpnModelo.add(jpnPesquisaModelo);
 		
 		jtfPesquisaCodigoModelo = new JTextField();
 		jtfPesquisaCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCodigoModelo.setColumns(10);
-		jtfPesquisaCodigoModelo.setBounds(10, 54, 66, 20);
+		jtfPesquisaCodigoModelo.setBounds(10, 54, 50, 20);
 		jpnPesquisaModelo.add(jtfPesquisaCodigoModelo);
 		
 		jtfPesquisaNomeModelo = new JTextField();
@@ -83,60 +84,60 @@ public class ModeloForm extends JFrame {
 		
 		jlbPesquisaCodigoModelo = new JLabel("C\u00F3digo");
 		jlbPesquisaCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaCodigoModelo.setBounds(10, 38, 46, 14);
+		jlbPesquisaCodigoModelo.setBounds(10, 38, 66, 14);
 		jpnPesquisaModelo.add(jlbPesquisaCodigoModelo);
 		
 		jlbPesquisaNomeModelo = new JLabel("Nome do Modelo");
 		jlbPesquisaNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaNomeModelo.setBounds(86, 38, 100, 14);
+		jlbPesquisaNomeModelo.setBounds(86, 38, 275, 14);
 		jpnPesquisaModelo.add(jlbPesquisaNomeModelo);
 		
 		jbtPesquisaModelo = new JButton("");
 		jbtPesquisaModelo.setIcon(new ImageIcon(ModeloForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
-		jbtPesquisaModelo.setBounds(367, 43, 40, 32);
+		jbtPesquisaModelo.setBounds(371, 42, 40, 32);
 		jpnPesquisaModelo.add(jbtPesquisaModelo);
 		
 		jlbConsultaModelos = new JLabel("Consulta Modelos de Carros");
 		jlbConsultaModelos.setFont(new Font("Tahoma", Font.BOLD, 12));
-		jlbConsultaModelos.setBounds(10, 11, 200, 14);
+		jlbConsultaModelos.setBounds(10, 11, 351, 14);
 		jpnPesquisaModelo.add(jlbConsultaModelos);
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 300, 100, 23);
+		jbtNovo.setBounds(10, 300, 120, 25);
 		jpnModelo.add(jbtNovo);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(120, 300, 100, 23);
+		jbtSalvar.setBounds(140, 300, 120, 25);
 		jpnModelo.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(230, 300, 100, 23);
+		jbtEditar.setBounds(270, 300, 120, 25);
 		jpnModelo.add(jbtEditar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(340, 300, 100, 23);
+		jbtCancelar.setBounds(400, 300, 120, 25);
 		jpnModelo.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setToolTipText("");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(450, 300, 100, 23);
+		jbtFechar.setBounds(530, 300, 120, 25);
 		jpnModelo.add(jbtFechar);
 		
-		jtfCodigo = new JTextField();
-		jtfCodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfCodigo.setEditable(false);
-		jtfCodigo.setColumns(10);
-		jtfCodigo.setBackground(Color.YELLOW);
-		jtfCodigo.setBounds(10, 125, 86, 20);
-		jpnModelo.add(jtfCodigo);
+		jtfCodigoModelo = new JTextField();
+		jtfCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfCodigoModelo.setEditable(false);
+		jtfCodigoModelo.setColumns(10);
+		jtfCodigoModelo.setBackground(Color.YELLOW);
+		jtfCodigoModelo.setBounds(10, 125, 50, 20);
+		jpnModelo.add(jtfCodigoModelo);
 		
 		jtfNomeModelo = new JTextField();
 		jtfNomeModelo.setEnabled(false);
@@ -165,18 +166,18 @@ public class ModeloForm extends JFrame {
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(450, 269, 100, 20);
+		jtfDataAlteracao.setBounds(550, 269, 100, 20);
 		jpnModelo.add(jtfDataAlteracao);
 		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(450, 253, 100, 14);
+		jlbDataAlteracao.setBounds(550, 253, 100, 14);
 		jpnModelo.add(jlbDataAlteracao);
 		
 		jckbForaUso = new JCheckBox("Fora de Uso");
 		jckbForaUso.setEnabled(false);
 		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jckbForaUso.setBounds(436, 124, 115, 23);
+		jckbForaUso.setBounds(530, 124, 120, 23);
 		jpnModelo.add(jckbForaUso);
 		
 		jlbCodigoMarca = new JLabel("C\u00F3digo da Marca");
@@ -184,13 +185,13 @@ public class ModeloForm extends JFrame {
 		jlbCodigoMarca.setBounds(10, 204, 158, 14);
 		jpnModelo.add(jlbCodigoMarca);
 		
-		jtfCodigoModelo = new JTextField();
-		jtfCodigoModelo.setEditable(false);
-		jtfCodigoModelo.setBackground(Color.YELLOW);
-		jtfCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfCodigoModelo.setBounds(10, 221, 86, 20);
-		jpnModelo.add(jtfCodigoModelo);
-		jtfCodigoModelo.setColumns(10);
+		jtfCodigoMarca = new JTextField();
+		jtfCodigoMarca.setEditable(false);
+		jtfCodigoMarca.setBackground(Color.YELLOW);
+		jtfCodigoMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfCodigoMarca.setBounds(10, 221, 50, 20);
+		jpnModelo.add(jtfCodigoMarca);
+		jtfCodigoMarca.setColumns(10);
 		
 		jlbNomeMarca = new JLabel("Nome da Marca");
 		jlbNomeMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -220,11 +221,11 @@ public class ModeloForm extends JFrame {
 	
 	public void acionarBotaoNovo() {
 		jbtNovo.setEnabled(false);
-		jtfNomeModelo.setEnabled(true);
-		jtfNomeMarca.setEnabled(true);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
 		jbtEditar.setEnabled(false);
+		jtfNomeModelo.setEnabled(true);
+		jtfNomeMarca.setEnabled(true);
 	}
 	
 	public void salvarCadastroModelo() {
@@ -236,18 +237,45 @@ public class ModeloForm extends JFrame {
 	}
 	
 	public void acionarBotaoEditar() {
-		
+		jbtNovo.setEnabled(false);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+		jtfNomeModelo.setEnabled(true);
+		jtfNomeMarca.setEnabled(true);
+		jckbForaUso.setEnabled(true);
 	}
 	
 	public void acionarBotaoCancelar() {
 		jbtNovo.setEnabled(true);
-		jtfNomeModelo.setEnabled(false);
-		jtfNomeMarca.setEnabled(false);
-		jtfNomeModelo.setText("");
-		jtfNomeMarca.setText("");
 		jbtSalvar.setEnabled(false);
 		jbtCancelar.setEnabled(false);
 		jbtEditar.setEnabled(false);
+		jtfNomeModelo.setEnabled(false);
+		jtfNomeMarca.setEnabled(false);
+		jtfCodigoModelo.setText("");
+		jtfNomeModelo.setText("");
+		jtfCodigoMarca.setText("");
+		jtfNomeMarca.setText("");
+		jtfDataAlteracao.setText("");
+		jckbForaUso.setSelected(false);
+		jckbForaUso.setEnabled(false);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void acionarBotaoPesquisar() {
+		ListaModeloForm listaModeloForm = new ListaModeloForm(modeloForm);
+		listaModeloForm.show();
+		jbtEditar.setEnabled(true);
+		jbtNovo.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+		jbtSalvar.setEnabled(false);
+		jtfCodigoModelo.setText("");
+		jtfNomeModelo.setText("");
+		jtfCodigoMarca.setText("");
+		jtfNomeMarca.setText("");
+		jtfDataAlteracao.setText("");
+		jckbForaUso.setSelected(false);
+		jckbForaUso.setEnabled(false);
 	}
 	
 	public void preencherCampos(Modelo modelo) {
@@ -265,12 +293,29 @@ public class ModeloForm extends JFrame {
 		
 		jbtSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtSalvar) {
+					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
+						try {
+							salvarEdicaoModelo();
+						} catch (Exception salvarEdicao) {
+							salvarEdicao.printStackTrace();
+						}
+					} else {
+						try {
+							salvarCadastroModelo();
+						} catch (Exception salvarCadastro) {
+							salvarCadastro.printStackTrace();
+						}
+					}
+				}
 			}
 		});
 		
 		jbtEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent acvt) {
-				
+				if(acvt.getSource() == jbtEditar) {
+					acionarBotaoEditar();
+				}
 			}
 		});
 		
@@ -289,6 +334,15 @@ public class ModeloForm extends JFrame {
 				}
 			}
 		});
+		
+		jbtPesquisaModelo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtPesquisaModelo) {
+					acionarBotaoPesquisar();
+				}				
+			}
+		});
 	}
 
 	public ModeloForm() {
@@ -296,7 +350,7 @@ public class ModeloForm extends JFrame {
 		setResizable(false);
 		setTitle("Cadastrar Modelos de Carros | WashCar");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 566, 385);
+		setBounds(100, 100, 666, 385);
 		jpnModelo = new JPanel();
 		jpnModelo.setLayout(null);
 		setLocationRelativeTo(null);
