@@ -177,7 +177,7 @@ public class ModeloForm extends JFrame {
 		jckbForaUso = new JCheckBox("Fora de Uso");
 		jckbForaUso.setEnabled(false);
 		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jckbForaUso.setBounds(530, 124, 120, 23);
+		jckbForaUso.setBounds(509, 124, 141, 23);
 		jpnModelo.add(jckbForaUso);
 		
 		jlbCodigoMarca = new JLabel("C\u00F3digo da Marca");
