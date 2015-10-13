@@ -17,20 +17,20 @@ public class PrincipalForm extends JFrame {
 	private JPanel jpPrincipal;
 	private JMenuBar jmbPrincipal;
 	private JMenu jmnCadastro;
+	private JMenu mnUsurios;
+	private JMenu jmnServios;
+	private JMenu jmnFinanceiro;
+	private JMenu jmnConfiguracoes;
+	private JMenu jmnParametros;
 	private JMenuItem jmiCarro;
 	private JMenuItem jmiCliente;
-	private JMenu mnUsurios;
 	private JMenuItem jmiCadastroUsuario;
 	private JMenuItem jmiSair;
-	private JMenu jmnServios;
 	private JMenuItem jmiAgenda;
 	private JMenuItem jmiOrdemServico;
-	private JMenu jmnFinanceiro;
 	private JMenuItem jmiContaPagar;
 	private JMenuItem jmiContaReceber;
-	private JMenu jmnConfiguracoes;
 	private JMenuItem jmiEmpresa;
-	private JMenu jmnParametros;
 	private JMenuItem jmiMarca;
 	private JMenuItem jmiModelo;
 	private JMenuItem jmiTipoServico;
@@ -102,18 +102,8 @@ public class PrincipalForm extends JFrame {
 		jmiTipoServico = new JMenuItem("Tipos de Servi\u00E7o");
 		jmnParametros.add(jmiTipoServico);
 	}
-
-	public PrincipalForm() {
-		setTitle("WashCar Lavagens");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PrincipalForm.class.getResource("/Imagens/washCar.jpeg")));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 400);
-		jpPrincipal = new JPanel();
-		setLocationRelativeTo(null);
-		setContentPane(jpPrincipal);
-
-		componentesTelaPrincipal();
-		
+	
+	public void acoesDosMenus() {
 		jmiCarro.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
@@ -201,5 +191,18 @@ public class PrincipalForm extends JFrame {
 				}
 			}
 		});
+	}
+
+	public PrincipalForm() {
+		setTitle("WashCar Lavagens");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PrincipalForm.class.getResource("/Imagens/washCar.jpeg")));
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		jpPrincipal = new JPanel();
+		setLocationRelativeTo(null);
+		setContentPane(jpPrincipal);
+
+		componentesTelaPrincipal();
+		acoesDosMenus();		
 	}
 }
