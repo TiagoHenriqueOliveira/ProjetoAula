@@ -76,12 +76,12 @@ public class LoginForm extends JFrame {
 		
 		jbtLogin = new JButton("Entrar no Sistema");
 		jbtLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtLogin.setBounds(10, 340, 150, 23);
+		jbtLogin.setBounds(10, 340, 187, 25);
 		jpnLogin.add(jbtLogin);
 		
 		jbtSair = new JButton("Sair do Sistema");
 		jbtSair.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSair.setBounds(10, 374, 150, 23);
+		jbtSair.setBounds(10, 374, 187, 25);
 		jpnLogin.add(jbtSair);
 	}
 
