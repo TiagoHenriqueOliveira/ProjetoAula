@@ -15,15 +15,10 @@ import javax.swing.JButton;
 
 import validacaoCampos.WashCar.ValidaCampoString;
 import model.WashCar.Usuario;
-import conexao.ConexaoUtil;
 import dao.WashCar.UsuarioDAOJDBC;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.awt.Toolkit;
 
 public class LoginForm extends JFrame {
@@ -40,10 +35,9 @@ public class LoginForm extends JFrame {
 	private Usuario usuario;
 	private static PrincipalForm principal;
 	
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		LoginForm login = new LoginForm();
-		login.show();
+		login.setVisible(true);
 	}
 	
 	public void componentesTelaLogin() {
@@ -123,7 +117,7 @@ public class LoginForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//acesso(usuario);
 				principal = new PrincipalForm();
-				principal.show();
+				principal.setVisible(true);
 				dispose();
 			}
 		});
