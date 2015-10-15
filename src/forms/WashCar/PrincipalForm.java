@@ -105,31 +105,28 @@ public class PrincipalForm extends JFrame {
 	
 	public void acoesDosMenus() {
 		jmiCarro.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCarro) {
 					carroForm = new CarroForm();
-					carroForm.show();
+					carroForm.setVisible(true);
 				}
 			}
 		});
 		
 		jmiCliente.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCliente) {
 					clienteForm = new ClienteForm();
-					clienteForm.show();
+					clienteForm.setVisible(true);
 				}
 			}
 		});
 		
 		jmiCadastroUsuario.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCadastroUsuario) {
 					usuarioForm = new UsuarioForm();
-					usuarioForm.show();
+					usuarioForm.setVisible(true);
 				}
 			}
 		});
@@ -143,51 +140,46 @@ public class PrincipalForm extends JFrame {
 		});
 		
 		jmiOrdemServico.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiOrdemServico) {
 					ordemServicoForm = new OrdemServicoForm();
-					ordemServicoForm.show();
+					ordemServicoForm.setVisible(true);
 				}
 			}
 		});
 		
 		jmiEmpresa.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiEmpresa) {
 					empresaForm = new EmpresaForm();
-					empresaForm.show();
+					empresaForm.setVisible(true);
 				}
 			}
 		});
 		
 		jmiMarca.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiMarca) {
 					marcaForm = new MarcaForm();
-					marcaForm.show();
+					marcaForm.setVisible(true);
 				}
 			}
 		});
 		
 		jmiModelo.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiModelo) {
 					modeloForm = new ModeloForm();
-					modeloForm.show();
+					modeloForm.setVisible(true);
 				}
 			}
 		});
 		
 		jmiTipoServico.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiTipoServico) {
 					tipoServicoForm = new TipoServicoForm();
-					tipoServicoForm.show();
+					tipoServicoForm.setVisible(true);
 				}
 			}
 		});
