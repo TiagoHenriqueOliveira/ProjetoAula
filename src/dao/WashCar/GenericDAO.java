@@ -12,7 +12,7 @@ public interface GenericDAO<T> {
 	
 	T buscarId(Integer id);
 	
-	T buscarDescricao(String nome);
+	List<T> buscarDescricao(String nome);
 	
 	List<T> todos();
 	
