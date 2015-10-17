@@ -64,7 +64,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 
 	@Override
 	public void excluir(Usuario usuario) throws Exception{
-		
+		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -73,9 +73,9 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 		sql = "select * from usuario u "
 				+ "where u.idUsuario = ?";
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, id);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				usuario = new Usuario();
 				usuario.setIdUsuario(rs.getInt("idUsuario"));
@@ -97,9 +97,9 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 		sql = "select * from usuario u "
 				+ "where u.nomeUsuario like ?";
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, "%" + nome + "%");
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario.setIdUsuario(rs.getInt("idUsuario"));
@@ -146,10 +146,10 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				+ " where u.loginUsuario = ?"
 				+ " and u.senhaUsuario = ?";
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, login);
 			pstmt.setString(2, senha);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				usuario = new Usuario();
 				usuario.setLogin(rs.getString("loginUsuario"));
