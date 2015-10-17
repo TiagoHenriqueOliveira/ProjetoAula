@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexao.ConexaoUtil;
-import model.WashCar.Empresa;
 import model.WashCar.Usuario;
 
 public class UsuarioDAOJDBC implements UsuarioDAO{
@@ -71,21 +70,20 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	@Override
 	public Usuario buscarId(Integer id) {
 		Usuario usuario = null;
-		sql = "select * from usuario u"
-				+ "where u.idCadastroUsuario = ?";
+		sql = "select * from usuario u "
+				+ "where u.idUsuario = ?";
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				usuario = new Usuario();
-				usuario.setIdUsuario(rs.getInt("idCadastroUsuario"));
+				usuario.setIdUsuario(rs.getInt("idUsuario"));
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
 				usuario.setSenha(rs.getString("senhaUsuario"));
 				usuario.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
 				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
-				usuario.setEmpresa(new Empresa(rs.getInt("empresa")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -94,28 +92,28 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	}
 
 	@Override
-	public Usuario buscarDescricao(String nome) {
-		Usuario usuario = null;
-		sql = "select * from usuario u"
+	public List<Usuario> buscarDescricao(String nome) {
+		List<Usuario> usuarios = new ArrayList<>();
+		sql = "select * from usuario u "
 				+ "where u.nomeUsuario like ?";
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
-			pstmt.setString(1, nome);
+			pstmt.setString(1, "%" + nome + "%");
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				usuario = new Usuario();
-				usuario.setIdUsuario(rs.getInt("idCadastroUsuario"));
+				Usuario usuario = new Usuario();
+				usuario.setIdUsuario(rs.getInt("idUsuario"));
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
 				usuario.setSenha(rs.getString("senhaUsuario"));
 				usuario.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
 				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
-				usuario.setEmpresa(new Empresa(rs.getInt("empresa")));
+				usuarios.add(usuario);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return usuario;
+		return usuarios;
 	}
 
 	@Override
@@ -127,13 +125,12 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Usuario usuario = new Usuario();
-				usuario.setIdUsuario(rs.getInt("idCadastroUsuario"));
+				usuario.setIdUsuario(rs.getInt("idUsuario"));
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
 				usuario.setSenha(rs.getString("senhaUsuario"));
 				usuario.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
 				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
-				usuario.setEmpresa(new Empresa(rs.getInt("empresa")));
 				usuarios.add(usuario);
 			}
 		} catch (SQLException e) {
@@ -177,5 +174,4 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 		}
 		return null;
 	}
-
 }
