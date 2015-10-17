@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
@@ -49,7 +48,6 @@ public class UsuarioForm extends JFrame {
 	private JPanel jpnPesquisaUsuario;
 	private JLabel jlbPesquisaCodigoUsuario;
 	private JLabel jlbPesquisaNomeUsuario;
-	private JButton jbtPesquisaUsuario;
 	private JLabel jlbNome;
 	private JLabel jlbLogin;
 	private JLabel jlbSenha;
@@ -67,13 +65,13 @@ public class UsuarioForm extends JFrame {
 	private JMenuItem jmiUsuarioCadastradoTodos;
 	private Usuario usuario;
 	private static UsuarioForm usuarioForm;
-	private static String nomeUsuario;
-	private static String codigoUsuario;
+	private String nomeUsuario;
+	private String codigoUsuario;
 
-	public void componentesFormUsuario() {
+	public void componentesUsuarioForm() {
 		jpnPesquisaUsuario = new JPanel();
 		jpnPesquisaUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		jpnPesquisaUsuario.setBounds(10, 11, 540, 81);
+		jpnPesquisaUsuario.setBounds(10, 11, 640, 81);
 		jpnUsuario.add(jpnPesquisaUsuario);
 		jpnPesquisaUsuario.setLayout(null);
 		
@@ -86,12 +84,12 @@ public class UsuarioForm extends JFrame {
 		jtfPesquisaCodigoUsuario.setDocument(new ValidaCampoNumeroInteiro());
 		jtfPesquisaCodigoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCodigoUsuario.setColumns(10);
-		jtfPesquisaCodigoUsuario.setBounds(10, 49, 66, 20);
+		jtfPesquisaCodigoUsuario.setBounds(10, 49, 50, 20);
 		jpnPesquisaUsuario.add(jtfPesquisaCodigoUsuario);
 		
 		jlbPesquisaNomeUsuario = new JLabel("Nome do Usu\u00E1rio");
 		jlbPesquisaNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaNomeUsuario.setBounds(86, 33, 196, 14);
+		jlbPesquisaNomeUsuario.setBounds(86, 33, 275, 14);
 		jpnPesquisaUsuario.add(jlbPesquisaNomeUsuario);
 		
 		jtfPesquisaNomeUsuario = new JTextField();
@@ -101,14 +99,9 @@ public class UsuarioForm extends JFrame {
 		jtfPesquisaNomeUsuario.setBounds(86, 49, 275, 20);
 		jpnPesquisaUsuario.add(jtfPesquisaNomeUsuario);
 		
-		jbtPesquisaUsuario = new JButton("");
-		jbtPesquisaUsuario.setIcon(new ImageIcon(UsuarioForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
-		jbtPesquisaUsuario.setBounds(367, 38, 40, 32);
-		jpnPesquisaUsuario.add(jbtPesquisaUsuario);
-		
 		jlbConsultaUsuario = new JLabel("Consulta de Usu\u00E1rios");
 		jlbConsultaUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		jlbConsultaUsuario.setBounds(10, 8, 196, 14);
+		jlbConsultaUsuario.setBounds(10, 8, 351, 14);
 		jpnPesquisaUsuario.add(jlbConsultaUsuario);
 		
 		jtfNome = new JTextField();
@@ -150,7 +143,7 @@ public class UsuarioForm extends JFrame {
 		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(452, 266, 98, 14);
+		jlbDataAlteracao.setBounds(552, 236, 98, 14);
 		jpnUsuario.add(jlbDataAlteracao);
 		
 		try {
@@ -163,42 +156,42 @@ public class UsuarioForm extends JFrame {
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(452, 282, 98, 20);
+		jtfDataAlteracao.setBounds(552, 252, 98, 20);
 		jpnUsuario.add(jtfDataAlteracao);
 		
 		jcbxUsuarioForaUso = new JCheckBox("Usu\u00E1rio Fora de Uso");
 		jcbxUsuarioForaUso.setEnabled(false);
 		jcbxUsuarioForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jcbxUsuarioForaUso.setBounds(10, 279, 182, 23);
+		jcbxUsuarioForaUso.setBounds(468, 118, 182, 23);
 		jpnUsuario.add(jcbxUsuarioForaUso);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setToolTipText("");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(450, 314, 100, 23);
+		jbtFechar.setBounds(530, 283, 120, 25);
 		jpnUsuario.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(340, 314, 100, 23);
+		jbtCancelar.setBounds(400, 283, 120, 25);
 		jpnUsuario.add(jbtCancelar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(230, 314, 100, 23);
+		jbtEditar.setBounds(270, 283, 120, 25);
 		jpnUsuario.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(120, 314, 100, 23);
+		jbtSalvar.setBounds(140, 283, 120, 25);
 		jpnUsuario.add(jbtSalvar);
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 314, 100, 23);
+		jbtNovo.setBounds(10, 283, 120, 25);
 		jpnUsuario.add(jbtNovo);
 		
 		jtfCodigo = new JTextField();
@@ -206,7 +199,7 @@ public class UsuarioForm extends JFrame {
 		jtfCodigo.setEditable(false);
 		jtfCodigo.setColumns(10);
 		jtfCodigo.setBackground(Color.YELLOW);
-		jtfCodigo.setBounds(10, 119, 66, 20);
+		jtfCodigo.setBounds(10, 119, 50, 20);
 		jpnUsuario.add(jtfCodigo);
 		
 		jlbCodigo = new JLabel("C\u00F3digo");
@@ -325,25 +318,8 @@ public class UsuarioForm extends JFrame {
 		jbtCancelar.setEnabled(true);
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void acionarBotaoPesquisa() {
-		ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
-		listaUsuario.show();
-		jtfNome.setEnabled(false);
-		jtfLogin.setEnabled(false);
-		jpfSenha.setEnabled(false);
-		jcbxUsuarioForaUso.setEnabled(false);
-		jcbxUsuarioForaUso.setSelected(false);
-		jtfCodigo.setText("");
-		jtfNome.setText("");
-		jtfLogin.setText("");
-		jpfSenha.setText("");
-		jbtEditar.setEnabled(true);
-		jbtSalvar.setEnabled(false);
-		jbtCancelar.setEnabled(true);
-	}
-	
 	public void acionarBotaoCancelar() {
+		jtfPesquisaCodigoUsuario.requestFocus();
 		jbtNovo.setEnabled(true);
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
@@ -354,6 +330,7 @@ public class UsuarioForm extends JFrame {
 		jtfNome.setText("");
 		jtfLogin.setText("");
 		jpfSenha.setText("");
+		jtfDataAlteracao.setText("");
 		jbtCancelar.setEnabled(false);
 		jbtSalvar.setEnabled(false);
 		jbtEditar.setEnabled(false);
@@ -370,9 +347,13 @@ public class UsuarioForm extends JFrame {
 		} else {
 			jcbxUsuarioForaUso.setSelected(false);
 		}
+		jtfPesquisaCodigoUsuario.setText(null);
+		jtfPesquisaNomeUsuario.setText(null);
+		jtfPesquisaCodigoUsuario.requestFocus();
 	}
 	
 	public void acoesDosBotoes() {
+
 		jbtNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent acvt) {
 				if(acvt.getSource() == jbtNovo) {
@@ -424,42 +405,74 @@ public class UsuarioForm extends JFrame {
 				}
 			}
 		});
-		
-		jbtPesquisaUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent acvt) {
-				if(acvt.getSource() == jbtPesquisaUsuario) {
-					acionarBotaoPesquisa();
+	}
+	
+	public void pesquisarPorNome() {
+		jtfPesquisaNomeUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					setNomeUsuario(jtfPesquisaNomeUsuario.getText());
+					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
+					listaUsuario.setVisible(true);
+					jtfNome.setEnabled(false);
+					jtfLogin.setEnabled(false);
+					jpfSenha.setEnabled(false);
+					jcbxUsuarioForaUso.setEnabled(false);
+					jcbxUsuarioForaUso.setSelected(false);
+					jtfCodigo.setText("");
+					jtfNome.setText("");
+					jtfLogin.setText("");
+					jpfSenha.setText("");
+					jtfDataAlteracao.setText("");
+					jbtEditar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+					jbtCancelar.setEnabled(true);
 				}
 			}
 		});
 	}
 	
-	public void pesquisarConteudoTextField() {
-		jtfPesquisaNomeUsuario.addKeyListener(new KeyAdapter() {
-			@SuppressWarnings("deprecation")
-			@Override
-			public void keyPressed(KeyEvent keyevt) {
-				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					nomeUsuario = jtfPesquisaNomeUsuario.getText();
-					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
-					listaUsuario.show();
-					acionarBotaoPesquisa();
-				}
-			}
-		});
-		
+	public void pesquisarPorCodigo() {
 		jtfPesquisaCodigoUsuario.addKeyListener(new KeyAdapter() {
-			@SuppressWarnings("deprecation")
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					codigoUsuario = jtfPesquisaCodigoUsuario.getText();
+					setCodigoUsuario(jtfPesquisaCodigoUsuario.getText());
 					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
-					listaUsuario.show();
-					acionarBotaoPesquisa();
+					listaUsuario.setVisible(true);
+					jtfNome.setEnabled(false);
+					jtfLogin.setEnabled(false);
+					jpfSenha.setEnabled(false);
+					jcbxUsuarioForaUso.setEnabled(false);
+					jcbxUsuarioForaUso.setSelected(false);
+					jtfCodigo.setText("");
+					jtfNome.setText("");
+					jtfLogin.setText("");
+					jpfSenha.setText("");
+					jtfDataAlteracao.setText("");
+					jbtEditar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+					jbtCancelar.setEnabled(true);
 				}
 			}
 		});
+	}
+	
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
+	public String getCodigoUsuario() {
+		return codigoUsuario;
+	}
+
+	public void setCodigoUsuario(String codigoUsuario) {
+		this.codigoUsuario = codigoUsuario;
 	}
 		
 	public UsuarioForm() {
@@ -467,15 +480,16 @@ public class UsuarioForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UsuarioForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro de Usuários | WashCar");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 565, 395);
+		setBounds(100, 100, 670, 372);
 		jpnUsuario = new JPanel();
 		jpnUsuario.setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setContentPane(jpnUsuario);
 		
-		componentesFormUsuario();
+		componentesUsuarioForm();
 		acoesDosBotoes();
-		pesquisarConteudoTextField();
-	}
+		pesquisarPorNome();
+		pesquisarPorCodigo();
+	}	
 }
