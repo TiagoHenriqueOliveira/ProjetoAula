@@ -59,14 +59,14 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	}
 
 	@Override
-	public void excluir(Marca marca) {
+	public void excluir(Marca marca) throws Exception{
 		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public Marca buscarId(Integer id) {
 		Marca marca = null;
-		sql = "select * from marca m"
+		sql = "select * from marca m "
 				+ "where m.idMarca = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -86,25 +86,26 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	}
 
 	@Override
-	public Marca buscarDescricao(String nome) {
-		Marca marca = null;
-		sql = "select * from marca m"
+	public List<Marca> buscarDescricao(String nome) {
+		List<Marca> marcas = new ArrayList<>();
+		sql = "select * from marca m "
 				+ "where m.nome like ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
-			pstmt.setString(1, nome);
+			pstmt.setString(1, "%" + nome + "%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				marca = new Marca();
+				Marca marca = new Marca();
 				marca.setIdMarca(Integer.valueOf(rs.getInt("idMarca")));
 				marca.setNome(rs.getString("nome"));
 				marca.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
 				marca.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
+				marcas.add(marca);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return marca;
+		return marcas;
 	}
 
 	@Override
