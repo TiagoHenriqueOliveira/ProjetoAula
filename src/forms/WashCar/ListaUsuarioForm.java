@@ -1,10 +1,10 @@
 package forms.WashCar;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -18,11 +18,14 @@ import javax.swing.table.DefaultTableModel;
 
 import model.WashCar.Usuario;
 import dao.WashCar.UsuarioDAOJDBC;
+import forms.WashCar.UsuarioForm;
 
 public class ListaUsuarioForm extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private UsuarioForm usuarioForm;
+	private List<Usuario> listaUsuarios;
+	private Usuario usuario;
 	private JPanel jpnListaUsuario;
 	private Vector<String> dados;
 	private JTable jttListaUsuario;
@@ -30,9 +33,6 @@ public class ListaUsuarioForm extends JFrame {
 	private JScrollPane jspListaUsuario;
 	private JButton jbtSelecionarUsuario;
 	private JButton jbtCancelarPesquisa;
-	private List<Usuario> listaUsuarios;
-	private UsuarioForm codigoUsuario;
-	private UsuarioForm nomeUsuario;
 
 	public void componentesListaUsuario() {
 		dados = new Vector<String>();
@@ -65,20 +65,46 @@ public class ListaUsuarioForm extends JFrame {
 		jpnListaUsuario.add(jbtCancelarPesquisa);
 	}
 	
-	public void preencherDadosTabela() {
+	public void preencherDadosTabelaSemFiltro() {
 		listaUsuarios = new UsuarioDAOJDBC().todos();
 		for(Usuario todos : listaUsuarios) {
-			dtmListaUsuario.addRow(new String[] {
-					todos.getIdUsuario().toString(), todos.getNome(), todos.getLogin()
-			});
+			dtmListaUsuario.addRow(new String[] {todos.getIdUsuario().toString(), todos.getNome(), todos.getLogin()});
+		}
+	}
+	
+	public void preencherDadosTabelaFiltroNome() {
+		listaUsuarios.addAll(new UsuarioDAOJDBC().buscarDescricao(usuarioForm.getNomeUsuario()));
+		for(Usuario todos : listaUsuarios) {
+			dtmListaUsuario.addRow(new String[] {todos.getIdUsuario().toString(), todos.getNome(), todos.getLogin()});
+		}		
+	}
+	
+	public void preencherDadosTabelaFiltroCodigo() {
+		usuario = new Usuario();
+		usuario.setIdUsuario(Integer.valueOf(usuarioForm.getCodigoUsuario()));
+		usuario = new UsuarioDAOJDBC().buscarId(Integer.valueOf(usuarioForm.getCodigoUsuario()));
+		listaUsuarios.add(usuario);
+		for(Usuario todos : listaUsuarios) {
+			dtmListaUsuario.addRow(new String[] {todos.getIdUsuario().toString(), todos.getNome(), todos.getLogin()});
+		}
+	}
+	
+	public void validacaoPesquisa() {
+		if((usuarioForm.getNomeUsuario() == null || usuarioForm.getNomeUsuario().equals(""))
+			&& (usuarioForm.getCodigoUsuario() == null || usuarioForm.getCodigoUsuario().equals(""))) {
+			this.preencherDadosTabelaSemFiltro();
+		} else if(usuarioForm.getNomeUsuario() != null && !usuarioForm.getNomeUsuario().equals("")) {
+			this.preencherDadosTabelaFiltroNome();
+		} else if(usuarioForm.getCodigoUsuario() != null && ! usuarioForm.getCodigoUsuario().equals("")) {
+			this.preencherDadosTabelaFiltroCodigo();
 		}
 	}
 	
 	public void acionarBotaoSelecionar() {
 		jbtSelecionarUsuario.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtSelecionarUsuario) {
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtSelecionarUsuario) {
 					Integer usuarioSelecionado = jttListaUsuario.getSelectedRow();
 					if(usuarioSelecionado != -1) {
 						Usuario usuario = listaUsuarios.get(usuarioSelecionado);
@@ -102,8 +128,9 @@ public class ListaUsuarioForm extends JFrame {
 		});
 	}
 
-	public ListaUsuarioForm(UsuarioForm usuarioTela) {
-		this.usuarioForm = usuarioTela;
+	public ListaUsuarioForm(UsuarioForm usuarioForm) {
+		this.usuarioForm = usuarioForm;
+		listaUsuarios = new ArrayList<>();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaUsuarioForm.class.getResource("/Imagens/washCar.jpeg")));
 		setFont(new Font("Tahoma", Font.PLAIN, 12));
 		setResizable(false);
@@ -116,8 +143,8 @@ public class ListaUsuarioForm extends JFrame {
 		setContentPane(jpnListaUsuario);
 		
 		componentesListaUsuario();
-		preencherDadosTabela();
 		acionarBotaoSelecionar();
 		acionarBotaoCancelar();
+		validacaoPesquisa();
 	}
 }
