@@ -78,7 +78,7 @@ public class ModeloDAOJDBC implements ModeloDAO{
 				modelo = new Modelo();
 				modelo.setIdModelo(Integer.valueOf(rs.getInt("idModelo")));
 				modelo.setNome(rs.getString("nome"));
-				modelo.setMarca(new Marca(rs.getInt("marca ")));
+				modelo.setMarca(new Marca(rs.getInt("marca")));
 				modelo.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
 				modelo.setForaUso(rs.getBoolean("foraUso"));
 			}
@@ -89,26 +89,27 @@ public class ModeloDAOJDBC implements ModeloDAO{
 	}
 
 	@Override
-	public Modelo buscarDescricao(String nome) {
-		Modelo modelo = null;
+	public List<Modelo> buscarDescricao(String nome) {
+		List<Modelo>	 modelos = new ArrayList<>();
 		sql = "select * from modelo m "
 				+ "where m.nome like ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
-			pstmt.setString(1, nome);
+			pstmt.setString(1, "%" + nome + "%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				modelo = new Modelo();
+				Modelo modelo = new Modelo();
 				modelo.setIdModelo(Integer.valueOf(rs.getInt("idModelo")));
 				modelo.setNome(rs.getString("nome"));
-				modelo.setMarca(new Marca(rs.getInt("marca ")));
+				modelo.setMarca(new Marca(rs.getInt("marca")));
 				modelo.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
 				modelo.setForaUso(rs.getBoolean("foraUso"));
+				modelos.add(modelo);
 			}
 		} catch (SQLException buscaNome) {
 			buscaNome.printStackTrace();
 		}
-		return modelo;
+		return modelos;
 	}
 
 	@Override
