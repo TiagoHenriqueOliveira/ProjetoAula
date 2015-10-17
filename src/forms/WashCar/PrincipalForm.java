@@ -19,7 +19,6 @@ public class PrincipalForm extends JFrame {
 	private JMenu jmnCadastro;
 	private JMenu mnUsurios;
 	private JMenu jmnServios;
-	private JMenu jmnFinanceiro;
 	private JMenu jmnConfiguracoes;
 	private JMenu jmnParametros;
 	private JMenuItem jmiCarro;
@@ -28,8 +27,6 @@ public class PrincipalForm extends JFrame {
 	private JMenuItem jmiSair;
 	private JMenuItem jmiAgenda;
 	private JMenuItem jmiOrdemServico;
-	private JMenuItem jmiContaPagar;
-	private JMenuItem jmiContaReceber;
 	private JMenuItem jmiEmpresa;
 	private JMenuItem jmiMarca;
 	private JMenuItem jmiModelo;
@@ -75,15 +72,6 @@ public class PrincipalForm extends JFrame {
 		jmiOrdemServico = new JMenuItem("Ordem de Servi\u00E7o");
 		jmnServios.add(jmiOrdemServico);
 		
-		jmnFinanceiro = new JMenu("Financeiro");
-		jmbPrincipal.add(jmnFinanceiro);
-		
-		jmiContaPagar = new JMenuItem("Contas \u00E0 Pagar");
-		jmnFinanceiro.add(jmiContaPagar);
-		
-		jmiContaReceber = new JMenuItem("Contas \u00E0 Receber");
-		jmnFinanceiro.add(jmiContaReceber);
-		
 		jmnConfiguracoes = new JMenu("Configura\u00E7\u00F5es");
 		jmbPrincipal.add(jmnConfiguracoes);
 		
@@ -104,6 +92,15 @@ public class PrincipalForm extends JFrame {
 	}
 	
 	public void acoesDosMenus() {
+		jmiAgenda.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jmiAgenda) {
+					agendaForm = new AgendaForm();
+					agendaForm.setVisible(true);
+				}
+			}
+		});
 		jmiCarro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCarro) {
