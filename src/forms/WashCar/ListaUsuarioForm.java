@@ -81,7 +81,6 @@ public class ListaUsuarioForm extends JFrame {
 	
 	public void preencherDadosTabelaFiltroCodigo() {
 		usuario = new Usuario();
-		usuario.setIdUsuario(Integer.valueOf(usuarioForm.getCodigoUsuario()));
 		usuario = new UsuarioDAOJDBC().buscarId(Integer.valueOf(usuarioForm.getCodigoUsuario()));
 		listaUsuarios.add(usuario);
 		for(Usuario todos : listaUsuarios) {
