@@ -10,13 +10,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.ImageIcon;
 
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 
@@ -43,7 +44,6 @@ public class MarcaForm extends JFrame {
 	private JPanel jpnPesquisaMarcas;
 	private JLabel jlbCodigo;
 	private JLabel lblNomeDaMarca;
-	private JButton jbtPesquisar;
 	private JButton jbtNovo;
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
@@ -59,6 +59,8 @@ public class MarcaForm extends JFrame {
 	private JMenuBar jmbMarcas;
 	private Marca marca;
 	private static MarcaForm marcaForm;
+	private String nomeMarca;
+	private String codigoMarca;
 	
 	public void componentesTelaMarca() {
 		jpnPesquisaMarcas = new JPanel();
@@ -89,11 +91,6 @@ public class MarcaForm extends JFrame {
 		lblNomeDaMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNomeDaMarca.setBounds(86, 36, 275, 14);
 		jpnPesquisaMarcas.add(lblNomeDaMarca);
-		
-		jbtPesquisar = new JButton("");
-		jbtPesquisar.setBounds(367, 41, 40, 32);
-		jpnPesquisaMarcas.add(jbtPesquisar);
-		jbtPesquisar.setIcon(new ImageIcon(MarcaForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
 		
 		jlbConsultaMarcas = new JLabel("Consulta Marcas de Carros");
 		jlbConsultaMarcas.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -247,28 +244,17 @@ public class MarcaForm extends JFrame {
 	}
 	
 	public void acionarBotaoCancelar() {
+		jtfPesquisaCodigoMarca.requestFocus();
 		jbtNovo.setEnabled(true);
 		jtfNomeMarca.setEnabled(false);
-		jtfNomeMarca.setText("");
+		jtfCodigoMarca.setText(null);
+		jtfDataAlteracao.setText(null);
+		jtfNomeMarca.setText(null);
+		jtfPesquisaCodigoMarca.setText(null);
+		jtfPesquisaNomeMarca.setText(null);
 		jbtSalvar.setEnabled(false);
 		jbtCancelar.setEnabled(false);
 		jbtEditar.setEnabled(false);
-	}
-	
-	@SuppressWarnings("deprecation")
-	public void acionarBotaoPesquisar() {
-		ListaMarcaForm listaMarcaForm = new ListaMarcaForm(marcaForm);
-		listaMarcaForm.show();
-		jtfNomeMarca.setEnabled(false);
-		jtfNomeMarca.setText("");
-		jtfCodigoMarca.setText("");
-		jtfDataAlteracao.setText("");
-		jcbxForaUso.setSelected(false);
-		jcbxForaUso.setEnabled(false);
-		jbtEditar.setEnabled(true);
-		jbtNovo.setEnabled(true);
-		jbtCancelar.setEnabled(true);
-		jbtSalvar.setEnabled(false);
 	}
 	
 	public void preencherCampos(Marca marca) {
@@ -280,6 +266,53 @@ public class MarcaForm extends JFrame {
 		} else {
 			jcbxForaUso.setSelected(false);
 		}
+		jtfPesquisaCodigoMarca.setText(null);
+		jtfPesquisaNomeMarca.setText(null);
+		jtfPesquisaCodigoMarca.requestFocus();
+	}
+	
+	public void pesquisaPorCodigo() {
+		jtfPesquisaCodigoMarca.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					setCodigoMarca(jtfPesquisaCodigoMarca.getText());
+					ListaMarcaForm listaMarca = new ListaMarcaForm(marcaForm);
+					listaMarca.setVisible(true);
+					jtfNomeMarca.setEnabled(false);
+					jtfNomeMarca.setText(null);
+					jtfCodigoMarca.setText(null);
+					jtfDataAlteracao.setText(null);
+					jcbxForaUso.setSelected(false);
+					jcbxForaUso.setEnabled(false);
+					jbtEditar.setEnabled(true);
+					jbtNovo.setEnabled(true);
+					jbtCancelar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+				}
+			}
+		});
+	}
+	
+	public void pesquisaPorNome() {
+		jtfPesquisaNomeMarca.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					setNomeMarca(jtfPesquisaNomeMarca.getText());
+					ListaMarcaForm listaMarca = new ListaMarcaForm(marcaForm);
+					listaMarca.setVisible(true);
+					jtfNomeMarca.setEnabled(false);
+					jtfNomeMarca.setText(null);
+					jtfCodigoMarca.setText(null);
+					jtfDataAlteracao.setText(null);
+					jcbxForaUso.setSelected(false);
+					jcbxForaUso.setEnabled(false);
+					jbtEditar.setEnabled(true);
+					jbtNovo.setEnabled(true);
+					jbtCancelar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+				}
+			}
+		});
 	}
 	
 	public void acoesDosBotoes() {
@@ -332,17 +365,23 @@ public class MarcaForm extends JFrame {
 				}
 			}
 		});
-		
-		jbtPesquisar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent acvt) {
-				if(acvt.getSource() == jbtPesquisar) {
-					acionarBotaoPesquisar();
-				}
-			}
-		});
 	}
 	
+	public String getNomeMarca() {
+		return nomeMarca;
+	}
+
+	public void setNomeMarca(String nomeMarca) {
+		this.nomeMarca = nomeMarca;
+	}
+
+	public String getCodigoMarca() {
+		return codigoMarca;
+	}
+
+	public void setCodigoMarca(String codigoMarca) {
+		this.codigoMarca = codigoMarca;
+	}
 
 	public MarcaForm() {
 		marcaForm = this;
@@ -356,5 +395,7 @@ public class MarcaForm extends JFrame {
 		
 		componentesTelaMarca();
 		acoesDosBotoes();
+		pesquisaPorCodigo();
+		pesquisaPorNome();
 	}
 }
