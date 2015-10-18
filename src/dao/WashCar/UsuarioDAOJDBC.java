@@ -47,7 +47,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	public void alterar(Usuario usuario) throws Exception{
 		sql = "update usuario u "
 				+"set u.nomeUsuario = ?, u.loginUsuario = ?, u.senhaUsuario = ?, u.dataAlteracao = ?, u.foraUso = ? "
-				+"where u.idCadastroUsuario = ?";
+				+"where u.idUsuario = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, usuario.getNome());
