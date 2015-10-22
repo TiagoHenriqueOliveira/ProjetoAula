@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import daoFactory.WashCar.DaoFactory;
 
-public class Marca {
+public class Marca implements Entidade{
 	
 	private Integer idMarca;
 	private String nome;

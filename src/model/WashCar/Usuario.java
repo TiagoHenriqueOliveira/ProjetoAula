@@ -2,7 +2,7 @@ package model.WashCar;
 
 import java.time.LocalDate;
 
-public class Usuario {
+public class Usuario implements Entidade{
 	
 	private Integer idUsuario;
 	private String nome;

@@ -1,6 +1,6 @@
 package model.WashCar;
 
-public class Pais {
+public class Pais implements Entidade {
 	
 	private Integer idPais;
 	private String nome;

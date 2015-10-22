@@ -1,6 +1,6 @@
 package model.WashCar;
 
-public class UnidadeFederativa {
+public class UnidadeFederativa implements Entidade{
 	
 	private Integer idUnidadeFederativa;
 	private String nome;

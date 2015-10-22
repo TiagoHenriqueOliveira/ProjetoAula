@@ -2,7 +2,7 @@ package model.WashCar;
 
 import java.time.LocalDate;
 
-public class Empresa {
+public class Empresa implements Entidade{
 	
 	private Integer idEmpresa;
 	private String razaoSocial;
@@ -16,7 +16,7 @@ public class Empresa {
 	private String telefoneComercial;
 	private String telefoneCelular;
 	private String fax;
-	private String regimeTributario;
+	private Integer regimeTributario;
 	private Cidade cidade;
 	private LocalDate dataAltercacao;
 	private LocalDate dataInclusao;
@@ -102,10 +102,10 @@ public class Empresa {
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
-	public String getRegimeTributario() {
+	public Integer getRegimeTributario() {
 		return regimeTributario;
 	}
-	public void setRegimeTributario(String regimeTributario) {
+	public void setRegimeTributario(Integer regimeTributario) {
 		this.regimeTributario = regimeTributario;
 	}
 	public Cidade getCidade() {
