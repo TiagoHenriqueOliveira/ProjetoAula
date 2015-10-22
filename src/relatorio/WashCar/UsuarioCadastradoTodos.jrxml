@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2015-09-28T21:31:16 -->
+<!-- 2015-10-22T19:57:29 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UsuarioCadastradoTodos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3c386a6e-5da0-443b-aed9-84561c29348c">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="d2FzaGNhci51c3VhcmlvICwxNSwxNSxjNzQ5ZDcxZi1kZTZkLTQyN2ItYjA1Yy03MWUwNWQzMzVj&#xA;YTQ7"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="WashCar"/>
 	<queryString>
-		<![CDATA[SELECT washcar.usuario.`idCadastroUsuario`,
+		<![CDATA[SELECT washcar.usuario.`idUsuario`,
 	washcar.usuario.`nomeUsuario`,
 	washcar.usuario.`loginUsuario`,
 	washcar.usuario.`foraUso`
 FROM washcar.usuario]]>
 	</queryString>
-	<field name="idCadastroUsuario" class="java.lang.Integer">
+	<field name="idUsuario" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="nomeUsuario" class="java.lang.String">
@@ -96,7 +96,7 @@ FROM washcar.usuario]]>
 				<textElement>
 					<font fontName="Tahoma" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{idCadastroUsuario}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{idUsuario}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="70" y="10" width="160" height="20" uuid="d549aae0-4a29-44dc-be19-514e2475d434"/>
