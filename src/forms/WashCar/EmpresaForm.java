@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.MaskFormatter;
+
+import daoFactory.WashCar.DaoFactory;
+
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -15,9 +18,10 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -52,10 +56,10 @@ public class EmpresaForm extends JFrame {
 	private JTextField jtfPais;
 	private JTextField jtfPesquisaCNPJEmpresa;
 	private JTextField jtfInscricaoMunicipal;
+	private JTextField jtfUnidadeFederativa;
 	private JPanel jpnPesquisaEmpresa;
 	private JLabel jlbPesquisaCodigoEmpresa;
 	private JLabel jlbPesquisaNomeEmpresa;
-	private JButton jbtPesquisaEmpresa;
 	private JLabel jlbPesquisaCNPJEmpresa;
 	private JLabel jlbCodigo;
 	private JLabel jlbRazaoSocial;
@@ -74,18 +78,17 @@ public class EmpresaForm extends JFrame {
 	private JLabel jlbRegimeTributario;
 	private JLabel jlbUnidadeFederativa;
 	private JLabel jlbInscricaoMunicipal;
+	private JLabel jlbConsultaEmpresa;
 	private JRadioButton jrbSimplesNacional;
 	private JRadioButton jrbLucroPresumido;
 	private JRadioButton jrbLucroReal;
 	private ButtonGroup jbgRegimeTributario;
-	private JTextField jtfUnidadeFederativa;
 	private JButton jbtNovo;
 	private JButton jbtEditar;
 	private JButton jbtSalvar;
 	private JButton jbtCancelar;
 	private JButton jbtFechar;
-	private JLabel jlbConsultaEmpresa;
-	private static EmpresaForm empresaTela;
+	private static EmpresaForm empresaForm;
 	private Empresa empresa;
 
 	public void componentesTelaEmpresa() {
@@ -118,11 +121,6 @@ public class EmpresaForm extends JFrame {
 		jtfPesquisaNomeEmpresa.setColumns(10);
 		jtfPesquisaNomeEmpresa.setBounds(86, 54, 275, 20);
 		jpnPesquisaEmpresa.add(jtfPesquisaNomeEmpresa);
-		
-		jbtPesquisaEmpresa = new JButton("");
-		jbtPesquisaEmpresa.setIcon(new ImageIcon(EmpresaForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
-		jbtPesquisaEmpresa.setBounds(565, 42, 40, 32);
-		jpnPesquisaEmpresa.add(jbtPesquisaEmpresa);
 		
 		try {
 			jtfPesquisaCNPJEmpresa = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
@@ -416,8 +414,12 @@ public class EmpresaForm extends JFrame {
 		jnpEmpresa.add(jbtFechar);
 	}
 	
-	public void novoCadastroEmpresa() {
+	public void acionarBotaoNovo() {
 		jbtNovo.setEnabled(false);
+		jbtEditar.setEnabled(false);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+		jtfRazaoSocial.requestFocus();
 		jrbLucroPresumido.setEnabled(true);
 		jrbLucroReal.setEnabled(true);
 		jrbSimplesNacional.setEnabled(true);
@@ -435,38 +437,106 @@ public class EmpresaForm extends JFrame {
 		jtfCidade.setEnabled(true);
 		jtfUnidadeFederativa.setEnabled(true);
 		jtfPais.setEnabled(true);
-		jbtSalvar.setEnabled(true);
-		jbtCancelar.setEnabled(true);
+		jtfCodigo.setText("");
+		jtfDataAlteracao.setText("");
+		jrbLucroPresumido.setSelected(false);
+		jrbLucroReal.setSelected(false);
+		jrbSimplesNacional.setSelected(false);
+		jtfNomeFantasia.setText("");
+		jtfRazaoSocial.setText("");
+		jtfCNPJ.setText("");
+		jtfInscricaoEstadual.setText("");
+		jtfInscricaoMunicipal.setText("");
+		jtfTelefoneCelular.setText("");
+		jtfTelefoneComercial.setText("");
+		jtfFax.setText("");
+		jtfEndereco.setText("");
+		jtfNumero.setText("");
+		jtfBairro.setText("");
+		jtfCidade.setText("");
+		jtfUnidadeFederativa.setText("");
+		jtfPais.setText("");
 	}
 	
-	public void salvarCadastroEmpresa() {
+	@SuppressWarnings("static-access")
+	public void salvarCadastroEmpresa() throws Exception{
 		if(jtfRazaoSocial.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar a razão social!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a razão social!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfRazaoSocial.requestFocus();
 		} else if(jtfNomeFantasia.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome fantasia!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome fantasia!!!", 	"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeFantasia.requestFocus();
 		} else if(jtfCNPJ.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o Cnpj!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o Cnpj!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfCNPJ.requestFocus();
 		} else if(jtfEndereco.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o endereço!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o endereço!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfEndereco.requestFocus();
 		} else if(jtfBairro.getText().equals(""))	 {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfBairro.requestFocus();
 		} else if(jtfNumero.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o número do estabelecimento!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o número do estabelecimento!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNumero.requestFocus();
+		} else if(!jrbSimplesNacional.isSelected() || !jrbLucroPresumido.isSelected() || !jrbLucroReal.isSelected()) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o regime tributário da empresa!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 		} else {
 			this.empresa = new Empresa();
 			this.empresa.setRazaoSocial(jtfRazaoSocial.getText());
-			
+			this.empresa.setNomeFantasia(jtfNomeFantasia.getText());
+			this.empresa.setCnpj(jtfCNPJ.getText());
+			this.empresa.setInscricaoEstadual(jtfInscricaoEstadual.getText());
+			this.empresa.setInscricaoMunicipal(jtfInscricaoMunicipal.getText());
+			this.empresa.setTelefoneCelular(jtfTelefoneCelular.getText());
+			this.empresa.setTelefoneComercial(jtfTelefoneComercial.getText());
+			this.empresa.setFax(jtfFax.getText());
+			this.empresa.setEndereco(jtfEndereco.getText());
+			this.empresa.setNumero(Integer.valueOf(jtfNumero.getText()));
+			this.empresa.setBairro(jtfBairro.getText());
+			//this.empresa.setCidade(new Cidade());
+			this.empresa.setDataAltercacao(Date.valueOf(empresa.getDataAltercacao().now()).toLocalDate());
+			if(jrbSimplesNacional.isSelected()) {
+				this.empresa.setRegimeTributario(1);
+			} else if(jrbLucroPresumido.isSelected()) {
+				this.empresa.setRegimeTributario(2);
+			} else if(jrbLucroReal.isSelected()) {
+				this.empresa.setRegimeTributario(3);
+			}
+			DaoFactory.getFactory().empresaDao().inserir(empresa);
+			jtfCodigo.setText(String.valueOf(this.empresa.getIdEmpresa()));
+			jtfDataAlteracao.setText(this.empresa.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			jrbLucroPresumido.setEnabled(false);
+			jrbLucroReal.setEnabled(false);
+			jrbSimplesNacional.setEnabled(false);
+			jtfNomeFantasia.setEnabled(false);
+			jtfRazaoSocial.setEnabled(false);
+			jtfCNPJ.setEnabled(false);
+			jtfInscricaoEstadual.setEnabled(false);
+			jtfInscricaoMunicipal.setEnabled(false);
+			jtfTelefoneCelular.setEnabled(false);
+			jtfTelefoneComercial.setEnabled(false);
+			jtfFax.setEnabled(false);
+			jtfEndereco.setEnabled(false);
+			jtfNumero.setEnabled(false);
+			jtfBairro.setEnabled(false);
+			jtfCidade.setEnabled(false);
+			jtfUnidadeFederativa.setEnabled(false);
+			jtfPais.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
 		}
 	}
 	
-	public void editarCadastroEmpresa() {
+	public void salvarEdicaoEmpresa() throws Exception{
+		
+	}
+	
+	public void acionarBotaoEditar() {
 		jbtNovo.setEnabled(false);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
 		jrbLucroPresumido.setEnabled(true);
 		jrbLucroReal.setEnabled(true);
 		jrbSimplesNacional.setEnabled(true);
@@ -484,12 +554,15 @@ public class EmpresaForm extends JFrame {
 		jtfCidade.setEnabled(true);
 		jtfUnidadeFederativa.setEnabled(true);
 		jtfPais.setEnabled(true);
-		jbtSalvar.setEnabled(true);
-		jbtCancelar.setEnabled(true);
+		
 	}
 	
-	public void cancelarCadastroEmpresa() {
+	public void acionarBotaoCancelar() {
 		jbtNovo.setEnabled(true);
+		jbtCancelar.setEnabled(false);
+		jbtSalvar.setEnabled(false);
+		jbtEditar.setEnabled(false);
+		jtfPesquisaCodigoEmpresa.requestFocus();
 		jrbLucroPresumido.setEnabled(false);
 		jrbLucroReal.setEnabled(false);
 		jrbSimplesNacional.setEnabled(false);
@@ -507,6 +580,11 @@ public class EmpresaForm extends JFrame {
 		jtfCidade.setEnabled(false);
 		jtfUnidadeFederativa.setEnabled(false);
 		jtfPais.setEnabled(false);
+		jtfCodigo.setText("");
+		jtfDataAlteracao.setText("");
+		jrbLucroPresumido.setSelected(false);
+		jrbLucroReal.setSelected(false);
+		jrbSimplesNacional.setSelected(false);
 		jtfNomeFantasia.setText("");
 		jtfRazaoSocial.setText("");
 		jtfCNPJ.setText("");
@@ -521,9 +599,6 @@ public class EmpresaForm extends JFrame {
 		jtfCidade.setText("");
 		jtfUnidadeFederativa.setText("");
 		jtfPais.setText("");
-		jbtCancelar.setEnabled(false);
-		jbtSalvar.setEnabled(false);
-		jbtEditar.setEnabled(false);
 	}
 	
 	public void preencherCampos(Empresa empresa) {
@@ -534,10 +609,84 @@ public class EmpresaForm extends JFrame {
 		jtfInscricaoEstadual.setText(empresa.getInscricaoEstadual());
 		jtfInscricaoMunicipal.setText(empresa.getInscricaoMunicipal());
 		jtfTelefoneCelular.setText(empresa.getTelefoneCelular());
+		jtfTelefoneComercial.setText(empresa.getTelefoneComercial());
+		jtfFax.setText(empresa.getFax());
+		jtfEndereco.setText(empresa.getEndereco());
+		jtfNumero.setText(String.valueOf(empresa.getNumero()));
+		jtfBairro.setText(empresa.getBairro());
+		jtfCidade.setText(empresa.getCidade().getNome());
+		jtfUnidadeFederativa.setText(empresa.getCidade().getUnidadeFederativa().getNome());
+		jtfPais.setText(empresa.getCidade().getUnidadeFederativa().getPais().getNome());
+		jtfDataAlteracao.setText(empresa.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		if(empresa.getRegimeTributario() == 1) {
+			jrbSimplesNacional.setSelected(true);
+		} else if(empresa.getRegimeTributario() == 2) {
+			jrbLucroPresumido.setSelected(true);
+		} else if(empresa.getRegimeTributario() == 3) {
+			jrbLucroReal.setSelected(true);
+		}
+		jtfPesquisaCodigoEmpresa.setText("");
+		jtfPesquisaNomeEmpresa.setText("");
+		jtfPesquisaCNPJEmpresa.setText("");
+		jtfPesquisaCodigoEmpresa.requestFocus();
+	}
+	
+	public void acoesDosBotoes() {
+			jbtNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtNovo) {
+					acionarBotaoNovo();
+				}
+			}
+		});
 		
+		jbtSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtSalvar) {
+					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
+						try {
+							salvarEdicaoEmpresa();
+						} catch (Exception salvarEdicao) {
+							salvarEdicao.printStackTrace();
+						}
+					} else {
+						try {
+							salvarCadastroEmpresa();
+						} catch (Exception salvarEmpresa) {
+							salvarEmpresa.printStackTrace();
+						}
+					}
+				}
+			}
+		});
+		
+		jbtEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtEditar) {
+					acionarBotaoEditar();
+				}
+			}
+		});
+		
+		jbtCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtCancelar) {
+					acionarBotaoCancelar();
+				}
+			}
+		});
+		
+		jbtFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtFechar) {
+					dispose();
+				}
+			}
+		});
 	}
 
 	public EmpresaForm() {
+		empresaForm = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(EmpresaForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro da Empresa");
 		setResizable(false);
@@ -549,57 +698,7 @@ public class EmpresaForm extends JFrame {
 		setContentPane(jnpEmpresa);
 
 		componentesTelaEmpresa();
+		acoesDosBotoes();
 		
-		jbtPesquisaEmpresa.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtPesquisaEmpresa) {
-					ListaEmpresaForm listaEmpresa = new ListaEmpresaForm(empresaTela);
-					listaEmpresa.show();
-					jbtEditar.setEnabled(true);
-				}
-			}
-		});
-		
-		jbtNovo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtNovo) {
-					novoCadastroEmpresa();
-				}
-			}
-		});
-		
-		jbtSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtSalvar) {
-					salvarCadastroEmpresa();
-				}
-			}
-		});
-		
-		jbtEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtEditar) {
-					editarCadastroEmpresa();
-				}
-			}
-		});
-		
-		jbtCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtCancelar) {
-					cancelarCadastroEmpresa();
-				}
-			}
-		});
-		
-		jbtFechar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtFechar) {
-					dispose();
-				}
-			}
-		});
 	}
 }
