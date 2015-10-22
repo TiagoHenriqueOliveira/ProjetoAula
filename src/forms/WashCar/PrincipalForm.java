@@ -20,7 +20,6 @@ public class PrincipalForm extends JFrame {
 	private JMenu mnUsurios;
 	private JMenu jmnServios;
 	private JMenu jmnConfiguracoes;
-	private JMenu jmnParametros;
 	private JMenuItem jmiCarro;
 	private JMenuItem jmiCliente;
 	private JMenuItem jmiCadastroUsuario;
@@ -54,11 +53,20 @@ public class PrincipalForm extends JFrame {
 		jmiCliente = new JMenuItem("Clientes");
 		jmnCadastro.add(jmiCliente);
 		
+		jmiMarca = new JMenuItem("Marcas");
+		jmnCadastro.add(jmiMarca);
+		
+		jmiModelo = new JMenuItem("Modelos");
+		jmnCadastro.add(jmiModelo);
+		
 		mnUsurios = new JMenu("Usu\u00E1rios");
 		jmnCadastro.add(mnUsurios);
 		
 		jmiCadastroUsuario = new JMenuItem("Cadastro de Usu\u00E1rio");
 		mnUsurios.add(jmiCadastroUsuario);
+		
+		jmiTipoServico = new JMenuItem("Tipos de Servi\u00E7o");
+		jmnCadastro.add(jmiTipoServico);
 		
 		jmiSair = new JMenuItem("Sair do Sistema");
 		jmnCadastro.add(jmiSair);
@@ -77,18 +85,6 @@ public class PrincipalForm extends JFrame {
 		
 		jmiEmpresa = new JMenuItem("Empresa");
 		jmnConfiguracoes.add(jmiEmpresa);
-		
-		jmnParametros = new JMenu("Parâmetros");
-		jmnConfiguracoes.add(jmnParametros);
-		
-		jmiMarca = new JMenuItem("Marcas");
-		jmnParametros.add(jmiMarca);
-		
-		jmiModelo = new JMenuItem("Modelos");
-		jmnParametros.add(jmiModelo);
-		
-		jmiTipoServico = new JMenuItem("Tipos de Servi\u00E7o");
-		jmnParametros.add(jmiTipoServico);
 	}
 	
 	public void acoesDosMenus() {
