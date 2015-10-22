@@ -94,7 +94,7 @@ public class ListaUsuarioForm extends JFrame {
 			this.preencherDadosTabelaSemFiltro();
 		} else if(usuarioForm.getNomeUsuario() != null && !usuarioForm.getNomeUsuario().equals("")) {
 			this.preencherDadosTabelaFiltroNome();
-		} else if(usuarioForm.getCodigoUsuario() != null && ! usuarioForm.getCodigoUsuario().equals("")) {
+		} else if(usuarioForm.getCodigoUsuario() != null && !usuarioForm.getCodigoUsuario().equals("")) {
 			this.preencherDadosTabelaFiltroCodigo();
 		}
 	}
