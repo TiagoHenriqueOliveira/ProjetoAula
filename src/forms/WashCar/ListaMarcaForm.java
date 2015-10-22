@@ -14,6 +14,7 @@ import javax.swing.JButton;
 
 import dao.WashCar.MarcaDAOJDBC;
 import model.WashCar.Marca;
+import model.WashCar.Modelo;
 
 import java.awt.Font;
 import java.awt.Toolkit;
