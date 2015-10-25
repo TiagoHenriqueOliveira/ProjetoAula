@@ -25,7 +25,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	@SuppressWarnings({ "static-access"})
 	@Override
 	public void inserir(Usuario usuario) throws Exception {
-		sql = "insert into usuario(nomeUsuario, loginUsuario, senhaUsuario, dataAlteracao, empresa, foraUso)"
+		sql = "insert into tb_usuario(nomeUsuario, loginUsuario, senhaUsuario, dataAlteracaoUsuario, idEmpresa, usuarioForaUso)"
 				+ "values(?,?,?,?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -45,9 +45,9 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	@SuppressWarnings("static-access")
 	@Override
 	public void alterar(Usuario usuario) throws Exception{
-		sql = "update usuario u "
-				+"set u.nomeUsuario = ?, u.loginUsuario = ?, u.senhaUsuario = ?, u.dataAlteracao = ?, u.foraUso = ? "
-				+"where u.idUsuario = ?";
+		sql = "update tb_usuario "
+				+"set tb_usuario.nomeUsuario = ?, tb_usuario.loginUsuario = ?, tb_usuario.senhaUsuario = ?, tb_usuario.dataAlteracaoUsuario = ?, tb_usuario.usuarioForaUso = ? "
+				+"where tb_usuario.idUsuario = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, usuario.getNome());
@@ -70,8 +70,8 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	@Override
 	public Usuario buscarId(Integer id) {
 		Usuario usuario = null;
-		sql = "select * from usuario u "
-				+ "where u.idUsuario = ?";
+		sql = "select * from tb_usuario "
+				+ "where tb_usuario.idUsuario = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, id);
@@ -82,8 +82,8 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
 				usuario.setSenha(rs.getString("senhaUsuario"));
-				usuario.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
+				usuario.setDataAltercacao(rs.getDate("dataAlteracaoUsuario").toLocalDate());
+				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("usuarioForaUso")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -94,8 +94,8 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	@Override
 	public List<Usuario> buscarDescricao(String nome) {
 		List<Usuario> usuarios = new ArrayList<>();
-		sql = "select * from usuario u "
-				+ "where u.nomeUsuario like ?";
+		sql = "select * from tb_usuario "
+				+ "where tb_usuario.nomeUsuario like ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, "%" + nome + "%");
@@ -106,8 +106,8 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
 				usuario.setSenha(rs.getString("senhaUsuario"));
-				usuario.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
+				usuario.setDataAltercacao(rs.getDate("dataAlteracaoUsuario").toLocalDate());
+				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("usuarioForaUso")));
 				usuarios.add(usuario);
 			}
 		} catch (SQLException e) {
@@ -119,7 +119,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	@Override
 	public List<Usuario> todos() {
 		List<Usuario> usuarios = new ArrayList<>();
-		sql = "select * from usuario";
+		sql = "select * from tb_usuario";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -129,8 +129,8 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
 				usuario.setSenha(rs.getString("senhaUsuario"));
-				usuario.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
+				usuario.setDataAltercacao(rs.getDate("dataAlteracaoUsuario").toLocalDate());
+				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("usuarioForaUso")));
 				usuarios.add(usuario);
 			}
 		} catch (SQLException e) {
@@ -142,9 +142,9 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	@Override
 	public Usuario login(String login, String senha) {
 		Usuario usuario = null;
-		sql = "select * from usuario u"
-				+ " where u.loginUsuario = ?"
-				+ " and u.senhaUsuario = ?";
+		sql = "select * from tb_usuario "
+				+ "where tb_usuario.loginUsuario = ? "
+				+ "and tb_usuario.senhaUsuario = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, login);
@@ -154,7 +154,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 				usuario = new Usuario();
 				usuario.setLogin(rs.getString("loginUsuario"));
 				usuario.setSenha(rs.getString("senhaUsuario"));
-				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
+				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("usuarioForaUso")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
