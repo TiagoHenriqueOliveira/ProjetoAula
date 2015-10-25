@@ -24,7 +24,9 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JCheckBox;
 
 import daoFactory.WashCar.DaoFactory;
+import model.WashCar.Entidade;
 import model.WashCar.Marca;
+import preencherDados.WashCar.PreencherDados;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
 import javax.swing.JMenuBar;
@@ -32,7 +34,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 
-public class MarcaForm extends JFrame {
+public class MarcaForm extends JFrame implements PreencherDados{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnMarca;
@@ -77,6 +79,7 @@ public class MarcaForm extends JFrame {
 		jtfPesquisaCodigoMarca.setColumns(10);
 		
 		jtfPesquisaNomeMarca = new JTextField();
+		jtfPesquisaNomeMarca.setDocument(new ValidaCampoString());
 		jtfPesquisaNomeMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaNomeMarca.setBounds(86, 52, 275, 20);
 		jpnPesquisaMarcas.add(jtfPesquisaNomeMarca);
@@ -193,10 +196,14 @@ public class MarcaForm extends JFrame {
 	
 	public void acionarBotaoNovo() {
 		jtfNomeMarca.requestFocus();
-		jbtNovo.setEnabled(false);
+		jtfNomeMarca.setText("");
+		jtfCodigoMarca.setText("");
+		jtfDataAlteracao.setText("");
 		jtfNomeMarca.setEnabled(true);
+		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
+		jbtEditar.setEnabled(false);
 	}
 	
 	@SuppressWarnings("static-access")
@@ -212,8 +219,12 @@ public class MarcaForm extends JFrame {
 			DaoFactory.getFactory().marcaDao().inserir(marca);
 			jtfCodigoMarca.setText(String.valueOf(this.marca.getIdMarca()));
 			jtfDataAlteracao.setText(this.marca.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
-			jtfNomeMarca.setEnabled(false);
 			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeMarca.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
 		}
 	}
 	
@@ -230,12 +241,18 @@ public class MarcaForm extends JFrame {
 			this.marca.setIdMarca(Integer.valueOf(jtfCodigoMarca.getText()));
 			DaoFactory.getFactory().marcaDao().alterar(marca);
 			jtfDataAlteracao.setText(this.marca.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
-			jtfNomeMarca.setEnabled(false);
 			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeMarca.setEnabled(false);
+			jcbxForaUso.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
 		}
 	}
 	
 	public void acionarBotaoEditar() {
+		jtfNomeMarca.requestFocus();
 		jtfNomeMarca.setEnabled(true);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
@@ -257,7 +274,7 @@ public class MarcaForm extends JFrame {
 		jbtEditar.setEnabled(false);
 	}
 	
-	public void preencherCampos(Marca marca) {
+	public void preencherCamposMarca(Marca marca) {
 		jtfCodigoMarca.setText(String.valueOf(marca.getIdMarca()));
 		jtfNomeMarca.setText(marca.getNome());
 		jtfDataAlteracao.setText(marca.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
@@ -266,53 +283,11 @@ public class MarcaForm extends JFrame {
 		} else {
 			jcbxForaUso.setSelected(false);
 		}
-		jtfPesquisaCodigoMarca.setText(null);
-		jtfPesquisaNomeMarca.setText(null);
+		jtfPesquisaCodigoMarca.setText("");
+		jtfPesquisaNomeMarca.setText("");
+		setCodigoMarca("");
+		setNomeMarca("");
 		jtfPesquisaCodigoMarca.requestFocus();
-	}
-	
-	public void pesquisaPorCodigo() {
-		jtfPesquisaCodigoMarca.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent keyevt) {
-				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					setCodigoMarca(jtfPesquisaCodigoMarca.getText());
-					ListaMarcaForm listaMarca = new ListaMarcaForm(marcaForm);
-					listaMarca.setVisible(true);
-					jtfNomeMarca.setEnabled(false);
-					jtfNomeMarca.setText(null);
-					jtfCodigoMarca.setText(null);
-					jtfDataAlteracao.setText(null);
-					jcbxForaUso.setSelected(false);
-					jcbxForaUso.setEnabled(false);
-					jbtEditar.setEnabled(true);
-					jbtNovo.setEnabled(true);
-					jbtCancelar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-				}
-			}
-		});
-	}
-	
-	public void pesquisaPorNome() {
-		jtfPesquisaNomeMarca.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent keyevt) {
-				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					setNomeMarca(jtfPesquisaNomeMarca.getText());
-					ListaMarcaForm listaMarca = new ListaMarcaForm(marcaForm);
-					listaMarca.setVisible(true);
-					jtfNomeMarca.setEnabled(false);
-					jtfNomeMarca.setText(null);
-					jtfCodigoMarca.setText(null);
-					jtfDataAlteracao.setText(null);
-					jcbxForaUso.setSelected(false);
-					jcbxForaUso.setEnabled(false);
-					jbtEditar.setEnabled(true);
-					jbtNovo.setEnabled(true);
-					jbtCancelar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-				}
-			}
-		});
 	}
 	
 	public void acoesDosBotoes() {
@@ -367,6 +342,53 @@ public class MarcaForm extends JFrame {
 		});
 	}
 	
+	public void pesquisaPorCodigo() {
+		jtfPesquisaCodigoMarca.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					Integer codigo = null;
+					if(! jtfPesquisaCodigoMarca.getText().equals("")) {
+						codigo = Integer.valueOf(jtfPesquisaCodigoMarca.getText());
+					}
+					jtfPesquisaCodigoMarca.setText(null);
+					ListaMarcaForm listaMarca = new ListaMarcaForm(marcaForm, null, codigo);
+					listaMarca.setVisible(true);
+					jtfNomeMarca.setEnabled(false);
+					jtfNomeMarca.setText(null);
+					jtfCodigoMarca.setText(null);
+					jtfDataAlteracao.setText(null);
+					jcbxForaUso.setSelected(false);
+					jcbxForaUso.setEnabled(false);
+					jbtEditar.setEnabled(true);
+					jbtNovo.setEnabled(true);
+					jbtCancelar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+				}
+			}
+		});
+	}
+	
+	public void pesquisaPorNome() {
+		jtfPesquisaNomeMarca.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					ListaMarcaForm listaMarca = new ListaMarcaForm(marcaForm, jtfPesquisaNomeMarca.getText(), null);
+					listaMarca.setVisible(true);
+					jtfNomeMarca.setEnabled(false);
+					jtfNomeMarca.setText(null);
+					jtfCodigoMarca.setText(null);
+					jtfDataAlteracao.setText(null);
+					jcbxForaUso.setSelected(false);
+					jcbxForaUso.setEnabled(false);
+					jbtEditar.setEnabled(true);
+					jbtNovo.setEnabled(true);
+					jbtCancelar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+				}
+			}
+		});
+	}
+	
 	public String getNomeMarca() {
 		return nomeMarca;
 	}
@@ -397,5 +419,10 @@ public class MarcaForm extends JFrame {
 		acoesDosBotoes();
 		pesquisaPorCodigo();
 		pesquisaPorNome();
+	}
+
+	@Override
+	public void preencherCampos(Entidade entidade) {
+		this.preencherCamposMarca((Marca)entidade);		
 	}
 }
