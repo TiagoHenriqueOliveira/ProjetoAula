@@ -22,7 +22,9 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.text.MaskFormatter;
 
 import model.WashCar.Empresa;
+import model.WashCar.Entidade;
 import model.WashCar.Usuario;
+import preencherDados.WashCar.PreencherDados;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
 import daoFactory.WashCar.DaoFactory;
@@ -34,7 +36,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class UsuarioForm extends JFrame {
+public class UsuarioForm extends JFrame implements PreencherDados{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnUsuario;
@@ -53,7 +55,7 @@ public class UsuarioForm extends JFrame {
 	private JLabel jlbSenha;
 	private JLabel jlbCodigo;
 	private JLabel jlbDataAlteracao;
-	private JCheckBox jcbxUsuarioForaUso;
+	private JCheckBox jcbxForaUso;
 	private JButton jbtFechar;
 	private JButton jbtCancelar;
 	private JButton jbtEditar;
@@ -159,11 +161,11 @@ public class UsuarioForm extends JFrame {
 		jtfDataAlteracao.setBounds(552, 252, 98, 20);
 		jpnUsuario.add(jtfDataAlteracao);
 		
-		jcbxUsuarioForaUso = new JCheckBox("Usu\u00E1rio Fora de Uso");
-		jcbxUsuarioForaUso.setEnabled(false);
-		jcbxUsuarioForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jcbxUsuarioForaUso.setBounds(468, 118, 182, 23);
-		jpnUsuario.add(jcbxUsuarioForaUso);
+		jcbxForaUso = new JCheckBox("Usu\u00E1rio Fora de Uso");
+		jcbxForaUso.setEnabled(false);
+		jcbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jcbxForaUso.setBounds(468, 118, 182, 23);
+		jpnUsuario.add(jcbxForaUso);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setToolTipText("");
@@ -227,12 +229,12 @@ public class UsuarioForm extends JFrame {
 		jtfLogin.setText("");
 		jpfSenha.setText("");
 		jtfDataAlteracao.setText("");
-		jbtNovo.setEnabled(false);
 		jtfNome.setEnabled(true);
 		jtfLogin.setEnabled(true);
 		jpfSenha.setEnabled(true);
-		jcbxUsuarioForaUso.setSelected(false);
-		jcbxUsuarioForaUso.setEnabled(false);
+		jcbxForaUso.setSelected(false);
+		jcbxForaUso.setEnabled(false);
+		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
 		jbtEditar.setEnabled(false);
@@ -258,7 +260,7 @@ public class UsuarioForm extends JFrame {
 		this.usuario.setLogin(jtfLogin.getText());
 		this.usuario.setSenha(jpfSenha.getText());
 		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
-		this.usuario.setForaUso(Boolean.valueOf(jcbxUsuarioForaUso.isSelected()));
+		this.usuario.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
 		this.usuario.setEmpresa(new Empresa(1));
 		DaoFactory.getFactory().usuarioDao().inserir(usuario);
 		jtfCodigo.setText(String.valueOf(this.usuario.getIdUsuario()));
@@ -270,6 +272,7 @@ public class UsuarioForm extends JFrame {
 		jbtSalvar.setEnabled(false);
 		jbtEditar.setEnabled(true);
 		jbtNovo.setEnabled(true);
+		jbtCancelar.setEnabled(false);
 		}
 	}
 	
@@ -293,7 +296,7 @@ public class UsuarioForm extends JFrame {
 		this.usuario.setLogin(jtfLogin.getText());
 		this.usuario.setSenha(jpfSenha.getText());
 		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
-		this.usuario.setForaUso(Boolean.valueOf(jcbxUsuarioForaUso.isSelected()));
+		this.usuario.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
 		this.usuario.setIdUsuario(Integer.valueOf(jtfCodigo.getText()));
 		DaoFactory.getFactory().usuarioDao().alterar(usuario);
 		jtfDataAlteracao.setText(this.usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
@@ -301,51 +304,52 @@ public class UsuarioForm extends JFrame {
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
 		jpfSenha.setEnabled(false);
-		jcbxUsuarioForaUso.setEnabled(false);
+		jcbxForaUso.setEnabled(false);
 		jbtSalvar.setEnabled(false);
 		jbtEditar.setEnabled(true);
 		jbtNovo.setEnabled(true);
+		jbtCancelar.setEnabled(false);
 		}
 	}
 	
 	public void acionarBotaoEditar() {
-		jbtNovo.setEnabled(false);
 		jtfNome.setEnabled(true);
 		jtfLogin.setEnabled(true);
 		jpfSenha.setEnabled(true);
-		jcbxUsuarioForaUso.setEnabled(true);
+		jcbxForaUso.setEnabled(true);
+		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
 	}
 	
 	public void acionarBotaoCancelar() {
 		jtfPesquisaCodigoUsuario.requestFocus();
-		jbtNovo.setEnabled(true);
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
 		jpfSenha.setEnabled(false);
-		jcbxUsuarioForaUso.setEnabled(false);
-		jcbxUsuarioForaUso.setSelected(false);
+		jcbxForaUso.setEnabled(false);
+		jcbxForaUso.setSelected(false);
 		jtfCodigo.setText("");
 		jtfNome.setText("");
 		jtfLogin.setText("");
 		jpfSenha.setText("");
 		jtfDataAlteracao.setText("");
+		jbtNovo.setEnabled(true);
 		jbtCancelar.setEnabled(false);
 		jbtSalvar.setEnabled(false);
 		jbtEditar.setEnabled(false);
 	}
 	
-	public void preencherCampos(Usuario usuario) {
+	public void preencherCamposUsuario(Usuario usuario) {
 		jtfCodigo.setText(String.valueOf(usuario.getIdUsuario()));
 		jtfNome.setText(usuario.getNome());
 		jtfLogin.setText(usuario.getLogin());
 		jpfSenha.setText(usuario.getSenha());
 		jtfDataAlteracao.setText(usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 		if(usuario.isForaUso()) {
-			jcbxUsuarioForaUso.setSelected(true);
+			jcbxForaUso.setSelected(true);
 		} else {
-			jcbxUsuarioForaUso.setSelected(false);
+			jcbxForaUso.setSelected(false);
 		}
 		jtfPesquisaCodigoUsuario.setText(null);
 		jtfPesquisaNomeUsuario.setText(null);
@@ -413,13 +417,13 @@ public class UsuarioForm extends JFrame {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					setNomeUsuario(jtfPesquisaNomeUsuario.getText());
-					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
+					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm, jtfPesquisaNomeUsuario.getText(), null);
 					listaUsuario.setVisible(true);
 					jtfNome.setEnabled(false);
 					jtfLogin.setEnabled(false);
 					jpfSenha.setEnabled(false);
-					jcbxUsuarioForaUso.setEnabled(false);
-					jcbxUsuarioForaUso.setSelected(false);
+					jcbxForaUso.setEnabled(false);
+					jcbxForaUso.setSelected(false);
 					jtfCodigo.setText("");
 					jtfNome.setText("");
 					jtfLogin.setText("");
@@ -438,14 +442,17 @@ public class UsuarioForm extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					setCodigoUsuario(jtfPesquisaCodigoUsuario.getText());
-					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm);
+					Integer codigo = null;
+					if(!jtfPesquisaCodigoUsuario.getText().equals("")) {
+						codigo = Integer.valueOf(jtfPesquisaCodigoUsuario.getText());
+					}
+					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm, null, codigo);
 					listaUsuario.setVisible(true);
 					jtfNome.setEnabled(false);
 					jtfLogin.setEnabled(false);
 					jpfSenha.setEnabled(false);
-					jcbxUsuarioForaUso.setEnabled(false);
-					jcbxUsuarioForaUso.setSelected(false);
+					jcbxForaUso.setEnabled(false);
+					jcbxForaUso.setSelected(false);
 					jtfCodigo.setText("");
 					jtfNome.setText("");
 					jtfLogin.setText("");
@@ -491,5 +498,10 @@ public class UsuarioForm extends JFrame {
 		acoesDosBotoes();
 		pesquisarPorNome();
 		pesquisarPorCodigo();
+	}
+
+	@Override
+	public void preencherCampos(Entidade entidade) {
+		this.preencherCamposUsuario((Usuario)entidade);
 	}	
 }
