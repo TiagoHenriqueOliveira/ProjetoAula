@@ -10,8 +10,9 @@ public class Marca implements Entidade{
 	private Boolean foraUso;
 	
 	//construtor com atributos
-	public Marca(Integer idMarca) {
+	public Marca(Integer idMarca, String nome) {
 		this.idMarca = idMarca;
+		this.nome = nome;
 	}
 	
 	public Marca() {
