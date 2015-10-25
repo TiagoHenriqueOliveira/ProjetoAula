@@ -26,7 +26,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	@SuppressWarnings("static-access")
 	@Override
 	public void inserir(Marca marca) throws Exception{
-		sql = "insert into marca(nome, dataAlteracao, foraUso)"
+		sql = "insert into tb_marca(nomeMarca, dataAlteracaoMarca, marcaForaUso)"
 				+ "values(?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -43,9 +43,9 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	@SuppressWarnings("static-access")
 	@Override
 	public void alterar(Marca marca) {
-		sql = "update marca m "
-				+ "set m.nome = ?, m.foraUso = ?, m.dataAlteracao = ? "
-				+ "where m.idMarca = ?";
+		sql = "update tb_marca "
+				+ "set tb_marca.nomeMarca = ?, tb_marca.marcaForaUso = ?, tb_marca.dataAlteracaoMarca = ? "
+				+ "where tb_marca.idMarca = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, marca.getNome());
@@ -66,8 +66,8 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	@Override
 	public Marca buscarId(Integer id) {
 		Marca marca = null;
-		sql = "select * from marca m "
-				+ "where m.idMarca = ?";
+		sql = "select * from tb_marca "
+				+ "where tb_marca.idMarca = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, id);
@@ -75,9 +75,9 @@ public class MarcaDAOJDBC implements MarcaDAO{
 			while(rs.next()) {
 				marca = new Marca();
 				marca.setIdMarca(Integer.valueOf(rs.getInt("idMarca")));
-				marca.setNome(rs.getString("nome"));
-				marca.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				marca.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
+				marca.setNome(rs.getString("nomeMarca"));
+				marca.setDataAltercacao(rs.getDate("dataAlteracaoMarca").toLocalDate());
+				marca.setForaUso(Boolean.valueOf(rs.getBoolean("marcaForaUso")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -88,8 +88,8 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	@Override
 	public List<Marca> buscarDescricao(String nome) {
 		List<Marca> marcas = new ArrayList<>();
-		sql = "select * from marca m "
-				+ "where m.nome like ?";
+		sql = "select * from tb_marca "
+				+ "where tb_marca.nomeMarca like ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, "%" + nome + "%");
@@ -97,9 +97,9 @@ public class MarcaDAOJDBC implements MarcaDAO{
 			while(rs.next()) {
 				Marca marca = new Marca();
 				marca.setIdMarca(Integer.valueOf(rs.getInt("idMarca")));
-				marca.setNome(rs.getString("nome"));
-				marca.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				marca.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
+				marca.setNome(rs.getString("nomeMarca"));
+				marca.setDataAltercacao(rs.getDate("dataAlteracaoMarca").toLocalDate());
+				marca.setForaUso(Boolean.valueOf(rs.getBoolean("marcaForaUso")));
 				marcas.add(marca);
 			}
 		} catch (SQLException e) {
@@ -111,16 +111,16 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	@Override
 	public List<Marca> todos() {
 		List<Marca> marcas = new ArrayList<>();
-		sql = "select * from marca";
+		sql = "select * from tb_marca";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Marca marca = new Marca();
 				marca.setIdMarca(rs.getInt("idMarca"));
-				marca.setNome(rs.getString("nome"));
-				marca.setForaUso(Boolean.valueOf(rs.getBoolean("foraUso")));
-				marca.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
+				marca.setNome(rs.getString("nomeMarca"));
+				marca.setForaUso(Boolean.valueOf(rs.getBoolean("marcaForaUso")));
+				marca.setDataAltercacao(rs.getDate("dataAlteracaoMarca").toLocalDate());
 				marcas.add(marca);
 			}
 		} catch (SQLException e) {
