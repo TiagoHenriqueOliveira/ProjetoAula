@@ -14,7 +14,7 @@ import javax.swing.JButton;
 
 import dao.WashCar.MarcaDAOJDBC;
 import model.WashCar.Marca;
-import model.WashCar.Modelo;
+import preencherDados.WashCar.PreencherDados;
 
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -31,9 +31,11 @@ public class ListaMarcaForm extends JFrame {
 	private JScrollPane jspListaMarca;
 	private JButton jbtSelecionarMarca;
 	private JButton jbtCancelarPesquisa;
-	private MarcaForm marcaForm;
 	private List<Marca> listaMarcas;
 	private Marca marca;
+	private PreencherDados preencheDados;
+	private Integer codigo;
+	private String descricao; 
 	
 	public void componenteListaMarca() {
 		dados = new Vector<String>();
@@ -72,7 +74,7 @@ public class ListaMarcaForm extends JFrame {
 	
 	public void preencherDadosTabelaFiltroCodigo() {
 		marca = new Marca();
-		marca = new MarcaDAOJDBC().buscarId(Integer.valueOf(marcaForm.getCodigoMarca()));
+		marca = new MarcaDAOJDBC().buscarId(Integer.valueOf(codigo));
 		listaMarcas.add(marca);
 		for(Marca todas : listaMarcas) {
 			dtmListaMarca.addRow(new String [] {	todas.getIdMarca().toString(), todas.getNome()});
@@ -80,19 +82,19 @@ public class ListaMarcaForm extends JFrame {
 	}
 	
 	public void preencherDadosTabelaFiltroNome() {
-		listaMarcas.addAll(new MarcaDAOJDBC().buscarDescricao(marcaForm.getNomeMarca()));
+		listaMarcas.addAll(new MarcaDAOJDBC().buscarDescricao(descricao));
 		for(Marca todas : listaMarcas) {
 			dtmListaMarca.addRow(new String [] {	todas.getIdMarca().toString(), todas.getNome()});
 		}
 	}
 	
 	public void validacaoPesquisa() {
-		if((marcaForm.getCodigoMarca() == null || marcaForm.getCodigoMarca().equals(""))
-			&& (marcaForm.getNomeMarca() == null || marcaForm.getNomeMarca().equals(""))) {
+		if((codigo == null || codigo.equals(""))
+			&& (descricao== null || descricao.equals(""))) {
 			this.preencherDadosTabelaSemFiltro();
-		} else if(marcaForm.getCodigoMarca() != null && !marcaForm.getCodigoMarca().equals("")) {
+		} else if(codigo != null && !codigo.equals("")) {
 			this.preencherDadosTabelaFiltroCodigo();
-		} else if(marcaForm.getNomeMarca() != null && !marcaForm.getNomeMarca().equals("")) {
+		} else if(descricao != null && !descricao.equals("")) {
 			this.preencherDadosTabelaFiltroNome();
 		}
 	}
@@ -104,8 +106,8 @@ public class ListaMarcaForm extends JFrame {
 				if(e.getSource() == jbtSelecionarMarca) {
 					Integer marcaSelecionada = jttListaMarca.getSelectedRow();
 					if(marcaSelecionada != -1) {
-						Marca marca = listaMarcas.get(marcaSelecionada);
-						marcaForm.preencherCampos(marca);
+						marca = listaMarcas.get(marcaSelecionada);
+						preencheDados.preencherCampos(marca);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "Nenhuma marca foi selecionada!!!\n"
@@ -126,9 +128,8 @@ public class ListaMarcaForm extends JFrame {
 			}
 		});
 	}
-
-	public ListaMarcaForm(MarcaForm marcaForm) {
-		this.marcaForm = marcaForm;
+	
+	public void inicializarForm() {
 		listaMarcas = new ArrayList<>();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaMarcaForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Lista de Marcas");
@@ -143,5 +144,15 @@ public class ListaMarcaForm extends JFrame {
 		validacaoPesquisa();
 		acionarBotaoSelecionar();
 		acionarBotaoCancelar();
+	}
+
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public ListaMarcaForm(PreencherDados dados, String descricao, Integer codigo) {
+		this.preencheDados = dados;
+		this.codigo = codigo;
+		this.descricao = descricao;
+		inicializarForm();
 	}
 }
