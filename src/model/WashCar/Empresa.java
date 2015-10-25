@@ -19,7 +19,7 @@ public class Empresa implements Entidade{
 	private Integer regimeTributario;
 	private Cidade cidade;
 	private LocalDate dataAltercacao;
-	private LocalDate dataInclusao;
+	private Boolean foraUso;
 	
 	public Empresa() {
 		
@@ -123,11 +123,11 @@ public class Empresa implements Entidade{
 		this.dataAltercacao = dataAltercacao;
 	}
 
-	public LocalDate getDataInclusao() {
-		return dataInclusao;
+	public Boolean isForaUso() {
+		return foraUso;
 	}
 
-	public void setDataInclusao(LocalDate dataInclusao) {
-		this.dataInclusao = dataInclusao;
+	public void setForaUso(Boolean foraUso) {
+		this.foraUso = foraUso;
 	}
 }
