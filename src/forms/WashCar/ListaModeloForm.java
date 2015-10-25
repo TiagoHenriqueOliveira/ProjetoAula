@@ -111,8 +111,8 @@ public class ListaModeloForm extends JFrame {
 						preencheDados.preencherCampos(modelo);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "Nenhuma marca foi selecionada!!!\n"
-						+ "Por gentileza, selecionar uma marca!!!", "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Nenhum modelo foi selecionada!!!\n"
+						+ "Por gentileza, selecionar um modelo!!!", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
