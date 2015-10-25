@@ -16,6 +16,7 @@ public class Empresa implements Entidade{
 	private String telefoneComercial;
 	private String telefoneCelular;
 	private String fax;
+	private String email;
 	private Integer regimeTributario;
 	private Cidade cidade;
 	private LocalDate dataAltercacao;
@@ -129,5 +130,13 @@ public class Empresa implements Entidade{
 
 	public void setForaUso(Boolean foraUso) {
 		this.foraUso = foraUso;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
