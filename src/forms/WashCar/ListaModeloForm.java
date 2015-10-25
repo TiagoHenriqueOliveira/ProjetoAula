@@ -1,5 +1,6 @@
 package forms.WashCar;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -12,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.WashCar.ModeloDAOJDBC;
 import model.WashCar.Modelo;
+import preencherDados.WashCar.PreencherDados;
 
 import javax.swing.JButton;
 
@@ -23,7 +25,6 @@ import java.awt.event.ActionListener;
 public class ListaModeloForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private ModeloForm modeloForm;
 	private JPanel jpnListaModelo;
 	private Vector<String> dados;
 	private JTable jttListaModelo;
@@ -32,11 +33,15 @@ public class ListaModeloForm extends JFrame {
 	private JButton jbtSelecionarModelo;
 	private JButton jbtCancelarPesquisa;
 	private List<Modelo> listaModelos;
+	private Modelo modelo;
+	private PreencherDados preencheDados;
+	private Integer codigo;
+	private String descricao;
 	
 	public void componenteListaMarca() {
 		dados = new Vector<String>();
 		dados.add("Código");
-		dados.add("Nome da Marca");
+		dados.add("Nome do Modelo");
 		dtmListaModelo = new DefaultTableModel();
 		dtmListaModelo.setColumnIdentifiers(dados);
 		jttListaModelo = new JTable();
@@ -61,12 +66,37 @@ public class ListaModeloForm extends JFrame {
 		jpnListaModelo.add(jbtCancelarPesquisa);
 	}
 	
-	public void preencherDadosTabela() {
+	public void preencherDadosTabelaSemFiltro() {
 		listaModelos = new ModeloDAOJDBC().todos();
 		for(Modelo todos : listaModelos) {
-			dtmListaModelo.addRow(new String [] {
-					todos.getIdModelo().toString(), todos.getNome()
-			});
+			dtmListaModelo.addRow(new String [] {todos.getIdModelo().toString(), todos.getNome()});
+		}
+	}
+	
+	public void preencherDadosTabelaFiltroCodigo() {
+		modelo = new Modelo();
+		modelo = new ModeloDAOJDBC().buscarId(Integer.valueOf(codigo));
+		listaModelos.add(modelo);
+		for(Modelo todos : listaModelos) {
+			dtmListaModelo.addRow(new String [] {todos.getIdModelo().toString(), todos.getNome()});
+		}
+	}
+	
+	public void preencherDadosTabelaFiltroNome() {
+		listaModelos.addAll(new ModeloDAOJDBC().buscarDescricao(descricao));
+		for(Modelo todos : listaModelos) {
+			dtmListaModelo.addRow(new String [] {todos.getIdModelo().toString(), todos.getNome()});
+		}
+	}
+	
+	public void validacaoPesquisa() {
+		if((codigo == null || codigo.equals(""))
+			&& (descricao== null || descricao.equals(""))) {
+			this.preencherDadosTabelaSemFiltro();
+		} else if(codigo != null && !codigo.equals("")) {
+			this.preencherDadosTabelaFiltroCodigo();
+		} else if(descricao != null && !descricao.equals("")) {
+			this.preencherDadosTabelaFiltroNome();
 		}
 	}
 	
@@ -75,10 +105,10 @@ public class ListaModeloForm extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtSelecionarModelo) {
-					Integer marcaSelecionada = jttListaModelo.getSelectedRow();
-					if(marcaSelecionada != -1) {
-						Modelo modelo = listaModelos.get(marcaSelecionada);
-						modeloForm.preencherCampos(modelo);
+					Integer modeloSelecionado = jttListaModelo.getSelectedRow();
+					if(modeloSelecionado != -1) {
+						modelo = listaModelos.get(modeloSelecionado);
+						preencheDados.preencherCampos(modelo);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "Nenhuma marca foi selecionada!!!\n"
@@ -99,9 +129,9 @@ public class ListaModeloForm extends JFrame {
 			}
 		});
 	}
-
-	public ListaModeloForm(ModeloForm modeloForm) {
-		this.modeloForm = modeloForm;
+	
+	public void inicializarForm() {
+		listaModelos = new ArrayList<>();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaModeloForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Lista de Marcas");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -112,8 +142,15 @@ public class ListaModeloForm extends JFrame {
 		setContentPane(jpnListaModelo);
 				
 		componenteListaMarca();
-		preencherDadosTabela();
+		validacaoPesquisa();
 		acionarBotaoSelecionar();
 		acionarBotaoCancelar();
+	}
+
+	public ListaModeloForm(PreencherDados dados, String descricao, Integer codigo) {
+		this.preencheDados = dados;
+		this.descricao = descricao;
+		this.codigo = codigo;
+		inicializarForm();
 	}
 }
