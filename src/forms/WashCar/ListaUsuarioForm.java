@@ -17,13 +17,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import model.WashCar.Usuario;
+import preencherDados.WashCar.PreencherDados;
 import dao.WashCar.UsuarioDAOJDBC;
-import forms.WashCar.UsuarioForm;
 
 public class ListaUsuarioForm extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private UsuarioForm usuarioForm;
 	private List<Usuario> listaUsuarios;
 	private Usuario usuario;
 	private JPanel jpnListaUsuario;
@@ -33,6 +32,9 @@ public class ListaUsuarioForm extends JFrame {
 	private JScrollPane jspListaUsuario;
 	private JButton jbtSelecionarUsuario;
 	private JButton jbtCancelarPesquisa;
+	private PreencherDados preencheDados;
+	private Integer codigo;
+	private String descricao; 
 
 	public void componentesListaUsuario() {
 		dados = new Vector<String>();
@@ -72,30 +74,30 @@ public class ListaUsuarioForm extends JFrame {
 		}
 	}
 	
-	public void preencherDadosTabelaFiltroNome() {
-		listaUsuarios.addAll(new UsuarioDAOJDBC().buscarDescricao(usuarioForm.getNomeUsuario()));
-		for(Usuario todos : listaUsuarios) {
-			dtmListaUsuario.addRow(new String[] {todos.getIdUsuario().toString(), todos.getNome(), todos.getLogin()});
-		}		
-	}
-	
 	public void preencherDadosTabelaFiltroCodigo() {
 		usuario = new Usuario();
-		usuario = new UsuarioDAOJDBC().buscarId(Integer.valueOf(usuarioForm.getCodigoUsuario()));
+		usuario = new UsuarioDAOJDBC().buscarId(Integer.valueOf(codigo));
 		listaUsuarios.add(usuario);
 		for(Usuario todos : listaUsuarios) {
 			dtmListaUsuario.addRow(new String[] {todos.getIdUsuario().toString(), todos.getNome(), todos.getLogin()});
 		}
 	}
 	
+	public void preencherDadosTabelaFiltroNome() {
+		listaUsuarios.addAll(new UsuarioDAOJDBC().buscarDescricao(descricao));
+		for(Usuario todos : listaUsuarios) {
+			dtmListaUsuario.addRow(new String[] {todos.getIdUsuario().toString(), todos.getNome(), todos.getLogin()});
+		}		
+	}
+	
 	public void validacaoPesquisa() {
-		if((usuarioForm.getNomeUsuario() == null || usuarioForm.getNomeUsuario().equals(""))
-			&& (usuarioForm.getCodigoUsuario() == null || usuarioForm.getCodigoUsuario().equals(""))) {
+		if((codigo == null || codigo.equals(""))
+			&& (descricao== null || descricao.equals(""))) {
 			this.preencherDadosTabelaSemFiltro();
-		} else if(usuarioForm.getNomeUsuario() != null && !usuarioForm.getNomeUsuario().equals("")) {
-			this.preencherDadosTabelaFiltroNome();
-		} else if(usuarioForm.getCodigoUsuario() != null && !usuarioForm.getCodigoUsuario().equals("")) {
+		} else if(codigo != null && !codigo.equals("")) {
 			this.preencherDadosTabelaFiltroCodigo();
+		} else if(descricao != null && !descricao.equals("")) {
+			this.preencherDadosTabelaFiltroNome();
 		}
 	}
 	
@@ -106,8 +108,8 @@ public class ListaUsuarioForm extends JFrame {
 				if(acvt.getSource() == jbtSelecionarUsuario) {
 					Integer usuarioSelecionado = jttListaUsuario.getSelectedRow();
 					if(usuarioSelecionado != -1) {
-						Usuario usuario = listaUsuarios.get(usuarioSelecionado);
-						usuarioForm.preencherCampos(usuario);
+						usuario = listaUsuarios.get(usuarioSelecionado);
+						preencheDados.preencherCampos(usuario);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "Nenhum usuário foi selecionado!!!\n"
@@ -126,9 +128,8 @@ public class ListaUsuarioForm extends JFrame {
 			}
 		});
 	}
-
-	public ListaUsuarioForm(UsuarioForm usuarioForm) {
-		this.usuarioForm = usuarioForm;
+	
+	public void inicializarForm() {
 		listaUsuarios = new ArrayList<>();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaUsuarioForm.class.getResource("/Imagens/washCar.jpeg")));
 		setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -145,5 +146,12 @@ public class ListaUsuarioForm extends JFrame {
 		acionarBotaoSelecionar();
 		acionarBotaoCancelar();
 		validacaoPesquisa();
+	}
+
+	public ListaUsuarioForm(PreencherDados dados, String descricao, Integer codigo) {
+		this.preencheDados = dados;
+		this.codigo = codigo;
+		this.descricao = descricao;
+		inicializarForm();
 	}
 }
