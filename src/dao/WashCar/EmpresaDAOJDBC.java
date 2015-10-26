@@ -26,8 +26,8 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	@SuppressWarnings("static-access")
 	@Override
 	public void inserir(Empresa empresa) throws Exception{
-		sql = "insert into empresa(razaoSocial, nomeFantasia, cnpj, inscricaoEstadual,endereco, bairro, numero, "
-				+ "telefoneComercial, telefoneCelular, fax, regimeTributario, dataAlteracao, cidade, inscricaoMunicipal)"
+		sql = "insert into tb_empresa(razaoSocialEmpresa, nomeFantasiaEmpresa, cnpjEmpresa, inscricaoEstadualEmpresa, inscricaoMunicipalEmpresa, enderecoEmpresa, bairroEmpresa, numeroEmpresa, "
+				+ "telefoneComercialEmpresa, telefoneCelularEmpresa, faxEmpresa, regimeTributarioEmpresa, empresaForaUso, dataAlteracaoEmpresa, idCidade)"
 				+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -35,16 +35,17 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 			pstmt.setString(2, empresa.getNomeFantasia());
 			pstmt.setString(3, empresa.getCnpj());
 			pstmt.setString(4, empresa.getInscricaoEstadual());
-			pstmt.setString(5, empresa.getEndereco());
-			pstmt.setString(6, empresa.getBairro());
-			pstmt.setInt(7, empresa.getNumero());
-			pstmt.setString(8, empresa.getTelefoneComercial());
-			pstmt.setString(9, empresa.getTelefoneCelular());
-			pstmt.setString(10, empresa.getFax());
-			pstmt.setInt(11, empresa.getRegimeTributario());
-			pstmt.setDate(12, Date.valueOf(empresa.getDataAltercacao().now()));
-			pstmt.setInt(13, empresa.getCidade().getIdCidade());
-			pstmt.setString(14, empresa.getInscricaoMunicipal());
+			pstmt.setString(5, empresa.getInscricaoMunicipal());
+			pstmt.setString(6, empresa.getEndereco());
+			pstmt.setString(7, empresa.getBairro());
+			pstmt.setInt(8, empresa.getNumero());
+			pstmt.setString(9, empresa.getTelefoneComercial());
+			pstmt.setString(10, empresa.getTelefoneCelular());
+			pstmt.setString(11, empresa.getFax());
+			pstmt.setInt(12, empresa.getRegimeTributario());
+			pstmt.setBoolean(13, empresa.isForaUso());
+			pstmt.setDate(14, Date.valueOf(empresa.getDataAltercacao().now()));
+			pstmt.setInt(15, empresa.getCidade().getIdCidade());
 			pstmt.executeUpdate();
 			empresa.setIdEmpresa(obterUltimoID(pstmt, rs));
 		} catch (SQLException e) {
@@ -55,26 +56,30 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	@SuppressWarnings("static-access")
 	@Override
 	public void alterar(Empresa empresa) throws Exception{
-		sql = "update empresa e "
-				+ "set e.razaoSocial = ?, e.nomeFantasia = ?, e.cnpj = ?, e.inscricaoEstadual = ?, e.endereco = ?, e.bairro = ?, e.numero = ?, e.telefoneComercial = ?, e.telefoneCelular = ?, "
-				+ "e.fax = ?, e.regimeTributario = ?, e.dataAlteracao = ?, e.inscricaoMunicipal = ?, e.cidade = ? "
-				+ "where e.idEmpresa = ?";
+		sql = "update tb_empresa "
+				+ "set tb_empresa.razaoSocialEmpresa = ?, tb_empresa.nomeFantasiaEmpresa = ?, tb_empresa.cnpjEmpresa = ?, "
+				+ "tb_empresa.inscricaoEstadualEmpresa = ?, tb_empresa.inscricaoMunicipalEmpresa = ?, tb_empresa.enderecoEmpresa = ?, "
+				+ "tb_empresa.bairroEmpresa = ?, tb_empresa.numeroEmpresa = ?, tb_empresa.telefoneComercialEmpresa = ?, "
+				+ "tb_empresa.telefoneCelularEmpresa = ?, tb_empresa.faxEmpresa = ?, tb_empresa.regimeTributarioEmpresa = ?, "
+				+ "tb_empresa.empresaForaUso = ?, tb_empresa.dataAlteracaoEmpresa = ?, tb_empresa.idCidade = ? "
+				+ "where tb_empresa.idEmpresa = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, empresa.getRazaoSocial());
 			pstmt.setString(2, empresa.getNomeFantasia());
 			pstmt.setString(3, empresa.getCnpj());
 			pstmt.setString(4, empresa.getInscricaoEstadual());
-			pstmt.setString(5, empresa.getEndereco());
-			pstmt.setString(6, empresa.getBairro());
-			pstmt.setInt(7, empresa.getNumero());
-			pstmt.setString(8, empresa.getTelefoneComercial());
-			pstmt.setString(9, empresa.getTelefoneCelular());
-			pstmt.setString(10, empresa.getFax());
-			pstmt.setInt(11, empresa.getRegimeTributario());
-			pstmt.setDate(12, Date.valueOf(empresa.getDataAltercacao().now()));
-			pstmt.setString(13, empresa.getInscricaoMunicipal());
-			pstmt.setInt(14, empresa.getCidade().getIdCidade());
+			pstmt.setString(5, empresa.getInscricaoMunicipal());
+			pstmt.setString(6, empresa.getEndereco());
+			pstmt.setString(7, empresa.getBairro());
+			pstmt.setInt(8, empresa.getNumero());
+			pstmt.setString(9, empresa.getTelefoneComercial());
+			pstmt.setString(10, empresa.getTelefoneCelular());
+			pstmt.setString(11, empresa.getFax());
+			pstmt.setInt(12, empresa.getRegimeTributario());
+			pstmt.setBoolean(13, empresa.isForaUso());
+			pstmt.setDate(14, Date.valueOf(empresa.getDataAltercacao().now()));
+			pstmt.setInt(15, empresa.getCidade().getIdCidade());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,7 +94,14 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	@Override
 	public Empresa buscarId(Integer id) {
 		Empresa empresa = null;
-		sql = "select * from empresa e where e.idEmpresa = ?";
+		sql = "select * from tb_empresa "
+				+ "inner join tb_cidade "
+				+ "on tb_empresa.idCidade = tb_cidade.idCidade "
+				+ "inner join tb_UF "
+				+ "on tb_cidade.idUF = tb_UF.idUF "
+				+ "inner join tb_pais "
+				+ "on tb_UF.idPais = tb_pais.idPais "
+				+ "where tb_empresa.idEmpresa = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, id);
@@ -97,20 +109,21 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 			while(rs.next()) {
 				empresa = new Empresa();
 				empresa.setIdEmpresa(rs.getInt("idEmpresa"));
-				empresa.setRazaoSocial(rs.getString("razaoSocial"));
-				empresa.setNomeFantasia(rs.getString("nomeFantasia"));
-				empresa.setCnpj(rs.getString("cnpj"));
-				empresa.setInscricaoEstadual(rs.getString("inscricaoEstadual"));
-				empresa.setEndereco(rs.getString("endereco"));
-				empresa.setBairro(rs.getString("bairro"));
-				empresa.setNumero(rs.getInt("numero"));
-				empresa.setTelefoneComercial(rs.getString("telefoneComercial"));
-				empresa.setTelefoneCelular(rs.getString("telefoneCelular"));
-				empresa.setFax(rs.getString("fax"));
+				empresa.setRazaoSocial(rs.getString("razaoSocialEmpresa"));
+				empresa.setNomeFantasia(rs.getString("nomeFantasiaEmpresa"));
+				empresa.setCnpj(rs.getString("cnpjEmpresa"));
+				empresa.setInscricaoEstadual(rs.getString("inscricaoEstadualEmpresa"));
+				empresa.setInscricaoMunicipal(rs.getString("inscricaoMunicipalEmpresa"));
+				empresa.setEndereco(rs.getString("enderecoEmpresa"));
+				empresa.setBairro(rs.getString("bairroEmpresa"));
+				empresa.setNumero(rs.getInt("numeroEmpresa"));
+				empresa.setTelefoneComercial(rs.getString("telefoneComercialEmpresa"));
+				empresa.setTelefoneCelular(rs.getString("telefoneCelularEmpresa"));
+				empresa.setFax(rs.getString("faxEmpresa"));
 				empresa.setRegimeTributario(rs.getInt("regimeTributario"));
-				empresa.setInscricaoMunicipal(rs.getString("inscricaoMunicipal"));
-				empresa.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				empresa.setCidade(new Cidade(rs.getInt("cidade")));
+				empresa.setForaUso(rs.getBoolean("empresaForaUso"));
+				empresa.setDataAltercacao(rs.getDate("dataAlteracaoEmpresa").toLocalDate());
+				empresa.setCidade(new Cidade(rs.getInt("idCidade"), rs.getString("nomeCidade")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,8 +134,15 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	@Override
 	public List<Empresa> buscarDescricao(String descricao) {
 		List<Empresa> empresas = new ArrayList<>();
-		sql = "select * from empresa e "
-				+ "where e.razaoSocial like ? or e.nomeFantasia like ?";
+		sql = "select * from tb_empresa "
+				+ "inner join tb_cidade "
+				+ "on tb_empresa.idCidade = tb_cidade.idCidade "
+				+ "inner join tb_UF "
+				+ "on tb_cidade.idUF = tb_UF.idUF "
+				+ "inner join tb_pais "
+				+ "on tb_UF.idPais = tb_pais.idPais "
+				+ "where tb_empresa.razaoSocialEmpresa like ? "
+				+ "or tb_empresa.nomeFantasiaEmpresa like ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, "%" + descricao +"%");
@@ -131,20 +151,21 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 			while(rs.next()) {
 				Empresa empresa = new Empresa();
 				empresa.setIdEmpresa(rs.getInt("idEmpresa"));
-				empresa.setRazaoSocial(rs.getString("razaoSocial"));
-				empresa.setNomeFantasia(rs.getString("nomeFantasia"));
-				empresa.setCnpj(rs.getString("cnpj"));
-				empresa.setInscricaoEstadual(rs.getString("inscricaoEstadual"));
-				empresa.setEndereco(rs.getString("endereco"));
-				empresa.setBairro(rs.getString("bairro"));
-				empresa.setNumero(rs.getInt("numero"));
-				empresa.setTelefoneComercial(rs.getString("telefoneComercial"));
-				empresa.setTelefoneCelular(rs.getString("telefoneCelular"));
-				empresa.setFax(rs.getString("fax"));
+				empresa.setRazaoSocial(rs.getString("razaoSocialEmpresa"));
+				empresa.setNomeFantasia(rs.getString("nomeFantasiaEmpresa"));
+				empresa.setCnpj(rs.getString("cnpjEmpresa"));
+				empresa.setInscricaoEstadual(rs.getString("inscricaoEstadualEmpresa"));
+				empresa.setInscricaoMunicipal(rs.getString("inscricaoMunicipalEmpresa"));
+				empresa.setEndereco(rs.getString("enderecoEmpresa"));
+				empresa.setBairro(rs.getString("bairroEmpresa"));
+				empresa.setNumero(rs.getInt("numeroEmpresa"));
+				empresa.setTelefoneComercial(rs.getString("telefoneComercialEmpresa"));
+				empresa.setTelefoneCelular(rs.getString("telefoneCelularEmpresa"));
+				empresa.setFax(rs.getString("faxEmpresa"));
 				empresa.setRegimeTributario(rs.getInt("regimeTributario"));
-				empresa.setInscricaoMunicipal(rs.getString("inscricaoMunicipal"));
-				empresa.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				empresa.setCidade(new Cidade(rs.getInt("cidade")));
+				empresa.setForaUso(rs.getBoolean("empresaForaUso"));
+				empresa.setDataAltercacao(rs.getDate("dataAlteracaoEmpresa").toLocalDate());
+				empresa.setCidade(new Cidade(rs.getInt("idCidade"), rs.getString("nomeCidade")));
 				empresas.add(empresa);
 			}
 		} catch (SQLException e) {
@@ -156,7 +177,14 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	@Override
 	public Empresa buscarDocumento(String codDocumento) {
 		Empresa empresa = null;
-		sql = "select * from empresa e where e.cnpj = ?";
+		sql = "select * from tb_empresa "
+				+ "inner join tb_cidade "
+				+ "on tb_empresa.idCidade = tb_cidade.idCidade "
+				+ "inner join tb_UF "
+				+ "on tb_cidade.idUF = tb_UF.idUF "
+				+ "inner join tb_pais "
+				+ "on tb_UF.idPais = tb_pais.idPais "
+				+ "where tb_empresa.cnpjEmpresa = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, codDocumento);
@@ -164,20 +192,21 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 			while(rs.next()) {
 				empresa = new Empresa();
 				empresa.setIdEmpresa(rs.getInt("idEmpresa"));
-				empresa.setRazaoSocial(rs.getString("razaoSocial"));
-				empresa.setNomeFantasia(rs.getString("nomeFantasia"));
-				empresa.setCnpj(rs.getString("cnpj"));
-				empresa.setInscricaoEstadual(rs.getString("inscricaoEstadual"));
-				empresa.setEndereco(rs.getString("endereco"));
-				empresa.setBairro(rs.getString("bairro"));
-				empresa.setNumero(rs.getInt("numero"));
-				empresa.setTelefoneComercial(rs.getString("telefoneComercial"));
-				empresa.setTelefoneCelular(rs.getString("telefoneCelular"));
-				empresa.setFax(rs.getString("fax"));
+				empresa.setRazaoSocial(rs.getString("razaoSocialEmpresa"));
+				empresa.setNomeFantasia(rs.getString("nomeFantasiaEmpresa"));
+				empresa.setCnpj(rs.getString("cnpjEmpresa"));
+				empresa.setInscricaoEstadual(rs.getString("inscricaoEstadualEmpresa"));
+				empresa.setInscricaoMunicipal(rs.getString("inscricaoMunicipalEmpresa"));
+				empresa.setEndereco(rs.getString("enderecoEmpresa"));
+				empresa.setBairro(rs.getString("bairroEmpresa"));
+				empresa.setNumero(rs.getInt("numeroEmpresa"));
+				empresa.setTelefoneComercial(rs.getString("telefoneComercialEmpresa"));
+				empresa.setTelefoneCelular(rs.getString("telefoneCelularEmpresa"));
+				empresa.setFax(rs.getString("faxEmpresa"));
 				empresa.setRegimeTributario(rs.getInt("regimeTributario"));
-				empresa.setInscricaoMunicipal(rs.getString("inscricaoMunicipal"));
-				empresa.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				empresa.setCidade(new Cidade(rs.getInt("cidade")));
+				empresa.setForaUso(rs.getBoolean("empresaForaUso"));
+				empresa.setDataAltercacao(rs.getDate("dataAlteracaoEmpresa").toLocalDate());
+				empresa.setCidade(new Cidade(rs.getInt("idCidade"), rs.getString("nomeCidade")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -188,27 +217,34 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	@Override
 	public List<Empresa> todos() {
 		List<Empresa> empresas = new ArrayList<>();
-		sql = "select * from empresa";
+		sql = "select * from tb_empresa "
+				+ "inner join tb_cidade "
+				+ "on tb_empresa.idCidade = tb_cidade.idCidade "
+				+ "inner join tb_UF "
+				+ "on tb_cidade.idUF = tb_UF.idUF "
+				+ "inner join tb_pais "
+				+ "on tb_UF.idPais = tb_pais.idPais";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Empresa empresa = new Empresa();
 				empresa.setIdEmpresa(rs.getInt("idEmpresa"));
-				empresa.setRazaoSocial(rs.getString("razaoSocial"));
-				empresa.setNomeFantasia(rs.getString("nomeFantasia"));
-				empresa.setCnpj(rs.getString("cnpj"));
-				empresa.setInscricaoEstadual(rs.getString("inscricaoEstadual"));
-				empresa.setEndereco(rs.getString("endereco"));
-				empresa.setBairro(rs.getString("bairro"));
-				empresa.setNumero(rs.getInt("numero"));
-				empresa.setTelefoneComercial(rs.getString("telefoneComercial"));
-				empresa.setTelefoneCelular(rs.getString("telefoneCelular"));
-				empresa.setFax(rs.getString("fax"));
+				empresa.setRazaoSocial(rs.getString("razaoSocialEmpresa"));
+				empresa.setNomeFantasia(rs.getString("nomeFantasiaEmpresa"));
+				empresa.setCnpj(rs.getString("cnpjEmpresa"));
+				empresa.setInscricaoEstadual(rs.getString("inscricaoEstadualEmpresa"));
+				empresa.setInscricaoMunicipal(rs.getString("inscricaoMunicipalEmpresa"));
+				empresa.setEndereco(rs.getString("enderecoEmpresa"));
+				empresa.setBairro(rs.getString("bairroEmpresa"));
+				empresa.setNumero(rs.getInt("numeroEmpresa"));
+				empresa.setTelefoneComercial(rs.getString("telefoneComercialEmpresa"));
+				empresa.setTelefoneCelular(rs.getString("telefoneCelularEmpresa"));
+				empresa.setFax(rs.getString("faxEmpresa"));
 				empresa.setRegimeTributario(rs.getInt("regimeTributario"));
-				empresa.setInscricaoMunicipal(rs.getString("inscricaoMunicipal"));
-				empresa.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				empresa.setCidade(new Cidade(rs.getInt("cidade")));
+				empresa.setForaUso(rs.getBoolean("empresaForaUso"));
+				empresa.setDataAltercacao(rs.getDate("dataAlteracaoEmpresa").toLocalDate());
+				empresa.setCidade(new Cidade(rs.getInt("idCidade"), rs.getString("nomeCidade")));
 				empresas.add(empresa);
 			}
 		} catch (SQLException e) {
