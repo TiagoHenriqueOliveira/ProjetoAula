@@ -7,8 +7,9 @@ public class UnidadeFederativa implements Entidade{
 	private Pais pais;
 	
 	//construtor com atributos
-	public UnidadeFederativa(Integer idUnidadeFederativa) {
+	public UnidadeFederativa(Integer idUnidadeFederativa, String nome) {
 		this.idUnidadeFederativa = idUnidadeFederativa;
+		this.nome = nome;
 	}
 	
 	public UnidadeFederativa() {
