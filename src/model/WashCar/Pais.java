@@ -6,8 +6,9 @@ public class Pais implements Entidade {
 	private String nome;
 	
 	//construtor com atributos
-	public Pais(Integer idPais) {
+	public Pais(Integer idPais, String nome) {
 		this.idPais = idPais;
+		this.nome = nome;
 	}
 	
 	public Pais() {
