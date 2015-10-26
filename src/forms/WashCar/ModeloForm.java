@@ -7,7 +7,11 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.MaskFormatter;
 
+import daoFactory.WashCar.DaoFactory;
+import model.WashCar.Entidade;
+import model.WashCar.Marca;
 import model.WashCar.Modelo;
+import preencherDados.WashCar.PreencherDados;
 
 import javax.swing.JTextField;
 
@@ -19,18 +23,24 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
+import validacaoCampos.WashCar.ValidaCampoAlfaNumerico;
+import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
-public class ModeloForm extends JFrame {
+public class ModeloForm extends JFrame implements PreencherDados{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnModelo;
@@ -42,7 +52,6 @@ public class ModeloForm extends JFrame {
 	private JPanel jpnPesquisaModelo;
 	private JLabel jlbPesquisaCodigoModelo;
 	private JLabel jlbPesquisaNomeModelo;
-	private JButton jbtPesquisaModelo;
 	private JButton jbtNovo;
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
@@ -51,7 +60,7 @@ public class ModeloForm extends JFrame {
 	private JLabel jlbCodigoModelo;
 	private JLabel jlbNomeModelo;
 	private JLabel jlbDataAlteracao;
-	private JCheckBox jckbForaUso;
+	private JCheckBox jcbxForaUso;
 	private JLabel jlbConsultaModelos;
 	private JTextField jtfCodigoMarca;
 	private JTextField jtfNomeMarca;
@@ -60,7 +69,11 @@ public class ModeloForm extends JFrame {
 	private JMenuBar jmbModelo;
 	private JLabel jlbNomeMarca;
 	private JLabel jlbCodigoMarca;
+	private Modelo modelo;
 	private static ModeloForm modeloForm;
+	private String codigoModelo;
+	private String nomeModelo;
+
 
 	public void componentesTelaModelo() {
 		jpnPesquisaModelo = new JPanel();
@@ -70,13 +83,14 @@ public class ModeloForm extends JFrame {
 		jpnModelo.add(jpnPesquisaModelo);
 		
 		jtfPesquisaCodigoModelo = new JTextField();
+		jtfPesquisaCodigoModelo.setDocument(new ValidaCampoNumeroInteiro());
 		jtfPesquisaCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCodigoModelo.setColumns(10);
 		jtfPesquisaCodigoModelo.setBounds(10, 54, 50, 20);
 		jpnPesquisaModelo.add(jtfPesquisaCodigoModelo);
 		
 		jtfPesquisaNomeModelo = new JTextField();
-		jtfPesquisaNomeModelo.setDocument(new ValidaCampoString());
+		jtfPesquisaNomeModelo.setDocument(new ValidaCampoAlfaNumerico());
 		jtfPesquisaNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaNomeModelo.setColumns(10);
 		jtfPesquisaNomeModelo.setBounds(86, 54, 275, 20);
@@ -91,11 +105,6 @@ public class ModeloForm extends JFrame {
 		jlbPesquisaNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbPesquisaNomeModelo.setBounds(86, 38, 275, 14);
 		jpnPesquisaModelo.add(jlbPesquisaNomeModelo);
-		
-		jbtPesquisaModelo = new JButton("");
-		jbtPesquisaModelo.setIcon(new ImageIcon(ModeloForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
-		jbtPesquisaModelo.setBounds(371, 42, 40, 32);
-		jpnPesquisaModelo.add(jbtPesquisaModelo);
 		
 		jlbConsultaModelos = new JLabel("Consulta Modelos de Carros");
 		jlbConsultaModelos.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -140,6 +149,7 @@ public class ModeloForm extends JFrame {
 		jpnModelo.add(jtfCodigoModelo);
 		
 		jtfNomeModelo = new JTextField();
+		jtfNomeModelo.setDocument(new ValidaCampoAlfaNumerico());
 		jtfNomeModelo.setEnabled(false);
 		jtfNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeModelo.setColumns(10);
@@ -174,11 +184,11 @@ public class ModeloForm extends JFrame {
 		jlbDataAlteracao.setBounds(550, 253, 100, 14);
 		jpnModelo.add(jlbDataAlteracao);
 		
-		jckbForaUso = new JCheckBox("Fora de Uso");
-		jckbForaUso.setEnabled(false);
-		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jckbForaUso.setBounds(509, 124, 141, 23);
-		jpnModelo.add(jckbForaUso);
+		jcbxForaUso = new JCheckBox("Fora de Uso");
+		jcbxForaUso.setEnabled(false);
+		jcbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jcbxForaUso.setBounds(509, 124, 141, 23);
+		jpnModelo.add(jcbxForaUso);
 		
 		jlbCodigoMarca = new JLabel("C\u00F3digo da Marca");
 		jlbCodigoMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -199,6 +209,7 @@ public class ModeloForm extends JFrame {
 		jpnModelo.add(jlbNomeMarca);
 		
 		jtfNomeMarca = new JTextField();
+		jtfNomeMarca.setDocument(new ValidaCampoString());
 		jtfNomeMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeMarca.setEnabled(false);
 		jtfNomeMarca.setColumns(10);
@@ -220,6 +231,14 @@ public class ModeloForm extends JFrame {
 	}
 	
 	public void acionarBotaoNovo() {
+		jtfNomeModelo.requestFocus();
+		jtfCodigoModelo.setText("");
+		jtfNomeModelo.setText("");
+		jtfCodigoMarca.setText("");
+		jtfNomeMarca.setText("");
+		jtfDataAlteracao.setText("");
+		jcbxForaUso.setSelected(false);
+		jcbxForaUso.setEnabled(false);
 		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
@@ -228,28 +247,75 @@ public class ModeloForm extends JFrame {
 		jtfNomeMarca.setEnabled(true);
 	}
 	
-	public void salvarCadastroModelo() {
-		
+	@SuppressWarnings("static-access")
+	public void salvarCadastroModelo() throws Exception {
+		this.modelo = new Modelo();
+		if(jtfNomeModelo.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do modelo!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeModelo.requestFocus();
+		} else if(jtfNomeMarca.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeMarca.requestFocus();
+		} else {
+			this.modelo.setNome(jtfNomeModelo.getText());
+			this.modelo.setMarca(new Marca(Integer.valueOf(jtfCodigoMarca.getText()), codigoModelo));
+			this.modelo.setDataAltercacao(Date.valueOf(modelo.getDataAltercacao().now()).toLocalDate());
+			this.modelo.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+			DaoFactory.getFactory().modeloDao().inserir(modelo);
+			jtfCodigoModelo.setText(String.valueOf(this.modelo.getIdModelo()));
+			jtfDataAlteracao.setText(this.modelo.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeModelo.setEnabled(false);
+			jtfNomeMarca.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
+		}
 	}
 	
-	public void salvarEdicaoModelo() {
-		
+	@SuppressWarnings("static-access")
+	public void salvarEdicaoModelo() throws Exception{
+		this.modelo = new Modelo();
+		if(jtfNomeModelo.equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do modelo!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeModelo.requestFocus();
+		} else if(jtfNomeMarca.equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca!!!",
+					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeMarca.requestFocus();
+		} else {
+			this.modelo.setNome(jtfNomeModelo.getText());
+			this.modelo.setMarca(new Marca(Integer.valueOf(jtfCodigoMarca.getText()), codigoModelo));
+			this.modelo.setDataAltercacao(Date.valueOf(modelo.getDataAltercacao().now()).toLocalDate());
+			this.modelo.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+			DaoFactory.getFactory().modeloDao().alterar(modelo);
+			jtfCodigoModelo.setText(String.valueOf(this.modelo.getIdModelo()));
+			jtfDataAlteracao.setText(this.modelo.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeModelo.setEnabled(false);
+			jtfNomeMarca.setEnabled(false);
+			jcbxForaUso.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
+		}
 	}
 	
 	public void acionarBotaoEditar() {
+		jtfNomeModelo.requestFocus();
 		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
 		jtfNomeModelo.setEnabled(true);
 		jtfNomeMarca.setEnabled(true);
-		jckbForaUso.setEnabled(true);
+		jcbxForaUso.setEnabled(true);
 	}
 	
 	public void acionarBotaoCancelar() {
-		jbtNovo.setEnabled(true);
-		jbtSalvar.setEnabled(false);
-		jbtCancelar.setEnabled(false);
-		jbtEditar.setEnabled(false);
+		jtfPesquisaCodigoModelo.requestFocus();
 		jtfNomeModelo.setEnabled(false);
 		jtfNomeMarca.setEnabled(false);
 		jtfCodigoModelo.setText("");
@@ -257,29 +323,51 @@ public class ModeloForm extends JFrame {
 		jtfCodigoMarca.setText("");
 		jtfNomeMarca.setText("");
 		jtfDataAlteracao.setText("");
-		jckbForaUso.setSelected(false);
-		jckbForaUso.setEnabled(false);
-	}
-	
-	@SuppressWarnings("deprecation")
-	public void acionarBotaoPesquisar() {
-		ListaModeloForm listaModeloForm = new ListaModeloForm(modeloForm);
-		listaModeloForm.show();
-		jbtEditar.setEnabled(true);
+		jcbxForaUso.setSelected(false);
+		jcbxForaUso.setEnabled(false);
 		jbtNovo.setEnabled(true);
-		jbtCancelar.setEnabled(true);
+		jbtCancelar.setEnabled(false);
 		jbtSalvar.setEnabled(false);
-		jtfCodigoModelo.setText("");
-		jtfNomeModelo.setText("");
-		jtfCodigoMarca.setText("");
-		jtfNomeMarca.setText("");
-		jtfDataAlteracao.setText("");
-		jckbForaUso.setSelected(false);
-		jckbForaUso.setEnabled(false);
+		jbtEditar.setEnabled(false);
 	}
 	
-	public void preencherCampos(Modelo modelo) {
-		
+	public void preencherCamposModelo(Modelo modelo) {
+		jtfCodigoModelo.setText(String.valueOf(modelo.getIdModelo()));
+		jtfNomeModelo.setText(modelo.getNome());
+		jtfCodigoMarca.setText(String.valueOf(modelo.getMarca().getIdMarca()));
+		jtfNomeMarca.setText(modelo.getMarca().getNome());
+		jtfDataAlteracao.setText(modelo.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		if(modelo.isForaUso()) {
+			jcbxForaUso.setSelected(true);
+		} else {
+			jcbxForaUso.setSelected(true);
+		}
+		jtfPesquisaCodigoModelo.requestFocus();
+		jtfPesquisaCodigoModelo.setText("");
+		jtfPesquisaNomeModelo.setText("");
+	}
+	
+	public void preencherCamposMarca(Marca marca) {
+		if(marca.isForaUso()) {
+			JOptionPane.showMessageDialog(null, "A Marca selecionada está fora de uso,\n"
+			+ "por gentileza entre em contato com o responsável!\n"
+			+ "Após a confirmação o cadastro será cancelado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			this.acionarBotaoCancelar();
+		} else {
+			jtfCodigoMarca.setText(String.valueOf(marca.getIdMarca()));
+			jtfNomeMarca.setText(marca.getNome());
+		}
+	}
+	
+	public void pesquisarNomeMarca() {
+		jtfNomeMarca.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					ListaMarcaForm listaMarcaForm = new ListaMarcaForm(modeloForm, jtfNomeMarca.getText(), null);
+					listaMarcaForm.setVisible(true);
+				}
+			}
+		});
 	}
 	
 	public void acoesDosBotoes() {
@@ -334,18 +422,74 @@ public class ModeloForm extends JFrame {
 				}
 			}
 		});
-		
-		jbtPesquisaModelo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent acvt) {
-				if(acvt.getSource() == jbtPesquisaModelo) {
-					acionarBotaoPesquisar();
-				}				
+	}
+	
+	public void pesquisarPorCodigo() {
+		jtfPesquisaCodigoModelo.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					Integer codigo = null;
+					if(!jtfPesquisaCodigoModelo.getText().equals("")) {
+						codigo = Integer.valueOf(jtfPesquisaCodigoModelo.getText());
+					}
+					ListaModeloForm listaModeloForm = new ListaModeloForm(modeloForm, null, codigo);
+					listaModeloForm.setVisible(true);
+					jbtEditar.setEnabled(true);
+					jbtNovo.setEnabled(true);
+					jbtCancelar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+					jtfCodigoModelo.setText("");
+					jtfNomeModelo.setText("");
+					jtfCodigoMarca.setText("");
+					jtfNomeMarca.setText("");
+					jtfDataAlteracao.setText("");
+					jcbxForaUso.setSelected(false);
+					jcbxForaUso.setEnabled(false);
+				}
 			}
 		});
 	}
+	
+	public void pesquisarPorNome() {
+		jtfPesquisaNomeModelo.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					ListaModeloForm listaModeloForm = new ListaModeloForm(modeloForm, jtfPesquisaNomeModelo.getText(), null);
+					listaModeloForm.setVisible(true);
+					jbtEditar.setEnabled(true);
+					jbtNovo.setEnabled(true);
+					jbtCancelar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+					jtfCodigoModelo.setText("");
+					jtfNomeModelo.setText("");
+					jtfCodigoMarca.setText("");
+					jtfNomeMarca.setText("");
+					jtfDataAlteracao.setText("");
+					jcbxForaUso.setSelected(false);
+					jcbxForaUso.setEnabled(false);
+				}
+			}
+		});
+	}
+	
+	public String getCodigoModelo() {
+		return codigoModelo;
+	}
+
+	public void setCodigoModelo(String codigoModelo) {
+		this.codigoModelo = codigoModelo;
+	}
+
+	public String getNomeModelo() {
+		return nomeModelo;
+	}
+
+	public void setNomeModelo(String nomeModelo) {
+		this.nomeModelo = nomeModelo;
+	}
 
 	public ModeloForm() {
+		modeloForm = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ModeloForm.class.getResource("/Imagens/washCar.jpeg")));
 		setResizable(false);
 		setTitle("Cadastrar Modelos de Carros | WashCar");
@@ -354,8 +498,20 @@ public class ModeloForm extends JFrame {
 		jpnModelo = new JPanel();
 		jpnModelo.setLayout(null);
 		setLocationRelativeTo(null);
-				
+		
 		componentesTelaModelo();
 		acoesDosBotoes();
+		pesquisarPorCodigo();
+		pesquisarPorNome();
+		pesquisarNomeMarca();
+	}
+
+	@Override
+	public void preencherCampos(Entidade entidade) {
+		if(jtfNomeMarca.isEnabled()) {
+			this.preencherCamposMarca((Marca)entidade);
+		} else {
+			this.preencherCamposModelo((Modelo)entidade);
+		}
 	}
 }
