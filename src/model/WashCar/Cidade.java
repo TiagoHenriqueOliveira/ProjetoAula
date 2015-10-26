@@ -7,8 +7,9 @@ public class Cidade implements Entidade{
 	private UnidadeFederativa unidadeFederativa;
 	
 	//construtor com atributos
-	public Cidade(Integer idCidade) {
+	public Cidade(Integer idCidade, String nome) {
 		this.idCidade = idCidade;
+		this.nome = nome;
 	}
 	
 	public Cidade() {
