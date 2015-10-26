@@ -26,7 +26,7 @@ public class ModeloDAOJDBC implements ModeloDAO{
 	@SuppressWarnings("static-access")
 	@Override
 	public void inserir(Modelo modelo) throws Exception {
-		sql = "insert into modelo(nome, dataAlteracao, marca, foraUso) "
+		sql = "insert into tb_modelo(nomeModelo, dataAlteracaoModelo, idMarca, modeloForaUso) "
 				+ "values(?, ?, ?, ?)";
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -44,9 +44,9 @@ public class ModeloDAOJDBC implements ModeloDAO{
 	@SuppressWarnings("static-access")
 	@Override
 	public void alterar(Modelo modelo) throws Exception {
-		sql = "update modelo m "
-				+ "set m.nome = ?, dataAlteracao = ?, marca = ?, foraUso = ? "
-				+ "where m.idModelo = ?";
+		sql = "update tb_modelo "
+				+ "set tb_modelo.nomeModelo = ?, tb_modelo.dataAlteracaoModelo = ?, tb_modelo.idMarca = ?, tb_modelo.modeloForaUso = ? "
+				+ "where tb_modelo.idModelo = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, modelo.getNome());
@@ -68,8 +68,10 @@ public class ModeloDAOJDBC implements ModeloDAO{
 	@Override
 	public Modelo buscarId(Integer id) {
 		Modelo modelo = null;
-		sql = "select * from modelo m "
-				+ "where m.idModelo = ?";
+		sql = "select * from tb_modelo "
+				+ "inner join tb_marca "
+				+ "on tb_modelo.idMarca = tb_marca.idMarca "
+				+ "where tb_modelo.idModelo = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, id);
@@ -77,10 +79,10 @@ public class ModeloDAOJDBC implements ModeloDAO{
 			while(rs.next()) {
 				modelo = new Modelo();
 				modelo.setIdModelo(Integer.valueOf(rs.getInt("idModelo")));
-				modelo.setNome(rs.getString("nome"));
-				modelo.setMarca(new Marca(rs.getInt("marca")));
-				modelo.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				modelo.setForaUso(rs.getBoolean("foraUso"));
+				modelo.setNome(rs.getString("nomeModelo"));
+				modelo.setMarca(new Marca(rs.getInt("idMarca"), rs.getString("nomeMarca")));
+				modelo.setDataAltercacao(rs.getDate("dataAlteracaoModelo").toLocalDate());
+				modelo.setForaUso(rs.getBoolean("ModeloforaUso"));
 			}
 		} catch (SQLException buscaId) {
 			buscaId.printStackTrace();
@@ -91,8 +93,10 @@ public class ModeloDAOJDBC implements ModeloDAO{
 	@Override
 	public List<Modelo> buscarDescricao(String nome) {
 		List<Modelo>	 modelos = new ArrayList<>();
-		sql = "select * from modelo m "
-				+ "where m.nome like ?";
+		sql = "select * from tb_modelo "
+				+ "inner join tb_marca "
+				+ "on tb_modelo.idMarca = tb_marca.idMarca "
+				+ "where tb_modelo.nomeModelo like ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, "%" + nome + "%");
@@ -100,10 +104,10 @@ public class ModeloDAOJDBC implements ModeloDAO{
 			while(rs.next()) {
 				Modelo modelo = new Modelo();
 				modelo.setIdModelo(Integer.valueOf(rs.getInt("idModelo")));
-				modelo.setNome(rs.getString("nome"));
-				modelo.setMarca(new Marca(rs.getInt("marca")));
-				modelo.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				modelo.setForaUso(rs.getBoolean("foraUso"));
+				modelo.setNome(rs.getString("nomeModelo"));
+				modelo.setMarca(new Marca(rs.getInt("idMarca"), rs.getString("nomeMarca")));
+				modelo.setDataAltercacao(rs.getDate("dataAlteracaoModelo").toLocalDate());
+				modelo.setForaUso(rs.getBoolean("ModeloforaUso"));
 				modelos.add(modelo);
 			}
 		} catch (SQLException buscaNome) {
@@ -115,17 +119,19 @@ public class ModeloDAOJDBC implements ModeloDAO{
 	@Override
 	public List<Modelo> todos() {
 		List<Modelo> modelos = new ArrayList<>();
-		sql = "select * from modelo";
+		sql = "select * from tb_modelo "
+				+ "inner join tb_marca "
+				+ "on tb_modelo.idMarca = tb_marca.idMarca";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Modelo modelo = new Modelo();
 				modelo.setIdModelo(Integer.valueOf(rs.getInt("idModelo")));
-				modelo.setNome(rs.getString("nome"));
-				modelo.setMarca(new Marca(rs.getInt("marca ")));
-				modelo.setDataAltercacao(rs.getDate("dataAlteracao").toLocalDate());
-				modelo.setForaUso(rs.getBoolean("foraUso"));
+				modelo.setNome(rs.getString("nomeModelo"));
+				modelo.setMarca(new Marca(rs.getInt("idMarca"), rs.getString("nomeMarca")));
+				modelo.setDataAltercacao(rs.getDate("dataAlteracaoModelo").toLocalDate());
+				modelo.setForaUso(rs.getBoolean("ModeloforaUso"));
 				modelos.add(modelo);
 			}
 		} catch (SQLException buscaModelo) {
