@@ -67,8 +67,6 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 	private JMenuItem jmiUsuarioCadastradoTodos;
 	private Usuario usuario;
 	private static UsuarioForm usuarioForm;
-	private String nomeUsuario;
-	private String codigoUsuario;
 
 	public void componentesUsuarioForm() {
 		jpnPesquisaUsuario = new JPanel();
@@ -416,7 +414,6 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					setNomeUsuario(jtfPesquisaNomeUsuario.getText());
 					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm, jtfPesquisaNomeUsuario.getText(), null);
 					listaUsuario.setVisible(true);
 					jtfNome.setEnabled(false);
@@ -466,22 +463,6 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		});
 	}
 	
-	public String getNomeUsuario() {
-		return nomeUsuario;
-	}
-
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
-	}
-
-	public String getCodigoUsuario() {
-		return codigoUsuario;
-	}
-
-	public void setCodigoUsuario(String codigoUsuario) {
-		this.codigoUsuario = codigoUsuario;
-	}
-		
 	public UsuarioForm() {
 		usuarioForm = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UsuarioForm.class.getResource("/Imagens/washCar.jpeg")));
