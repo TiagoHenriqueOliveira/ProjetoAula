@@ -12,10 +12,10 @@ public class ValidaCampoAlfaNumerico extends PlainDocument {
 	private static final long serialVersionUID = 1L;
 
 	public void insertString(int offset, String string, javax.swing.text.AttributeSet setAtributo) throws BadLocationException {
-			super.insertString(offset, string.toUpperCase().replaceAll("[^a-z|^A-Z|^/|^&|^0-9|^~|^´|^`|^ ]", ""), setAtributo);
+			super.insertString(offset, string.toUpperCase(), setAtributo);
 	}
 	
 	public void replace(int offset, String string, javax.swing.text.AttributeSet setAtributo) 	throws BadLocationException {
-			super.insertString(offset, string.toUpperCase().replaceAll("[^a-z|^A-Z|^/|^&|^0-9|^~|^´|^`|^ ]", ""), setAtributo);
+			super.insertString(offset, string.toUpperCase(), setAtributo);
 	}
 }
