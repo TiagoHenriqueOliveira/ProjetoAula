@@ -13,16 +13,15 @@ public class Carro implements Entidade{
 	private LocalDate dataInclusao;
 	
 	//construtor com atributos
-	public Carro(Integer idCarro, String nome, String placa, Cliente cliente,
-			Modelo modelo, LocalDate dataAltercacao, LocalDate dataInclusao) {
+	public Carro(Integer idCarro, String nome, String placa) {
 		super();
 		this.idCarro = idCarro;
 		this.nome = nome;
 		this.placa = placa;
-		this.cliente = cliente;
-		this.modelo = modelo;
-		this.dataAltercacao = dataAltercacao;
-		this.dataInclusao = dataInclusao;
+	}
+	
+	public Carro() {
+		
 	}
 	
 	//gets e sets das variaveis
