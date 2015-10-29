@@ -28,36 +28,15 @@ public class Cliente implements Entidade{
 	private LocalDate dataInclusao;
 	
 	//construtor com atributos
-	public Cliente(Integer idCliente, String nome, String cpf, String rg,
-			LocalDate dataNascimento, String razaoSocial, String nomeFantasia,
-			String cnpj, String inscricaoEstadual, String inscricaoMunicipal,
-			String endereco, Integer numero, String bairro,
-			String telefoneComercial, String telefoneResidencial,
-			String telefoneCelular, String fax, String email, Empresa empresa, Cidade cidade,
-			LocalDate dataAltercacao, LocalDate dataInclusao) {
-		super();
+	public Cliente(Integer idCliente, String nome, String cpf, String rg) {
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;
-		this.dataNascimento = dataNascimento;
-		this.razaoSocial = razaoSocial;
-		this.nomeFantasia = nomeFantasia;
-		this.cnpj = cnpj;
-		this.inscricaoEstadual = inscricaoEstadual;
-		this.inscricaoMunicipal = inscricaoMunicipal;
-		this.endereco = endereco;
-		this.numero = numero;
-		this.bairro = bairro;
-		this.telefoneComercial = telefoneComercial;
-		this.telefoneResidencial = telefoneResidencial;
-		this.telefoneCelular = telefoneCelular;
-		this.fax = fax;
-		this.email = email;
-		this.empresa = empresa;
-		this.cidade = cidade;
-		this.dataAltercacao = dataAltercacao;
-		this.dataInclusao = dataInclusao;
+	}
+	
+	public Cliente() {
+		
 	}
 
 	//gets e sets das variaveis
