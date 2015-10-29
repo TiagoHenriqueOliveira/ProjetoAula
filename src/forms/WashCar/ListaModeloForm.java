@@ -38,7 +38,7 @@ public class ListaModeloForm extends JFrame {
 	private Integer codigo;
 	private String descricao;
 	
-	public void componenteListaMarca() {
+	public void componenteListaModelo() {
 		dados = new Vector<String>();
 		dados.add("Código");
 		dados.add("Nome do Modelo");
@@ -141,7 +141,7 @@ public class ListaModeloForm extends JFrame {
 		jpnListaModelo.setLayout(null);
 		setContentPane(jpnListaModelo);
 				
-		componenteListaMarca();
+		componenteListaModelo();
 		validacaoPesquisa();
 		acionarBotaoSelecionar();
 		acionarBotaoCancelar();

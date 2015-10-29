@@ -37,7 +37,7 @@ public class ListaCidadeUFPaisForm extends JFrame {
 	private String descricao;
 	private String documento;
 
-	public void componentesListaUsuario() {
+	public void componentesListaCidadeUFPais() {
 		dados = new Vector<String>();
 		dados.add("Cód. Cidade");
 		dados.add("Nome Cidade");
@@ -139,7 +139,7 @@ public class ListaCidadeUFPaisForm extends JFrame {
 		jpnListaCidadeUFPais.setLayout(null);
 		setContentPane(jpnListaCidadeUFPais);
 		
-		componentesListaUsuario();
+		componentesListaCidadeUFPais();
 		validacaoPesquisa();
 		acionarBotaoSelecionar();
 		acionarBotaoCancelar();	

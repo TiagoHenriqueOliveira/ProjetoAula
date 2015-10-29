@@ -37,7 +37,7 @@ public class ListaEmpresaForm extends JFrame {
 	private String descricao;
 	private String documento;
 
-	public void componentesListaUsuario() {
+	public void componentesListaCarro() {
 		dados = new Vector<String>();
 		dados.add("Código");
 		dados.add("Razão Social");
@@ -169,7 +169,7 @@ public class ListaEmpresaForm extends JFrame {
 		jpnListaEmpresa.setLayout(null);
 		setContentPane(jpnListaEmpresa);
 		
-		componentesListaUsuario();
+		componentesListaCarro();
 		validacaoPesquisa();
 		acionarBotaoSelecionar();
 		acionarBotaoCancelar();	
