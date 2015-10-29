@@ -44,36 +44,33 @@ public class ModeloForm extends JFrame implements PreencherDados{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnModelo;
+	private JPanel jpnPesquisaModelo;
 	private JTextField jtfPesquisaCodigoModelo;
 	private JTextField jtfPesquisaNomeModelo;
 	private JTextField jtfCodigoModelo;
 	private JTextField jtfNomeModelo;
 	private JTextField jtfDataAlteracao;
-	private JPanel jpnPesquisaModelo;
+	private JTextField jtfCodigoMarca;
+	private JTextField jtfNomeMarca;
 	private JLabel jlbPesquisaCodigoModelo;
 	private JLabel jlbPesquisaNomeModelo;
+	private JLabel jlbConsultaModelos;
+	private JLabel jlbCodigoModelo;
+	private JLabel jlbNomeModelo;
+	private JLabel jlbDataAlteracao;
+	private JLabel jlbNomeMarca;
+	private JLabel jlbCodigoMarca;
+	private JCheckBox jcbxForaUso;
 	private JButton jbtNovo;
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
 	private JButton jbtCancelar;
 	private JButton jbtFechar;
-	private JLabel jlbCodigoModelo;
-	private JLabel jlbNomeModelo;
-	private JLabel jlbDataAlteracao;
-	private JCheckBox jcbxForaUso;
-	private JLabel jlbConsultaModelos;
-	private JTextField jtfCodigoMarca;
-	private JTextField jtfNomeMarca;
 	private JMenuItem jmiRelatorioGeralTodos;
 	private JMenu jmnRelatorio;
 	private JMenuBar jmbModelo;
-	private JLabel jlbNomeMarca;
-	private JLabel jlbCodigoMarca;
 	private Modelo modelo;
 	private static ModeloForm modeloForm;
-	private String codigoModelo;
-	private String nomeModelo;
-
 
 	public void componentesTelaModelo() {
 		jpnPesquisaModelo = new JPanel();
@@ -258,7 +255,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			jtfNomeMarca.requestFocus();
 		} else {
 			this.modelo.setNome(jtfNomeModelo.getText());
-			this.modelo.setMarca(new Marca(Integer.valueOf(jtfCodigoMarca.getText()), codigoModelo));
+			this.modelo.setMarca(new Marca(Integer.valueOf(jtfCodigoMarca.getText()), null));
 			this.modelo.setDataAltercacao(Date.valueOf(modelo.getDataAltercacao().now()).toLocalDate());
 			this.modelo.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
 			DaoFactory.getFactory().modeloDao().inserir(modelo);
@@ -287,7 +284,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			jtfNomeMarca.requestFocus();
 		} else {
 			this.modelo.setNome(jtfNomeModelo.getText());
-			this.modelo.setMarca(new Marca(Integer.valueOf(jtfCodigoMarca.getText()), codigoModelo));
+			this.modelo.setMarca(new Marca(Integer.valueOf(jtfCodigoMarca.getText()), null));
 			this.modelo.setDataAltercacao(Date.valueOf(modelo.getDataAltercacao().now()).toLocalDate());
 			this.modelo.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
 			DaoFactory.getFactory().modeloDao().alterar(modelo);
@@ -357,17 +354,6 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			jtfCodigoMarca.setText(String.valueOf(marca.getIdMarca()));
 			jtfNomeMarca.setText(marca.getNome());
 		}
-	}
-	
-	public void pesquisarNomeMarca() {
-		jtfNomeMarca.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent keyevt) {
-				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaMarcaForm listaMarcaForm = new ListaMarcaForm(modeloForm, jtfNomeMarca.getText(), null);
-					listaMarcaForm.setVisible(true);
-				}
-			}
-		});
 	}
 	
 	public void acoesDosBotoes() {
@@ -472,22 +458,17 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		});
 	}
 	
-	public String getCodigoModelo() {
-		return codigoModelo;
+	public void pesquisarNomeMarca() {
+		jtfNomeMarca.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					ListaMarcaForm listaMarcaForm = new ListaMarcaForm(modeloForm, jtfNomeMarca.getText(), null);
+					listaMarcaForm.setVisible(true);
+				}
+			}
+		});
 	}
-
-	public void setCodigoModelo(String codigoModelo) {
-		this.codigoModelo = codigoModelo;
-	}
-
-	public String getNomeModelo() {
-		return nomeModelo;
-	}
-
-	public void setNomeModelo(String nomeModelo) {
-		this.nomeModelo = nomeModelo;
-	}
-
+	
 	public ModeloForm() {
 		modeloForm = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ModeloForm.class.getResource("/Imagens/washCar.jpeg")));
@@ -508,10 +489,10 @@ public class ModeloForm extends JFrame implements PreencherDados{
 
 	@Override
 	public void preencherCampos(Entidade entidade) {
-		if(jtfNomeMarca.isEnabled()) {
-			this.preencherCamposMarca((Marca)entidade);
-		} else {
+		if(!jtfNomeMarca.isEnabled()) {
 			this.preencherCamposModelo((Modelo)entidade);
+		} else {
+			this.preencherCamposMarca((Marca)entidade);
 		}
 	}
 }
