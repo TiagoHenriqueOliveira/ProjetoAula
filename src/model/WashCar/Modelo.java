@@ -11,8 +11,9 @@ public class Modelo implements Entidade{
 	private LocalDate dataAltercacao;
 	
 	//construtor com atributos
-	public Modelo(Integer idModelo) {
+	public Modelo(Integer idModelo, String nome) {
 		this.idModelo = idModelo;
+		this.nome = nome;
 	}
 	
 	public Modelo() {
