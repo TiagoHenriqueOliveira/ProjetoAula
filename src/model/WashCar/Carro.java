@@ -9,8 +9,8 @@ public class Carro implements Entidade{
 	private String placa;
 	private Cliente cliente;
 	private Modelo modelo;
+	private Boolean foraUso;
 	private LocalDate dataAltercacao;
-	private LocalDate dataInclusao;
 	
 	//construtor com atributos
 	public Carro(Integer idCarro, String nome, String placa) {
@@ -64,11 +64,11 @@ public class Carro implements Entidade{
 		this.dataAltercacao = dataAltercacao;
 	}
 
-	public LocalDate getDataInclusao() {
-		return dataInclusao;
+	public Boolean isForaUso() {
+		return foraUso;
 	}
 
-	public void setDataInclusao(LocalDate dataInclusao) {
-		this.dataInclusao = dataInclusao;
+	public void setForaUso(Boolean foraUso) {
+		this.foraUso = foraUso;
 	}
 }
