@@ -11,6 +11,7 @@ import java.util.List;
 
 import conexao.ConexaoUtil;
 import model.WashCar.Cidade;
+import model.WashCar.Pais;
 import model.WashCar.UnidadeFederativa;
 
 public class CidadeDAOJDBC implements CidadeDAO{
@@ -41,7 +42,8 @@ public class CidadeDAOJDBC implements CidadeDAO{
 				Cidade cidade = new Cidade();
 				cidade.setIdCidade(rs.getInt("idCidade"));
 				cidade.setNome(rs.getString("nomeCidade"));
-				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF")));
+				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF"), 
+																		new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				cidades.add(cidade);
 			}
 		} catch (SQLException e) {
@@ -65,7 +67,8 @@ public class CidadeDAOJDBC implements CidadeDAO{
 				Cidade cidade = new Cidade();
 				cidade.setIdCidade(rs.getInt("idCidade"));
 				cidade.setNome(rs.getString("nomeCidade"));
-				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF")));
+				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF"), 
+																			new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				cidades.add(cidade);
 			}
 		} catch (SQLException e) {
