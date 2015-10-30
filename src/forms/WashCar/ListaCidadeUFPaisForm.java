@@ -33,9 +33,7 @@ public class ListaCidadeUFPaisForm extends JFrame {
 	private List<Cidade> listaCidadeUFPais;
 	private Cidade cidade;
 	private PreencherDados preencheDados;
-	private Integer codigo;
 	private String descricao;
-	private String documento;
 
 	public void componentesListaCidadeUFPais() {
 		dados = new Vector<String>();
@@ -88,8 +86,7 @@ public class ListaCidadeUFPaisForm extends JFrame {
 	}
 	
 	public void validacaoPesquisa() {
-		if((codigo == null || codigo.equals("")) && (descricao == null || descricao.equals(""))
-			&& (documento == null || documento.equals(""))) {
+		if((descricao == null || descricao.equals(""))) {
 				this.preencherDadosTabelaSemFiltro();
 			} else if(descricao != null && !descricao.equals("")) {
 				this.preencherDadosTabelaFiltroNome();
@@ -107,8 +104,8 @@ public class ListaCidadeUFPaisForm extends JFrame {
 						preencheDados.preencherCampos(cidade);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "Nenhuma empresa foi selecionada!!!\n"
-								+ "Por gentileza, selecionar uma empresa!!!", "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Nenhuma cidade foi selecionada!!!\n"
+								+ "Por gentileza, selecionar uma cidade!!!", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
