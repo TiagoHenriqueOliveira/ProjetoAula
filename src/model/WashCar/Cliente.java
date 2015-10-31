@@ -25,7 +25,7 @@ public class Cliente implements Entidade{
 	private Empresa empresa;
 	private Cidade cidade;
 	private LocalDate dataAltercacao;
-	private LocalDate dataInclusao;
+	private Boolean foraUso;
 	
 	//construtor com atributos
 	public Cliente(Integer idCliente, String nome, String cpf, String rg) {
@@ -208,11 +208,11 @@ public class Cliente implements Entidade{
 		this.dataAltercacao = dataAltercacao;
 	}
 
-	public LocalDate getDataInclusao() {
-		return dataInclusao;
+	public Boolean isForaUso() {
+		return foraUso;
 	}
 
-	public void setDataInclusao(LocalDate dataInclusao) {
-		this.dataInclusao = dataInclusao;
+	public void setForaUso(Boolean foraUso) {
+		this.foraUso = foraUso;
 	}
 }
