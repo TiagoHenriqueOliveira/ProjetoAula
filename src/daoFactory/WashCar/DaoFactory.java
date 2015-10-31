@@ -1,5 +1,7 @@
 package daoFactory.WashCar;
 
+import dao.WashCar.CarroDAO;
+import dao.WashCar.ClienteDAO;
 import dao.WashCar.EmpresaDAO;
 import dao.WashCar.MarcaDAO;
 import dao.WashCar.ModeloDAO;
@@ -47,5 +49,13 @@ public class DaoFactory {
 	
 	public ModeloDAO modeloDao() {
 		return daoFactory.modeloDao();
+	}
+	
+	public ClienteDAO clienteDao() {
+		return daoFactory.clienteDao();
+	}
+	
+	public CarroDAO carroDao() {
+		return daoFactory.carroDao();
 	}
 }
