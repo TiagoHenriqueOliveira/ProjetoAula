@@ -60,7 +60,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 	private JLabel jlbDataAlteracao;
 	private JLabel jlbNomeMarca;
 	private JLabel jlbCodigoMarca;
-	private JCheckBox jcbxForaUso;
+	private JCheckBox jckbForaUso;
 	private JButton jbtNovo;
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
@@ -181,11 +181,11 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jlbDataAlteracao.setBounds(550, 253, 100, 14);
 		jpnModelo.add(jlbDataAlteracao);
 		
-		jcbxForaUso = new JCheckBox("Fora de Uso");
-		jcbxForaUso.setEnabled(false);
-		jcbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jcbxForaUso.setBounds(509, 124, 141, 23);
-		jpnModelo.add(jcbxForaUso);
+		jckbForaUso = new JCheckBox("Fora de Uso");
+		jckbForaUso.setEnabled(false);
+		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jckbForaUso.setBounds(509, 124, 141, 23);
+		jpnModelo.add(jckbForaUso);
 		
 		jlbCodigoMarca = new JLabel("C\u00F3digo da Marca");
 		jlbCodigoMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -234,8 +234,8 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jtfCodigoMarca.setText("");
 		jtfNomeMarca.setText("");
 		jtfDataAlteracao.setText("");
-		jcbxForaUso.setSelected(false);
-		jcbxForaUso.setEnabled(false);
+		jckbForaUso.setSelected(false);
+		jckbForaUso.setEnabled(false);
 		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
@@ -257,7 +257,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			this.modelo.setNome(jtfNomeModelo.getText());
 			this.modelo.setMarca(new Marca(Integer.valueOf(jtfCodigoMarca.getText()), null));
 			this.modelo.setDataAltercacao(Date.valueOf(modelo.getDataAltercacao().now()).toLocalDate());
-			this.modelo.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+			this.modelo.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
 			DaoFactory.getFactory().modeloDao().inserir(modelo);
 			jtfCodigoModelo.setText(String.valueOf(this.modelo.getIdModelo()));
 			jtfDataAlteracao.setText(this.modelo.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
@@ -286,14 +286,14 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			this.modelo.setNome(jtfNomeModelo.getText());
 			this.modelo.setMarca(new Marca(Integer.valueOf(jtfCodigoMarca.getText()), null));
 			this.modelo.setDataAltercacao(Date.valueOf(modelo.getDataAltercacao().now()).toLocalDate());
-			this.modelo.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+			this.modelo.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
 			DaoFactory.getFactory().modeloDao().alterar(modelo);
 			jtfCodigoModelo.setText(String.valueOf(this.modelo.getIdModelo()));
 			jtfDataAlteracao.setText(this.modelo.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeModelo.setEnabled(false);
 			jtfNomeMarca.setEnabled(false);
-			jcbxForaUso.setEnabled(false);
+			jckbForaUso.setEnabled(false);
 			jbtSalvar.setEnabled(false);
 			jbtEditar.setEnabled(true);
 			jbtNovo.setEnabled(true);
@@ -308,7 +308,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jbtCancelar.setEnabled(true);
 		jtfNomeModelo.setEnabled(true);
 		jtfNomeMarca.setEnabled(true);
-		jcbxForaUso.setEnabled(true);
+		jckbForaUso.setEnabled(true);
 	}
 	
 	public void acionarBotaoCancelar() {
@@ -320,8 +320,8 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jtfCodigoMarca.setText("");
 		jtfNomeMarca.setText("");
 		jtfDataAlteracao.setText("");
-		jcbxForaUso.setSelected(false);
-		jcbxForaUso.setEnabled(false);
+		jckbForaUso.setSelected(false);
+		jckbForaUso.setEnabled(false);
 		jbtNovo.setEnabled(true);
 		jbtCancelar.setEnabled(false);
 		jbtSalvar.setEnabled(false);
@@ -335,9 +335,9 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jtfNomeMarca.setText(modelo.getMarca().getNome());
 		jtfDataAlteracao.setText(modelo.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 		if(modelo.isForaUso()) {
-			jcbxForaUso.setSelected(true);
+			jckbForaUso.setSelected(true);
 		} else {
-			jcbxForaUso.setSelected(true);
+			jckbForaUso.setSelected(true);
 		}
 		jtfPesquisaCodigoModelo.requestFocus();
 		jtfPesquisaCodigoModelo.setText("");
@@ -429,8 +429,8 @@ public class ModeloForm extends JFrame implements PreencherDados{
 					jtfCodigoMarca.setText("");
 					jtfNomeMarca.setText("");
 					jtfDataAlteracao.setText("");
-					jcbxForaUso.setSelected(false);
-					jcbxForaUso.setEnabled(false);
+					jckbForaUso.setSelected(false);
+					jckbForaUso.setEnabled(false);
 				}
 			}
 		});
@@ -451,8 +451,8 @@ public class ModeloForm extends JFrame implements PreencherDados{
 					jtfCodigoMarca.setText("");
 					jtfNomeMarca.setText("");
 					jtfDataAlteracao.setText("");
-					jcbxForaUso.setSelected(false);
-					jcbxForaUso.setEnabled(false);
+					jckbForaUso.setSelected(false);
+					jckbForaUso.setEnabled(false);
 				}
 			}
 		});
