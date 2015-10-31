@@ -1,5 +1,9 @@
 package daoFactory.WashCar;
 
+import dao.WashCar.CarroDAO;
+import dao.WashCar.CarroDAOJDBC;
+import dao.WashCar.ClienteDAO;
+import dao.WashCar.ClienteDAOJDBC;
 import dao.WashCar.EmpresaDAO;
 import dao.WashCar.EmpresaDAOJDBC;
 import dao.WashCar.MarcaDAO;
@@ -28,5 +32,15 @@ public class DaoFactoryJDBC implements AbstractDaoFactory{
 	@Override
 	public ModeloDAO modeloDao() {
 		return new ModeloDAOJDBC();
+	}
+
+	@Override
+	public ClienteDAO clienteDao() {
+		return new ClienteDAOJDBC();
+	}
+
+	@Override
+	public CarroDAO carroDao() {
+		return new CarroDAOJDBC();
 	}
 }
