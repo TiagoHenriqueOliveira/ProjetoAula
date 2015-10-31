@@ -55,7 +55,7 @@ public class MarcaForm extends JFrame implements PreencherDados{
 	private JLabel lblNomeDaMarca_1;
 	private JLabel jlbDataAlteracao;
 	private JLabel jlbConsultaMarcas;
-	private JCheckBox jcbxForaUso;
+	private JCheckBox jckbxForaUso;
 	private JMenuItem jmiRelatorioGeral;
 	private JMenu jmnRelatorio;
 	private JMenuBar jmbMarcas;
@@ -173,11 +173,11 @@ public class MarcaForm extends JFrame implements PreencherDados{
 		jlbDataAlteracao.setBounds(550, 153, 100, 14);
 		jpnMarca.add(jlbDataAlteracao);
 		
-		jcbxForaUso = new JCheckBox("Fora de Uso");
-		jcbxForaUso.setEnabled(false);
-		jcbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jcbxForaUso.setBounds(530, 120, 120, 23);
-		jpnMarca.add(jcbxForaUso);
+		jckbxForaUso = new JCheckBox("Fora de Uso");
+		jckbxForaUso.setEnabled(false);
+		jckbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jckbxForaUso.setBounds(530, 120, 120, 23);
+		jpnMarca.add(jckbxForaUso);
 		
 		jmbMarcas = new JMenuBar();
 		jmbMarcas.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -215,7 +215,7 @@ public class MarcaForm extends JFrame implements PreencherDados{
 		} else {
 			this.marca.setNome(jtfNomeMarca.getText());
 			this.marca.setDataAltercacao(Date.valueOf(marca.getDataAltercacao().now()).toLocalDate());
-			this.marca.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+			this.marca.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
 			DaoFactory.getFactory().marcaDao().inserir(marca);
 			jtfCodigoMarca.setText(String.valueOf(this.marca.getIdMarca()));
 			jtfDataAlteracao.setText(this.marca.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
@@ -237,13 +237,13 @@ public class MarcaForm extends JFrame implements PreencherDados{
 		} else {
 			this.marca.setNome(jtfNomeMarca.getText());
 			this.marca.setDataAltercacao(Date.valueOf(marca.getDataAltercacao().now()).toLocalDate());
-			this.marca.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+			this.marca.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
 			this.marca.setIdMarca(Integer.valueOf(jtfCodigoMarca.getText()));
 			DaoFactory.getFactory().marcaDao().alterar(marca);
 			jtfDataAlteracao.setText(this.marca.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeMarca.setEnabled(false);
-			jcbxForaUso.setEnabled(false);
+			jckbxForaUso.setEnabled(false);
 			jbtSalvar.setEnabled(false);
 			jbtEditar.setEnabled(true);
 			jbtNovo.setEnabled(true);
@@ -257,7 +257,7 @@ public class MarcaForm extends JFrame implements PreencherDados{
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
 		jbtNovo.setEnabled(false);
-		jcbxForaUso.setEnabled(true);
+		jckbxForaUso.setEnabled(true);
 	}
 	
 	public void acionarBotaoCancelar() {
@@ -279,9 +279,9 @@ public class MarcaForm extends JFrame implements PreencherDados{
 		jtfNomeMarca.setText(marca.getNome());
 		jtfDataAlteracao.setText(marca.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 		if(marca.isForaUso()) {
-			jcbxForaUso.setSelected(true);
+			jckbxForaUso.setSelected(true);
 		} else {
-			jcbxForaUso.setSelected(false);
+			jckbxForaUso.setSelected(false);
 		}
 		jtfPesquisaCodigoMarca.setText("");
 		jtfPesquisaNomeMarca.setText("");
@@ -357,8 +357,8 @@ public class MarcaForm extends JFrame implements PreencherDados{
 					jtfNomeMarca.setText(null);
 					jtfCodigoMarca.setText(null);
 					jtfDataAlteracao.setText(null);
-					jcbxForaUso.setSelected(false);
-					jcbxForaUso.setEnabled(false);
+					jckbxForaUso.setSelected(false);
+					jckbxForaUso.setEnabled(false);
 					jbtEditar.setEnabled(true);
 					jbtNovo.setEnabled(true);
 					jbtCancelar.setEnabled(true);
@@ -378,8 +378,8 @@ public class MarcaForm extends JFrame implements PreencherDados{
 					jtfNomeMarca.setText(null);
 					jtfCodigoMarca.setText(null);
 					jtfDataAlteracao.setText(null);
-					jcbxForaUso.setSelected(false);
-					jcbxForaUso.setEnabled(false);
+					jckbxForaUso.setSelected(false);
+					jckbxForaUso.setEnabled(false);
 					jbtEditar.setEnabled(true);
 					jbtNovo.setEnabled(true);
 					jbtCancelar.setEnabled(true);
