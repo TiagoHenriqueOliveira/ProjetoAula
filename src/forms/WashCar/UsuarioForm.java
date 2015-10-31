@@ -55,7 +55,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 	private JLabel jlbSenha;
 	private JLabel jlbCodigo;
 	private JLabel jlbDataAlteracao;
-	private JCheckBox jcbxForaUso;
+	private JCheckBox jckbForaUso;
 	private JButton jbtFechar;
 	private JButton jbtCancelar;
 	private JButton jbtEditar;
@@ -159,11 +159,11 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		jtfDataAlteracao.setBounds(552, 252, 98, 20);
 		jpnUsuario.add(jtfDataAlteracao);
 		
-		jcbxForaUso = new JCheckBox("Usu\u00E1rio Fora de Uso");
-		jcbxForaUso.setEnabled(false);
-		jcbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jcbxForaUso.setBounds(468, 118, 182, 23);
-		jpnUsuario.add(jcbxForaUso);
+		jckbForaUso = new JCheckBox("Usu\u00E1rio Fora de Uso");
+		jckbForaUso.setEnabled(false);
+		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jckbForaUso.setBounds(468, 118, 182, 23);
+		jpnUsuario.add(jckbForaUso);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setToolTipText("");
@@ -230,8 +230,8 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		jtfNome.setEnabled(true);
 		jtfLogin.setEnabled(true);
 		jpfSenha.setEnabled(true);
-		jcbxForaUso.setSelected(false);
-		jcbxForaUso.setEnabled(false);
+		jckbForaUso.setSelected(false);
+		jckbForaUso.setEnabled(false);
 		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
@@ -242,23 +242,20 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 	public void salvarCadastroUsuario() throws Exception{
 		this.usuario = new Usuario();
 		if(jtfNome.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNome.requestFocus();
 		} else if(jtfLogin.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o login do usuário!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o login do usuário!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfLogin.requestFocus();
 		} else if(jpfSenha.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar a senha do usuário!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a senha do usuário!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jpfSenha.requestFocus();
 		} else {
 		this.usuario.setNome(jtfNome.getText());
 		this.usuario.setLogin(jtfLogin.getText());
 		this.usuario.setSenha(jpfSenha.getText());
 		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
-		this.usuario.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+		this.usuario.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
 		this.usuario.setEmpresa(new Empresa(1));
 		DaoFactory.getFactory().usuarioDao().inserir(usuario);
 		jtfCodigo.setText(String.valueOf(this.usuario.getIdUsuario()));
@@ -294,7 +291,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		this.usuario.setLogin(jtfLogin.getText());
 		this.usuario.setSenha(jpfSenha.getText());
 		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
-		this.usuario.setForaUso(Boolean.valueOf(jcbxForaUso.isSelected()));
+		this.usuario.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
 		this.usuario.setIdUsuario(Integer.valueOf(jtfCodigo.getText()));
 		DaoFactory.getFactory().usuarioDao().alterar(usuario);
 		jtfDataAlteracao.setText(this.usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
@@ -302,7 +299,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
 		jpfSenha.setEnabled(false);
-		jcbxForaUso.setEnabled(false);
+		jckbForaUso.setEnabled(false);
 		jbtSalvar.setEnabled(false);
 		jbtEditar.setEnabled(true);
 		jbtNovo.setEnabled(true);
@@ -314,7 +311,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		jtfNome.setEnabled(true);
 		jtfLogin.setEnabled(true);
 		jpfSenha.setEnabled(true);
-		jcbxForaUso.setEnabled(true);
+		jckbForaUso.setEnabled(true);
 		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
@@ -325,8 +322,8 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		jtfNome.setEnabled(false);
 		jtfLogin.setEnabled(false);
 		jpfSenha.setEnabled(false);
-		jcbxForaUso.setEnabled(false);
-		jcbxForaUso.setSelected(false);
+		jckbForaUso.setEnabled(false);
+		jckbForaUso.setSelected(false);
 		jtfCodigo.setText("");
 		jtfNome.setText("");
 		jtfLogin.setText("");
@@ -345,9 +342,9 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		jpfSenha.setText(usuario.getSenha());
 		jtfDataAlteracao.setText(usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 		if(usuario.isForaUso()) {
-			jcbxForaUso.setSelected(true);
+			jckbForaUso.setSelected(true);
 		} else {
-			jcbxForaUso.setSelected(false);
+			jckbForaUso.setSelected(false);
 		}
 		jtfPesquisaCodigoUsuario.setText(null);
 		jtfPesquisaNomeUsuario.setText(null);
@@ -419,8 +416,8 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 					jtfNome.setEnabled(false);
 					jtfLogin.setEnabled(false);
 					jpfSenha.setEnabled(false);
-					jcbxForaUso.setEnabled(false);
-					jcbxForaUso.setSelected(false);
+					jckbForaUso.setEnabled(false);
+					jckbForaUso.setSelected(false);
 					jtfCodigo.setText("");
 					jtfNome.setText("");
 					jtfLogin.setText("");
@@ -448,8 +445,8 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 					jtfNome.setEnabled(false);
 					jtfLogin.setEnabled(false);
 					jpfSenha.setEnabled(false);
-					jcbxForaUso.setEnabled(false);
-					jcbxForaUso.setSelected(false);
+					jckbForaUso.setEnabled(false);
+					jckbForaUso.setSelected(false);
 					jtfCodigo.setText("");
 					jtfNome.setText("");
 					jtfLogin.setText("");
