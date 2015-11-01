@@ -22,6 +22,7 @@ public class Cliente implements Entidade{
 	private String telefoneCelular;
 	private String fax;
 	private String email;
+	private Integer tipoPessoa;
 	private Empresa empresa;
 	private Cidade cidade;
 	private LocalDate dataAltercacao;
@@ -214,5 +215,13 @@ public class Cliente implements Entidade{
 
 	public void setForaUso(Boolean foraUso) {
 		this.foraUso = foraUso;
+	}
+
+	public Integer getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(Integer tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
 	}
 }
