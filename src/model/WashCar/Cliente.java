@@ -2,18 +2,11 @@ package model.WashCar;
 
 import java.time.LocalDate;
 
-public class Cliente implements Entidade{
+public class Cliente implements Entidade {
 	
 	private Integer idCliente;
-	private String nome;
-	private String cpf;
-	private String rg;
-	private LocalDate dataNascimento;
-	private String razaoSocial;
-	private String nomeFantasia;
-	private String cnpj;
-	private String inscricaoEstadual;
-	private String inscricaoMunicipal;
+	private PessoaFisica pessoaFisica;
+	private PessoaJuridica pessoaJuridica;
 	private String endereco;
 	private Integer numero;
 	private String bairro;
@@ -29,11 +22,8 @@ public class Cliente implements Entidade{
 	private Boolean foraUso;
 	
 	//construtor com atributos
-	public Cliente(Integer idCliente, String nome, String cpf, String rg) {
+	public Cliente(Integer idCliente) {
 		this.idCliente = idCliente;
-		this.nome = nome;
-		this.cpf = cpf;
-		this.rg = rg;
 	}
 	
 	public Cliente() {
@@ -47,78 +37,6 @@ public class Cliente implements Entidade{
 
 	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getRg() {
-		return rg;
-	}
-
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public String getRazaoSocial() {
-		return razaoSocial;
-	}
-
-	public void setRazaoSocial(String razaoSocial) {
-		this.razaoSocial = razaoSocial;
-	}
-
-	public String getNomeFantasia() {
-		return nomeFantasia;
-	}
-
-	public void setNomeFantasia(String nomeFantasia) {
-		this.nomeFantasia = nomeFantasia;
-	}
-
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-
-	public String getInscricaoEstadual() {
-		return inscricaoEstadual;
-	}
-
-	public void setInscricaoEstadual(String inscricaoEstadual) {
-		this.inscricaoEstadual = inscricaoEstadual;
-	}
-
-	public String getInscricaoMunicipal() {
-		return inscricaoMunicipal;
-	}
-
-	public void setInscricaoMunicipal(String inscricaoMunicipal) {
-		this.inscricaoMunicipal = inscricaoMunicipal;
 	}
 
 	public String getEndereco() {
@@ -223,5 +141,20 @@ public class Cliente implements Entidade{
 
 	public void setTipoPessoa(Integer tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
+	}
+	public PessoaFisica getPessoaFisica() {
+		return pessoaFisica;
+	}
+
+	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
+	}
+
+	public PessoaJuridica getPessoaJuridica() {
+		return pessoaJuridica;
+	}
+
+	public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
+		this.pessoaJuridica = pessoaJuridica;
 	}
 }
