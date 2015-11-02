@@ -110,31 +110,31 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 300, 120, 25);
+		jbtNovo.setBounds(10, 200, 120, 25);
 		jpnModelo.add(jbtNovo);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(140, 300, 120, 25);
+		jbtSalvar.setBounds(140, 200, 120, 25);
 		jpnModelo.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(270, 300, 120, 25);
+		jbtEditar.setBounds(270, 200, 120, 25);
 		jpnModelo.add(jbtEditar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(400, 300, 120, 25);
+		jbtCancelar.setBounds(400, 200, 120, 25);
 		jpnModelo.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setToolTipText("");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(530, 300, 120, 25);
+		jbtFechar.setBounds(530, 200, 120, 25);
 		jpnModelo.add(jbtFechar);
 		
 		jtfCodigoModelo = new JTextField();
@@ -142,7 +142,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jtfCodigoModelo.setEditable(false);
 		jtfCodigoModelo.setColumns(10);
 		jtfCodigoModelo.setBackground(Color.YELLOW);
-		jtfCodigoModelo.setBounds(10, 125, 50, 20);
+		jtfCodigoModelo.setBounds(10, 123, 50, 20);
 		jpnModelo.add(jtfCodigoModelo);
 		
 		jtfNomeModelo = new JTextField();
@@ -150,17 +150,17 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jtfNomeModelo.setEnabled(false);
 		jtfNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeModelo.setColumns(10);
-		jtfNomeModelo.setBounds(10, 173, 300, 20);
+		jtfNomeModelo.setBounds(110, 123, 300, 20);
 		jpnModelo.add(jtfNomeModelo);
 		
-		jlbCodigoModelo = new JLabel("C\u00F3digo do Modelo");
+		jlbCodigoModelo = new JLabel("C\u00F3d. Modelo");
 		jlbCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoModelo.setBounds(10, 108, 158, 14);
+		jlbCodigoModelo.setBounds(10, 108, 100, 14);
 		jpnModelo.add(jlbCodigoModelo);
 		
 		jlbNomeModelo = new JLabel("Nome do Modelo");
 		jlbNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeModelo.setBounds(10, 156, 158, 14);
+		jlbNomeModelo.setBounds(110, 108, 158, 14);
 		jpnModelo.add(jlbNomeModelo);
 		
 		try {
@@ -173,36 +173,36 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(550, 269, 100, 20);
+		jtfDataAlteracao.setBounds(530, 169, 75, 20);
 		jpnModelo.add(jtfDataAlteracao);
 		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(550, 253, 100, 14);
+		jlbDataAlteracao.setBounds(530, 153, 120, 14);
 		jpnModelo.add(jlbDataAlteracao);
 		
 		jckbForaUso = new JCheckBox("Fora de Uso");
 		jckbForaUso.setEnabled(false);
 		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jckbForaUso.setBounds(509, 124, 141, 23);
+		jckbForaUso.setBounds(509, 120, 141, 23);
 		jpnModelo.add(jckbForaUso);
 		
-		jlbCodigoMarca = new JLabel("C\u00F3digo da Marca");
+		jlbCodigoMarca = new JLabel("C\u00F3d. Marca");
 		jlbCodigoMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoMarca.setBounds(10, 204, 158, 14);
+		jlbCodigoMarca.setBounds(10, 154, 100, 14);
 		jpnModelo.add(jlbCodigoMarca);
 		
 		jtfCodigoMarca = new JTextField();
 		jtfCodigoMarca.setEditable(false);
 		jtfCodigoMarca.setBackground(Color.YELLOW);
 		jtfCodigoMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfCodigoMarca.setBounds(10, 221, 50, 20);
+		jtfCodigoMarca.setBounds(10, 169, 50, 20);
 		jpnModelo.add(jtfCodigoMarca);
 		jtfCodigoMarca.setColumns(10);
 		
 		jlbNomeMarca = new JLabel("Nome da Marca");
 		jlbNomeMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeMarca.setBounds(10, 252, 158, 14);
+		jlbNomeMarca.setBounds(110, 154, 158, 14);
 		jpnModelo.add(jlbNomeMarca);
 		
 		jtfNomeMarca = new JTextField();
@@ -210,7 +210,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jtfNomeMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeMarca.setEnabled(false);
 		jtfNomeMarca.setColumns(10);
-		jtfNomeMarca.setBounds(10, 269, 300, 20);
+		jtfNomeMarca.setBounds(110, 169, 300, 20);
 		jpnModelo.add(jtfNomeMarca);
 		
 		jmbModelo = new JMenuBar();
@@ -475,7 +475,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		setResizable(false);
 		setTitle("Cadastrar Modelos de Carros | WashCar");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 666, 385);
+		setBounds(100, 100, 666, 285);
 		jpnModelo = new JPanel();
 		jpnModelo.setLayout(null);
 		setLocationRelativeTo(null);
