@@ -25,7 +25,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	@SuppressWarnings({ "static-access"})
 	@Override
 	public void inserir(Usuario usuario) throws Exception {
-		sql = "insert into tb_usuario(nomeUsuario, loginUsuario, senhaUsuario, dataAlteracaoUsuario, idEmpresa, usuarioForaUso)"
+		sql = "insert into tb_usuario(nomeUsuario, loginUsuario, senhaUsuario, dataAlteracaoUsuario, idEmpresa, usuarioForaUso) "
 				+ "values(?,?,?,?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(sql);
