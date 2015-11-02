@@ -237,73 +237,78 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		jbtCancelar.setEnabled(true);
 		jbtEditar.setEnabled(false);
 	}
-	
+
 	@SuppressWarnings({ "deprecation", "static-access" })
-	public void salvarCadastroUsuario() throws Exception{
+	public void salvarCadastroUsuario() throws Exception {
 		this.usuario = new Usuario();
-		if(jtfNome.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		if (jtfNome.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!", "Aviso",
+					JOptionPane.INFORMATION_MESSAGE);
 			jtfNome.requestFocus();
-		} else if(jtfLogin.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o login do usuário!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if (jtfLogin.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o login do usuário!!!", "Aviso",
+					JOptionPane.INFORMATION_MESSAGE);
 			jtfLogin.requestFocus();
-		} else if(jpfSenha.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar a senha do usuário!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if (jpfSenha.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a senha do usuário!!!", "Aviso",
+					JOptionPane.INFORMATION_MESSAGE);
 			jpfSenha.requestFocus();
 		} else {
-		this.usuario.setNome(jtfNome.getText());
-		this.usuario.setLogin(jtfLogin.getText());
-		this.usuario.setSenha(jpfSenha.getText());
-		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
-		this.usuario.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
-		this.usuario.setEmpresa(new Empresa(1));
-		DaoFactory.getFactory().usuarioDao().inserir(usuario);
-		jtfCodigo.setText(String.valueOf(this.usuario.getIdUsuario()));
-		jtfDataAlteracao.setText(this.usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
-		JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
-		jtfNome.setEnabled(false);
-		jtfLogin.setEnabled(false);
-		jpfSenha.setEnabled(false);
-		jbtSalvar.setEnabled(false);
-		jbtEditar.setEnabled(true);
-		jbtNovo.setEnabled(true);
-		jbtCancelar.setEnabled(false);
+			this.usuario.setNome(jtfNome.getText());
+			this.usuario.setLogin(jtfLogin.getText());
+			this.usuario.setSenha(jpfSenha.getText());
+			this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
+			this.usuario.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
+			this.usuario.setEmpresa(new Empresa(1));
+			DaoFactory.getFactory().usuarioDao().inserir(usuario);
+			jtfCodigo.setText(String.valueOf(this.usuario.getIdUsuario()));
+			jtfDataAlteracao.setText(this.usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação",
+					JOptionPane.INFORMATION_MESSAGE);
+			jtfNome.setEnabled(false);
+			jtfLogin.setEnabled(false);
+			jpfSenha.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
 		}
 	}
 	
 	@SuppressWarnings({ "deprecation", "static-access" })
 	public void salvarEdicaoUsuario() throws Exception {
 		this.usuario = new Usuario();
-		if(jtfNome.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+		if (jtfNome.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!", "Aviso",
+					JOptionPane.INFORMATION_MESSAGE);
 			jtfNome.requestFocus();
-		} else if(jtfLogin.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o login do usuário!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if (jtfLogin.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o login do usuário!!!", "Aviso",
+					JOptionPane.INFORMATION_MESSAGE);
 			jtfLogin.requestFocus();
-		} else if(jpfSenha.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar a senha do usuário!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if (jpfSenha.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a senha do usuário!!!", "Aviso",
+					JOptionPane.INFORMATION_MESSAGE);
 			jpfSenha.requestFocus();
 		} else {
-		this.usuario.setNome(jtfNome.getText());
-		this.usuario.setLogin(jtfLogin.getText());
-		this.usuario.setSenha(jpfSenha.getText());
-		this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
-		this.usuario.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
-		this.usuario.setIdUsuario(Integer.valueOf(jtfCodigo.getText()));
-		DaoFactory.getFactory().usuarioDao().alterar(usuario);
-		jtfDataAlteracao.setText(this.usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
-		JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
-		jtfNome.setEnabled(false);
-		jtfLogin.setEnabled(false);
-		jpfSenha.setEnabled(false);
-		jckbForaUso.setEnabled(false);
-		jbtSalvar.setEnabled(false);
-		jbtEditar.setEnabled(true);
-		jbtNovo.setEnabled(true);
-		jbtCancelar.setEnabled(false);
+			this.usuario.setNome(jtfNome.getText());
+			this.usuario.setLogin(jtfLogin.getText());
+			this.usuario.setSenha(jpfSenha.getText());
+			this.usuario.setDataAltercacao(Date.valueOf(usuario.getDataAltercacao().now()).toLocalDate());
+			this.usuario.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
+			this.usuario.setIdUsuario(Integer.valueOf(jtfCodigo.getText()));
+			DaoFactory.getFactory().usuarioDao().alterar(usuario);
+			jtfDataAlteracao.setText(this.usuario.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação",
+					JOptionPane.INFORMATION_MESSAGE);
+			jtfNome.setEnabled(false);
+			jtfLogin.setEnabled(false);
+			jpfSenha.setEnabled(false);
+			jckbForaUso.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
 		}
 	}
 	
