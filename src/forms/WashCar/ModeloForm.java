@@ -337,7 +337,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		if(modelo.isForaUso()) {
 			jckbForaUso.setSelected(true);
 		} else {
-			jckbForaUso.setSelected(true);
+			jckbForaUso.setSelected(false);
 		}
 		jtfPesquisaCodigoModelo.requestFocus();
 		jtfPesquisaCodigoModelo.setText("");
