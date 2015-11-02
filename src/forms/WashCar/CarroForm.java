@@ -3,16 +3,15 @@ package forms.WashCar;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.UndoableEditListener;
 import javax.swing.border.BevelBorder;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.Element;
 import javax.swing.text.MaskFormatter;
-import javax.swing.text.Position;
-import javax.swing.text.Segment;
+
+import daoFactory.WashCar.DaoFactory;
+import model.WashCar.Carro;
+import model.WashCar.Entidade;
+import model.WashCar.Modelo;
+import preencherDados.WashCar.PreencherDados;
+
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -20,20 +19,25 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
-import javax.swing.ImageIcon;
 
+import validacaoCampos.WashCar.ValidaCampoAlfaNumerico;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
-import validacaoCampos.WashCar.ValidaCampoString;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 import java.awt.Toolkit;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import javax.swing.SwingConstants;
+import javax.swing.JCheckBox;
 
-public class CarroForm extends JFrame {
+public class CarroForm extends JFrame implements PreencherDados{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnCarro;
@@ -43,34 +47,30 @@ public class CarroForm extends JFrame {
 	private JTextField jtfPesquisaPlacaCarro;
 	private JTextField jtfCodigoCarro;
 	private JTextField jtfDataAlteracao;
-	private JTextField jtfNomeCliente;
-	private JTextField jtfCpfCliente;
-	private JTextField jtfNomeFantasiaCliente;
-	private JTextField jtfCnpjCliente;
 	private JTextField jtfNomeCarro;
 	private JTextField jtfPlacaCarro;
-	private JTextField jtfCodigoCliente;
+	private JTextField jtfNomeModelo;
+	private JTextField jtfCodigoModelo;
 	private JLabel jlbPesquisaCodigoCarro;
 	private JLabel jlbPesquisaNomeCarro;
 	private JLabel jlbPesquisaPlacaCarro;
 	private JLabel jlbCodigoCarro;
 	private JLabel jlbDataAlteracao;
-	private JLabel jlbNomeCliente;
-	private JLabel jlbCpfCliente;
-	private JLabel jlbNomeFantasiaCliente;
-	private JLabel jlbCnpjCliente;
 	private JLabel jlbNomeCarro;
 	private JLabel jlbPlacaCarro;
 	private JLabel jlbConsultaCarro;
-	private JLabel jlbCodigoCliente;
+	private JLabel jlbNomeModelo;
+	private JLabel jlbCodigoModelo;
+	private JCheckBox jckbxForaUso;
 	private JButton jbtNovo;
 	private JButton jbtEditar;
 	private JButton jbtSalvar;
 	private JButton jbtFechar;
 	private JButton jbtCancelar;
-	private JButton jbtPesquisa;
 	private JMenuBar jmbCadastroCarro;
 	private JMenu jmnRelatorio;
+	private Carro carro;
+	private static CarroForm carroForm;
 
 	public void componentesCarroForm() {
 		jpnPesquisaCarro = new JPanel();
@@ -81,7 +81,7 @@ public class CarroForm extends JFrame {
 		
 		jlbPesquisaCodigoCarro = new JLabel("C\u00F3digo");
 		jlbPesquisaCodigoCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaCodigoCarro.setBounds(10, 38, 66, 14);
+		jlbPesquisaCodigoCarro.setBounds(10, 38, 74, 14);
 		jpnPesquisaCarro.add(jlbPesquisaCodigoCarro);
 		
 		jtfPesquisaCodigoCarro = new JTextField();
@@ -97,15 +97,11 @@ public class CarroForm extends JFrame {
 		jpnPesquisaCarro.add(jlbPesquisaNomeCarro);
 		
 		jtfPesquisaNomeCarro = new JTextField();
+		jtfPesquisaNomeCarro.setDocument(new ValidaCampoAlfaNumerico());
 		jtfPesquisaNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaNomeCarro.setColumns(10);
 		jtfPesquisaNomeCarro.setBounds(86, 54, 275, 20);
 		jpnPesquisaCarro.add(jtfPesquisaNomeCarro);
-		
-		jbtPesquisa = new JButton("");
-		jbtPesquisa.setIcon(new ImageIcon(CarroForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
-		jbtPesquisa.setBounds(565, 42, 40, 32);
-		jpnPesquisaCarro.add(jbtPesquisa);
 		
 		try {
 			jtfPesquisaPlacaCarro = new JFormattedTextField(new MaskFormatter("UUU-####"));
@@ -114,7 +110,7 @@ public class CarroForm extends JFrame {
 		}
 		jtfPesquisaPlacaCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaPlacaCarro.setColumns(10);
-		jtfPesquisaPlacaCarro.setBounds(371, 54, 165, 20);
+		jtfPesquisaPlacaCarro.setBounds(371, 54, 75, 20);
 		jpnPesquisaCarro.add(jtfPesquisaPlacaCarro);
 		
 		jlbPesquisaPlacaCarro = new JLabel("Placa do Carro");
@@ -127,9 +123,9 @@ public class CarroForm extends JFrame {
 		jlbConsultaCarro.setBounds(10, 13, 351, 14);
 		jpnPesquisaCarro.add(jlbConsultaCarro);
 		
-		jlbCodigoCarro = new JLabel("C\u00F3digo do Carro");
+		jlbCodigoCarro = new JLabel("C\u00F3d. do Carro");
 		jlbCodigoCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoCarro.setBounds(10, 107, 127, 14);
+		jlbCodigoCarro.setBounds(10, 107, 120, 14);
 		jpnCarro.add(jlbCodigoCarro);
 		
 		jtfCodigoCarro = new JTextField();
@@ -142,7 +138,7 @@ public class CarroForm extends JFrame {
 		
 		jlbDataAlteracao = new JLabel("Data Alteracao");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(550, 107, 100, 14);
+		jlbDataAlteracao.setBounds(550, 107, 120, 14);
 		jpnCarro.add(jlbDataAlteracao);
 		
 		try {
@@ -155,77 +151,20 @@ public class CarroForm extends JFrame {
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(550, 123, 100, 20);
+		jtfDataAlteracao.setBounds(550, 123, 75, 20);
 		jpnCarro.add(jtfDataAlteracao);
-		
-		jlbNomeCliente = new JLabel("Nome do Cliente");
-		jlbNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeCliente.setBounds(10, 248, 265, 14);
-		jpnCarro.add(jlbNomeCliente);
-		
-		jtfNomeCliente = new JTextField();
-		jtfNomeCliente.setDocument(new ValidaCampoString());
-		jtfNomeCliente.setEnabled(false);
-		jtfNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfNomeCliente.setColumns(10);
-		jtfNomeCliente.setBounds(10, 264, 300, 20);
-		jpnCarro.add(jtfNomeCliente);
-		
-		jlbCpfCliente = new JLabel("CPF");
-		jlbCpfCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCpfCliente.setBounds(320, 248, 100, 14);
-		jpnCarro.add(jlbCpfCliente);
-		
-		try {
-			jtfCpfCliente = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		jtfCpfCliente.setEnabled(false);
-		jtfCpfCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfCpfCliente.setColumns(10);
-		jtfCpfCliente.setBounds(320, 264, 165, 20);
-		jpnCarro.add(jtfCpfCliente);
-		
-		jlbNomeFantasiaCliente = new JLabel("Nome Fantasia");
-		jlbNomeFantasiaCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeFantasiaCliente.setBounds(10, 295, 265, 14);
-		jpnCarro.add(jlbNomeFantasiaCliente);
-		
-		jtfNomeFantasiaCliente = new JTextField();
-		jtfNomeFantasiaCliente.setDocument(new ValidaCampoString());
-		jtfNomeFantasiaCliente.setEnabled(false);
-		jtfNomeFantasiaCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfNomeFantasiaCliente.setColumns(10);
-		jtfNomeFantasiaCliente.setBounds(10, 311, 300, 20);
-		jpnCarro.add(jtfNomeFantasiaCliente);
-		
-		jlbCnpjCliente = new JLabel("CNPJ");
-		jlbCnpjCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCnpjCliente.setBounds(320, 295, 100, 14);
-		jpnCarro.add(jlbCnpjCliente);
-		
-		try {
-			jtfCnpjCliente = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		jtfCnpjCliente.setEnabled(false);
-		jtfCnpjCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfCnpjCliente.setColumns(10);
-		jtfCnpjCliente.setBounds(320, 311, 165, 20);
-		jpnCarro.add(jtfCnpjCliente);
 		
 		jlbNomeCarro = new JLabel("Nome do Carro");
 		jlbNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeCarro.setBounds(10, 154, 265, 14);
+		jlbNomeCarro.setBounds(130, 107, 298, 14);
 		jpnCarro.add(jlbNomeCarro);
 		
 		jtfNomeCarro = new JTextField();
+		jtfNomeCarro.setDocument(new ValidaCampoAlfaNumerico());
 		jtfNomeCarro.setEnabled(false);
 		jtfNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCarro.setColumns(10);
-		jtfNomeCarro.setBounds(10, 170, 300, 20);
+		jtfNomeCarro.setBounds(130, 123, 300, 20);
 		jpnCarro.add(jtfNomeCarro);
 		
 		try {
@@ -236,40 +175,40 @@ public class CarroForm extends JFrame {
 		jtfPlacaCarro.setEnabled(false);
 		jtfPlacaCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPlacaCarro.setColumns(10);
-		jtfPlacaCarro.setBounds(320, 170, 165, 20);
+		jtfPlacaCarro.setBounds(440, 123, 75, 20);
 		jpnCarro.add(jtfPlacaCarro);
 		
 		jlbPlacaCarro = new JLabel("Placa do Carro");
 		jlbPlacaCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPlacaCarro.setBounds(320, 154, 165, 14);
+		jlbPlacaCarro.setBounds(440, 107, 110, 14);
 		jpnCarro.add(jlbPlacaCarro);
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 342, 120, 25);
+		jbtNovo.setBounds(10, 201, 120, 25);
 		jpnCarro.add(jbtNovo);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(140, 342, 120, 25);
+		jbtEditar.setBounds(140, 201, 120, 25);
 		jpnCarro.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(270, 342, 120, 25);
+		jbtSalvar.setBounds(270, 201, 120, 25);
 		jpnCarro.add(jbtSalvar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(530, 342, 120, 25);
+		jbtFechar.setBounds(530, 201, 120, 25);
 		jpnCarro.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(400, 342, 120, 25);
+		jbtCancelar.setBounds(400, 201, 120, 25);
 		jpnCarro.add(jbtCancelar);
 		
 		jmbCadastroCarro = new JMenuBar();
@@ -281,58 +220,186 @@ public class CarroForm extends JFrame {
 		jmbCadastroCarro.add(jmnRelatorio);
 		setContentPane(jpnCarro);
 		
-		jtfCodigoCliente = new JTextField();
-		jtfCodigoCliente.setDocument(new ValidaCampoNumeroInteiro());
-		jtfCodigoCliente.setEnabled(false);
-		jtfCodigoCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfCodigoCliente.setColumns(10);
-		jtfCodigoCliente.setBounds(10, 217, 50, 20);
-		jpnCarro.add(jtfCodigoCliente);
+		jtfNomeModelo = new JTextField();
+		jtfNomeModelo.setDocument(new ValidaCampoAlfaNumerico());
+		jtfNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfNomeModelo.setEnabled(false);
+		jtfNomeModelo.setColumns(10);
+		jtfNomeModelo.setBounds(130, 170, 300, 20);
+		jpnCarro.add(jtfNomeModelo);
 		
-		jlbCodigoCliente = new JLabel("C\u00F3digo do Cliente");
-		jlbCodigoCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoCliente.setBounds(10, 201, 135, 14);
-		jpnCarro.add(jlbCodigoCliente);
+		jlbNomeModelo = new JLabel("Nome do Modelo");
+		jlbNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbNomeModelo.setBounds(130, 154, 298, 14);
+		jpnCarro.add(jlbNomeModelo);
+		
+		jlbCodigoModelo = new JLabel("C\u00F3d. do Modelo");
+		jlbCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbCodigoModelo.setBounds(10, 154, 120, 14);
+		jpnCarro.add(jlbCodigoModelo);
+		
+		jtfCodigoModelo = new JTextField();
+		jtfCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfCodigoModelo.setEditable(false);
+		jtfCodigoModelo.setColumns(10);
+		jtfCodigoModelo.setBackground(Color.YELLOW);
+		jtfCodigoModelo.setBounds(10, 170, 50, 20);
+		jpnCarro.add(jtfCodigoModelo);
+		
+		jckbxForaUso = new JCheckBox("Fora de Uso");
+		jckbxForaUso.setEnabled(false);
+		jckbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jckbxForaUso.setBounds(530, 169, 120, 23);
+		jpnCarro.add(jckbxForaUso);
 	}
 
 	public void acionarBotaoNovo() {
-		jbtNovo.setEnabled(false);
-		jtfNomeCliente.setEnabled(true);
-		jtfNomeFantasiaCliente.setEnabled(true);
+		jtfNomeCarro.requestFocus();
 		jtfNomeCarro.setEnabled(true);
 		jtfPlacaCarro.setEnabled(true);
+		jtfNomeModelo.setEnabled(true);
+		jckbxForaUso.setSelected(false);
+		jckbxForaUso.setEnabled(false);
+		jtfCodigoCarro.setText("");
+		jtfNomeCarro.setText("");
+		jtfPlacaCarro.setText("");
+		jtfCodigoModelo.setText("");
+		jtfNomeModelo.setText("");
+		jtfDataAlteracao.setText("");
+		jbtNovo.setEnabled(false);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+		jbtEditar.setEnabled(false);
+	}
+	
+	@SuppressWarnings("static-access")
+	public void salvarCadastroCarro() throws Exception {
+		this.carro = new Carro();
+		if(jtfNomeCarro.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do carro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeCarro.requestFocus();
+		} else if(jtfPlacaCarro.getText().equals("   -    ")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a placa do carro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfPlacaCarro.requestFocus();
+		} else if(jtfNomeModelo.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o modelo do carro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeModelo.requestFocus();
+		} else {
+			this.carro.setNome(jtfNomeCarro.getText());
+			this.carro.setPlaca(jtfPlacaCarro.getText());
+			this.carro.setModelo(new Modelo(Integer.valueOf(jtfCodigoModelo.getText()), null));
+			this.carro.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
+			this.carro.setDataAltercacao(Date.valueOf(carro.getDataAltercacao().now()).toLocalDate());
+			DaoFactory.getFactory().carroDao().inserir(carro);
+			jtfCodigoCarro.setText(String.valueOf(this.carro.getIdCarro()));
+			jtfDataAlteracao.setText(this.carro.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação",
+					JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeCarro.setEnabled(false);
+			jtfPlacaCarro.setEnabled(false);
+			jtfNomeModelo.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void salvarEdicaoCarro() throws Exception {
+		this.carro = new Carro();
+		if (jtfNomeCarro.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do carro!!!", "Aviso",
+					JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeCarro.requestFocus();
+		} else if (jtfPlacaCarro.getText().equals("   -    ")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a placa do carro!!!", "Aviso",
+					JOptionPane.INFORMATION_MESSAGE);
+			jtfPlacaCarro.requestFocus();
+		} else if (jtfNomeModelo.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o modelo do carro!!!", "Aviso",
+					JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeModelo.requestFocus();
+		} else {
+			this.carro.setNome(jtfNomeCarro.getText());
+			this.carro.setPlaca(jtfPlacaCarro.getText());
+			this.carro.setModelo(new Modelo(Integer.valueOf(jtfCodigoModelo.getText()), null));
+			this.carro.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
+			this.carro.setDataAltercacao(Date.valueOf(carro.getDataAltercacao().now()).toLocalDate());
+			this.carro.setIdCarro(Integer.valueOf(jtfCodigoCarro.getText()));
+			DaoFactory.getFactory().carroDao().alterar(carro);
+			jtfCodigoCarro.setText(String.valueOf(this.carro.getIdCarro()));
+			jtfDataAlteracao.setText(this.carro.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação",
+					JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeCarro.setEnabled(false);
+			jtfPlacaCarro.setEnabled(false);
+			jtfNomeModelo.setEnabled(false);
+			jckbxForaUso.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
+		}
+	}
+	
+	public void acionarBotaoEditar() {
+		jtfNomeCarro.requestFocus();
+		jtfNomeCarro.setEnabled(true);
+		jtfPlacaCarro.setEnabled(true);
+		jtfNomeModelo.setEnabled(true);
+		jckbxForaUso.setEnabled(true);
+		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
 	}
 	
-	public void salvarCadastroCarro() {
-		
-	}
-	
-	public void salvarEdicaoCarro() {
-		
-	}
-	
-	public void acionarBotaoEditar() {
-		
-	}
-	
 	public void acionarBotaoCancelar() {
-		jbtNovo.setEnabled(true);
-		jtfNomeCliente.setEnabled(false);
-		jtfNomeFantasiaCliente.setEnabled(false);
+		jtfPesquisaCodigoCarro.requestFocus();
 		jtfNomeCarro.setEnabled(false);
 		jtfPlacaCarro.setEnabled(false);
-		jtfNomeCliente.setText("");
-		jtfCpfCliente.setText("");
-		jtfNomeFantasiaCliente.setText("");
-		jtfCnpjCliente.setText("");
+		jtfNomeModelo.setEnabled(false);
+		jckbxForaUso.setSelected(false);
+		jckbxForaUso.setEnabled(false);
+		jtfCodigoCarro.setText("");
 		jtfNomeCarro.setText("");
 		jtfPlacaCarro.setText("");
+		jtfCodigoModelo.setText("");
+		jtfNomeModelo.setText("");
+		jtfDataAlteracao.setText("");
+		jbtNovo.setEnabled(true);
 		jbtSalvar.setEnabled(false);
 		jbtCancelar.setEnabled(false);
+		jbtEditar.setEnabled(false);
 	}
 	
+	public void preencherCamposCarro(Carro carro) {
+		jtfCodigoCarro.setText(String.valueOf(carro.getIdCarro()));
+		jtfNomeCarro.setText(carro.getNome());
+		jtfPlacaCarro.setText(carro.getPlaca());
+		jtfCodigoModelo.setText(String.valueOf(carro.getModelo().getIdModelo()));
+		jtfNomeModelo.setText(carro.getModelo().getNome());
+		jtfDataAlteracao.setText(carro.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		if(carro.isForaUso()) {
+			jckbxForaUso.setSelected(true);
+		} else {
+			jckbxForaUso.setSelected(false);
+		}
+		jtfPesquisaCodigoCarro.requestFocus();
+	}
+	
+	public void preencherCamposModelo(Modelo modelo) {
+		if(modelo.isForaUso()) {
+			JOptionPane.showMessageDialog(null, "O modelo selecionada está fora de uso,\n"
+			+ "por gentileza entre em contato com o responsável!\n"
+			+ "Após a confirmação o cadastro será cancelado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			this.acionarBotaoCancelar();
+		} else {
+			jtfCodigoModelo.setText(String.valueOf(modelo.getIdModelo()));
+			jtfNomeModelo.setText(modelo.getNome());
+		}
+	}
+		
 	public void acoesDosBotoes() {
 		jbtNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent acvt) {
@@ -344,7 +411,21 @@ public class CarroForm extends JFrame {
 		
 		jbtSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent acvt) {
-				
+				if(acvt.getSource() == jbtSalvar) {
+					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
+						try {
+							salvarEdicaoCarro();
+						} catch (Exception salvarEdicao) {
+							salvarEdicao.printStackTrace();
+						}
+					} else {
+						try {
+							salvarCadastroCarro();
+						} catch (Exception salvarCadastro) {
+							salvarCadastro.printStackTrace();
+						}
+					}
+				}
 			}
 		});
 		
@@ -372,12 +453,109 @@ public class CarroForm extends JFrame {
 			}
 		});
 	}
+
+	public void pesquisaPorCodigo() {
+		jtfPesquisaCodigoCarro.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					Integer codigo = null;
+					if(!jtfPesquisaCodigoCarro.getText().equals("")) {
+						codigo = Integer.valueOf(jtfPesquisaCodigoCarro.getText());
+					}
+					ListaCarroForm listaCarro = new ListaCarroForm(carroForm, null, codigo, null);
+					listaCarro.setVisible(true);
+					jtfNomeCarro.setEnabled(false);
+					jtfNomeModelo.setEnabled(false);
+					jckbxForaUso.setEnabled(false);
+					jckbxForaUso.setSelected(false);
+					jtfCodigoCarro.setText("");
+					jtfNomeCarro.setText("");
+					jtfPlacaCarro.setText("");
+					jtfCodigoModelo.setText("");
+					jtfNomeModelo.setText("");
+					jtfDataAlteracao.setText("");
+					jtfPesquisaCodigoCarro.setText("");
+					jtfPesquisaNomeCarro.setText("");
+					jtfPesquisaPlacaCarro.setText("");
+					jbtEditar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+					jbtCancelar.setEnabled(true);
+				}
+			}
+		});
+	}
+		
+	public void pesquisaPorNome() {
+		jtfPesquisaNomeCarro.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					ListaCarroForm listaCarro = new ListaCarroForm(carroForm, jtfPesquisaNomeCarro.getText(), null, null);
+					listaCarro.setVisible(true);
+					jtfNomeCarro.setEnabled(false);
+					jtfNomeModelo.setEnabled(false);
+					jckbxForaUso.setEnabled(false);
+					jckbxForaUso.setSelected(false);
+					jtfCodigoCarro.setText("");
+					jtfNomeCarro.setText("");
+					jtfPlacaCarro.setText("");
+					jtfCodigoModelo.setText("");
+					jtfNomeModelo.setText("");
+					jtfDataAlteracao.setText("");
+					jtfPesquisaCodigoCarro.setText("");
+					jtfPesquisaNomeCarro.setText("");
+					jtfPesquisaPlacaCarro.setText("");
+					jbtEditar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+					jbtCancelar.setEnabled(true);
+				}
+			}
+		});
+	}
+		
+	public void pesquisaPorPlaca() {
+		jtfPesquisaPlacaCarro.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					ListaCarroForm listaCarro = new ListaCarroForm(carroForm, null, null, jtfPesquisaPlacaCarro.getText());
+					listaCarro.setVisible(true);
+					jtfNomeCarro.setEnabled(false);
+					jtfNomeModelo.setEnabled(false);
+					jckbxForaUso.setEnabled(false);
+					jckbxForaUso.setSelected(false);
+					jtfCodigoCarro.setText("");
+					jtfNomeCarro.setText("");
+					jtfPlacaCarro.setText("");
+					jtfCodigoModelo.setText("");
+					jtfNomeModelo.setText("");
+					jtfDataAlteracao.setText("");
+					jtfPesquisaCodigoCarro.setText("");
+					jtfPesquisaNomeCarro.setText("");
+					jtfPesquisaPlacaCarro.setText("");
+					jbtEditar.setEnabled(true);
+					jbtSalvar.setEnabled(false);
+					jbtCancelar.setEnabled(true);
+				}
+			}
+		});
+	}
 	
+	public void pesquisaNomeModelo() {
+		jtfNomeModelo.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					ListaModeloForm listaModelo = new ListaModeloForm(carroForm, jtfNomeModelo.getText(), null);
+					listaModelo.setVisible(true);
+				}
+			}
+		});
+	}
+		
 	public CarroForm() {
+		carroForm = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CarroForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro de Carros do Cliente | WashCar");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 667, 430);
+		setBounds(100, 100, 665, 285);
 		jpnCarro = new JPanel();
 		jpnCarro.setLayout(null);
 		setLocationRelativeTo(null);
@@ -385,6 +563,18 @@ public class CarroForm extends JFrame {
 		
 		componentesCarroForm();
 		acoesDosBotoes();
-		
+		pesquisaPorCodigo();
+		pesquisaPorNome();
+		pesquisaPorPlaca();
+		pesquisaNomeModelo();
+	}
+
+	@Override
+	public void preencherCampos(Entidade entidade) {
+		if(!jtfNomeModelo.isEnabled()) {
+			this.preencherCamposCarro((Carro)entidade);
+		} else {
+			this.preencherCamposModelo((Modelo)entidade);
+		}
 	}
 }
