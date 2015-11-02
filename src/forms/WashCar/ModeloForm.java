@@ -287,8 +287,8 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			this.modelo.setMarca(new Marca(Integer.valueOf(jtfCodigoMarca.getText()), null));
 			this.modelo.setDataAltercacao(Date.valueOf(modelo.getDataAltercacao().now()).toLocalDate());
 			this.modelo.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
+			this.modelo.setIdModelo(Integer.valueOf(jtfCodigoModelo.getText()));
 			DaoFactory.getFactory().modeloDao().alterar(modelo);
-			jtfCodigoModelo.setText(String.valueOf(this.modelo.getIdModelo()));
 			jtfDataAlteracao.setText(this.modelo.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeModelo.setEnabled(false);
