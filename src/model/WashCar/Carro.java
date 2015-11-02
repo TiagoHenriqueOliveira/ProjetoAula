@@ -7,14 +7,12 @@ public class Carro implements Entidade{
 	private Integer idCarro;
 	private String nome;
 	private String placa;
-	private Cliente cliente;
 	private Modelo modelo;
 	private Boolean foraUso;
 	private LocalDate dataAltercacao;
 	
 	//construtor com atributos
 	public Carro(Integer idCarro, String nome, String placa) {
-		super();
 		this.idCarro = idCarro;
 		this.nome = nome;
 		this.placa = placa;
@@ -42,12 +40,6 @@ public class Carro implements Entidade{
 	}
 	public void setPlaca(String placa) {
 		this.placa = placa;
-	}
-	public Cliente getCliente() {
-		return cliente;
-	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 	public Modelo getModelo() {
 		return modelo;
