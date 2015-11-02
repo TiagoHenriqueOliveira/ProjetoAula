@@ -1,6 +1,6 @@
 package model.WashCar;
 
-public class PessoaJuridica {
+public class PessoaJuridica extends Cliente{
 	
 	private String razaoSocial;
 	private String nomeFantasia;

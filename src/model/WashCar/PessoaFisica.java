@@ -2,7 +2,7 @@ package model.WashCar;
 
 import java.time.LocalDate;
 
-public class PessoaFisica {
+public class PessoaFisica extends Cliente {
 	
 	private String nome;
 	private String cpf;
