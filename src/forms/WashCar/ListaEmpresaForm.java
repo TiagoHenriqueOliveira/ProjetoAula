@@ -115,13 +115,13 @@ public class ListaEmpresaForm extends JFrame {
 	
 	public void validacaoPesquisa() {
 		if((codigo == null || codigo.equals("")) && (descricao == null || descricao.equals(""))
-			&& (documento == null || documento.equals(""))) {
+			&& (documento == null || documento.equals("  .   .   /    -  "))) {
 				this.preencherDadosTabelaSemFiltro();
 			} else if(codigo != null && !codigo.equals("")) {
 				this.preencherDadosTabelaFiltroCodigo();
 			} else if(descricao != null && !descricao.equals("")) {
 				this.preencherDadosTabelaFiltroNome();
-			} else if(documento != null && !documento.equals("")) {
+			} else if(documento != null && !documento.equals("  .   .   /    -  ")) {
 				this.preencherDadosTabelaFiltroDocumento();
 			}
 	}
