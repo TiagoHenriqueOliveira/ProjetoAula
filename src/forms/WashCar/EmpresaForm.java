@@ -18,14 +18,15 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 
+import model.WashCar.Cidade;
 import model.WashCar.Empresa;
 import model.WashCar.Entidade;
 import preencherDados.WashCar.PreencherDados;
@@ -38,6 +39,9 @@ import validacaoCampos.WashCar.ValidaCampoTelefone;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 
 public class EmpresaForm extends JFrame implements PreencherDados{
 
@@ -57,12 +61,14 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 	private JTextField jtfFax;
 	private JTextField jtfInscricaoEstadual;
 	private JTextField jtfDataAlteracao;
-	private JTextField jtfCidade;
-	private JTextField jtfPais;
+	private JTextField jtfNomeCidade;
+	private JTextField jtfNomePais;
 	private JTextField jtfPesquisaCNPJEmpresa;
 	private JTextField jtfInscricaoMunicipal;
-	private JTextField jtfUnidadeFederativa;
+	private JTextField jtfNomeUF;
 	private JTextField jtfEmail;
+	private JTextField jtfCodigoUF;
+	private JTextField jtfCodigoCidade;
 	private JPanel jpnPesquisaEmpresa;
 	private JLabel jlbPesquisaCodigoEmpresa;
 	private JLabel jlbPesquisaNomeEmpresa;
@@ -86,17 +92,19 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 	private JLabel jlbInscricaoMunicipal;
 	private JLabel jlbConsultaEmpresa;
 	private JLabel jlbEmailEmpresa;
-	private JRadioButton jrbSimplesNacional;
-	private JRadioButton jrbLucroPresumido;
-	private JRadioButton jrbLucroReal;
-	private ButtonGroup jbgRegimeTributario;
+	private JLabel jlbCodigoCidade;
+	private JLabel jlbCodigoUF;
 	private JButton jbtNovo;
 	private JButton jbtEditar;
 	private JButton jbtSalvar;
 	private JButton jbtCancelar;
 	private JButton jbtFechar;
+	private JComboBox<String> jcbxRegimeTributario;
+	private JCheckBox jckbxForaUso;
+	private JCheckBox jckbxIsento;
 	private static EmpresaForm empresaForm;
 	private Empresa empresa;
+	private Integer regimeTributario = null;
 
 	public void componentesTelaEmpresa() {
 		jpnPesquisaEmpresa = new JPanel();
@@ -151,7 +159,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		
 		jlbCodigo = new JLabel("C\u00F3digo");
 		jlbCodigo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigo.setBounds(10, 107, 66, 14);
+		jlbCodigo.setBounds(10, 109, 66, 14);
 		jnpEmpresa.add(jlbCodigo);
 		
 		jtfCodigo = new JTextField();
@@ -172,12 +180,12 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfRazaoSocial.setEnabled(false);
 		jtfRazaoSocial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfRazaoSocial.setColumns(10);
-		jtfRazaoSocial.setBounds(10, 170, 300, 20);
+		jtfRazaoSocial.setBounds(10, 168, 300, 20);
 		jnpEmpresa.add(jtfRazaoSocial);
 		
 		jlbNomeFantasia = new JLabel("Nome Fantasia da Empresa");
 		jlbNomeFantasia.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeFantasia.setBounds(10, 201, 300, 14);
+		jlbNomeFantasia.setBounds(320, 154, 300, 14);
 		jnpEmpresa.add(jlbNomeFantasia);
 		
 		jtfNomeFantasia = new JTextField();
@@ -185,12 +193,12 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfNomeFantasia.setEnabled(false);
 		jtfNomeFantasia.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeFantasia.setColumns(10);
-		jtfNomeFantasia.setBounds(10, 217, 300, 20);
+		jtfNomeFantasia.setBounds(320, 168, 300, 20);
 		jnpEmpresa.add(jtfNomeFantasia);
 		
 		jlbCNPJ = new JLabel("CNPJ");
 		jlbCNPJ.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCNPJ.setBounds(320, 154, 165, 14);
+		jlbCNPJ.setBounds(10, 199, 125, 14);
 		jnpEmpresa.add(jlbCNPJ);
 		
 		try {
@@ -201,12 +209,12 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfCNPJ.setEnabled(false);
 		jtfCNPJ.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCNPJ.setColumns(10);
-		jtfCNPJ.setBounds(320, 170, 165, 20);
+		jtfCNPJ.setBounds(10, 213, 125, 20);
 		jnpEmpresa.add(jtfCNPJ);
 		
 		jlbEndereco = new JLabel("Endere\u00E7o");
 		jlbEndereco.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbEndereco.setBounds(10, 248, 177, 14);
+		jlbEndereco.setBounds(10, 250, 177, 14);
 		jnpEmpresa.add(jlbEndereco);
 		
 		jtfEndereco = new JTextField();
@@ -219,7 +227,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		
 		jlbBairro = new JLabel("Bairro");
 		jlbBairro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbBairro.setBounds(346, 248, 139, 14);
+		jlbBairro.setBounds(346, 250, 139, 14);
 		jnpEmpresa.add(jlbBairro);
 		
 		jtfBairro = new JTextField();
@@ -232,7 +240,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		
 		jlbNumero = new JLabel("N\u00FAmero");
 		jlbNumero.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNumero.setBounds(270, 248, 66, 14);
+		jlbNumero.setBounds(270, 250, 66, 14);
 		jnpEmpresa.add(jlbNumero);
 		
 		jtfNumero = new JTextField();
@@ -245,7 +253,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		
 		jlbTelefoneComercial = new JLabel("Telefone Comercial");
 		jlbTelefoneComercial.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbTelefoneComercial.setBounds(495, 201, 130, 14);
+		jlbTelefoneComercial.setBounds(495, 199, 130, 14);
 		jnpEmpresa.add(jlbTelefoneComercial);
 		
 		jtfTelefoneComercial = new JTextField();
@@ -253,12 +261,12 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfTelefoneComercial.setEnabled(false);
 		jtfTelefoneComercial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneComercial.setColumns(10);
-		jtfTelefoneComercial.setBounds(495, 217, 130, 20);
+		jtfTelefoneComercial.setBounds(495, 213, 130, 20);
 		jnpEmpresa.add(jtfTelefoneComercial);
 		
 		jlbTelefoneCelular = new JLabel("Telefone Celular");
 		jlbTelefoneCelular.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbTelefoneCelular.setBounds(495, 248, 130, 14);
+		jlbTelefoneCelular.setBounds(495, 250, 130, 14);
 		jnpEmpresa.add(jlbTelefoneCelular);
 		
 		jtfTelefoneCelular = new JTextField();
@@ -271,7 +279,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		
 		jlbFax = new JLabel("Fax");
 		jlbFax.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbFax.setBounds(495, 295, 130, 14);
+		jlbFax.setBounds(495, 300, 130, 14);
 		jnpEmpresa.add(jlbFax);
 		
 		jtfFax = new JTextField();
@@ -279,12 +287,12 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfFax.setEnabled(false);
 		jtfFax.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfFax.setColumns(10);
-		jtfFax.setBounds(495, 311, 130, 20);
+		jtfFax.setBounds(495, 314, 130, 20);
 		jnpEmpresa.add(jtfFax);
 		
 		jlbInscricaoEstadual = new JLabel("Inscri\u00E7\u00E3o Estadual");
 		jlbInscricaoEstadual.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbInscricaoEstadual.setBounds(320, 201, 165, 14);
+		jlbInscricaoEstadual.setBounds(145, 199, 130, 14);
 		jnpEmpresa.add(jlbInscricaoEstadual);
 		
 		jtfInscricaoEstadual = new JTextField();
@@ -292,16 +300,17 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfInscricaoEstadual.setEnabled(false);
 		jtfInscricaoEstadual.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfInscricaoEstadual.setColumns(10);
-		jtfInscricaoEstadual.setBounds(320, 217, 165, 20);
+		jtfInscricaoEstadual.setBounds(145, 213, 100, 20);
 		jnpEmpresa.add(jtfInscricaoEstadual);
 		
 		jlbDataAlteracao = new JLabel("Data Alteracao");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(525, 107, 100, 14);
+		jlbDataAlteracao.setBounds(525, 109, 100, 14);
 		jnpEmpresa.add(jlbDataAlteracao);
 		
 		try {
 			jtfDataAlteracao = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			jtfDataAlteracao.setHorizontalAlignment(SwingConstants.RIGHT);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -309,48 +318,48 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDataAlteracao.setColumns(10);
-		jtfDataAlteracao.setBounds(525, 123, 100, 20);
+		jtfDataAlteracao.setBounds(525, 123, 75, 20);
 		jnpEmpresa.add(jtfDataAlteracao);
 		
 		jlbCidade = new JLabel("Cidade");
 		jlbCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCidade.setBounds(10, 344, 139, 14);
+		jlbCidade.setBounds(10, 345, 139, 14);
 		jnpEmpresa.add(jlbCidade);
 		
-		jtfCidade = new JTextField();
-		jtfCidade.setDocument(new ValidaCampoAlfaNumerico());
-		jtfCidade.setEnabled(false);
-		jtfCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfCidade.setColumns(10);
-		jtfCidade.setBounds(10, 360, 139, 20);
-		jnpEmpresa.add(jtfCidade);
+		jtfNomeCidade = new JTextField();
+		jtfNomeCidade.setDocument(new ValidaCampoAlfaNumerico());
+		jtfNomeCidade.setEnabled(false);
+		jtfNomeCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfNomeCidade.setColumns(10);
+		jtfNomeCidade.setBounds(10, 360, 140, 20);
+		jnpEmpresa.add(jtfNomeCidade);
 		
 		jlbPais = new JLabel("Pa\u00EDs");
 		jlbPais.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPais.setBounds(346, 344, 139, 14);
+		jlbPais.setBounds(515, 345, 110, 14);
 		jnpEmpresa.add(jlbPais);
 		
-		jtfPais = new JTextField();
-		jtfPais.setDocument(new ValidaCampoAlfaNumerico());
-		jtfPais.setEnabled(false);
-		jtfPais.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfPais.setColumns(10);
-		jtfPais.setBounds(346, 360, 139, 20);
-		jnpEmpresa.add(jtfPais);
+		jtfNomePais = new JTextField();
+		jtfNomePais.setDocument(new ValidaCampoAlfaNumerico());
+		jtfNomePais.setEnabled(false);
+		jtfNomePais.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfNomePais.setColumns(10);
+		jtfNomePais.setBounds(515, 360, 110, 20);
+		jnpEmpresa.add(jtfNomePais);
 		
 		jlbRegimeTributario = new JLabel("Regime Tribut\u00E1rio");
 		jlbRegimeTributario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbRegimeTributario.setBounds(80, 105, 240, 15);
+		jlbRegimeTributario.setBounds(150, 109, 130, 15);
 		jnpEmpresa.add(jlbRegimeTributario);
 		
 		jlbUnidadeFederativa = new JLabel("Estado");
 		jlbUnidadeFederativa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbUnidadeFederativa.setBounds(159, 343, 177, 14);
+		jlbUnidadeFederativa.setBounds(265, 345, 100, 14);
 		jnpEmpresa.add(jlbUnidadeFederativa);
 		
 		jlbInscricaoMunicipal = new JLabel("Inscri\u00E7\u00E3o Municipal");
 		jlbInscricaoMunicipal.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbInscricaoMunicipal.setBounds(495, 154, 130, 14);
+		jlbInscricaoMunicipal.setBounds(357, 199, 130, 14);
 		jnpEmpresa.add(jlbInscricaoMunicipal);
 		
 		jtfInscricaoMunicipal = new JTextField();
@@ -358,39 +367,16 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfInscricaoMunicipal.setEnabled(false);
 		jtfInscricaoMunicipal.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfInscricaoMunicipal.setColumns(10);
-		jtfInscricaoMunicipal.setBounds(495, 170, 130, 20);
+		jtfInscricaoMunicipal.setBounds(357, 213, 100, 20);
 		jnpEmpresa.add(jtfInscricaoMunicipal);
 		
-		jrbSimplesNacional = new JRadioButton("Simples Nacional");
-		jrbSimplesNacional.setEnabled(false);
-		jrbSimplesNacional.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jrbSimplesNacional.setBounds(75, 120, 145, 25);
-		getContentPane().add(jrbSimplesNacional);
-		
-		jrbLucroPresumido = new JRadioButton("Lucro Presumido");
-		jrbLucroPresumido.setEnabled(false);
-		jrbLucroPresumido.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jrbLucroPresumido.setBounds(225, 120, 145, 25);
-		getContentPane().add(jrbLucroPresumido);
-		
-		jrbLucroReal = new JRadioButton("Lucro Real");
-		jrbLucroReal.setEnabled(false);
-		jrbLucroReal.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jrbLucroReal.setBounds(375, 120, 145, 25);
-		getContentPane().add(jrbLucroReal);
-		
-		jbgRegimeTributario = new ButtonGroup();
-		jbgRegimeTributario.add(jrbSimplesNacional);
-		jbgRegimeTributario.add(jrbLucroReal);
-		jbgRegimeTributario.add(jrbLucroPresumido);
-		
-		jtfUnidadeFederativa = new JTextField();
-		jtfUnidadeFederativa.setDocument(new ValidaCampoAlfaNumerico());
-		jtfUnidadeFederativa.setEnabled(false);
-		jtfUnidadeFederativa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfUnidadeFederativa.setColumns(10);
-		jtfUnidadeFederativa.setBounds(159, 361, 177, 20);
-		jnpEmpresa.add(jtfUnidadeFederativa);
+		jtfNomeUF = new JTextField();
+		jtfNomeUF.setDocument(new ValidaCampoAlfaNumerico());
+		jtfNomeUF.setEnabled(false);
+		jtfNomeUF.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfNomeUF.setColumns(10);
+		jtfNomeUF.setBounds(265, 360, 130, 20);
+		jnpEmpresa.add(jtfNomeUF);
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -429,22 +415,65 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		
 		jlbEmailEmpresa = new JLabel("Email");
 		jlbEmailEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbEmailEmpresa.setBounds(10, 295, 150, 14);
+		jlbEmailEmpresa.setBounds(10, 297, 150, 14);
 		jnpEmpresa.add(jlbEmailEmpresa);
+		
+		jtfCodigoUF = new JTextField();
+		jtfCodigoUF.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfCodigoUF.setEditable(false);
+		jtfCodigoUF.setColumns(10);
+		jtfCodigoUF.setBackground(Color.YELLOW);
+		jtfCodigoUF.setBounds(405, 360, 50, 20);
+		jnpEmpresa.add(jtfCodigoUF);
+		
+		jlbCodigoUF = new JLabel("C\u00F3d. Estado");
+		jlbCodigoUF.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbCodigoUF.setBounds(405, 345, 100, 14);
+		jnpEmpresa.add(jlbCodigoUF);
+		
+		jtfCodigoCidade = new JTextField();
+		jtfCodigoCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfCodigoCidade.setEditable(false);
+		jtfCodigoCidade.setColumns(10);
+		jtfCodigoCidade.setBackground(Color.YELLOW);
+		jtfCodigoCidade.setBounds(159, 360, 50, 20);
+		jnpEmpresa.add(jtfCodigoCidade);
+		
+		jlbCodigoCidade = new JLabel("C\u00F3d. Cidade");
+		jlbCodigoCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbCodigoCidade.setBounds(159, 345, 100, 14);
+		jnpEmpresa.add(jlbCodigoCidade);
+		
+		jcbxRegimeTributario = new JComboBox<String>();
+		jcbxRegimeTributario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jcbxRegimeTributario.setEnabled(false);
+		jcbxRegimeTributario.setBounds(150, 123, 130, 20);
+		jcbxRegimeTributario.addItem("Simples Nacional");
+		jcbxRegimeTributario.addItem("Lucro Presumido");
+		jcbxRegimeTributario.addItem("Lucro Real");
+		jnpEmpresa.add(jcbxRegimeTributario);
+		
+		jckbxForaUso = new JCheckBox("Fora de Uso");
+		jckbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jckbxForaUso.setEnabled(false);
+		jckbxForaUso.setBounds(350, 122, 130, 23);
+		jnpEmpresa.add(jckbxForaUso);
+		
+		jckbxIsento = new JCheckBox("ISENTO");
+		jckbxIsento.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jckbxIsento.setEnabled(false);
+		jckbxIsento.setBounds(251, 212, 100, 23);
+		jnpEmpresa.add(jckbxIsento);
 	}
 	
 	public void acionarBotaoNovo() {
-		jbtNovo.setEnabled(false);
-		jbtEditar.setEnabled(false);
-		jbtSalvar.setEnabled(true);
-		jbtCancelar.setEnabled(true);
 		jtfRazaoSocial.requestFocus();
-		jrbLucroPresumido.setEnabled(true);
-		jrbLucroReal.setEnabled(true);
-		jrbSimplesNacional.setEnabled(true);
-		jrbLucroPresumido.setSelected(false);
-		jrbLucroReal.setSelected(false);
-		jrbSimplesNacional.setSelected(false);
+		this.selecionarRegimeTributario();
+		jcbxRegimeTributario.setEnabled(true);
+		jcbxRegimeTributario.setSelectedIndex(0);
+		jckbxForaUso.setSelected(false);
+		jckbxIsento.setEnabled(true);
+		jckbxIsento.setSelected(false);
 		jtfNomeFantasia.setEnabled(true);
 		jtfRazaoSocial.setEnabled(true);
 		jtfCNPJ.setEnabled(true);
@@ -457,14 +486,9 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfEndereco.setEnabled(true);
 		jtfNumero.setEnabled(true);
 		jtfBairro.setEnabled(true);
-		jtfCidade.setEnabled(true);
-		jtfUnidadeFederativa.setEnabled(true);
-		jtfPais.setEnabled(true);
+		jtfNomeCidade.setEnabled(true);
 		jtfCodigo.setText("");
 		jtfDataAlteracao.setText("");
-		jrbLucroPresumido.setSelected(false);
-		jrbLucroReal.setSelected(false);
-		jrbSimplesNacional.setSelected(false);
 		jtfNomeFantasia.setText("");
 		jtfRazaoSocial.setText("");
 		jtfCNPJ.setText("");
@@ -477,20 +501,27 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfEndereco.setText("");
 		jtfNumero.setText("");
 		jtfBairro.setText("");
-		jtfCidade.setText("");
-		jtfUnidadeFederativa.setText("");
-		jtfPais.setText("");
+		jtfCodigoCidade.setText("");
+		jtfNomeCidade.setText("");
+		jtfCodigoUF.setText("");
+		jtfNomeUF.setText("");
+		jtfNomePais.setText("");
+		jbtNovo.setEnabled(false);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+		jbtEditar.setEnabled(false);
 	}
 	
 	@SuppressWarnings("static-access")
 	public void salvarCadastroEmpresa() throws Exception{
+		this.empresa = new Empresa();
 		if(jtfRazaoSocial.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar a razão social!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfRazaoSocial.requestFocus();
 		} else if(jtfNomeFantasia.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome fantasia!!!", 	"Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeFantasia.requestFocus();
-		} else if(jtfCNPJ.getText().equals("")) {
+		} else if(jtfCNPJ.getText().equals("  .   .   /    -  ")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o Cnpj!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfCNPJ.requestFocus();
 		} else if(jtfEndereco.getText().equals("")) {
@@ -502,17 +533,23 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		} else if(jtfNumero.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o número do estabelecimento!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNumero.requestFocus();
-		} else if(!jrbSimplesNacional.isSelected() || !jrbLucroPresumido.isSelected() || !jrbLucroReal.isSelected()) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o regime tributário da empresa!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 		} else if(jtfEmail.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o email da empresa!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-			jtfNumero.requestFocus();
+			jtfEmail.requestFocus();
+		} else if(jtfNomeCidade.getText().equals("") || jtfCodigoCidade.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeCidade.requestFocus();
 		} else {
-			this.empresa = new Empresa();
+			this.empresa.setRegimeTributario(regimeTributario);
 			this.empresa.setRazaoSocial(jtfRazaoSocial.getText());
 			this.empresa.setNomeFantasia(jtfNomeFantasia.getText());
 			this.empresa.setCnpj(jtfCNPJ.getText());
-			this.empresa.setInscricaoEstadual(jtfInscricaoEstadual.getText());
+			if(jckbxIsento.isSelected()) {
+				jtfInscricaoEstadual.setText("ISENTO");
+				this.empresa.setInscricaoEstadual("ISENTO");
+			} else {
+				this.empresa.setInscricaoEstadual(jtfInscricaoEstadual.getText());
+			}
 			this.empresa.setInscricaoMunicipal(jtfInscricaoMunicipal.getText());
 			this.empresa.setTelefoneCelular(jtfTelefoneCelular.getText());
 			this.empresa.setTelefoneComercial(jtfTelefoneComercial.getText());
@@ -521,22 +558,15 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 			this.empresa.setEndereco(jtfEndereco.getText());
 			this.empresa.setNumero(Integer.valueOf(jtfNumero.getText()));
 			this.empresa.setBairro(jtfBairro.getText());
-			//this.empresa.setCidade(new Cidade());
+			this.empresa.setCidade(new Cidade(Integer.valueOf(jtfCodigoCidade.getText()), null));
+			this.empresa.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
 			this.empresa.setDataAltercacao(Date.valueOf(empresa.getDataAltercacao().now()).toLocalDate());
-			if(jrbSimplesNacional.isSelected()) {
-				this.empresa.setRegimeTributario(1);
-			} else if(jrbLucroPresumido.isSelected()) {
-				this.empresa.setRegimeTributario(2);
-			} else if(jrbLucroReal.isSelected()) {
-				this.empresa.setRegimeTributario(3);
-			}
 			DaoFactory.getFactory().empresaDao().inserir(empresa);
 			jtfCodigo.setText(String.valueOf(this.empresa.getIdEmpresa()));
 			jtfDataAlteracao.setText(this.empresa.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
-			jrbLucroPresumido.setEnabled(false);
-			jrbLucroReal.setEnabled(false);
-			jrbSimplesNacional.setEnabled(false);
+			jcbxRegimeTributario.setEnabled(false);
+			jckbxIsento.setEnabled(false);
 			jtfNomeFantasia.setEnabled(false);
 			jtfRazaoSocial.setEnabled(false);
 			jtfCNPJ.setEnabled(false);
@@ -545,30 +575,100 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 			jtfTelefoneCelular.setEnabled(false);
 			jtfTelefoneComercial.setEnabled(false);
 			jtfFax.setEnabled(false);
-			jtfEmail.setEditable(false);
+			jtfEmail.setEnabled(false);
 			jtfEndereco.setEnabled(false);
 			jtfNumero.setEnabled(false);
 			jtfBairro.setEnabled(false);
-			jtfCidade.setEnabled(false);
-			jtfUnidadeFederativa.setEnabled(false);
-			jtfPais.setEnabled(false);
+			jtfNomeCidade.setEnabled(false);
 			jbtSalvar.setEnabled(false);
 			jbtEditar.setEnabled(true);
 			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
 		}
 	}
 	
+	@SuppressWarnings("static-access")
 	public void salvarEdicaoEmpresa() throws Exception{
-		
+		this.empresa = new Empresa();
+		if(jtfRazaoSocial.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a razão social!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfRazaoSocial.requestFocus();
+		} else if(jtfNomeFantasia.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome fantasia!!!", 	"Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeFantasia.requestFocus();
+		} else if(jtfCNPJ.getText().equals("  .   .   /    -  ")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o Cnpj!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfCNPJ.requestFocus();
+		} else if(jtfEndereco.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o endereço!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfEndereco.requestFocus();
+		} else if(jtfBairro.getText().equals(""))	 {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfBairro.requestFocus();
+		} else if(jtfNumero.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o número do estabelecimento!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNumero.requestFocus();
+		} else if(jtfEmail.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o email da empresa!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfEmail.requestFocus();
+		} else if(jtfNomeCidade.getText().equals("") || jtfCodigoCidade.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeCidade.requestFocus();
+		} else {
+			this.empresa.setRegimeTributario(regimeTributario);
+			this.empresa.setRazaoSocial(jtfRazaoSocial.getText());
+			this.empresa.setNomeFantasia(jtfNomeFantasia.getText());
+			this.empresa.setCnpj(jtfCNPJ.getText());
+			if(jckbxIsento.isSelected()) {
+				jtfInscricaoEstadual.setText("ISENTO");
+				this.empresa.setInscricaoEstadual("ISENTO");
+			} else {
+				this.empresa.setInscricaoEstadual(jtfInscricaoEstadual.getText());
+			}
+			this.empresa.setInscricaoMunicipal(jtfInscricaoMunicipal.getText());
+			this.empresa.setTelefoneCelular(jtfTelefoneCelular.getText());
+			this.empresa.setTelefoneComercial(jtfTelefoneComercial.getText());
+			this.empresa.setFax(jtfFax.getText());
+			this.empresa.setEmail(jtfEmail.getText());
+			this.empresa.setEndereco(jtfEndereco.getText());
+			this.empresa.setNumero(Integer.valueOf(jtfNumero.getText()));
+			this.empresa.setBairro(jtfBairro.getText());
+			this.empresa.setCidade(new Cidade(Integer.valueOf(jtfCodigoCidade.getText()), null));
+			this.empresa.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
+			this.empresa.setDataAltercacao(Date.valueOf(empresa.getDataAltercacao().now()).toLocalDate());
+			this.empresa.setIdEmpresa(Integer.valueOf(jtfCodigo.getText()));
+			DaoFactory.getFactory().empresaDao().alterar(empresa);
+			jtfDataAlteracao.setText(this.empresa.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			jcbxRegimeTributario.setEnabled(false);
+			jckbxIsento.setEnabled(false);
+			jtfNomeFantasia.setEnabled(false);
+			jtfNomeFantasia.setEnabled(false);
+			jtfRazaoSocial.setEnabled(false);
+			jtfCNPJ.setEnabled(false);
+			jtfInscricaoEstadual.setEnabled(false);
+			jtfInscricaoMunicipal.setEnabled(false);
+			jtfTelefoneCelular.setEnabled(false);
+			jtfTelefoneComercial.setEnabled(false);
+			jtfFax.setEnabled(false);
+			jtfEmail.setEnabled(false);
+			jtfEndereco.setEnabled(false);
+			jtfNumero.setEnabled(false);
+			jtfBairro.setEnabled(false);
+			jtfNomeCidade.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
+		}
 	}
 	
 	public void acionarBotaoEditar() {
-		jbtNovo.setEnabled(false);
-		jbtSalvar.setEnabled(true);
-		jbtCancelar.setEnabled(true);
-		jrbLucroPresumido.setEnabled(true);
-		jrbLucroReal.setEnabled(true);
-		jrbSimplesNacional.setEnabled(true);
+		jtfRazaoSocial.requestFocus();
+		this.selecionarRegimeTributario();
+		jcbxRegimeTributario.setEnabled(true);
+		jckbxForaUso.setEnabled(true);
+		jckbxIsento.setEnabled(true);
 		jtfNomeFantasia.setEnabled(true);
 		jtfRazaoSocial.setEnabled(true);
 		jtfCNPJ.setEnabled(true);
@@ -577,28 +677,24 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfTelefoneCelular.setEnabled(true);
 		jtfTelefoneComercial.setEnabled(true);
 		jtfFax.setEnabled(true);
-		jtfEmail.setEditable(true);
+		jtfEmail.setEnabled(true);
 		jtfEndereco.setEnabled(true);
 		jtfNumero.setEnabled(true);
 		jtfBairro.setEnabled(true);
-		jtfCidade.setEnabled(true);
-		jtfUnidadeFederativa.setEnabled(true);
-		jtfPais.setEnabled(true);
-		
+		jtfNomeCidade.setEnabled(true);
+		jbtNovo.setEnabled(false);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
 	}
 	
 	public void acionarBotaoCancelar() {
-		jbtNovo.setEnabled(true);
-		jbtCancelar.setEnabled(false);
-		jbtSalvar.setEnabled(false);
-		jbtEditar.setEnabled(false);
 		jtfPesquisaCodigoEmpresa.requestFocus();
-		jrbLucroPresumido.setEnabled(false);
-		jrbLucroReal.setEnabled(false);
-		jrbSimplesNacional.setEnabled(false);
-		jrbLucroPresumido.setSelected(false);
-		jrbLucroReal.setSelected(false);
-		jrbSimplesNacional.setSelected(false);
+		jcbxRegimeTributario.setEnabled(false);
+		jcbxRegimeTributario.setSelectedIndex(0);
+		jckbxForaUso.setEnabled(false);
+		jckbxForaUso.setSelected(false);
+		jckbxIsento.setEnabled(false);
+		jckbxIsento.setSelected(false);
 		jtfNomeFantasia.setEnabled(false);
 		jtfRazaoSocial.setEnabled(false);
 		jtfCNPJ.setEnabled(false);
@@ -607,16 +703,11 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfTelefoneCelular.setEnabled(false);
 		jtfTelefoneComercial.setEnabled(false);
 		jtfFax.setEnabled(false);
-		jtfEmail.setEditable(false);
+		jtfEmail.setEnabled(false);
 		jtfEndereco.setEnabled(false);
 		jtfNumero.setEnabled(false);
 		jtfBairro.setEnabled(false);
-		jtfCidade.setEnabled(false);
-		jtfUnidadeFederativa.setEnabled(false);
-		jtfPais.setEnabled(false);
-		jrbLucroPresumido.setSelected(false);
-		jrbLucroReal.setSelected(false);
-		jrbSimplesNacional.setSelected(false);
+		jtfNomeCidade.setEnabled(false);
 		jtfCodigo.setText("");
 		jtfDataAlteracao.setText("");
 		jtfNomeFantasia.setText("");
@@ -631,9 +722,15 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfEndereco.setText("");
 		jtfNumero.setText("");
 		jtfBairro.setText("");
-		jtfCidade.setText("");
-		jtfUnidadeFederativa.setText("");
-		jtfPais.setText("");
+		jtfCodigoCidade.setText("");
+		jtfNomeCidade.setText("");
+		jtfCodigoUF.setText("");
+		jtfNomeUF.setText("");
+		jtfNomePais.setText("");
+		jbtNovo.setEnabled(true);
+		jbtCancelar.setEnabled(false);
+		jbtSalvar.setEnabled(false);
+		jbtEditar.setEnabled(false);
 	}
 	
 	public void preencherCamposEmpresa(Empresa empresa) {
@@ -641,7 +738,12 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfRazaoSocial.setText(empresa.getRazaoSocial());
 		jtfNomeFantasia.setText(empresa.getNomeFantasia());
 		jtfCNPJ.setText(empresa.getCnpj());
-		jtfInscricaoEstadual.setText(empresa.getInscricaoEstadual());
+		if(empresa.getInscricaoEstadual().equals("ISENTO")) {
+			jtfInscricaoEstadual.setText("ISENTO");
+			jckbxIsento.setSelected(true);
+		} else {
+			jtfInscricaoEstadual.setText(empresa.getInscricaoEstadual());
+		}
 		jtfInscricaoMunicipal.setText(empresa.getInscricaoMunicipal());
 		jtfTelefoneCelular.setText(empresa.getTelefoneCelular());
 		jtfTelefoneComercial.setText(empresa.getTelefoneComercial());
@@ -650,21 +752,50 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfEndereco.setText(empresa.getEndereco());
 		jtfNumero.setText(String.valueOf(empresa.getNumero()));
 		jtfBairro.setText(empresa.getBairro());
-		jtfCidade.setText(empresa.getCidade().getNome());
-//		jtfUnidadeFederativa.setText(empresa.getCidade().getUnidadeFederativa().getNome());
-//		jtfPais.setText(empresa.getCidade().getUnidadeFederativa().getPais().getNome());
+		jtfCodigoCidade.setText(String.valueOf(empresa.getCidade().getIdCidade()));
+		jtfNomeCidade.setText(empresa.getCidade().getNome());
+		jtfCodigoUF.setText(String.valueOf(empresa.getCidade().getUnidadeFederativa().getIdUnidadeFederativa()));
+		jtfNomeUF.setText(empresa.getCidade().getUnidadeFederativa().getNome());
+		jtfNomePais.setText(empresa.getCidade().getUnidadeFederativa().getPais().getNome());
 		jtfDataAlteracao.setText(empresa.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 		if(empresa.getRegimeTributario() == 1) {
-			jrbSimplesNacional.setSelected(true);
+			jcbxRegimeTributario.setSelectedIndex(0);
+			regimeTributario = 1;
 		} else if(empresa.getRegimeTributario() == 2) {
-			jrbLucroPresumido.setSelected(true);
-		} else if(empresa.getRegimeTributario() == 3) {
-			jrbLucroReal.setSelected(true);
+			jcbxRegimeTributario.setSelectedIndex(1);
+			regimeTributario = 2;
+		} else {
+			jcbxRegimeTributario.setSelectedIndex(2);
+			regimeTributario = 3;
 		}
-		jtfPesquisaCodigoEmpresa.setText("");
-		jtfPesquisaNomeEmpresa.setText("");
-		jtfPesquisaCNPJEmpresa.setText("");
 		jtfPesquisaCodigoEmpresa.requestFocus();
+	}
+	
+	public void preencherCamposCidadeUFPais(Cidade cidade) {
+		jtfCodigoCidade.setText(String.valueOf(cidade.getIdCidade()));
+		jtfNomeCidade.setText(cidade.getNome());
+		jtfCodigoUF.setText(String.valueOf(cidade.getUnidadeFederativa().getIdUnidadeFederativa()));
+		jtfNomeUF.setText(cidade.getUnidadeFederativa().getNome());
+		jtfNomePais.setText(cidade.getUnidadeFederativa().getPais().getNome());
+	}
+	
+	public void selecionarRegimeTributario() {
+		// Regimes Tributários ---- 1 - Simples Nacional
+		//2 Lucro Presumido ----- 3 Lucro Real
+		jcbxRegimeTributario.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent evt) {
+				if((evt.getSource() == jcbxRegimeTributario) && (evt.getStateChange() == ItemEvent.SELECTED)) {
+					if(jcbxRegimeTributario.getSelectedIndex() == 0) {
+						regimeTributario = 1;
+					} else if(jcbxRegimeTributario.getSelectedIndex() == 1) {
+						regimeTributario = 2;
+					} else {
+						regimeTributario = 3;
+					}
+				}
+			}
+		});
 	}
 	
 	public void acoesDosBotoes() {
@@ -736,9 +867,6 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 					jbtEditar.setEnabled(true);
 					jbtCancelar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
-					jrbLucroPresumido.setSelected(false);
-					jrbLucroReal.setSelected(false);
-					jrbSimplesNacional.setSelected(false);
 					jtfCodigo.setText("");
 					jtfDataAlteracao.setText("");
 					jtfNomeFantasia.setText("");
@@ -753,9 +881,14 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 					jtfEndereco.setText("");
 					jtfNumero.setText("");
 					jtfBairro.setText("");
-					jtfCidade.setText("");
-					jtfUnidadeFederativa.setText("");
-					jtfPais.setText("");
+					jtfCodigoCidade.setText("");
+					jtfNomeCidade.setText("");
+					jtfCodigoUF.setText("");
+					jtfNomeUF.setText("");
+					jtfNomePais.setText("");
+					jtfPesquisaCodigoEmpresa.setText("");
+					jtfPesquisaNomeEmpresa.setText("");
+					jtfPesquisaCNPJEmpresa.setText("");
 				}
 			}
 		});
@@ -772,9 +905,6 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 					jbtEditar.setEnabled(true);
 					jbtCancelar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
-					jrbLucroPresumido.setSelected(false);
-					jrbLucroReal.setSelected(false);
-					jrbSimplesNacional.setSelected(false);
 					jtfCodigo.setText("");
 					jtfDataAlteracao.setText("");
 					jtfNomeFantasia.setText("");
@@ -789,9 +919,14 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 					jtfEndereco.setText("");
 					jtfNumero.setText("");
 					jtfBairro.setText("");
-					jtfCidade.setText("");
-					jtfUnidadeFederativa.setText("");
-					jtfPais.setText("");
+					jtfCodigoCidade.setText("");
+					jtfNomeCidade.setText("");
+					jtfCodigoUF.setText("");
+					jtfNomeUF.setText("");
+					jtfNomePais.setText("");
+					jtfPesquisaCodigoEmpresa.setText("");
+					jtfPesquisaNomeEmpresa.setText("");
+					jtfPesquisaCNPJEmpresa.setText("");
 				}
 			}
 		});
@@ -808,9 +943,6 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 					jbtEditar.setEnabled(true);
 					jbtCancelar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
-					jrbLucroPresumido.setSelected(false);
-					jrbLucroReal.setSelected(false);
-					jrbSimplesNacional.setSelected(false);
 					jtfCodigo.setText("");
 					jtfDataAlteracao.setText("");
 					jtfNomeFantasia.setText("");
@@ -825,20 +957,30 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 					jtfEndereco.setText("");
 					jtfNumero.setText("");
 					jtfBairro.setText("");
-					jtfCidade.setText("");
-					jtfUnidadeFederativa.setText("");
-					jtfPais.setText("");
+					jtfCodigoCidade.setText("");
+					jtfNomeCidade.setText("");
+					jtfCodigoUF.setText("");
+					jtfNomeUF.setText("");
+					jtfNomePais.setText("");
+					jtfPesquisaCodigoEmpresa.setText("");
+					jtfPesquisaNomeEmpresa.setText("");
+					jtfPesquisaCNPJEmpresa.setText("");
 				}
 			}
 		});
 	}
 	
 	public void pesquisaCidade() {
-		jtfCidade.addKeyListener(new KeyAdapter() {
+		jtfNomeCidade.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaCidadeUFPaisForm listaCidadeUFPaisForm = new ListaCidadeUFPaisForm(empresaForm, jtfCidade.getText());
+					ListaCidadeUFPaisForm listaCidadeUFPaisForm = new ListaCidadeUFPaisForm(empresaForm, jtfNomeCidade.getText());
 					listaCidadeUFPaisForm.setVisible(true);
+					jtfCodigoCidade.setText("");
+					jtfNomeCidade.setText("");
+					jtfCodigoUF.setText("");
+					jtfNomeUF.setText("");
+					jtfNomePais.setText("");
 				}
 			}
 		});
@@ -850,7 +992,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		setTitle("Cadastro da Empresa");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 641, 455);
+		setBounds(100, 100, 642, 457);
 		jnpEmpresa = new JPanel();
 		setLocationRelativeTo(null);
 		jnpEmpresa.setLayout(null);
@@ -866,6 +1008,10 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 
 	@Override
 	public void preencherCampos(Entidade entidade) {
-		this.preencherCamposEmpresa((Empresa)entidade);
+		if(jtfNomeCidade.isEnabled() && !jtfNomeUF.isEnabled() && !jtfNomePais.isEnabled()) {
+			this.preencherCamposCidadeUFPais((Cidade)entidade);
+		} else {
+			this.preencherCamposEmpresa((Empresa)entidade);
+		}
 	}
 }
