@@ -17,7 +17,6 @@ public class PrincipalForm extends JFrame {
 	private JPanel jpPrincipal;
 	private JMenuBar jmbPrincipal;
 	private JMenu jmnCadastro;
-	private JMenu mnUsurios;
 	private JMenu jmnServios;
 	private JMenu jmnConfiguracoes;
 	private JMenuItem jmiCarro;
@@ -46,6 +45,9 @@ public class PrincipalForm extends JFrame {
 
 		jmnCadastro = new JMenu("Cadastros");
 		jmbPrincipal.add(jmnCadastro);
+		
+		jmiCadastroUsuario = new JMenuItem("Cadastro de Usu\u00E1rio");
+		jmnCadastro.add(jmiCadastroUsuario);
 
 		jmiCarro = new JMenuItem("Carros");
 		jmnCadastro.add(jmiCarro);
@@ -58,12 +60,6 @@ public class PrincipalForm extends JFrame {
 		
 		jmiModelo = new JMenuItem("Modelos");
 		jmnCadastro.add(jmiModelo);
-		
-		mnUsurios = new JMenu("Usu\u00E1rios");
-		jmnCadastro.add(mnUsurios);
-		
-		jmiCadastroUsuario = new JMenuItem("Cadastro de Usu\u00E1rio");
-		mnUsurios.add(jmiCadastroUsuario);
 		
 		jmiTipoServico = new JMenuItem("Tipos de Servi\u00E7o");
 		jmnCadastro.add(jmiTipoServico);
