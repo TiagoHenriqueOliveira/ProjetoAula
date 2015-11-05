@@ -28,6 +28,7 @@ import preencherDados.WashCar.PreencherDados;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
 import daoFactory.WashCar.DaoFactory;
+import exception.WashCar.RegistroExistente;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -239,7 +240,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 	}
 
 	@SuppressWarnings({ "deprecation", "static-access" })
-	public void salvarCadastroUsuario() throws Exception {
+	public void salvarCadastroUsuario() throws RegistroExistente {
 		this.usuario = new Usuario();
 		if (jtfNome.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!", "Aviso",
@@ -276,7 +277,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 	}
 	
 	@SuppressWarnings({ "deprecation", "static-access" })
-	public void salvarEdicaoUsuario() throws Exception {
+	public void salvarEdicaoUsuario() throws RegistroExistente {
 		this.usuario = new Usuario();
 		if (jtfNome.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do usuário!!!", "Aviso",
@@ -372,14 +373,18 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
 						try {
 							salvarEdicaoUsuario();
-						} catch (Exception salvarEdicao) {
-							salvarEdicao.printStackTrace();
+						} catch (RegistroExistente salvarEdicao) {
+							JOptionPane.showMessageDialog(usuarioForm, salvarEdicao.usuarioExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							jtfLogin.setText("");
+							jtfLogin.requestFocus();
 						}
 					} else {
 						try {
 							salvarCadastroUsuario();
-						} catch (Exception salvarCadastro) {
-							salvarCadastro.printStackTrace();
+						} catch (RegistroExistente salvarCadastro) {
+							JOptionPane.showMessageDialog(usuarioForm, salvarCadastro.usuarioExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							jtfLogin.setText("");
+							jtfLogin.requestFocus();
 						}
 					}
 				}
