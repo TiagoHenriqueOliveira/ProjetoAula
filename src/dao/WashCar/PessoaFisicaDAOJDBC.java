@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import conexao.ConexaoUtil;
 import exception.WashCar.RegistroExistente;
 import model.WashCar.PessoaFisica;
 
@@ -16,6 +17,10 @@ public class PessoaFisicaDAOJDBC implements PessoaFisicaDAO{
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	private String query;
+	
+	public PessoaFisicaDAOJDBC() {
+		connection = ConexaoUtil.openConnection();
+	}
 
 	@Override
 	public void inserir(PessoaFisica pessoa) throws RegistroExistente {
