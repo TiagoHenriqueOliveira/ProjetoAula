@@ -1,12 +1,18 @@
 package dao.WashCar;
 
+import java.util.List;
+
 import exception.WashCar.RegistroExistente;
 import model.WashCar.PessoaJuridica;
 
 public interface PessoaJuridicaDAO {
 
-	public PessoaJuridica inserir() throws RegistroExistente;
+	void inserir(PessoaJuridica pessoa) throws RegistroExistente;
 	
-	public PessoaJuridica alterar() throws RegistroExistente;
+	void alterar(PessoaJuridica pessoa) throws RegistroExistente;
+	
+	public PessoaJuridica buscarDocumento(String documento);
+	
+	List<PessoaJuridica> buscarNome(String nome);
 	
 }
