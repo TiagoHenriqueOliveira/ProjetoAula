@@ -3,6 +3,7 @@ package dao.WashCar;
 import java.util.List;
 
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 
 public interface GenericDAO<T> {
 
@@ -12,10 +13,10 @@ public interface GenericDAO<T> {
 	
 	void excluir(T entidade) throws RegistroExistente;
 	
-	T buscarId(Integer id);
+	T buscarId(Integer id) throws RegistroNotExistente;
 	
-	List<T> buscarDescricao(String nome);
+	List<T> buscarDescricao(String nome) throws RegistroNotExistente;
 	
-	List<T> todos();
+	List<T> todos() throws RegistroNotExistente;
 	
 }

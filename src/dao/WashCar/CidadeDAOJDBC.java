@@ -33,7 +33,8 @@ public class CidadeDAOJDBC implements CidadeDAO{
 				+ "on tb_cidade.idUF = tb_UF.idUF "
 				+ "inner join tb_pais "
 				+ "on tb_UF.idPais = tb_pais.idPais "
-				+ "where tb_cidade.nomeCidade like ?";
+				+ "where tb_cidade.nomeCidade like ? "
+				+ "order by tb_cidade.nomeCidade";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, "%" + descricao + "%");
@@ -59,7 +60,8 @@ public class CidadeDAOJDBC implements CidadeDAO{
 				+ "inner join tb_UF "
 				+ "on tb_cidade.idUF = tb_UF.idUF "
 				+ "inner join tb_pais "
-				+ "on tb_UF.idPais = tb_pais.idPais";
+				+ "on tb_UF.idPais = tb_pais.idPais "
+				+ "order by tb_cidade.nomeCidade";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();

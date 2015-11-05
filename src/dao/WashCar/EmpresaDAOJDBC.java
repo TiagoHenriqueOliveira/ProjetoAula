@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexao.ConexaoUtil;
+import exception.WashCar.RegistroExistente;
 import model.WashCar.Cidade;
 import model.WashCar.Empresa;
 import model.WashCar.Pais;
@@ -27,7 +28,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	
 	@SuppressWarnings("static-access")
 	@Override
-	public void inserir(Empresa empresa) throws Exception{
+	public void inserir(Empresa empresa) throws RegistroExistente {
 		sql = "insert into tb_empresa(razaoSocialEmpresa, nomeFantasiaEmpresa, cnpjEmpresa, inscricaoEstadualEmpresa, inscricaoMunicipalEmpresa, enderecoEmpresa, bairroEmpresa, numeroEmpresa, "
 				+ "telefoneComercialEmpresa, telefoneCelularEmpresa, faxEmpresa, emailEmpresa, regimeTributario, empresaForaUso, dataAlteracaoEmpresa, idCidade)"
 				+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -52,13 +53,13 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 			pstmt.executeUpdate();
 			empresa.setIdEmpresa(obterUltimoID(pstmt, rs));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void alterar(Empresa empresa) throws Exception{
+	public void alterar(Empresa empresa) throws RegistroExistente {
 		sql = "update tb_empresa "
 				+ "set tb_empresa.razaoSocialEmpresa = ?, tb_empresa.nomeFantasiaEmpresa = ?, tb_empresa.cnpjEmpresa = ?, "
 				+ "tb_empresa.inscricaoEstadualEmpresa = ?, tb_empresa.inscricaoMunicipalEmpresa = ?, tb_empresa.enderecoEmpresa = ?, "
@@ -87,12 +88,12 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 			pstmt.setInt(17, empresa.getIdEmpresa());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 
 	@Override
-	public void excluir(Empresa emprea) throws Exception{
+	public void excluir(Empresa emprea) throws RegistroExistente {
 		// TODO Auto-generated method stub
 	}
 
@@ -275,7 +276,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	}
 
 	@Override
-	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws Exception {
+	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws RegistroExistente {
 		try {
 			rs = pstmt.executeQuery("select last_insert_id()");
 			while(rs.next()) {

@@ -11,6 +11,7 @@ import java.util.List;
 import conexao.ConexaoUtil;
 import model.WashCar.Marca;
 import dao.WashCar.MarcaDAO;
+import exception.WashCar.RegistroExistente;
 
 public class MarcaDAOJDBC implements MarcaDAO{
 	
@@ -25,7 +26,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void inserir(Marca marca) throws Exception{
+	public void inserir(Marca marca) throws RegistroExistente{
 		sql = "insert into tb_marca(nomeMarca, dataAlteracaoMarca, marcaForaUso)"
 				+ "values(?,?,?)";
 		try {
@@ -36,13 +37,13 @@ public class MarcaDAOJDBC implements MarcaDAO{
 			pstmt.executeUpdate();
 			marca.setIdMarca(obterUltimoID(pstmt, rs));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void alterar(Marca marca) {
+	public void alterar(Marca marca) throws RegistroExistente{
 		sql = "update tb_marca "
 				+ "set tb_marca.nomeMarca = ?, tb_marca.marcaForaUso = ?, tb_marca.dataAlteracaoMarca = ? "
 				+ "where tb_marca.idMarca = ?";
@@ -54,12 +55,12 @@ public class MarcaDAOJDBC implements MarcaDAO{
 			pstmt.setInt(4, marca.getIdMarca());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 
 	@Override
-	public void excluir(Marca marca) throws Exception{
+	public void excluir(Marca marca) throws RegistroExistente{
 		// TODO Auto-generated method stub
 	}
 
@@ -130,7 +131,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	}
 
 	@Override
-	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws Exception {
+	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws RegistroExistente {
 		try {
 			rs = pstmt.executeQuery("select last_insert_id()");
 			while(rs.next()) {

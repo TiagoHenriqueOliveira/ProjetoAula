@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexao.ConexaoUtil;
+import exception.WashCar.RegistroExistente;
 import model.WashCar.Marca;
 import model.WashCar.Modelo;
 
@@ -25,7 +26,7 @@ public class ModeloDAOJDBC implements ModeloDAO{
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void inserir(Modelo modelo) throws Exception {
+	public void inserir(Modelo modelo) throws RegistroExistente {
 		sql = "insert into tb_modelo(nomeModelo, dataAlteracaoModelo, idMarca, modeloForaUso) "
 				+ "values(?, ?, ?, ?)";
 		try {
@@ -37,13 +38,13 @@ public class ModeloDAOJDBC implements ModeloDAO{
 			pstmt.executeUpdate();
 			modelo.setIdModelo(obterUltimoID(pstmt, rs));
 		} catch (SQLException insert) {
-			insert.printStackTrace();
+			throw new RegistroExistente(insert.getMessage());
 		}
 	}
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void alterar(Modelo modelo) throws Exception {
+	public void alterar(Modelo modelo) throws RegistroExistente {
 		sql = "update tb_modelo "
 				+ "set tb_modelo.nomeModelo = ?, tb_modelo.dataAlteracaoModelo = ?, tb_modelo.idMarca = ?, tb_modelo.modeloForaUso = ? "
 				+ "where tb_modelo.idModelo = ?";
@@ -56,12 +57,12 @@ public class ModeloDAOJDBC implements ModeloDAO{
 			pstmt.setInt(5, modelo.getIdModelo());
 			pstmt.executeUpdate();			
 		} catch (SQLException update) {
-			update.printStackTrace();
+			throw new RegistroExistente(update.getMessage());
 		}
 	}
 
 	@Override
-	public void excluir(Modelo modelo) throws Exception {
+	public void excluir(Modelo modelo) throws RegistroExistente {
 		// TODO Auto-generated method stub
 	}
 
@@ -141,7 +142,7 @@ public class ModeloDAOJDBC implements ModeloDAO{
 	}
 
 	@Override
-	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws Exception {
+	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws RegistroExistente {
 		try {
 			rs = pstmt.executeQuery("select last_insert_id()");
 			while(rs.next())	{

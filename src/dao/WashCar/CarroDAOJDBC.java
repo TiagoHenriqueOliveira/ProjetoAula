@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexao.ConexaoUtil;
+import exception.WashCar.RegistroExistente;
 import model.WashCar.Carro;
 import model.WashCar.Modelo;
 
@@ -25,7 +26,7 @@ public class CarroDAOJDBC implements CarroDAO{
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void inserir(Carro carro) throws Exception {
+	public void inserir(Carro carro) throws RegistroExistente {
 		sql = "insert into tb_carro(nomeCarro, placaCarro, carroForaUso, dataAlteracaoCarro, idModelo) "
 				+ "values(?, ?, ?, ?, ?)";
 		try {
@@ -38,13 +39,13 @@ public class CarroDAOJDBC implements CarroDAO{
 			pstmt.executeUpdate();
 			carro.setIdCarro(obterUltimoID(pstmt, rs));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void alterar(Carro carro) throws Exception {
+	public void alterar(Carro carro) throws RegistroExistente {
 		sql = "update tb_carro "
 				+ "set tb_carro.nomeCarro = ?, tb_carro.placaCarro = ?, tb_carro.carroForaUso = ?, tb_carro.dataAlteracaoCarro = ?, tb_carro.idModelo = ? "
 				+ "where tb_carro.idCarro = ?";
@@ -58,12 +59,12 @@ public class CarroDAOJDBC implements CarroDAO{
 			pstmt.setInt(6, carro.getIdCarro());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 
 	@Override
-	public void excluir(Carro carro) throws Exception {
+	public void excluir(Carro carro) throws RegistroExistente {
 		// TODO Auto-generated method stub
 	}
 
@@ -171,7 +172,7 @@ public class CarroDAOJDBC implements CarroDAO{
 	}
 
 	@Override
-	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws Exception {
+	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws RegistroExistente {
 		try {
 			rs = pstmt.executeQuery("select last_insert_id()");
 			while(rs.next())	{

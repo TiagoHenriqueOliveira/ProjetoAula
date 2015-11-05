@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexao.ConexaoUtil;
+import exception.WashCar.RegistroExistente;
 import model.WashCar.Usuario;
 
-public class UsuarioDAOJDBC implements UsuarioDAO{
+public class UsuarioDAOJDBC implements UsuarioDAO {
 	
 	private Connection connection;
 	private String sql;
@@ -24,7 +25,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 
 	@SuppressWarnings({ "static-access"})
 	@Override
-	public void inserir(Usuario usuario) throws Exception {
+	public void inserir(Usuario usuario) throws RegistroExistente {
 		sql = "insert into tb_usuario(nomeUsuario, loginUsuario, senhaUsuario, dataAlteracaoUsuario, idEmpresa, usuarioForaUso) "
 				+ "values(?,?,?,?,?,?)";
 		try {
@@ -33,18 +34,18 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 			pstmt.setString(2, usuario.getLogin());
 			pstmt.setString(3, usuario.getSenha());
 			pstmt.setDate(4, Date.valueOf(usuario.getDataAltercacao().now()));
-			pstmt.setInt(5,  usuario.getEmpresa().getIdEmpresa());
+			pstmt.setInt(5, usuario.getEmpresa().getIdEmpresa());
 			pstmt.setBoolean(6, usuario.isForaUso());
 			pstmt.executeUpdate();
 			usuario.setIdUsuario(obterUltimoID(pstmt, rs));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void alterar(Usuario usuario) throws Exception{
+	public void alterar(Usuario usuario) throws RegistroExistente {
 		sql = "update tb_usuario "
 				+"set tb_usuario.nomeUsuario = ?, tb_usuario.loginUsuario = ?, tb_usuario.senhaUsuario = ?, tb_usuario.dataAlteracaoUsuario = ?, tb_usuario.usuarioForaUso = ? "
 				+"where tb_usuario.idUsuario = ?";
@@ -58,12 +59,12 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 			pstmt.setInt(6, usuario.getIdUsuario());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 
 	@Override
-	public void excluir(Usuario usuario) throws Exception{
+	public void excluir(Usuario usuario) throws RegistroExistente{
 		// TODO Auto-generated method stub
 	}
 
@@ -163,7 +164,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
 	}
 
 	@Override
-	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws Exception {
+	public Integer obterUltimoID(PreparedStatement pstmt, ResultSet rs) throws RegistroExistente {
 		try {
 			rs = pstmt.executeQuery("select last_insert_id()");
 			while(rs.next()) {
