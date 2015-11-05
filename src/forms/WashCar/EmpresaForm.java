@@ -549,6 +549,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 				this.empresa.setInscricaoEstadual("ISENTO");
 			} else {
 				this.empresa.setInscricaoEstadual(jtfInscricaoEstadual.getText());
+				jtfInscricaoEstadual.setText("");
 			}
 			this.empresa.setInscricaoMunicipal(jtfInscricaoMunicipal.getText());
 			this.empresa.setTelefoneCelular(jtfTelefoneCelular.getText());
