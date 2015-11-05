@@ -9,4 +9,8 @@ public interface PessoaFisicaDAO {
 	
 	public PessoaFisica alterar() throws RegistroExistente;
 	
+	public PessoaFisica buscarNome(String nome) throws RegistroExistente;
+	
+	public PessoaFisica buscarDocumento(String documento) throws RegistroExistente;
+	
 }
