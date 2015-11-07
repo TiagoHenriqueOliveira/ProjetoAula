@@ -372,7 +372,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 						try {
 							salvarEdicaoUsuario();
 						} catch (RegistroExistente salvarEdicao) {
-							JOptionPane.showMessageDialog(usuarioForm, salvarEdicao.usuarioExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(usuarioForm, salvarEdicao.usuarioJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 							jtfLogin.setText("");
 							jtfLogin.requestFocus();
 						}
@@ -380,7 +380,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 						try {
 							salvarCadastroUsuario();
 						} catch (RegistroExistente salvarCadastro) {
-							JOptionPane.showMessageDialog(usuarioForm, salvarCadastro.usuarioExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(usuarioForm, salvarCadastro.usuarioJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 							jtfLogin.setText("");
 							jtfLogin.requestFocus();
 						}

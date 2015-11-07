@@ -816,13 +816,13 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 						try {
 							salvarEdicaoEmpresa();
 						} catch (RegistroExistente salvarEdicao) {
-							JOptionPane.showMessageDialog(empresaForm, salvarEdicao.documentoExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(empresaForm, salvarEdicao.documentoJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					} else {
 						try {
 							salvarCadastroEmpresa();
 						} catch (RegistroExistente salvarCadastro) {
-							JOptionPane.showMessageDialog(empresaForm, salvarCadastro.documentoExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(empresaForm, salvarCadastro.documentoJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}

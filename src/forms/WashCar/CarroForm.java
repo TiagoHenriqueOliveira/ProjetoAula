@@ -417,13 +417,13 @@ public class CarroForm extends JFrame implements PreencherDados{
 						try {
 							salvarEdicaoCarro();
 						} catch (RegistroExistente salvarEdicao) {
-							JOptionPane.showMessageDialog(carroForm, salvarEdicao.placaExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(carroForm, salvarEdicao.placaJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					} else {
 						try {
 							salvarCadastroCarro();
 						} catch (RegistroExistente salvarCadastro) {
-							JOptionPane.showMessageDialog(carroForm, salvarCadastro.placaExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(carroForm, salvarCadastro.placaJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}

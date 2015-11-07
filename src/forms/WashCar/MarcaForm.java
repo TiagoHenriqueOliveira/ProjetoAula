@@ -301,13 +301,13 @@ public class MarcaForm extends JFrame implements PreencherDados{
 						try {
 							salvarEdicaoMarca();
 						} catch (RegistroExistente salvarEdicao) {
-							JOptionPane.showMessageDialog(marcaForm, salvarEdicao.marcaExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(marcaForm, salvarEdicao.marcaJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					} else {
 						try {
 							salvarCadastroMarca();
 						} catch (RegistroExistente salvarCadastro) {
-							JOptionPane.showMessageDialog(marcaForm, salvarCadastro.marcaExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(marcaForm, salvarCadastro.marcaJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}

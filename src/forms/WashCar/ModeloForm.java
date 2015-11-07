@@ -371,13 +371,13 @@ public class ModeloForm extends JFrame implements PreencherDados{
 						try {
 							salvarEdicaoModelo();
 						} catch (RegistroExistente salvarEdicao) {
-							JOptionPane.showMessageDialog(modeloForm, salvarEdicao.modeloExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(modeloForm, salvarEdicao.modeloJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					} else {
 						try {
 							salvarCadastroModelo();
 						} catch (RegistroExistente salvarCadastro) {
-							JOptionPane.showMessageDialog(modeloForm, salvarCadastro.modeloExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(modeloForm, salvarCadastro.modeloJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}
