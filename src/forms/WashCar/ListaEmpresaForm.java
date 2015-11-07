@@ -51,19 +51,19 @@ public class ListaEmpresaForm extends JFrame {
 		jttListaEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jttListaEmpresa.setModel(dtmListaEmpresa);
 		jttListaEmpresa.getColumnModel().getColumn(0).setResizable(false);
-		jttListaEmpresa.getColumnModel().getColumn(0).setPreferredWidth(20);
+		jttListaEmpresa.getColumnModel().getColumn(0).setPreferredWidth(10);
 		jttListaEmpresa.getColumnModel().getColumn(1).setResizable(false);
-		jttListaEmpresa.getColumnModel().getColumn(1).setPreferredWidth(150);
+		jttListaEmpresa.getColumnModel().getColumn(1).setPreferredWidth(200);
 		jttListaEmpresa.getColumnModel().getColumn(2).setResizable(false);
-		jttListaEmpresa.getColumnModel().getColumn(2).setPreferredWidth(100);
+		jttListaEmpresa.getColumnModel().getColumn(2).setPreferredWidth(200);
 		jttListaEmpresa.getColumnModel().getColumn(3).setResizable(false);
-		jttListaEmpresa.getColumnModel().getColumn(3).setPreferredWidth(100);
+		jttListaEmpresa.getColumnModel().getColumn(3).setPreferredWidth(80);
 		jttListaEmpresa.getColumnModel().getColumn(4).setResizable(false);
-		jttListaEmpresa.getColumnModel().getColumn(4).setPreferredWidth(100);
+		jttListaEmpresa.getColumnModel().getColumn(4).setPreferredWidth(80);
 		jttListaEmpresa.getColumnModel().getColumn(5).setResizable(false);
-		jttListaEmpresa.getColumnModel().getColumn(5).setPreferredWidth(100);
+		jttListaEmpresa.getColumnModel().getColumn(5).setPreferredWidth(80);
 		jspListaEmpresa = new JScrollPane(jttListaEmpresa);
-		jspListaEmpresa.setBounds(10, 10, 774, 300);
+		jspListaEmpresa.setBounds(10, 10, 984, 300);
 		jpnListaEmpresa.add(jspListaEmpresa);
 		
 		jbtSelecionarEmpresa = new JButton("Selecionar");
@@ -163,7 +163,7 @@ public class ListaEmpresaForm extends JFrame {
 		setResizable(false);
 		setTitle("Lista de Empresas");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 400);
+		setBounds(100, 100, 1010, 400);
 		setLocationRelativeTo(null);
 		jpnListaEmpresa = new JPanel();
 		jpnListaEmpresa.setLayout(null);
