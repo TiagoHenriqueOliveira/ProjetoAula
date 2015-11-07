@@ -7,6 +7,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.text.MaskFormatter;
 
 import daoFactory.WashCar.DaoFactory;
+import exception.WashCar.RegistroExistente;
 
 import javax.swing.JLabel;
 
@@ -104,7 +105,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 	private JCheckBox jckbxIsento;
 	private static EmpresaForm empresaForm;
 	private Empresa empresa;
-	private Integer regimeTributario = null;
+	private Integer regimeTributario = 0;
 
 	public void componentesTelaEmpresa() {
 		jpnPesquisaEmpresa = new JPanel();
@@ -513,7 +514,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarCadastroEmpresa() throws Exception{
+	public void salvarCadastroEmpresa() throws RegistroExistente {
 		this.empresa = new Empresa();
 		if(jtfRazaoSocial.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar a razão social!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -589,7 +590,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarEdicaoEmpresa() throws Exception{
+	public void salvarEdicaoEmpresa() throws RegistroExistente {
 		this.empresa = new Empresa();
 		if(jtfRazaoSocial.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar a razão social!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -814,14 +815,14 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
 						try {
 							salvarEdicaoEmpresa();
-						} catch (Exception salvarEdicao) {
-							salvarEdicao.printStackTrace();
+						} catch (RegistroExistente salvarEdicao) {
+							JOptionPane.showMessageDialog(empresaForm, salvarEdicao.documentoExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					} else {
 						try {
 							salvarCadastroEmpresa();
-						} catch (Exception salvarEmpresa) {
-							salvarEmpresa.printStackTrace();
+						} catch (RegistroExistente salvarCadastro) {
+							JOptionPane.showMessageDialog(empresaForm, salvarCadastro.documentoExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}
