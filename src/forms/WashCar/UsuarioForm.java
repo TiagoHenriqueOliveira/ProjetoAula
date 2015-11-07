@@ -352,8 +352,6 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		} else {
 			jckbForaUso.setSelected(false);
 		}
-		jtfPesquisaCodigoUsuario.setText(null);
-		jtfPesquisaNomeUsuario.setText(null);
 		jtfPesquisaCodigoUsuario.requestFocus();
 	}
 	
@@ -436,6 +434,8 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 					jbtEditar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
 					jbtCancelar.setEnabled(true);
+					jtfPesquisaCodigoUsuario.setText("");
+					jtfPesquisaNomeUsuario.setText("");
 				}
 			}
 		});
@@ -465,6 +465,8 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 					jbtEditar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
 					jbtCancelar.setEnabled(true);
+					jtfPesquisaCodigoUsuario.setText("");
+					jtfPesquisaNomeUsuario.setText("");
 				}
 			}
 		});
