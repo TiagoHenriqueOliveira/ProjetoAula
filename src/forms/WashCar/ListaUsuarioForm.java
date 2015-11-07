@@ -19,7 +19,6 @@ import javax.swing.table.DefaultTableModel;
 import model.WashCar.Usuario;
 import preencherDados.WashCar.PreencherDados;
 import dao.WashCar.UsuarioDAOJDBC;
-import exception.WashCar.RegistroNotExistente;
 
 public class ListaUsuarioForm extends JFrame {
 	
