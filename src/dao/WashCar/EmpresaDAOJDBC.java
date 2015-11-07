@@ -31,7 +31,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	public void inserir(Empresa empresa) throws RegistroExistente {
 		sql = "insert into tb_empresa(razaoSocialEmpresa, nomeFantasiaEmpresa, cnpjEmpresa, inscricaoEstadualEmpresa, inscricaoMunicipalEmpresa, enderecoEmpresa, bairroEmpresa, numeroEmpresa, "
 				+ "telefoneComercialEmpresa, telefoneCelularEmpresa, faxEmpresa, emailEmpresa, regimeTributario, empresaForaUso, dataAlteracaoEmpresa, idCidade)"
-				+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?, ?)";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, empresa.getRazaoSocial());
