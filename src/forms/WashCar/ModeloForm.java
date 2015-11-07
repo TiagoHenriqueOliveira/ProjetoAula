@@ -8,6 +8,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.text.MaskFormatter;
 
 import daoFactory.WashCar.DaoFactory;
+import exception.WashCar.RegistroExistente;
 import model.WashCar.Entidade;
 import model.WashCar.Marca;
 import model.WashCar.Modelo;
@@ -245,7 +246,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarCadastroModelo() throws Exception {
+	public void salvarCadastroModelo() throws RegistroExistente {
 		this.modelo = new Modelo();
 		if(jtfNomeModelo.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do modelo!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -272,7 +273,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarEdicaoModelo() throws Exception{
+	public void salvarEdicaoModelo() throws RegistroExistente {
 		this.modelo = new Modelo();
 		if(jtfNomeModelo.equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do modelo!!!",
@@ -340,8 +341,6 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			jckbForaUso.setSelected(false);
 		}
 		jtfPesquisaCodigoModelo.requestFocus();
-		jtfPesquisaCodigoModelo.setText("");
-		jtfPesquisaNomeModelo.setText("");
 	}
 	
 	public void preencherCamposMarca(Marca marca) {
@@ -371,14 +370,14 @@ public class ModeloForm extends JFrame implements PreencherDados{
 					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
 						try {
 							salvarEdicaoModelo();
-						} catch (Exception salvarEdicao) {
-							salvarEdicao.printStackTrace();
+						} catch (RegistroExistente salvarEdicao) {
+							JOptionPane.showMessageDialog(modeloForm, salvarEdicao.modeloExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					} else {
 						try {
 							salvarCadastroModelo();
-						} catch (Exception salvarCadastro) {
-							salvarCadastro.printStackTrace();
+						} catch (RegistroExistente salvarCadastro) {
+							JOptionPane.showMessageDialog(modeloForm, salvarCadastro.modeloExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}
@@ -431,6 +430,8 @@ public class ModeloForm extends JFrame implements PreencherDados{
 					jtfDataAlteracao.setText("");
 					jckbForaUso.setSelected(false);
 					jckbForaUso.setEnabled(false);
+					jtfPesquisaCodigoModelo.setText("");
+					jtfPesquisaNomeModelo.setText("");
 				}
 			}
 		});
@@ -453,6 +454,8 @@ public class ModeloForm extends JFrame implements PreencherDados{
 					jtfDataAlteracao.setText("");
 					jckbForaUso.setSelected(false);
 					jckbForaUso.setEnabled(false);
+					jtfPesquisaCodigoModelo.setText("");
+					jtfPesquisaNomeModelo.setText("");
 				}
 			}
 		});
@@ -464,6 +467,8 @@ public class ModeloForm extends JFrame implements PreencherDados{
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					ListaMarcaForm listaMarcaForm = new ListaMarcaForm(modeloForm, jtfNomeMarca.getText(), null);
 					listaMarcaForm.setVisible(true);
+					jtfCodigoMarca.setText("");
+					jtfNomeMarca.setText("");
 				}
 			}
 		});
