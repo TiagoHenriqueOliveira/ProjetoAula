@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JCheckBox;
 
 import daoFactory.WashCar.DaoFactory;
+import exception.WashCar.RegistroExistente;
 import model.WashCar.Entidade;
 import model.WashCar.Marca;
 import preencherDados.WashCar.PreencherDados;
@@ -61,8 +62,6 @@ public class MarcaForm extends JFrame implements PreencherDados{
 	private JMenuBar jmbMarcas;
 	private Marca marca;
 	private static MarcaForm marcaForm;
-	private String nomeMarca;
-	private String codigoMarca;
 	
 	public void componentesTelaMarca() {
 		jpnPesquisaMarcas = new JPanel();
@@ -207,7 +206,7 @@ public class MarcaForm extends JFrame implements PreencherDados{
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarCadastroMarca() throws Exception {
+	public void salvarCadastroMarca() throws RegistroExistente {
 		this.marca = new Marca();
 		if(jtfNomeMarca.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -229,7 +228,7 @@ public class MarcaForm extends JFrame implements PreencherDados{
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarEdicaoMarca() throws Exception{
+	public void salvarEdicaoMarca() throws RegistroExistente{
 		this.marca = new Marca();
 		if(jtfNomeMarca.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -283,10 +282,6 @@ public class MarcaForm extends JFrame implements PreencherDados{
 		} else {
 			jckbxForaUso.setSelected(false);
 		}
-		jtfPesquisaCodigoMarca.setText("");
-		jtfPesquisaNomeMarca.setText("");
-		setCodigoMarca("");
-		setNomeMarca("");
 		jtfPesquisaCodigoMarca.requestFocus();
 	}
 	
@@ -305,14 +300,14 @@ public class MarcaForm extends JFrame implements PreencherDados{
 					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
 						try {
 							salvarEdicaoMarca();
-						} catch (Exception salvarEdicao) {
-							salvarEdicao.printStackTrace();
+						} catch (RegistroExistente salvarEdicao) {
+							JOptionPane.showMessageDialog(marcaForm, salvarEdicao.marcaExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					} else {
 						try {
 							salvarCadastroMarca();
-						} catch (Exception salvarCadastro) {
-							salvarCadastro.printStackTrace();
+						} catch (RegistroExistente salvarCadastro) {
+							JOptionPane.showMessageDialog(marcaForm, salvarCadastro.marcaExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}
@@ -363,6 +358,8 @@ public class MarcaForm extends JFrame implements PreencherDados{
 					jbtNovo.setEnabled(true);
 					jbtCancelar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
+					jtfPesquisaCodigoMarca.setText("");
+					jtfPesquisaNomeMarca.setText("");
 				}
 			}
 		});
@@ -384,25 +381,11 @@ public class MarcaForm extends JFrame implements PreencherDados{
 					jbtNovo.setEnabled(true);
 					jbtCancelar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
+					jtfPesquisaCodigoMarca.setText("");
+					jtfPesquisaNomeMarca.setText("");
 				}
 			}
 		});
-	}
-	
-	public String getNomeMarca() {
-		return nomeMarca;
-	}
-
-	public void setNomeMarca(String nomeMarca) {
-		this.nomeMarca = nomeMarca;
-	}
-
-	public String getCodigoMarca() {
-		return codigoMarca;
-	}
-
-	public void setCodigoMarca(String codigoMarca) {
-		this.codigoMarca = codigoMarca;
 	}
 
 	public MarcaForm() {
