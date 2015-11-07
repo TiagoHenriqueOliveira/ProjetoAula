@@ -33,7 +33,7 @@ public class PessoaFisicaDAOJDBC implements PessoaFisicaDAO{
 			pstmt.setInt(4, pessoa.getIdCliente());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 
@@ -51,7 +51,7 @@ public class PessoaFisicaDAOJDBC implements PessoaFisicaDAO{
 			pstmt.setInt(4, pessoa.getIdCliente());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 

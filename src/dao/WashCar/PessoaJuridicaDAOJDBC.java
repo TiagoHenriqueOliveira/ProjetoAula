@@ -36,7 +36,7 @@ public class PessoaJuridicaDAOJDBC implements PessoaJuridicaDAO{
 			pstmt.setInt(6, pessoa.getIdCliente());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}
 	}
 
@@ -57,7 +57,7 @@ public class PessoaJuridicaDAOJDBC implements PessoaJuridicaDAO{
 			pstmt.setInt(6, pessoa.getIdCliente());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RegistroExistente(e.getMessage());
 		}		
 	}
 
