@@ -7,6 +7,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.text.MaskFormatter;
 
 import daoFactory.WashCar.DaoFactory;
+import exception.WashCar.RegistroExistente;
 import model.WashCar.Carro;
 import model.WashCar.Entidade;
 import model.WashCar.Modelo;
@@ -191,13 +192,13 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(140, 201, 120, 25);
+		jbtEditar.setBounds(270, 201, 120, 25);
 		jpnCarro.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(270, 201, 120, 25);
+		jbtSalvar.setBounds(140, 201, 120, 25);
 		jpnCarro.add(jbtSalvar);
 		
 		jbtFechar = new JButton("Fechar");
@@ -273,7 +274,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarCadastroCarro() throws Exception {
+	public void salvarCadastroCarro() throws RegistroExistente {
 		this.carro = new Carro();
 		if(jtfNomeCarro.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do carro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -306,7 +307,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarEdicaoCarro() throws Exception {
+	public void salvarEdicaoCarro() throws RegistroExistente {
 		this.carro = new Carro();
 		if (jtfNomeCarro.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do carro!!!", "Aviso",
@@ -415,14 +416,14 @@ public class CarroForm extends JFrame implements PreencherDados{
 					if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
 						try {
 							salvarEdicaoCarro();
-						} catch (Exception salvarEdicao) {
-							salvarEdicao.printStackTrace();
+						} catch (RegistroExistente salvarEdicao) {
+							JOptionPane.showMessageDialog(carroForm, salvarEdicao.placaExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					} else {
 						try {
 							salvarCadastroCarro();
-						} catch (Exception salvarCadastro) {
-							salvarCadastro.printStackTrace();
+						} catch (RegistroExistente salvarCadastro) {
+							JOptionPane.showMessageDialog(carroForm, salvarCadastro.placaExistente(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}
@@ -465,6 +466,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 					ListaCarroForm listaCarro = new ListaCarroForm(carroForm, null, codigo, null);
 					listaCarro.setVisible(true);
 					jtfNomeCarro.setEnabled(false);
+					jtfPlacaCarro.setEnabled(false);
 					jtfNomeModelo.setEnabled(false);
 					jckbxForaUso.setEnabled(false);
 					jckbxForaUso.setSelected(false);
@@ -492,6 +494,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 					ListaCarroForm listaCarro = new ListaCarroForm(carroForm, jtfPesquisaNomeCarro.getText(), null, null);
 					listaCarro.setVisible(true);
 					jtfNomeCarro.setEnabled(false);
+					jtfPlacaCarro.setEnabled(false);
 					jtfNomeModelo.setEnabled(false);
 					jckbxForaUso.setEnabled(false);
 					jckbxForaUso.setSelected(false);
@@ -519,6 +522,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 					ListaCarroForm listaCarro = new ListaCarroForm(carroForm, null, null, jtfPesquisaPlacaCarro.getText());
 					listaCarro.setVisible(true);
 					jtfNomeCarro.setEnabled(false);
+					jtfPlacaCarro.setEnabled(false);
 					jtfNomeModelo.setEnabled(false);
 					jckbxForaUso.setEnabled(false);
 					jckbxForaUso.setSelected(false);
@@ -545,6 +549,8 @@ public class CarroForm extends JFrame implements PreencherDados{
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					ListaModeloForm listaModelo = new ListaModeloForm(carroForm, jtfNomeModelo.getText(), null);
 					listaModelo.setVisible(true);
+					jtfCodigoModelo.setText("");
+					jtfNomeModelo.setText("");
 				}
 			}
 		});
