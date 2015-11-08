@@ -1,19 +1,15 @@
 package model.WashCar;
 
-import java.time.LocalDate;
-
 public class PessoaFisica extends Cliente {
 	
 	private String nome;
 	private String cpf;
 	private String rg;
-	private LocalDate dataNascimento;
 	
-	public PessoaFisica(String nome, String cpf, String rg, LocalDate dataNascimento) {
+	public PessoaFisica(String nome, String cpf, String rg) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;
-		this.dataNascimento = dataNascimento;
 	}
 	public PessoaFisica() {
 		
@@ -36,11 +32,5 @@ public class PessoaFisica extends Cliente {
 	}
 	public void setRg(String rg) {
 		this.rg = rg;
-	}
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
 	}
 }
