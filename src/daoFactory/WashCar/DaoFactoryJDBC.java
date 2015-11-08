@@ -12,6 +12,10 @@ import dao.WashCar.UsuarioDAOJDBC;
 import dao.WashCar.MarcaDAOJDBC;
 import dao.WashCar.ModeloDAO;
 import dao.WashCar.ModeloDAOJDBC;
+import dao.WashCar.PessoaFisicaDAO;
+import dao.WashCar.PessoaFisicaDAOJDBC;
+import dao.WashCar.PessoaJuridicaDAO;
+import dao.WashCar.PessoaJuridicaDAOJDBC;
 
 public class DaoFactoryJDBC implements AbstractDaoFactory{
 
@@ -42,5 +46,15 @@ public class DaoFactoryJDBC implements AbstractDaoFactory{
 	@Override
 	public CarroDAO carroDao() {
 		return new CarroDAOJDBC();
+	}
+
+	@Override
+	public PessoaFisicaDAO pessoaFisicaDao() {
+		return new PessoaFisicaDAOJDBC();
+	}
+
+	@Override
+	public PessoaJuridicaDAO pessoaJuridicaDao() {
+		return new PessoaJuridicaDAOJDBC();
 	}
 }
