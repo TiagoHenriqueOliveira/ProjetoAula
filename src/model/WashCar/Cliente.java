@@ -17,8 +17,6 @@ public class Cliente implements Entidade {
 	private String email;
 	private Integer tipoPessoa;
 	private Empresa empresa;
-	private Carro carro;
-	private OrdemServico ordemServiço;
 	private Cidade cidade;
 	private LocalDate dataAltercacao;
 	private Boolean foraUso;
@@ -159,21 +157,5 @@ public class Cliente implements Entidade {
 
 	public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		this.pessoaJuridica = pessoaJuridica;
-	}
-	
-	public Carro getCarro() {
-		return carro;
-	}
-
-	public void setCarro(Carro carro) {
-		this.carro = carro;
-	}
-
-	public OrdemServico getOrdemServiço() {
-		return ordemServiço;
-	}
-
-	public void setOrdemServiço(OrdemServico ordemServiço) {
-		this.ordemServiço = ordemServiço;
 	}
 }
