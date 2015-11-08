@@ -5,8 +5,6 @@ import java.time.LocalDate;
 public class Cliente implements Entidade {
 	
 	private Integer idCliente;
-	private PessoaFisica pessoaFisica;
-	private PessoaJuridica pessoaJuridica;
 	private String endereco;
 	private Integer numero;
 	private String bairro;
@@ -141,21 +139,5 @@ public class Cliente implements Entidade {
 
 	public void setTipoPessoa(Integer tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
-	}
-	
-	public PessoaFisica getPessoaFisica() {
-		return pessoaFisica;
-	}
-
-	public void setPessoaFisica(PessoaFisica pessoaFisica) {
-		this.pessoaFisica = pessoaFisica;
-	}
-
-	public PessoaJuridica getPessoaJuridica() {
-		return pessoaJuridica;
-	}
-
-	public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
-		this.pessoaJuridica = pessoaJuridica;
 	}
 }
