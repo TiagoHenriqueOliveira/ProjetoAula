@@ -302,12 +302,16 @@ public class MarcaForm extends JFrame implements PreencherDados{
 							salvarEdicaoMarca();
 						} catch (RegistroExistente salvarEdicao) {
 							JOptionPane.showMessageDialog(marcaForm, salvarEdicao.marcaJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							jtfNomeMarca.setText("");
+							jtfNomeMarca.requestFocus();
 						}
 					} else {
 						try {
 							salvarCadastroMarca();
 						} catch (RegistroExistente salvarCadastro) {
 							JOptionPane.showMessageDialog(marcaForm, salvarCadastro.marcaJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							jtfNomeMarca.setText("");
+							jtfNomeMarca.requestFocus();
 						}
 					}
 				}
