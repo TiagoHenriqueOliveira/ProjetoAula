@@ -11,6 +11,7 @@ public class PessoaFisica extends Cliente {
 		this.cpf = cpf;
 		this.rg = rg;
 	}
+	
 	public PessoaFisica() {
 		
 	}
