@@ -75,7 +75,7 @@ public class ListaModeloForm extends JFrame {
 	
 	public void preencherDadosTabelaFiltroCodigo() {
 		modelo = new Modelo();
-		modelo = new ModeloDAOJDBC().buscarId(Integer.valueOf(codigo));
+		modelo = new ModeloDAOJDBC().buscarId(codigo);
 		listaModelos.add(modelo);
 		for(Modelo todos : listaModelos) {
 			dtmListaModelo.addRow(new String [] {todos.getIdModelo().toString(), todos.getNome()});
