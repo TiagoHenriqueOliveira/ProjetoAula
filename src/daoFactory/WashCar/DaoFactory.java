@@ -4,6 +4,7 @@ import dao.WashCar.CarroDAO;
 import dao.WashCar.ClienteDAO;
 import dao.WashCar.EmpresaDAO;
 import dao.WashCar.MarcaDAO;
+import dao.WashCar.TipoServicoDAO;
 import dao.WashCar.ModeloDAO;
 import dao.WashCar.UsuarioDAO;
 
@@ -57,5 +58,8 @@ public class DaoFactory {
 	
 	public CarroDAO carroDao() {
 		return daoFactory.carroDao();
+	}
+	public TipoServicoDAO tipoServicoDao(){
+		return daoFactory.tipoServicoDao();
 	}
 }
