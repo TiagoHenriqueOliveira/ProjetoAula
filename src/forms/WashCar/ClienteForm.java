@@ -27,10 +27,13 @@ import validacaoCampos.WashCar.ValidaCampoString;
 import validacaoCampos.WashCar.ValidaCampoTelefone;
 
 import daoFactory.WashCar.DaoFactory;
+import exception.WashCar.RegistroExistente;
 import model.WashCar.Cidade;
 import model.WashCar.Cliente;
 import model.WashCar.Empresa;
 import model.WashCar.Entidade;
+import model.WashCar.PessoaFisica;
+import model.WashCar.PessoaJuridica;
 import preencherDados.WashCar.PreencherDados;
 
 import java.awt.Toolkit;
@@ -43,6 +46,7 @@ import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ItemEvent;
 
@@ -63,7 +67,6 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	private JTextField jtfNumero;
 	private JTextField jtfTelefoneComercial;
 	private JTextField jtfTelefoneCelular;
-	private JTextField jtfFax;
 	private JTextField jtfInscricaoEstadual;
 	private JTextField jtfDataAlteracao;
 	private JTextField jtfNomeCidade;
@@ -78,10 +81,6 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	private JTextField jtfCodigoCidade;
 	private JTextField jtfCodigoUF;
 	private JTextField jtfPesquisaCPFCliente;
-	private JTextField jtfDataNascimento;
-	private JTextField jtfCodigoCarro;
-	private JTextField jtfNomeCarro;
-	private JFormattedTextField jtfPlacaCarro;
 	private JLabel jlbPesquisaCodigoCliente;
 	private JLabel jlbPesquisaNomeCliente;
 	private JLabel jlbPesquisaCNPJCliente;
@@ -94,7 +93,6 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	private JLabel jlbNumero;
 	private JLabel jlbTelefoneComercial;
 	private JLabel jlbTelefoneCelular;
-	private JLabel jlbFax;
 	private JLabel jlbInscricaoEstadual;
 	private JLabel jlbDataAlteracao;
 	private JLabel jlbCidade;
@@ -107,14 +105,10 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	private JLabel jlbNome;
 	private JLabel jlbCPF;
 	private JLabel jlbRG;
-	private JLabel jlbDataNascimento;
 	private JLabel jlbConsultaCliente;
 	private JLabel jlbPesquisaCPFCliente;
 	private JLabel jlbCodigoCidade;
 	private JLabel jlbCodigoUF;
-	private JLabel jlbPlacaCarro;
-	private JLabel jlbCodigoCarro;
-	private JLabel jlbNomeCarro;
 	private JCheckBox jckbxForaUso;
 	private JCheckBox jckbxIsento;
 	private JComboBox<String> jcbxTipoPessoa;
@@ -126,6 +120,8 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	private JMenuBar jmbCadastroCliente;
 	private JMenuItem jmnRelatorio;
 	private Cliente cliente;
+	private PessoaFisica pessoaFisica;
+	private PessoaJuridica pessoaJuridica;
 	private static ClienteForm clienteForm;
 
 	public void componentesTelaCliente() {
@@ -141,7 +137,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jpnPesquisaCliente = new JPanel();
 		jpnPesquisaCliente.setLayout(null);
 		jpnPesquisaCliente.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		jpnPesquisaCliente.setBounds(10, 11, 790, 81);
+		jpnPesquisaCliente.setBounds(10, 11, 725, 81);
 		jpnCliente.add(jpnPesquisaCliente);
 		
 		jlbPesquisaCodigoCliente = new JLabel("C\u00F3digo");
@@ -162,6 +158,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jpnPesquisaCliente.add(jlbPesquisaNomeCliente);
 		
 		jtfPesquisaNomeCliente = new JTextField();
+		jtfPesquisaNomeCliente.setDocument(new ValidaCampoAlfaNumerico());
 		jtfPesquisaNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaNomeCliente.setColumns(10);
 		jtfPesquisaNomeCliente.setBounds(86, 50, 275, 20);
@@ -174,12 +171,12 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		}
 		jtfPesquisaCnpjCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCnpjCliente.setColumns(10);
-		jtfPesquisaCnpjCliente.setBounds(371, 50, 165, 20);
+		jtfPesquisaCnpjCliente.setBounds(371, 50, 125, 20);
 		jpnPesquisaCliente.add(jtfPesquisaCnpjCliente);
 		
 		jlbPesquisaCNPJCliente = new JLabel("CNPJ do Cliente");
 		jlbPesquisaCNPJCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaCNPJCliente.setBounds(371, 34, 165, 14);
+		jlbPesquisaCNPJCliente.setBounds(371, 34, 125, 14);
 		jpnPesquisaCliente.add(jlbPesquisaCNPJCliente);
 		
 		jlbConsultaCliente = new JLabel("Consulta Cadastro do Cliente");
@@ -194,12 +191,12 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		}
 		jtfPesquisaCPFCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCPFCliente.setColumns(10);
-		jtfPesquisaCPFCliente.setBounds(546, 50, 165, 20);
+		jtfPesquisaCPFCliente.setBounds(506, 50, 100, 20);
 		jpnPesquisaCliente.add(jtfPesquisaCPFCliente);
 		
 		jlbPesquisaCPFCliente = new JLabel("CPF");
 		jlbPesquisaCPFCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaCPFCliente.setBounds(546, 34, 165, 14);
+		jlbPesquisaCPFCliente.setBounds(506, 34, 100, 14);
 		jpnPesquisaCliente.add(jlbPesquisaCPFCliente);
 		
 		jlbCodigoCliente = new JLabel("C\u00F3d. Cliente");
@@ -259,7 +256,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		
 		jlbEndereco = new JLabel("Endere\u00E7o");
 		jlbEndereco.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbEndereco.setBounds(10, 383, 300, 14);
+		jlbEndereco.setBounds(10, 336, 300, 14);
 		jpnCliente.add(jlbEndereco);
 		
 		jtfEndereco = new JTextField();
@@ -267,12 +264,12 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfEndereco.setEnabled(false);
 		jtfEndereco.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfEndereco.setColumns(10);
-		jtfEndereco.setBounds(10, 399, 300, 20);
+		jtfEndereco.setBounds(10, 352, 300, 20);
 		jpnCliente.add(jtfEndereco);
 		
 		jlbBairro = new JLabel("Bairro");
 		jlbBairro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbBairro.setBounds(396, 383, 174, 14);
+		jlbBairro.setBounds(396, 336, 174, 14);
 		jpnCliente.add(jlbBairro);
 		
 		jtfBairro = new JTextField();
@@ -280,12 +277,12 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfBairro.setEnabled(false);
 		jtfBairro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfBairro.setColumns(10);
-		jtfBairro.setBounds(396, 399, 174, 20);
+		jtfBairro.setBounds(396, 352, 174, 20);
 		jpnCliente.add(jtfBairro);
 		
 		jlbNumero = new JLabel("N\u00FAmero");
 		jlbNumero.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNumero.setBounds(320, 383, 66, 14);
+		jlbNumero.setBounds(320, 336, 66, 14);
 		jpnCliente.add(jlbNumero);
 		
 		jtfNumero = new JTextField();
@@ -293,12 +290,12 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfNumero.setEnabled(false);
 		jtfNumero.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNumero.setColumns(10);
-		jtfNumero.setBounds(320, 399, 66, 20);
+		jtfNumero.setBounds(320, 352, 66, 20);
 		jpnCliente.add(jtfNumero);
 		
 		jlbTelefoneComercial = new JLabel("Telefone Comercial");
 		jlbTelefoneComercial.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbTelefoneComercial.setBounds(670, 293, 130, 14);
+		jlbTelefoneComercial.setBounds(595, 246, 130, 14);
 		jpnCliente.add(jlbTelefoneComercial);
 		
 		jtfTelefoneComercial = new JTextField();
@@ -306,12 +303,12 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfTelefoneComercial.setEnabled(false);
 		jtfTelefoneComercial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneComercial.setColumns(10);
-		jtfTelefoneComercial.setBounds(670, 307, 130, 20);
+		jtfTelefoneComercial.setBounds(595, 260, 130, 20);
 		jpnCliente.add(jtfTelefoneComercial);
 		
 		jlbTelefoneCelular = new JLabel("Telefone Celular");
 		jlbTelefoneCelular.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbTelefoneCelular.setBounds(670, 199, 130, 14);
+		jlbTelefoneCelular.setBounds(595, 199, 130, 14);
 		jpnCliente.add(jlbTelefoneCelular);
 		
 		jtfTelefoneCelular = new JTextField();
@@ -319,21 +316,8 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfTelefoneCelular.setEnabled(false);
 		jtfTelefoneCelular.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneCelular.setColumns(10);
-		jtfTelefoneCelular.setBounds(670, 213, 130, 20);
+		jtfTelefoneCelular.setBounds(595, 213, 130, 20);
 		jpnCliente.add(jtfTelefoneCelular);
-		
-		jlbFax = new JLabel("Fax");
-		jlbFax.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbFax.setBounds(670, 246, 130, 14);
-		jpnCliente.add(jlbFax);
-		
-		jtfFax = new JTextField();
-		jtfFax.setDocument(new ValidaCampoTelefone());
-		jtfFax.setEnabled(false);
-		jtfFax.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfFax.setColumns(10);
-		jtfFax.setBounds(670, 260, 130, 20);
-		jpnCliente.add(jtfFax);
 		
 		jlbInscricaoEstadual = new JLabel("Inscri\u00E7\u00E3o Estadual");
 		jlbInscricaoEstadual.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -349,7 +333,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		
 		jlbDataAlteracao = new JLabel("Data Alteracao");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataAlteracao.setBounds(686, 105, 114, 14);
+		jlbDataAlteracao.setBounds(611, 105, 114, 14);
 		jpnCliente.add(jlbDataAlteracao);
 		
 		try {
@@ -362,12 +346,12 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(686, 121, 75, 20);
+		jtfDataAlteracao.setBounds(611, 121, 75, 20);
 		jpnCliente.add(jtfDataAlteracao);
 		
 		jlbCidade = new JLabel("Nome da Cidade");
 		jlbCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCidade.setBounds(10, 432, 140, 14);
+		jlbCidade.setBounds(10, 385, 140, 14);
 		jpnCliente.add(jlbCidade);
 		
 		jtfNomeCidade = new JTextField();
@@ -375,12 +359,12 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfNomeCidade.setEnabled(false);
 		jtfNomeCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCidade.setColumns(10);
-		jtfNomeCidade.setBounds(10, 447, 140, 20);
+		jtfNomeCidade.setBounds(10, 400, 226, 20);
 		jpnCliente.add(jtfNomeCidade);
 		
 		jlbPais = new JLabel("Nome do Pa\u00EDs");
 		jlbPais.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPais.setBounds(540, 432, 110, 14);
+		jlbPais.setBounds(615, 385, 110, 14);
 		jpnCliente.add(jlbPais);
 		
 		jtfNomePais = new JTextField();
@@ -388,7 +372,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfNomePais.setEnabled(false);
 		jtfNomePais.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomePais.setColumns(10);
-		jtfNomePais.setBounds(540, 447, 110, 20);
+		jtfNomePais.setBounds(615, 400, 110, 20);
 		jpnCliente.add(jtfNomePais);
 		
 		jlbTipoPessoa = new JLabel("Tipo de Pessoa");
@@ -398,7 +382,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		
 		jlbUnidadeFederativa = new JLabel("Nome do Estado");
 		jlbUnidadeFederativa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbUnidadeFederativa.setBounds(270, 432, 130, 14);
+		jlbUnidadeFederativa.setBounds(345, 385, 130, 14);
 		jpnCliente.add(jlbUnidadeFederativa);
 		
 		jlbInscricaoMunicipal = new JLabel("Inscri\u00E7\u00E3o Municipal");
@@ -419,24 +403,24 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfTelefoneResidencial.setEnabled(false);
 		jtfTelefoneResidencial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfTelefoneResidencial.setColumns(10);
-		jtfTelefoneResidencial.setBounds(670, 166, 130, 20);
+		jtfTelefoneResidencial.setBounds(595, 166, 130, 20);
 		jpnCliente.add(jtfTelefoneResidencial);
 		
 		jlbTelefoneResidencial = new JLabel("Telefone Residencial");
 		jlbTelefoneResidencial.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbTelefoneResidencial.setBounds(670, 152, 130, 14);
+		jlbTelefoneResidencial.setBounds(595, 152, 130, 14);
 		jpnCliente.add(jlbTelefoneResidencial);
 		
 		jlbEmail = new JLabel("E-mail");
 		jlbEmail.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbEmail.setBounds(10, 338, 140, 14);
+		jlbEmail.setBounds(10, 291, 140, 14);
 		jpnCliente.add(jlbEmail);
 		
 		jtfEmail = new JTextField();
 		jtfEmail.setEnabled(false);
 		jtfEmail.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfEmail.setColumns(10);
-		jtfEmail.setBounds(10, 352, 300, 20);
+		jtfEmail.setBounds(10, 305, 300, 20);
 		jpnCliente.add(jtfEmail);
 		
 		jlbNome = new JLabel("Nome do Cliente");
@@ -481,15 +465,10 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfRG.setBounds(430, 166, 100, 20);
 		jpnCliente.add(jtfRG);
 		
-		jlbDataNascimento = new JLabel("Data de Nascimento");
-		jlbDataNascimento.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDataNascimento.setBounds(540, 152, 150, 14);
-		jpnCliente.add(jlbDataNascimento);
-		
 		jckbxForaUso = new JCheckBox("Fora de Uso");
 		jckbxForaUso.setEnabled(false);
 		jckbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jckbxForaUso.setBounds(495, 118, 130, 23);
+		jckbxForaUso.setBounds(473, 118, 130, 23);
 		jpnCliente.add(jckbxForaUso);
 		
 		jtfNomeUF = new JTextField();
@@ -497,35 +476,35 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfNomeUF.setEnabled(false);
 		jtfNomeUF.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeUF.setColumns(10);
-		jtfNomeUF.setBounds(270, 447, 130, 20);
+		jtfNomeUF.setBounds(345, 400, 130, 20);
 		jpnCliente.add(jtfNomeUF);
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 478, 120, 25);
+		jbtNovo.setBounds(10, 431, 120, 25);
 		jpnCliente.add(jbtNovo);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(530, 478, 120, 25);
+		jbtFechar.setBounds(530, 431, 120, 25);
 		jpnCliente.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(400, 478, 120, 25);
+		jbtCancelar.setBounds(400, 431, 120, 25);
 		jpnCliente.add(jbtCancelar);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(270, 478, 120, 25);
+		jbtSalvar.setBounds(140, 431, 120, 25);
 		jpnCliente.add(jbtSalvar);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(140, 478, 120, 25);
+		jbtEditar.setBounds(270, 431, 120, 25);
 		jpnCliente.add(jbtEditar);
 		
 		jckbxIsento = new JCheckBox("ISENTO");
@@ -544,7 +523,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		
 		jlbCodigoCidade = new JLabel("C\u00F3d. Cidade");
 		jlbCodigoCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoCidade.setBounds(160, 432, 110, 14);
+		jlbCodigoCidade.setBounds(246, 385, 100, 14);
 		jpnCliente.add(jlbCodigoCidade);
 		
 		jtfCodigoCidade = new JTextField();
@@ -552,12 +531,12 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfCodigoCidade.setEditable(false);
 		jtfCodigoCidade.setColumns(10);
 		jtfCodigoCidade.setBackground(Color.YELLOW);
-		jtfCodigoCidade.setBounds(160, 447, 50, 20);
+		jtfCodigoCidade.setBounds(246, 400, 50, 20);
 		jpnCliente.add(jtfCodigoCidade);
 		
 		jlbCodigoUF = new JLabel("C\u00F3d. Estado");
 		jlbCodigoUF.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoUF.setBounds(410, 432, 110, 14);
+		jlbCodigoUF.setBounds(485, 385, 110, 14);
 		jpnCliente.add(jlbCodigoUF);
 		
 		jtfCodigoUF = new JTextField();
@@ -565,78 +544,23 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfCodigoUF.setEditable(false);
 		jtfCodigoUF.setColumns(10);
 		jtfCodigoUF.setBackground(Color.YELLOW);
-		jtfCodigoUF.setBounds(410, 447, 50, 20);
+		jtfCodigoUF.setBounds(485, 400, 50, 20);
 		jpnCliente.add(jtfCodigoUF);
-		
-		try {
-			jtfDataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
-			jtfDataNascimento.setHorizontalAlignment(SwingConstants.TRAILING);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		jtfDataNascimento.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfDataNascimento.setEnabled(false);
-		jtfDataNascimento.setColumns(10);
-		jtfDataNascimento.setBounds(542, 166, 75, 20);
-		jpnCliente.add(jtfDataNascimento);
-		
-		jtfCodigoCarro = new JTextField();
-		jtfCodigoCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfCodigoCarro.setEditable(false);
-		jtfCodigoCarro.setColumns(10);
-		jtfCodigoCarro.setBackground(Color.YELLOW);
-		jtfCodigoCarro.setBounds(10, 307, 50, 20);
-		jpnCliente.add(jtfCodigoCarro);
-		
-		jlbCodigoCarro = new JLabel("C\u00F3d. Carro");
-		jlbCodigoCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoCarro.setBounds(10, 291, 95, 14);
-		jpnCliente.add(jlbCodigoCarro);
-
-		jlbNomeCarro = new JLabel("Nome do Carro");
-		jlbNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeCarro.setBounds(105, 293, 300, 14);
-		jpnCliente.add(jlbNomeCarro);
-		
-		jtfNomeCarro = new JTextField();
-		jtfNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfNomeCarro.setEnabled(false);
-		jtfNomeCarro.setColumns(10);
-		jtfNomeCarro.setBounds(105, 307, 300, 20);
-		jpnCliente.add(jtfNomeCarro);
-		
-		jlbPlacaCarro = new JLabel("Placa do Carro");
-		jlbPlacaCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPlacaCarro.setBounds(415, 293, 110, 14);
-		jpnCliente.add(jlbPlacaCarro);
-		
-		try {
-			jtfPlacaCarro = new JFormattedTextField(new MaskFormatter("UUU-####"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		jtfPlacaCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfPlacaCarro.setEnabled(false);
-		jtfPlacaCarro.setColumns(10);
-		jtfPlacaCarro.setBounds(415, 307, 75, 20);
-		jpnCliente.add(jtfPlacaCarro);
 	}
 	
 	public void acionarBotaoNovo() {
 		this.selecionarTipoPessoa();
+		jtfNomeCliente.requestFocus();
 		jtfNomeCliente.setEnabled(true);
-		jtfDataNascimento.setEnabled(true);
 		jtfCPF.setEnabled(true);
 		jtfRG.setEnabled(true);
 		jcbxTipoPessoa.setEnabled(true);
 		jcbxTipoPessoa.setSelectedIndex(0);
 		jckbxForaUso.setSelected(false);
-		jtfNomeCarro.setEnabled(true);
 		jtfEmail.setEnabled(true);
 		jtfTelefoneCelular.setEnabled(true);
 		jtfTelefoneComercial.setEnabled(true);
 		jtfTelefoneResidencial.setEnabled(true);
-		jtfFax.setEnabled(true);
 		jtfEndereco.setEnabled(true);
 		jtfNumero.setEnabled(true);
 		jtfBairro.setEnabled(true);
@@ -645,13 +569,9 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfCPF.setText("");
 		jtfRG.setText("");
 		jtfEmail.setText("");
-		jtfNomeCarro.setText("");
-		jtfCodigoCarro.setText("");
-		jtfPlacaCarro.setText("");
 		jtfTelefoneCelular.setText("");
 		jtfTelefoneComercial.setText("");
 		jtfTelefoneResidencial.setText("");
-		jtfFax.setText("");
 		jtfEndereco.setText("");
 		jtfNumero.setText("");
 		jtfBairro.setText("");
@@ -666,18 +586,15 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jbtEditar.setEnabled(false);
 	}
 	
-	public void salvarCadastroCliente() throws Exception {
-		this.cliente = new Cliente();
+	@SuppressWarnings("static-access")
+	public void salvarCadastroCliente() throws RegistroExistente {
 		if (jcbxTipoPessoa.getSelectedIndex() == 0) {
 			if (jtfNomeCliente.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar nome do cliente!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfNomeCliente.requestFocus();
-			} else if (jtfCPF.getText().equals("")) {
+			} else if (jtfCPF.getText().equals("   .   .   -  ")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o CPF do cliente!!!", "Aviso",	JOptionPane.INFORMATION_MESSAGE);
 				jtfCPF.requestFocus();
-			} else if (jtfDataNascimento.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Obrigatório informar a data de nascimento!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-				jtfDataNascimento.requestFocus();
 			} else if (jtfEmail.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o email!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfEmail.requestFocus();
@@ -685,8 +602,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o endereço!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfEndereco.requestFocus();
 			} else if (jtfNumero.getText().equals("")) {
-				JOptionPane.showMessageDialog(null,
-						"Obrigatório informar o número!!!\n" + "(Residência/Estabelecimento Comercial)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Obrigatório informar o número!!!\n (Residência/Estabelecimento Comercial)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfNumero.requestFocus();
 			} else if (jtfBairro.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -694,12 +610,59 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			} else if (jtfNomeCidade.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfNomeCidade.requestFocus();
+			} else {
+				//Tipo de pessoa igual a 1 é Física 2 Jurídica
+				this.cliente = new Cliente();
+				this.cliente.setTipoPessoa(1);
+				this.cliente.setEmail(jtfEmail.getText());
+				this.cliente.setTelefoneCelular(jtfTelefoneCelular.getText());
+				this.cliente.setTelefoneComercial(jtfTelefoneComercial.getText());
+				this.cliente.setTelefoneResidencial(jtfTelefoneResidencial.getText());
+				this.cliente.setEndereco(jtfEndereco.getText());
+				this.cliente.setNumero(Integer.valueOf(jtfNumero.getText()));
+				this.cliente.setBairro(jtfBairro.getText());
+				this.cliente.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
+				this.cliente.setDataAltercacao(Date.valueOf(cliente.getDataAltercacao().now()).toLocalDate());
+				this.cliente.setCidade(new Cidade(Integer.valueOf(jtfCodigoCidade.getText()), null));
+				this.cliente.setEmpresa(new Empresa(1));
+				DaoFactory.getFactory().clienteDao().inserir(cliente);
+				jtfCodigoCliente.setText(String.valueOf(this.cliente.getIdCliente()));
+				this.pessoaFisica = new PessoaFisica();
+				this.pessoaFisica.setNome(jtfNomeCliente.getText());
+				this.pessoaFisica.setCpf(jtfCPF.getText());
+				this.pessoaFisica.setRg(jtfRG.getText());
+				this.pessoaFisica.setIdCliente(Integer.valueOf(jtfCodigoCliente.getText()));
+				DaoFactory.getFactory().pessoaFisicaDao().inserir(pessoaFisica);
+				jtfDataAlteracao.setText(this.cliente.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+				JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+				jcbxTipoPessoa.setEnabled(false);
+				jckbxIsento.setEnabled(false);
+				jtfNomeCliente.setEnabled(false);
+				jtfCPF.setEnabled(false);
+				jtfRG.setEnabled(false);
+				jtfRazaoSocial.setEnabled(false);
+				jtfNomeFantasia.setEnabled(false);
+				jtfCNPJ.setEnabled(false);
+				jtfInscricaoEstadual.setEnabled(false);
+				jtfInscricaoMunicipal.setEnabled(false);
+				jtfEmail.setEnabled(false);
+				jtfTelefoneCelular.setEnabled(false);
+				jtfTelefoneComercial.setEnabled(false);
+				jtfTelefoneResidencial.setEnabled(false);
+				jtfEndereco.setEnabled(false);
+				jtfNumero.setEnabled(false);
+				jtfBairro.setEnabled(false);
+				jtfNomeCidade.setEnabled(false);
+				jbtSalvar.setEnabled(false);
+				jbtEditar.setEnabled(true);
+				jbtNovo.setEnabled(true);
+				jbtCancelar.setEnabled(false);
 			}
 		} else if (jcbxTipoPessoa.getSelectedIndex() == 1) {
 			if (jtfRazaoSocial.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar a Razão Social!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfRazaoSocial.requestFocus();
-			} else if (jtfCNPJ.getText().equals("")) {
+			} else if (jtfCNPJ.getText().equals("  .   .   /    -  ")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o CNPJ!!!", "Aviso",	JOptionPane.INFORMATION_MESSAGE);
 				jtfCNPJ.requestFocus();
 			} else if (jtfNomeFantasia.getText().equals("")) {
@@ -718,8 +681,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o endereço!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfEndereco.requestFocus();
 			} else if (jtfNumero.getText().equals("")) {
-				JOptionPane.showMessageDialog(null,
-						"Obrigatório informar o número!!!\n" + "(Residência/Estabelecimento Comercial)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Obrigatório informar o número!!!\n (Residência/Estabelecimento Comercial)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfNumero.requestFocus();
 			} else if (jtfBairro.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!", "Aviso",	JOptionPane.INFORMATION_MESSAGE);
@@ -727,41 +689,36 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			} else if (jtfNomeCidade.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfNomeCidade.requestFocus();
-			}
-		} else {
-			//Tipo de pessoa igual a 1 é Física 2 Jurídica
-			if(jcbxTipoPessoa.getSelectedIndex() == 0) {
-				this.cliente.setTipoPessoa(1);
 			} else {
-				this.cliente.setTipoPessoa(2);
-			}
-//			this.cliente.setNome(jtfNomeCliente.getText());
-//			this.cliente.setCpf(jtfCPF.getText());
-//			this.cliente.setRg(jtfRG.getText());
-//			this.cliente.setDataNascimento(Date.valueOf(jtfDataNascimento.getText()).toLocalDate());
-//			this.cliente.setRazaoSocial(jtfRazaoSocial.getText());
-//			this.cliente.setCnpj(jtfCNPJ.getText());
-//			this.cliente.setInscricaoMunicipal(jtfInscricaoMunicipal.getText());
-//			this.cliente.setNomeFantasia(jtfNomeFantasia.getText());
-//			this.cliente.setInscricaoEstadual(jtfInscricaoEstadual.getText());
+			//Tipo de pessoa igual a 1 é Física 2 Jurídica
+			this.cliente = new Cliente();
+			this.cliente.setTipoPessoa(2);
 			this.cliente.setEmail(jtfEmail.getText());
 			this.cliente.setTelefoneCelular(jtfTelefoneCelular.getText());
 			this.cliente.setTelefoneComercial(jtfTelefoneComercial.getText());
 			this.cliente.setTelefoneResidencial(jtfTelefoneResidencial.getText());
-			this.cliente.setFax(jtfFax.getText());
 			this.cliente.setEndereco(jtfEndereco.getText());
 			this.cliente.setNumero(Integer.valueOf(jtfNumero.getText()));
 			this.cliente.setBairro(jtfBairro.getText());
+			this.cliente.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
+			this.cliente.setDataAltercacao(Date.valueOf(cliente.getDataAltercacao().now()).toLocalDate());
 			this.cliente.setCidade(new Cidade(Integer.valueOf(jtfCodigoCidade.getText()), null));
 			this.cliente.setEmpresa(new Empresa(1));
 			DaoFactory.getFactory().clienteDao().inserir(cliente);
 			jtfCodigoCliente.setText(String.valueOf(this.cliente.getIdCliente()));
+			this.pessoaJuridica = new PessoaJuridica();
+			this.pessoaJuridica.setRazaoSocial(jtfRazaoSocial.getText());
+			this.pessoaJuridica.setNomeFantasia(jtfNomeFantasia.getText());
+			this.pessoaJuridica.setCnpj(jtfCNPJ.getText());
+			this.pessoaJuridica.setInscricaoEstadual(jtfInscricaoEstadual.getText());
+			this.pessoaJuridica.setInscricaoMunicipal(jtfInscricaoMunicipal.getText());
+			this.pessoaJuridica.setIdCliente(Integer.valueOf(jtfCodigoCliente.getText()));
+			DaoFactory.getFactory().pessoaJuridicaDao().inserir(pessoaJuridica);
 			jtfDataAlteracao.setText(this.cliente.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 			jcbxTipoPessoa.setEnabled(false);
 			jckbxIsento.setEnabled(false);
 			jtfNomeCliente.setEnabled(false);
-			jtfDataNascimento.setEnabled(false);
 			jtfCPF.setEnabled(false);
 			jtfRG.setEnabled(false);
 			jtfRazaoSocial.setEnabled(false);
@@ -773,7 +730,6 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			jtfTelefoneCelular.setEnabled(false);
 			jtfTelefoneComercial.setEnabled(false);
 			jtfTelefoneResidencial.setEnabled(false);
-			jtfFax.setEnabled(false);
 			jtfEndereco.setEnabled(false);
 			jtfNumero.setEnabled(false);
 			jtfBairro.setEnabled(false);
@@ -782,43 +738,229 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			jbtEditar.setEnabled(true);
 			jbtNovo.setEnabled(true);
 			jbtCancelar.setEnabled(false);
+			}
 		}
 	}
 	
-	public void salvarEdicaoCliente() {
-		jckbxForaUso.setEnabled(true);
-		jbtSalvar.setEnabled(false);
-		jbtEditar.setEnabled(true);
-		jbtNovo.setEnabled(true);
-		jbtCancelar.setEnabled(false);
+	@SuppressWarnings("static-access")
+	public void salvarEdicaoCliente() throws RegistroExistente {
+		if (jcbxTipoPessoa.getSelectedIndex() == 0) {
+			if (jtfNomeCliente.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar nome do cliente!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfNomeCliente.requestFocus();
+			} else if (jtfCPF.getText().equals("   .   .   -  ")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o CPF do cliente!!!", "Aviso",	JOptionPane.INFORMATION_MESSAGE);
+				jtfCPF.requestFocus();
+			} else if (jtfEmail.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o email!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfEmail.requestFocus();
+			} else if (jtfEndereco.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o endereço!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfEndereco.requestFocus();
+			} else if (jtfNumero.getText().equals("")) {
+				JOptionPane.showMessageDialog(null,"Obrigatório informar o número!!!\n (Residência/Estabelecimento Comercial)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfNumero.requestFocus();
+			} else if (jtfBairro.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfBairro.requestFocus();
+			} else if (jtfNomeCidade.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfNomeCidade.requestFocus();
+			} else {
+				//Tipo de pessoa igual a 1 é Física 2 Jurídica
+				this.cliente = new Cliente();
+				this.cliente.setTipoPessoa(1);
+				this.cliente.setEmail(jtfEmail.getText());
+				this.cliente.setTelefoneCelular(jtfTelefoneCelular.getText());
+				this.cliente.setTelefoneComercial(jtfTelefoneComercial.getText());
+				this.cliente.setTelefoneResidencial(jtfTelefoneResidencial.getText());
+				this.cliente.setEndereco(jtfEndereco.getText());
+				this.cliente.setNumero(Integer.valueOf(jtfNumero.getText()));
+				this.cliente.setBairro(jtfBairro.getText());
+				this.cliente.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
+				this.cliente.setDataAltercacao(Date.valueOf(cliente.getDataAltercacao().now()).toLocalDate());
+				this.cliente.setCidade(new Cidade(Integer.valueOf(jtfCodigoCidade.getText()), null));
+				this.cliente.setIdCliente(Integer.valueOf(jtfCodigoCliente.getText()));
+				DaoFactory.getFactory().clienteDao().alterar(cliente);
+				this.pessoaFisica = new PessoaFisica();
+				this.pessoaFisica.setNome(jtfNomeCliente.getText());
+				this.pessoaFisica.setCpf(jtfCPF.getText());
+				this.pessoaFisica.setRg(jtfRG.getText());
+				this.pessoaFisica.setIdCliente(Integer.valueOf(jtfCodigoCliente.getText()));
+				DaoFactory.getFactory().pessoaFisicaDao().alterar(pessoaFisica);
+				jtfDataAlteracao.setText(this.cliente.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+				JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+				jcbxTipoPessoa.setEnabled(false);
+				jckbxIsento.setEnabled(false);
+				jtfNomeCliente.setEnabled(false);
+				jtfCPF.setEnabled(false);
+				jtfRG.setEnabled(false);
+				jtfRazaoSocial.setEnabled(false);
+				jtfNomeFantasia.setEnabled(false);
+				jtfCNPJ.setEnabled(false);
+				jtfInscricaoEstadual.setEnabled(false);
+				jtfInscricaoMunicipal.setEnabled(false);
+				jtfEmail.setEnabled(false);
+				jtfTelefoneCelular.setEnabled(false);
+				jtfTelefoneComercial.setEnabled(false);
+				jtfTelefoneResidencial.setEnabled(false);
+				jtfEndereco.setEnabled(false);
+				jtfNumero.setEnabled(false);
+				jtfBairro.setEnabled(false);
+				jtfNomeCidade.setEnabled(false);
+				jbtSalvar.setEnabled(false);
+				jbtEditar.setEnabled(true);
+				jbtNovo.setEnabled(true);
+				jbtCancelar.setEnabled(false);
+			}
+		} else if (jcbxTipoPessoa.getSelectedIndex() == 1) {
+			if (jtfRazaoSocial.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar a Razão Social!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfRazaoSocial.requestFocus();
+			} else if (jtfCNPJ.getText().equals("  .   .   /    -  ")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o CNPJ!!!", "Aviso",	JOptionPane.INFORMATION_MESSAGE);
+				jtfCNPJ.requestFocus();
+			} else if (jtfNomeFantasia.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar nome Fantasia!!!", "Aviso",	JOptionPane.INFORMATION_MESSAGE);
+				jtfNomeFantasia.requestFocus();
+			} else if (jtfInscricaoEstadual.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar a inscrição estadual!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfInscricaoEstadual.requestFocus();
+				if (jckbxIsento.isSelected()) {
+					jtfInscricaoEstadual.setText("ISENTO");
+				}
+			} else if (jtfEmail.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o email!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfEmail.requestFocus();
+			} else if (jtfEndereco.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o endereço!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfEndereco.requestFocus();
+			} else if (jtfNumero.getText().equals("")) {
+				JOptionPane.showMessageDialog(null,"Obrigatório informar o número!!!\n (Residência/Estabelecimento Comercial)", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfNumero.requestFocus();
+			} else if (jtfBairro.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!", "Aviso",	JOptionPane.INFORMATION_MESSAGE);
+				jtfBairro.requestFocus();
+			} else if (jtfNomeCidade.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				jtfNomeCidade.requestFocus();
+			} else {
+			//Tipo de pessoa igual a 1 é Física 2 Jurídica
+			this.cliente = new Cliente();
+			this.cliente.setTipoPessoa(2);
+			this.cliente.setEmail(jtfEmail.getText());
+			this.cliente.setTelefoneCelular(jtfTelefoneCelular.getText());
+			this.cliente.setTelefoneComercial(jtfTelefoneComercial.getText());
+			this.cliente.setTelefoneResidencial(jtfTelefoneResidencial.getText());
+			this.cliente.setEndereco(jtfEndereco.getText());
+			this.cliente.setNumero(Integer.valueOf(jtfNumero.getText()));
+			this.cliente.setBairro(jtfBairro.getText());
+			this.cliente.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
+			this.cliente.setDataAltercacao(Date.valueOf(cliente.getDataAltercacao().now()).toLocalDate());
+			this.cliente.setCidade(new Cidade(Integer.valueOf(jtfCodigoCidade.getText()), null));
+			this.cliente.setIdCliente(Integer.valueOf(jtfCodigoCliente.getText()));
+			DaoFactory.getFactory().clienteDao().alterar(cliente);
+			this.pessoaJuridica = new PessoaJuridica();
+			this.pessoaJuridica.setRazaoSocial(jtfRazaoSocial.getText());
+			this.pessoaJuridica.setNomeFantasia(jtfNomeFantasia.getText());
+			this.pessoaJuridica.setCnpj(jtfCNPJ.getText());
+			this.pessoaJuridica.setInscricaoEstadual(jtfInscricaoEstadual.getText());
+			this.pessoaJuridica.setInscricaoMunicipal(jtfInscricaoMunicipal.getText());
+			this.pessoaJuridica.setIdCliente(Integer.valueOf(jtfCodigoCliente.getText()));
+			DaoFactory.getFactory().pessoaJuridicaDao().alterar(pessoaJuridica);
+			jtfDataAlteracao.setText(this.cliente.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			jcbxTipoPessoa.setEnabled(false);
+			jckbxIsento.setEnabled(false);
+			jtfNomeCliente.setEnabled(false);
+			jtfCPF.setEnabled(false);
+			jtfRG.setEnabled(false);
+			jtfRazaoSocial.setEnabled(false);
+			jtfNomeFantasia.setEnabled(false);
+			jtfCNPJ.setEnabled(false);
+			jtfInscricaoEstadual.setEnabled(false);
+			jtfInscricaoMunicipal.setEnabled(false);
+			jtfEmail.setEnabled(false);
+			jtfTelefoneCelular.setEnabled(false);
+			jtfTelefoneComercial.setEnabled(false);
+			jtfTelefoneResidencial.setEnabled(false);
+			jtfEndereco.setEnabled(false);
+			jtfNumero.setEnabled(false);
+			jtfBairro.setEnabled(false);
+			jtfNomeCidade.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
+			}
+		}
 	}
 	
 	public void acionarBotaoEditar() {
-		this.selecionarTipoPessoa();
-		jcbxTipoPessoa.setEnabled(true);
-		jtfEmail.setEnabled(true);
-		jtfTelefoneCelular.setEnabled(true);
-		jtfTelefoneComercial.setEnabled(true);
-		jtfTelefoneResidencial.setEnabled(true);
-		jtfFax.setEnabled(true);
-		jtfEndereco.setEnabled(true);
-		jtfNumero.setEnabled(true);
-		jtfBairro.setEnabled(true);
-		jtfNomeCidade.setEnabled(true);
-		jtfNomeCidade.setEnabled(true);
-		jbtNovo.setEnabled(false);
-		jbtSalvar.setEnabled(true);
-		jbtCancelar.setEnabled(true);
+		if(jcbxTipoPessoa.getSelectedIndex() == 0) {
+			this.selecionarTipoPessoa();
+			jtfNomeCliente.requestFocus();
+			jcbxTipoPessoa.setEnabled(true);
+			jckbxForaUso.setEnabled(true);
+			jtfNomeCliente.setEnabled(true);
+			jtfCPF.setEnabled(true);
+			jtfRG.setEnabled(true);
+			jckbxIsento.setEnabled(false);
+			jckbxIsento.setSelected(false);
+			jtfRazaoSocial.setEnabled(false);
+			jtfNomeFantasia.setEnabled(false);
+			jtfCNPJ.setEnabled(false);
+			jtfInscricaoEstadual.setEnabled(false);
+			jtfInscricaoMunicipal.setEnabled(false);
+			jtfEmail.setEnabled(true);
+			jtfTelefoneCelular.setEnabled(true);
+			jtfTelefoneComercial.setEnabled(true);
+			jtfTelefoneResidencial.setEnabled(true);
+			jtfEndereco.setEnabled(true);
+			jtfNumero.setEnabled(true);
+			jtfBairro.setEnabled(true);
+			jtfNomeCidade.setEnabled(true);
+			jtfNomeCidade.setEnabled(true);
+			jbtNovo.setEnabled(false);
+			jbtSalvar.setEnabled(true);
+			jbtCancelar.setEnabled(true);
+		} else {
+			this.selecionarTipoPessoa();
+			jtfRazaoSocial.requestFocus();
+			jtfNomeCliente.setEnabled(false);
+			jtfCPF.setEnabled(false);
+			jtfRG.setEnabled(false);
+			jckbxIsento.setEnabled(true);
+			jckbxForaUso.setEnabled(true);
+			jtfRazaoSocial.setEnabled(true);
+			jtfNomeFantasia.setEnabled(true);
+			jtfCNPJ.setEnabled(true);
+			jtfInscricaoEstadual.setEnabled(true);
+			jtfInscricaoMunicipal.setEnabled(true);
+			jcbxTipoPessoa.setEnabled(true);
+			jtfEmail.setEnabled(true);
+			jtfTelefoneCelular.setEnabled(true);
+			jtfTelefoneComercial.setEnabled(true);
+			jtfTelefoneResidencial.setEnabled(true);
+			jtfEndereco.setEnabled(true);
+			jtfNumero.setEnabled(true);
+			jtfBairro.setEnabled(true);
+			jtfNomeCidade.setEnabled(true);
+			jtfNomeCidade.setEnabled(true);
+			jbtNovo.setEnabled(false);
+			jbtSalvar.setEnabled(true);
+			jbtCancelar.setEnabled(true);
+		}
 	}
 	
 	public void acionarBotaoCancelar() {
+		jtfPesquisaCodigoCliente.requestFocus();
 		jcbxTipoPessoa.setEnabled(false);
 		jcbxTipoPessoa.setSelectedIndex(0);
 		jckbxForaUso.setSelected(false);
 		jckbxIsento.setEnabled(false);
 		jckbxIsento.setSelected(false);
 		jtfNomeCliente.setEnabled(false);
-		jtfDataNascimento.setEnabled(false);
 		jtfCPF.setEnabled(false);
 		jtfRG.setEnabled(false);
 		jtfRazaoSocial.setEnabled(false);
@@ -826,12 +968,10 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfCNPJ.setEnabled(false);
 		jtfInscricaoEstadual.setEnabled(false);
 		jtfInscricaoMunicipal.setEnabled(false);
-		jtfNomeCarro.setEnabled(false);
 		jtfEmail.setEnabled(false);
 		jtfTelefoneCelular.setEnabled(false);
 		jtfTelefoneComercial.setEnabled(false);
 		jtfTelefoneResidencial.setEnabled(false);
-		jtfFax.setEnabled(false);
 		jtfEndereco.setEnabled(false);
 		jtfNumero.setEnabled(false);
 		jtfBairro.setEnabled(false);
@@ -840,20 +980,15 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfNomeCliente.setText("");
 		jtfCPF.setText("");
 		jtfRG.setText("");
-		jtfDataNascimento.setText("");
 		jtfRazaoSocial.setText("");
 		jtfNomeFantasia.setText("");
 		jtfCNPJ.setText("");
 		jtfInscricaoEstadual.setText("");
 		jtfInscricaoMunicipal.setText("");
 		jtfEmail.setText("");
-		jtfNomeCarro.setText("");
-		jtfCodigoCarro.setText("");
-		jtfPlacaCarro.setText("");
 		jtfTelefoneCelular.setText("");
 		jtfTelefoneComercial.setText("");
 		jtfTelefoneResidencial.setText("");
-		jtfFax.setText("");
 		jtfEndereco.setText("");
 		jtfNumero.setText("");
 		jtfBairro.setText("");
@@ -871,38 +1006,37 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	
 	public void preencherCamposCliente(Cliente cliente) {
 		jtfCodigoCliente.setText(String.valueOf(cliente.getIdCliente()));
-//		jtfNomeCliente.setText(cliente.getNome());
-//		jtfCPF.setText(cliente.getCpf());
-//		jtfRG.setText(cliente.getRg());
-//		jtfDataNascimento.setText(cliente.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
-//		jtfRazaoSocial.setText(cliente.getRazaoSocial());
-//		jtfNomeFantasia.setText(cliente.getNomeFantasia());
-//		jtfCNPJ.setText(cliente.getCnpj());
-//		jtfInscricaoEstadual.setText(cliente.getInscricaoEstadual());
-//		jtfInscricaoMunicipal.setText(cliente.getInscricaoMunicipal());
-		jtfEmail.setText(cliente.getEmail());
-		jtfTelefoneCelular.setText(cliente.getTelefoneCelular());
-		jtfTelefoneComercial.setText(cliente.getTelefoneComercial());
-		jtfTelefoneResidencial.setText(cliente.getTelefoneResidencial());
-		jtfFax.setText(cliente.getFax());
-		jtfEndereco.setText(cliente.getEndereco());
-		jtfNumero.setText(String.valueOf(cliente.getNumero()));
-		jtfBairro.setText(cliente.getBairro());
-		jtfCodigoUF.setText(String.valueOf(cliente.getCidade().getUnidadeFederativa().getIdUnidadeFederativa()));
-		jtfNomeUF.setText(cliente.getCidade().getUnidadeFederativa().getNome());
-		jtfNomeCidade.setText(cliente.getCidade().getNome());
-		jtfCodigoCidade.setText(String.valueOf(cliente.getCidade().getIdCidade()));
-		jtfNomePais.setText(cliente.getCidade().getUnidadeFederativa().getPais().getNome());
-		jtfDataAlteracao.setText(cliente.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 		if(cliente.getTipoPessoa() == 1) {
 			jcbxTipoPessoa.setSelectedIndex(0);
 		} else {
 			jcbxTipoPessoa.setSelectedIndex(1);
 		}
-		jtfPesquisaCodigoCliente.setText("");
-		jtfPesquisaNomeCliente.setText("");
-		jtfPesquisaCnpjCliente.setText("");
-		jtfPesquisaCPFCliente.setText("");
+		jtfEndereco.setText(cliente.getEndereco());
+		jtfBairro.setText(cliente.getBairro());
+		jtfNumero.setText(String.valueOf(cliente.getNumero()));
+		jtfTelefoneCelular.setText(cliente.getTelefoneCelular());
+		jtfTelefoneComercial.setText(cliente.getTelefoneComercial());
+		jtfTelefoneResidencial.setText(cliente.getTelefoneResidencial());
+		jtfEmail.setText(cliente.getEmail());
+		if(cliente.isForaUso()) {
+			jckbxForaUso.setSelected(true);
+		} else {
+			jckbxForaUso.setSelected(false);
+		}
+		jtfDataAlteracao.setText(cliente.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		jtfCodigoCidade.setText(String.valueOf(cliente.getCidade().getIdCidade()));
+		jtfNomeCidade.setText(cliente.getCidade().getNome());
+		jtfCodigoUF.setText(String.valueOf(cliente.getCidade().getUnidadeFederativa().getIdUnidadeFederativa()));
+		jtfNomeUF.setText(cliente.getCidade().getUnidadeFederativa().getNome());
+		jtfNomePais.setText(cliente.getCidade().getUnidadeFederativa().getPais().getNome());
+		jtfNomeCliente.setText(cliente.getPessoaFisica().getNome());
+		jtfCPF.setText(cliente.getPessoaFisica().getCpf());
+		jtfRG.setText(cliente.getPessoaFisica().getRg());
+		jtfRazaoSocial.setText(cliente.getPessoaJuridica().getRazaoSocial());
+		jtfNomeFantasia.setText(cliente.getPessoaJuridica().getNomeFantasia());
+		jtfCNPJ.setText(cliente.getPessoaJuridica().getCnpj());
+		jtfInscricaoEstadual.setText(cliente.getPessoaJuridica().getInscricaoEstadual());
+		jtfInscricaoMunicipal.setText(cliente.getPessoaJuridica().getInscricaoMunicipal());
 		jtfPesquisaCodigoCliente.requestFocus();
 	}
 	
@@ -920,9 +1054,12 @@ public class ClienteForm extends JFrame implements PreencherDados {
 				if((evt.getSource() == jcbxTipoPessoa) && (evt.getStateChange() == ItemEvent.SELECTED)) {
 					if(jcbxTipoPessoa.getSelectedIndex() == 1) {
 						jtfNomeCliente.setEnabled(false);
-						jtfDataNascimento.setEnabled(false);
 						jtfCPF.setEnabled(false);
 						jtfRG.setEnabled(false);
+						jtfCodigoCliente.setText("");
+						jtfNomeCliente.setText("");
+						jtfCPF.setText("");
+						jtfRG.setText("");
 						jckbxIsento.setEnabled(true);
 						jckbxIsento.setSelected(false);
 						jtfRazaoSocial.setEnabled(true);
@@ -932,7 +1069,6 @@ public class ClienteForm extends JFrame implements PreencherDados {
 						jtfInscricaoMunicipal.setEnabled(true);
 					} else {
 						jtfNomeCliente.setEnabled(true);
-						jtfDataNascimento.setEnabled(true);
 						jtfCPF.setEnabled(true);
 						jtfRG.setEnabled(true);
 						jckbxIsento.setEnabled(false);
@@ -942,6 +1078,11 @@ public class ClienteForm extends JFrame implements PreencherDados {
 						jtfCNPJ.setEnabled(false);
 						jtfInscricaoEstadual.setEnabled(false);
 						jtfInscricaoMunicipal.setEnabled(false);
+						jtfRazaoSocial.setText("");
+						jtfNomeFantasia.setText("");
+						jtfCNPJ.setText("");
+						jtfInscricaoEstadual.setText("");
+						jtfInscricaoMunicipal.setText("");
 					}
 				}
 			}
@@ -961,12 +1102,16 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			public void actionPerformed(ActionEvent acvt) {
 				if (acvt.getSource() == jbtSalvar) {
 					if (jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
-						salvarEdicaoCliente();
+						try {
+							salvarEdicaoCliente();
+						} catch (RegistroExistente salvarEdicao) {
+							JOptionPane.showMessageDialog(clienteForm, salvarEdicao.documentoJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						}
 					} else {
 						try {
 							salvarCadastroCliente();
-						} catch (Exception salvarCliente) {
-							salvarCliente.printStackTrace();
+						} catch (RegistroExistente salvarCadastro) {
+							JOptionPane.showMessageDialog(clienteForm, salvarCadastro.documentoJaExiste(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}
@@ -999,12 +1144,63 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	}
 	
 	public void pesquisaPorCodigo() {
-		jtfPesquisaNomeCliente.addKeyListener(new KeyAdapter() {
+		jtfPesquisaCodigoCliente.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-				
+					Integer codigo = null;
+					if(!jtfPesquisaCodigoCliente.getText().equals("")) {
+						codigo = Integer.valueOf(jtfPesquisaCodigoCliente.getText());
+					}
+					ListaClienteForm listaCliente = new ListaClienteForm(clienteForm, codigo, null, null, null);
+					listaCliente.setVisible(true);
+					jcbxTipoPessoa.setEnabled(false);
+					jcbxTipoPessoa.setSelectedIndex(0);
+					jckbxForaUso.setSelected(false);
+					jckbxIsento.setEnabled(false);
+					jckbxIsento.setSelected(false);
+					jtfNomeCliente.setEnabled(false);
+					jtfCPF.setEnabled(false);
+					jtfRG.setEnabled(false);
+					jtfRazaoSocial.setEnabled(false);
+					jtfNomeFantasia.setEnabled(false);
+					jtfCNPJ.setEnabled(false);
+					jtfInscricaoEstadual.setEnabled(false);
+					jtfInscricaoMunicipal.setEnabled(false);
+					jtfEmail.setEnabled(false);
+					jtfTelefoneCelular.setEnabled(false);
+					jtfTelefoneComercial.setEnabled(false);
+					jtfTelefoneResidencial.setEnabled(false);
+					jtfEndereco.setEnabled(false);
+					jtfNumero.setEnabled(false);
+					jtfBairro.setEnabled(false);
+					jtfNomeCidade.setEnabled(false);
+					jtfCodigoCliente.setText("");
+					jtfNomeCliente.setText("");
+					jtfCPF.setText("");
+					jtfRG.setText("");
+					jtfRazaoSocial.setText("");
+					jtfNomeFantasia.setText("");
+					jtfCNPJ.setText("");
+					jtfInscricaoEstadual.setText("");
+					jtfInscricaoMunicipal.setText("");
+					jtfEmail.setText("");
+					jtfTelefoneCelular.setText("");
+					jtfTelefoneComercial.setText("");
+					jtfTelefoneResidencial.setText("");
+					jtfEndereco.setText("");
+					jtfNumero.setText("");
+					jtfBairro.setText("");
+					jtfCodigoUF.setText("");
+					jtfNomeUF.setText("");
+					jtfNomeCidade.setText("");
+					jtfCodigoCidade.setText("");
+					jtfNomePais.setText("");
 					jtfDataAlteracao.setText("");
+					jtfPesquisaCodigoCliente.setText("");
+					jtfPesquisaNomeCliente.setText("");
+					jtfPesquisaCnpjCliente.setText("");
+					jtfPesquisaCPFCliente.setText("");
 					jbtEditar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
 					jbtCancelar.setEnabled(true);
@@ -1018,8 +1214,55 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-				
+					ListaClienteForm listaCliente = new ListaClienteForm(clienteForm, null, jtfPesquisaNomeCliente.getText(), null, null);
+					listaCliente.setVisible(true);
+					jcbxTipoPessoa.setEnabled(false);
+					jcbxTipoPessoa.setSelectedIndex(0);
+					jckbxForaUso.setSelected(false);
+					jckbxIsento.setEnabled(false);
+					jckbxIsento.setSelected(false);
+					jtfNomeCliente.setEnabled(false);
+					jtfCPF.setEnabled(false);
+					jtfRG.setEnabled(false);
+					jtfRazaoSocial.setEnabled(false);
+					jtfNomeFantasia.setEnabled(false);
+					jtfCNPJ.setEnabled(false);
+					jtfInscricaoEstadual.setEnabled(false);
+					jtfInscricaoMunicipal.setEnabled(false);
+					jtfEmail.setEnabled(false);
+					jtfTelefoneCelular.setEnabled(false);
+					jtfTelefoneComercial.setEnabled(false);
+					jtfTelefoneResidencial.setEnabled(false);
+					jtfEndereco.setEnabled(false);
+					jtfNumero.setEnabled(false);
+					jtfBairro.setEnabled(false);
+					jtfNomeCidade.setEnabled(false);
+					jtfCodigoCliente.setText("");
+					jtfNomeCliente.setText("");
+					jtfCPF.setText("");
+					jtfRG.setText("");
+					jtfRazaoSocial.setText("");
+					jtfNomeFantasia.setText("");
+					jtfCNPJ.setText("");
+					jtfInscricaoEstadual.setText("");
+					jtfInscricaoMunicipal.setText("");
+					jtfEmail.setText("");
+					jtfTelefoneCelular.setText("");
+					jtfTelefoneComercial.setText("");
+					jtfTelefoneResidencial.setText("");
+					jtfEndereco.setText("");
+					jtfNumero.setText("");
+					jtfBairro.setText("");
+					jtfCodigoUF.setText("");
+					jtfNomeUF.setText("");
+					jtfNomeCidade.setText("");
+					jtfCodigoCidade.setText("");
+					jtfNomePais.setText("");
 					jtfDataAlteracao.setText("");
+					jtfPesquisaCodigoCliente.setText("");
+					jtfPesquisaNomeCliente.setText("");
+					jtfPesquisaCnpjCliente.setText("");
+					jtfPesquisaCPFCliente.setText("");
 					jbtEditar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
 					jbtCancelar.setEnabled(true);
@@ -1029,12 +1272,59 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	}
 	
 	public void pesquisaPorCNPJ() {
-		jtfPesquisaNomeCliente.addKeyListener(new KeyAdapter() {
+		jtfPesquisaCnpjCliente.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-				
+					ListaClienteForm listaCliente = new ListaClienteForm(clienteForm, null, null, jtfPesquisaCnpjCliente.getText(), null);
+					listaCliente.setVisible(true);
+					jcbxTipoPessoa.setEnabled(false);
+					jcbxTipoPessoa.setSelectedIndex(0);
+					jckbxForaUso.setSelected(false);
+					jckbxIsento.setEnabled(false);
+					jckbxIsento.setSelected(false);
+					jtfNomeCliente.setEnabled(false);
+					jtfCPF.setEnabled(false);
+					jtfRG.setEnabled(false);
+					jtfRazaoSocial.setEnabled(false);
+					jtfNomeFantasia.setEnabled(false);
+					jtfCNPJ.setEnabled(false);
+					jtfInscricaoEstadual.setEnabled(false);
+					jtfInscricaoMunicipal.setEnabled(false);
+					jtfEmail.setEnabled(false);
+					jtfTelefoneCelular.setEnabled(false);
+					jtfTelefoneComercial.setEnabled(false);
+					jtfTelefoneResidencial.setEnabled(false);
+					jtfEndereco.setEnabled(false);
+					jtfNumero.setEnabled(false);
+					jtfBairro.setEnabled(false);
+					jtfNomeCidade.setEnabled(false);
+					jtfCodigoCliente.setText("");
+					jtfNomeCliente.setText("");
+					jtfCPF.setText("");
+					jtfRG.setText("");
+					jtfRazaoSocial.setText("");
+					jtfNomeFantasia.setText("");
+					jtfCNPJ.setText("");
+					jtfInscricaoEstadual.setText("");
+					jtfInscricaoMunicipal.setText("");
+					jtfEmail.setText("");
+					jtfTelefoneCelular.setText("");
+					jtfTelefoneComercial.setText("");
+					jtfTelefoneResidencial.setText("");
+					jtfEndereco.setText("");
+					jtfNumero.setText("");
+					jtfBairro.setText("");
+					jtfCodigoUF.setText("");
+					jtfNomeUF.setText("");
+					jtfNomeCidade.setText("");
+					jtfCodigoCidade.setText("");
+					jtfNomePais.setText("");
 					jtfDataAlteracao.setText("");
+					jtfPesquisaCodigoCliente.setText("");
+					jtfPesquisaNomeCliente.setText("");
+					jtfPesquisaCnpjCliente.setText("");
+					jtfPesquisaCPFCliente.setText("");
 					jbtEditar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
 					jbtCancelar.setEnabled(true);
@@ -1044,12 +1334,59 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	}
 	
 	public void pesquisaPorCPF() {
-		jtfPesquisaNomeCliente.addKeyListener(new KeyAdapter() {
+		jtfPesquisaCPFCliente.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-				
+					ListaClienteForm listaCliente = new ListaClienteForm(clienteForm, null, null, null, jtfPesquisaCPFCliente.getText());
+					listaCliente.setVisible(true);
+					jcbxTipoPessoa.setEnabled(false);
+					jcbxTipoPessoa.setSelectedIndex(0);
+					jckbxForaUso.setSelected(false);
+					jckbxIsento.setEnabled(false);
+					jckbxIsento.setSelected(false);
+					jtfNomeCliente.setEnabled(false);
+					jtfCPF.setEnabled(false);
+					jtfRG.setEnabled(false);
+					jtfRazaoSocial.setEnabled(false);
+					jtfNomeFantasia.setEnabled(false);
+					jtfCNPJ.setEnabled(false);
+					jtfInscricaoEstadual.setEnabled(false);
+					jtfInscricaoMunicipal.setEnabled(false);
+					jtfEmail.setEnabled(false);
+					jtfTelefoneCelular.setEnabled(false);
+					jtfTelefoneComercial.setEnabled(false);
+					jtfTelefoneResidencial.setEnabled(false);
+					jtfEndereco.setEnabled(false);
+					jtfNumero.setEnabled(false);
+					jtfBairro.setEnabled(false);
+					jtfNomeCidade.setEnabled(false);
+					jtfCodigoCliente.setText("");
+					jtfNomeCliente.setText("");
+					jtfCPF.setText("");
+					jtfRG.setText("");
+					jtfRazaoSocial.setText("");
+					jtfNomeFantasia.setText("");
+					jtfCNPJ.setText("");
+					jtfInscricaoEstadual.setText("");
+					jtfInscricaoMunicipal.setText("");
+					jtfEmail.setText("");
+					jtfTelefoneCelular.setText("");
+					jtfTelefoneComercial.setText("");
+					jtfTelefoneResidencial.setText("");
+					jtfEndereco.setText("");
+					jtfNumero.setText("");
+					jtfBairro.setText("");
+					jtfCodigoUF.setText("");
+					jtfNomeUF.setText("");
+					jtfNomeCidade.setText("");
+					jtfCodigoCidade.setText("");
+					jtfNomePais.setText("");
 					jtfDataAlteracao.setText("");
+					jtfPesquisaCodigoCliente.setText("");
+					jtfPesquisaNomeCliente.setText("");
+					jtfPesquisaCnpjCliente.setText("");
+					jtfPesquisaCPFCliente.setText("");
 					jbtEditar.setEnabled(true);
 					jbtSalvar.setEnabled(false);
 					jbtCancelar.setEnabled(true);
@@ -1080,7 +1417,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		setResizable(false);
 		setTitle("Cadastro de Clientes");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 817, 563);
+		setBounds(100, 100, 753, 519);
 		jpnCliente = new JPanel();
 		jpnCliente.setLayout(null);
 		setLocationRelativeTo(null);

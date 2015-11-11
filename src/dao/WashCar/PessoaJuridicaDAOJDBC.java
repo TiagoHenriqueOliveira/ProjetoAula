@@ -25,7 +25,7 @@ public class PessoaJuridicaDAOJDBC implements PessoaJuridicaDAO{
 	@Override
 	public void inserir(PessoaJuridica pessoa) throws RegistroExistente {
 		query = "insert into tb_pessoaJuridica "
-				+ "values(razaoSocialCliente, nomeFantasiaCliente, cnpjCliente, inscricaoEstadualCliente, inscricaoMunicipalCliente, idCliente)";
+				+ "values(?,?,?,?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(query);
 			pstmt.setString(1, pessoa.getRazaoSocial());
@@ -44,7 +44,7 @@ public class PessoaJuridicaDAOJDBC implements PessoaJuridicaDAO{
 	public void alterar(PessoaJuridica pessoa) throws RegistroExistente {
 		query = "update tb_pessoaJuridica "
 				+ "set tb_pessoaJuridica.razaoSocialCliente = ?, tb_pessoaJuridica.nomeFantasiaCliente = ?, "
-				+ "tb_pessoaJuridica.cnpjCliente = ?, tb_pessoaJuridica.inscricaoEstadualCliente = ? "
+				+ "tb_pessoaJuridica.cnpjCliente = ?, tb_pessoaJuridica.inscricaoEstadualCliente = ?, "
 				+ "tb_pessoaJuridica.inscricaoMunicipalCliente = ? "
 				+ "where tb_pessoaJuridica.idCliente = ?";
 		try {

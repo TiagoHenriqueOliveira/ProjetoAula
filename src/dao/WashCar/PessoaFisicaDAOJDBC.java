@@ -24,7 +24,7 @@ public class PessoaFisicaDAOJDBC implements PessoaFisicaDAO{
 
 	@Override
 	public void inserir(PessoaFisica pessoa) throws RegistroExistente {
-		query = "insert into tb_pessoaFisica values(nomeCliente, cpfCliente, rgCliente, idCliente)";
+		query = "insert into tb_pessoaFisica values(?,?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(query);
 			pstmt.setString(1, pessoa.getNome());
