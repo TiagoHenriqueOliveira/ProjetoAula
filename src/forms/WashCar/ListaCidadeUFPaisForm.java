@@ -128,7 +128,7 @@ public class ListaCidadeUFPaisForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaCidadeUFPaisForm.class.getResource("/Imagens/washCar.jpeg")));
 		setFont(new Font("Tahoma", Font.PLAIN, 12));
 		setResizable(false);
-		setTitle("Lista de Empresas");
+		setTitle("Lista de Cidades/Estados/País");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 400);
 		setLocationRelativeTo(null);
