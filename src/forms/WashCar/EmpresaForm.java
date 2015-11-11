@@ -332,12 +332,12 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfNomeCidade.setEnabled(false);
 		jtfNomeCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCidade.setColumns(10);
-		jtfNomeCidade.setBounds(10, 360, 140, 20);
+		jtfNomeCidade.setBounds(10, 360, 230, 20);
 		jnpEmpresa.add(jtfNomeCidade);
 		
 		jlbPais = new JLabel("Pa\u00EDs");
 		jlbPais.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPais.setBounds(515, 345, 110, 14);
+		jlbPais.setBounds(265, 391, 110, 14);
 		jnpEmpresa.add(jlbPais);
 		
 		jtfNomePais = new JTextField();
@@ -345,7 +345,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfNomePais.setEnabled(false);
 		jtfNomePais.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomePais.setColumns(10);
-		jtfNomePais.setBounds(515, 360, 110, 20);
+		jtfNomePais.setBounds(265, 406, 110, 20);
 		jnpEmpresa.add(jtfNomePais);
 		
 		jlbRegimeTributario = new JLabel("Regime Tribut\u00E1rio");
@@ -355,7 +355,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		
 		jlbUnidadeFederativa = new JLabel("Estado");
 		jlbUnidadeFederativa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbUnidadeFederativa.setBounds(265, 345, 100, 14);
+		jlbUnidadeFederativa.setBounds(10, 391, 100, 14);
 		jnpEmpresa.add(jlbUnidadeFederativa);
 		
 		jlbInscricaoMunicipal = new JLabel("Inscri\u00E7\u00E3o Municipal");
@@ -376,35 +376,35 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfNomeUF.setEnabled(false);
 		jtfNomeUF.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeUF.setColumns(10);
-		jtfNomeUF.setBounds(265, 360, 130, 20);
+		jtfNomeUF.setBounds(10, 406, 139, 20);
 		jnpEmpresa.add(jtfNomeUF);
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 392, 110, 23);
+		jbtNovo.setBounds(10, 437, 110, 23);
 		jnpEmpresa.add(jbtNovo);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(138, 392, 110, 23);
+		jbtEditar.setBounds(138, 437, 110, 23);
 		jnpEmpresa.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(265, 392, 110, 23);
+		jbtSalvar.setBounds(265, 437, 110, 23);
 		jnpEmpresa.add(jbtSalvar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(390, 392, 110, 23);
+		jbtCancelar.setBounds(390, 437, 110, 23);
 		jnpEmpresa.add(jbtCancelar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(515, 392, 110, 23);
+		jbtFechar.setBounds(515, 437, 110, 23);
 		jnpEmpresa.add(jbtFechar);
 		
 		jtfEmail = new JTextField();
@@ -424,12 +424,12 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfCodigoUF.setEditable(false);
 		jtfCodigoUF.setColumns(10);
 		jtfCodigoUF.setBackground(Color.YELLOW);
-		jtfCodigoUF.setBounds(405, 360, 50, 20);
+		jtfCodigoUF.setBounds(160, 406, 50, 20);
 		jnpEmpresa.add(jtfCodigoUF);
 		
 		jlbCodigoUF = new JLabel("C\u00F3d. Estado");
 		jlbCodigoUF.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoUF.setBounds(405, 345, 100, 14);
+		jlbCodigoUF.setBounds(160, 391, 100, 14);
 		jnpEmpresa.add(jlbCodigoUF);
 		
 		jtfCodigoCidade = new JTextField();
@@ -437,12 +437,12 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfCodigoCidade.setEditable(false);
 		jtfCodigoCidade.setColumns(10);
 		jtfCodigoCidade.setBackground(Color.YELLOW);
-		jtfCodigoCidade.setBounds(159, 360, 50, 20);
+		jtfCodigoCidade.setBounds(250, 360, 50, 20);
 		jnpEmpresa.add(jtfCodigoCidade);
 		
 		jlbCodigoCidade = new JLabel("C\u00F3d. Cidade");
 		jlbCodigoCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoCidade.setBounds(159, 345, 100, 14);
+		jlbCodigoCidade.setBounds(250, 345, 100, 14);
 		jnpEmpresa.add(jlbCodigoCidade);
 		
 		jcbxRegimeTributario = new JComboBox<String>();
@@ -994,7 +994,7 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		setTitle("Cadastro da Empresa");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 642, 457);
+		setBounds(100, 100, 642, 498);
 		jnpEmpresa = new JPanel();
 		setLocationRelativeTo(null);
 		jnpEmpresa.setLayout(null);
