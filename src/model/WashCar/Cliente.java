@@ -22,8 +22,9 @@ public class Cliente implements Entidade {
 	private Boolean foraUso;
 	
 	//construtor com atributos
-	public Cliente(Integer idCliente) {
+	public Cliente(Integer idCliente, Integer tipoPessoa) {
 		this.idCliente = idCliente;
+		this.tipoPessoa = tipoPessoa;
 	}
 	
 	public Cliente() {
