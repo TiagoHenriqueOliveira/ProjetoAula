@@ -29,6 +29,7 @@ import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
 import daoFactory.WashCar.DaoFactory;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -441,7 +442,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		});
 	}
 	
-	public void pesquisarPorCodigo() {
+	public void pesquisarPorCodigo() throws RegistroNotExistente {
 		jtfPesquisaCodigoUsuario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
