@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 
@@ -13,30 +15,27 @@ import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.text.MaskFormatter;
 
+import daoFactory.WashCar.DaoFactory;
+import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 import model.WashCar.Empresa;
 import model.WashCar.Entidade;
 import model.WashCar.Usuario;
 import preencherDados.WashCar.PreencherDados;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 import validacaoCampos.WashCar.ValidaCampoString;
-import daoFactory.WashCar.DaoFactory;
-import exception.WashCar.RegistroExistente;
-import exception.WashCar.RegistroNotExistente;
-
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.SwingConstants;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 
 public class UsuarioForm extends JFrame implements PreencherDados{
 
@@ -415,62 +414,73 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		});
 	}
 	
-	public void pesquisarPorNome() {
+	public void pesquisarPorNome() throws RegistroNotExistente {
 		jtfPesquisaNomeUsuario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm, jtfPesquisaNomeUsuario.getText(), null);
-					listaUsuario.setVisible(true);
-					jtfNome.setEnabled(false);
-					jtfLogin.setEnabled(false);
-					jpfSenha.setEnabled(false);
-					jckbForaUso.setEnabled(false);
-					jckbForaUso.setSelected(false);
-					jtfCodigo.setText("");
-					jtfNome.setText("");
-					jtfLogin.setText("");
-					jpfSenha.setText("");
-					jtfDataAlteracao.setText("");
-					jbtEditar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-					jbtCancelar.setEnabled(true);
-					jtfPesquisaCodigoUsuario.setText("");
-					jtfPesquisaNomeUsuario.setText("");
+					try {
+						ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm, jtfPesquisaNomeUsuario.getText(), null);
+						listaUsuario.setVisible(true);
+						jtfNome.setEnabled(false);
+						jtfLogin.setEnabled(false);
+						jpfSenha.setEnabled(false);
+						jckbForaUso.setEnabled(false);
+						jckbForaUso.setSelected(false);
+						jtfCodigo.setText("");
+						jtfNome.setText("");
+						jtfLogin.setText("");
+						jpfSenha.setText("");
+						jtfDataAlteracao.setText("");
+						jbtEditar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jbtCancelar.setEnabled(true);
+						jtfPesquisaCodigoUsuario.setText("");
+						jtfPesquisaNomeUsuario.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(usuarioForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaNomeUsuario.setText("");
+					}
 				}
 			}
 		});
 	}
 	
 	public void pesquisarPorCodigo() throws RegistroNotExistente {
-		jtfPesquisaCodigoUsuario.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent keyevt) {
-				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					Integer codigo = null;
-					if(!jtfPesquisaCodigoUsuario.getText().equals("")) {
-						codigo = Integer.valueOf(jtfPesquisaCodigoUsuario.getText());
+			jtfPesquisaCodigoUsuario.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent keyevt) {
+					if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+						try{
+						Integer codigo = null;
+						if(!jtfPesquisaCodigoUsuario.getText().equals("")) {
+							codigo = Integer.valueOf(jtfPesquisaCodigoUsuario.getText());
+						}
+						ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm, null, codigo);
+						listaUsuario.setVisible(true);
+						jtfNome.setEnabled(false);
+						jtfLogin.setEnabled(false);
+						jpfSenha.setEnabled(false);
+						jckbForaUso.setEnabled(false);
+						jckbForaUso.setSelected(false);
+						jtfCodigo.setText("");
+						jtfNome.setText("");
+						jtfLogin.setText("");
+						jpfSenha.setText("");
+						jtfDataAlteracao.setText("");
+						jbtEditar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jbtCancelar.setEnabled(true);
+						jtfPesquisaCodigoUsuario.setText("");
+						jtfPesquisaNomeUsuario.setText("");
+						} catch (RegistroNotExistente e) {
+							JOptionPane.showMessageDialog(usuarioForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+							jtfPesquisaCodigoUsuario.setText("");
+						}
 					}
-					ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm, null, codigo);
-					listaUsuario.setVisible(true);
-					jtfNome.setEnabled(false);
-					jtfLogin.setEnabled(false);
-					jpfSenha.setEnabled(false);
-					jckbForaUso.setEnabled(false);
-					jckbForaUso.setSelected(false);
-					jtfCodigo.setText("");
-					jtfNome.setText("");
-					jtfLogin.setText("");
-					jpfSenha.setText("");
-					jtfDataAlteracao.setText("");
-					jbtEditar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-					jbtCancelar.setEnabled(true);
-					jtfPesquisaCodigoUsuario.setText("");
-					jtfPesquisaNomeUsuario.setText("");
 				}
-			}
-		});
+			});
+		
 	}
 	
 	public UsuarioForm() {

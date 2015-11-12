@@ -10,6 +10,7 @@ import java.util.List;
 
 import conexao.ConexaoUtil;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 import model.WashCar.Usuario;
 
 public class UsuarioDAOJDBC implements UsuarioDAO {
@@ -69,7 +70,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
 	}
 
 	@Override
-	public Usuario buscarId(Integer id) {
+	public Usuario buscarId(Integer id) throws RegistroNotExistente {
 		Usuario usuario = null;
 		sql = "select * from tb_usuario "
 				+ "where tb_usuario.idUsuario = ?";
@@ -86,6 +87,11 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
 				usuario.setDataAltercacao(rs.getDate("dataAlteracaoUsuario").toLocalDate());
 				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("usuarioForaUso")));
 			}
+			if(usuario == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -93,8 +99,9 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
 	}
 
 	@Override
-	public List<Usuario> buscarDescricao(String nome) {
+	public List<Usuario> buscarDescricao(String nome) throws RegistroNotExistente {
 		List<Usuario> usuarios = new ArrayList<>();
+		Usuario usuario = null;
 		sql = "select * from tb_usuario "
 				+ "where tb_usuario.nomeUsuario like ?";
 		try {
@@ -102,7 +109,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
 			pstmt.setString(1, "%" + nome + "%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Usuario usuario = new Usuario();
+				usuario = new Usuario();
 				usuario.setIdUsuario(rs.getInt("idUsuario"));
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
@@ -110,6 +117,11 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
 				usuario.setDataAltercacao(rs.getDate("dataAlteracaoUsuario").toLocalDate());
 				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("usuarioForaUso")));
 				usuarios.add(usuario);
+			}
+			if(usuario == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,12 +132,13 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
 	@Override
 	public List<Usuario> todos() {
 		List<Usuario> usuarios = new ArrayList<>();
+		Usuario usuario = null;
 		sql = "select * from tb_usuario";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Usuario usuario = new Usuario();
+				usuario = new Usuario();
 				usuario.setIdUsuario(rs.getInt("idUsuario"));
 				usuario.setNome(rs.getString("nomeUsuario"));
 				usuario.setLogin(rs.getString("loginUsuario"));
@@ -133,6 +146,11 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
 				usuario.setDataAltercacao(rs.getDate("dataAlteracaoUsuario").toLocalDate());
 				usuario.setForaUso(Boolean.valueOf(rs.getBoolean("usuarioForaUso")));
 				usuarios.add(usuario);
+			}
+			if(usuario == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
