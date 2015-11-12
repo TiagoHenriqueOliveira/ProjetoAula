@@ -9,6 +9,7 @@ import javax.swing.text.MaskFormatter;
 import daoFactory.WashCar.DaoFactory;
 import exception.WashCar.RegistroExistente;
 import model.WashCar.Carro;
+import model.WashCar.Cliente;
 import model.WashCar.Entidade;
 import model.WashCar.Modelo;
 import preencherDados.WashCar.PreencherDados;
@@ -52,6 +53,10 @@ public class CarroForm extends JFrame implements PreencherDados{
 	private JTextField jtfPlacaCarro;
 	private JTextField jtfNomeModelo;
 	private JTextField jtfCodigoModelo;
+	private JTextField jtfCPFCliente;
+	private JTextField jtfCNPJCliente;
+	private JTextField jtfCodigoCliente;
+	private JTextField jtfNomeCliente;
 	private JLabel jlbPesquisaCodigoCarro;
 	private JLabel jlbPesquisaNomeCarro;
 	private JLabel jlbPesquisaPlacaCarro;
@@ -62,6 +67,10 @@ public class CarroForm extends JFrame implements PreencherDados{
 	private JLabel jlbConsultaCarro;
 	private JLabel jlbNomeModelo;
 	private JLabel jlbCodigoModelo;
+	private JLabel jlbCodigoCliente;
+	private JLabel jlbCNPJCliente;
+	private JLabel jlbCPFCliente;
+	private JLabel jlbNomeCliente;
 	private JCheckBox jckbxForaUso;
 	private JButton jbtNovo;
 	private JButton jbtEditar;
@@ -72,6 +81,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 	private JMenu jmnRelatorio;
 	private Carro carro;
 	private static CarroForm carroForm;
+
 
 	public void componentesCarroForm() {
 		jpnPesquisaCarro = new JPanel();
@@ -124,9 +134,9 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jlbConsultaCarro.setBounds(10, 13, 351, 14);
 		jpnPesquisaCarro.add(jlbConsultaCarro);
 		
-		jlbCodigoCarro = new JLabel("C\u00F3d. do Carro");
+		jlbCodigoCarro = new JLabel("C\u00F3d. Carro");
 		jlbCodigoCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoCarro.setBounds(10, 107, 120, 14);
+		jlbCodigoCarro.setBounds(10, 107, 100, 14);
 		jpnCarro.add(jlbCodigoCarro);
 		
 		jtfCodigoCarro = new JTextField();
@@ -157,7 +167,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 		
 		jlbNomeCarro = new JLabel("Nome do Carro");
 		jlbNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeCarro.setBounds(130, 107, 298, 14);
+		jlbNomeCarro.setBounds(105, 107, 298, 14);
 		jpnCarro.add(jlbNomeCarro);
 		
 		jtfNomeCarro = new JTextField();
@@ -165,7 +175,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfNomeCarro.setEnabled(false);
 		jtfNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCarro.setColumns(10);
-		jtfNomeCarro.setBounds(130, 123, 300, 20);
+		jtfNomeCarro.setBounds(105, 123, 300, 20);
 		jpnCarro.add(jtfNomeCarro);
 		
 		try {
@@ -176,7 +186,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfPlacaCarro.setEnabled(false);
 		jtfPlacaCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPlacaCarro.setColumns(10);
-		jtfPlacaCarro.setBounds(440, 123, 75, 20);
+		jtfPlacaCarro.setBounds(415, 123, 75, 20);
 		jpnCarro.add(jtfPlacaCarro);
 		
 		jlbPlacaCarro = new JLabel("Placa do Carro");
@@ -186,30 +196,30 @@ public class CarroForm extends JFrame implements PreencherDados{
 		
 		jbtNovo = new JButton("Novo");
 		jbtNovo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtNovo.setBounds(10, 201, 120, 25);
+		jbtNovo.setBounds(10, 249, 120, 25);
 		jpnCarro.add(jbtNovo);
 		
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(270, 201, 120, 25);
+		jbtEditar.setBounds(270, 249, 120, 25);
 		jpnCarro.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(140, 201, 120, 25);
+		jbtSalvar.setBounds(140, 249, 120, 25);
 		jpnCarro.add(jbtSalvar);
 		
 		jbtFechar = new JButton("Fechar");
 		jbtFechar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtFechar.setBounds(530, 201, 120, 25);
+		jbtFechar.setBounds(530, 249, 120, 25);
 		jpnCarro.add(jbtFechar);
 		
 		jbtCancelar = new JButton("Cancelar");
 		jbtCancelar.setEnabled(false);
 		jbtCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtCancelar.setBounds(400, 201, 120, 25);
+		jbtCancelar.setBounds(400, 249, 120, 25);
 		jpnCarro.add(jbtCancelar);
 		
 		jmbCadastroCarro = new JMenuBar();
@@ -226,17 +236,17 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeModelo.setEnabled(false);
 		jtfNomeModelo.setColumns(10);
-		jtfNomeModelo.setBounds(130, 170, 300, 20);
+		jtfNomeModelo.setBounds(105, 170, 300, 20);
 		jpnCarro.add(jtfNomeModelo);
 		
 		jlbNomeModelo = new JLabel("Nome do Modelo");
 		jlbNomeModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbNomeModelo.setBounds(130, 154, 298, 14);
+		jlbNomeModelo.setBounds(105, 154, 298, 14);
 		jpnCarro.add(jlbNomeModelo);
 		
-		jlbCodigoModelo = new JLabel("C\u00F3d. do Modelo");
+		jlbCodigoModelo = new JLabel("C\u00F3d. Modelo");
 		jlbCodigoModelo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoModelo.setBounds(10, 154, 120, 14);
+		jlbCodigoModelo.setBounds(10, 154, 100, 14);
 		jpnCarro.add(jlbCodigoModelo);
 		
 		jtfCodigoModelo = new JTextField();
@@ -252,6 +262,63 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jckbxForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jckbxForaUso.setBounds(530, 169, 120, 23);
 		jpnCarro.add(jckbxForaUso);
+		
+		jlbNomeCliente = new JLabel("Nome do Cliente");
+		jlbNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbNomeCliente.setBounds(105, 204, 300, 14);
+		jpnCarro.add(jlbNomeCliente);
+		
+		jtfNomeCliente = new JTextField();
+		jtfNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfNomeCliente.setEnabled(false);
+		jtfNomeCliente.setColumns(10);
+		jtfNomeCliente.setBounds(105, 218, 300, 20);
+		jpnCarro.add(jtfNomeCliente);
+		
+		jlbCPFCliente = new JLabel("CPF");
+		jlbCPFCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbCPFCliente.setBounds(415, 204, 100, 14);
+		jpnCarro.add(jlbCPFCliente);
+		
+		try {
+			jtfCPFCliente = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		jtfCPFCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfCPFCliente.setEnabled(false);
+		jtfCPFCliente.setColumns(10);
+		jtfCPFCliente.setBounds(415, 218, 100, 20);
+		jpnCarro.add(jtfCPFCliente);
+		
+		jlbCNPJCliente = new JLabel("CNPJ");
+		jlbCNPJCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbCNPJCliente.setBounds(525, 204, 125, 14);
+		jpnCarro.add(jlbCNPJCliente);
+		
+		try {
+			jtfCNPJCliente = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		jtfCNPJCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfCNPJCliente.setEnabled(false);
+		jtfCNPJCliente.setColumns(10);
+		jtfCNPJCliente.setBounds(525, 218, 125, 20);
+		jpnCarro.add(jtfCNPJCliente);
+		
+		jlbCodigoCliente = new JLabel("Cód. Cliente");
+		jlbCodigoCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbCodigoCliente.setBounds(10, 202, 100, 14);
+		jpnCarro.add(jlbCodigoCliente);
+		
+		jtfCodigoCliente = new JTextField();
+		jtfCodigoCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jtfCodigoCliente.setEditable(false);
+		jtfCodigoCliente.setColumns(10);
+		jtfCodigoCliente.setBackground(Color.YELLOW);
+		jtfCodigoCliente.setBounds(10, 218, 50, 20);
+		jpnCarro.add(jtfCodigoCliente);
 	}
 
 	public void acionarBotaoNovo() {
@@ -259,6 +326,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfNomeCarro.setEnabled(true);
 		jtfPlacaCarro.setEnabled(true);
 		jtfNomeModelo.setEnabled(true);
+		jtfNomeCliente.setEnabled(true);
 		jckbxForaUso.setSelected(false);
 		jckbxForaUso.setEnabled(false);
 		jtfCodigoCarro.setText("");
@@ -266,6 +334,10 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfPlacaCarro.setText("");
 		jtfCodigoModelo.setText("");
 		jtfNomeModelo.setText("");
+		jtfCodigoCliente.setText("");
+		jtfNomeCliente.setText("");
+		jtfCPFCliente.setText("");
+		jtfCNPJCliente.setText("");
 		jtfDataAlteracao.setText("");
 		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
@@ -289,16 +361,17 @@ public class CarroForm extends JFrame implements PreencherDados{
 			this.carro.setNome(jtfNomeCarro.getText());
 			this.carro.setPlaca(jtfPlacaCarro.getText());
 			this.carro.setModelo(new Modelo(Integer.valueOf(jtfCodigoModelo.getText()), null));
+			this.carro.setCliente(new Cliente(Integer.valueOf(jtfCodigoCliente.getText()), null));
 			this.carro.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
 			this.carro.setDataAltercacao(Date.valueOf(carro.getDataAltercacao().now()).toLocalDate());
 			DaoFactory.getFactory().carroDao().inserir(carro);
 			jtfCodigoCarro.setText(String.valueOf(this.carro.getIdCarro()));
 			jtfDataAlteracao.setText(this.carro.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
-			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeCarro.setEnabled(false);
 			jtfPlacaCarro.setEnabled(false);
 			jtfNomeModelo.setEnabled(false);
+			jtfNomeCliente.setEnabled(false);
 			jbtSalvar.setEnabled(false);
 			jbtEditar.setEnabled(true);
 			jbtNovo.setEnabled(true);
@@ -325,17 +398,18 @@ public class CarroForm extends JFrame implements PreencherDados{
 			this.carro.setNome(jtfNomeCarro.getText());
 			this.carro.setPlaca(jtfPlacaCarro.getText());
 			this.carro.setModelo(new Modelo(Integer.valueOf(jtfCodigoModelo.getText()), null));
+			this.carro.setCliente(new Cliente(Integer.valueOf(jtfCodigoCliente.getText()), null));
 			this.carro.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
 			this.carro.setDataAltercacao(Date.valueOf(carro.getDataAltercacao().now()).toLocalDate());
 			this.carro.setIdCarro(Integer.valueOf(jtfCodigoCarro.getText()));
 			DaoFactory.getFactory().carroDao().alterar(carro);
 			jtfCodigoCarro.setText(String.valueOf(this.carro.getIdCarro()));
 			jtfDataAlteracao.setText(this.carro.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
-			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeCarro.setEnabled(false);
 			jtfPlacaCarro.setEnabled(false);
 			jtfNomeModelo.setEnabled(false);
+			jtfNomeCliente.setEnabled(false);
 			jckbxForaUso.setEnabled(false);
 			jbtSalvar.setEnabled(false);
 			jbtEditar.setEnabled(true);
@@ -360,13 +434,18 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfNomeCarro.setEnabled(false);
 		jtfPlacaCarro.setEnabled(false);
 		jtfNomeModelo.setEnabled(false);
-		jckbxForaUso.setSelected(false);
+		jtfNomeCliente.setEnabled(false);
 		jckbxForaUso.setEnabled(false);
+		jckbxForaUso.setSelected(false);
 		jtfCodigoCarro.setText("");
 		jtfNomeCarro.setText("");
 		jtfPlacaCarro.setText("");
 		jtfCodigoModelo.setText("");
 		jtfNomeModelo.setText("");
+		jtfCodigoCliente.setText("");
+		jtfNomeCliente.setText("");
+		jtfCPFCliente.setText("");
+		jtfCNPJCliente.setText("");
 		jtfDataAlteracao.setText("");
 		jbtNovo.setEnabled(true);
 		jbtSalvar.setEnabled(false);
@@ -380,6 +459,15 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfPlacaCarro.setText(carro.getPlaca());
 		jtfCodigoModelo.setText(String.valueOf(carro.getModelo().getIdModelo()));
 		jtfNomeModelo.setText(carro.getModelo().getNome());
+		if(carro.getCliente().getTipoPessoa() == 1) {
+			jtfCodigoCliente.setText(String.valueOf(carro.getCliente().getIdCliente()));
+			jtfNomeCliente.setText(carro.getCliente().getPessoaFisica().getNome());
+			jtfCPFCliente.setText(carro.getCliente().getPessoaFisica().getCpf());
+		} else if(carro.getCliente().getTipoPessoa() == 2) {
+			jtfCodigoCliente.setText(String.valueOf(carro.getCliente().getIdCliente()));
+			jtfNomeCliente.setText(carro.getCliente().getPessoaJuridica().getNomeFantasia());
+			jtfCNPJCliente.setText(carro.getCliente().getPessoaJuridica().getCnpj());
+		}
 		jtfDataAlteracao.setText(carro.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 		if(carro.isForaUso()) {
 			jckbxForaUso.setSelected(true);
@@ -391,13 +479,39 @@ public class CarroForm extends JFrame implements PreencherDados{
 	
 	public void preencherCamposModelo(Modelo modelo) {
 		if(modelo.isForaUso()) {
-			JOptionPane.showMessageDialog(null, "O modelo selecionada está fora de uso,\n"
-			+ "por gentileza entre em contato com o responsável!\n"
+			JOptionPane.showMessageDialog(null, "O modelo selecionada está fora de uso.\n"
+			+ "Por gentileza, entre em contato com o responsável!\n"
 			+ "Após a confirmação o cadastro será cancelado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			this.acionarBotaoCancelar();
 		} else {
 			jtfCodigoModelo.setText(String.valueOf(modelo.getIdModelo()));
 			jtfNomeModelo.setText(modelo.getNome());
+		}
+	}
+	
+	public void preencherCamposCliente(Cliente cliente) {
+		if(cliente.getTipoPessoa() == 1) {
+			if(cliente.isForaUso()) {
+				JOptionPane.showMessageDialog(null, "O cliente selecionado está fora de uso.\n"
+				+ "Por gentileza, entre em contato com o responsável!\n"
+				+ "Após a confirmação o cadastro será cancelado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				this.acionarBotaoCancelar();
+			} else {
+				jtfCodigoCliente.setText(String.valueOf(cliente.getIdCliente()));
+				jtfNomeCliente.setText(cliente.getPessoaFisica().getNome());
+				jtfCPFCliente.setText(cliente.getPessoaFisica().getCpf());
+			}
+		} else {
+			if(cliente.isForaUso()) {
+				JOptionPane.showMessageDialog(null, "O cliente selecionado está fora de uso.\n"
+				+ "Por gentileza, entre em contato com o responsável!\n"
+				+ "Após a confirmação o cadastro será cancelado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				this.acionarBotaoCancelar();
+			} else {
+				jtfCodigoCliente.setText(String.valueOf(cliente.getIdCliente()));
+				jtfNomeCliente.setText(cliente.getPessoaJuridica().getNomeFantasia());
+				jtfCNPJCliente.setText(cliente.getPessoaJuridica().getCnpj());
+			}
 		}
 	}
 		
@@ -468,6 +582,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 					jtfNomeCarro.setEnabled(false);
 					jtfPlacaCarro.setEnabled(false);
 					jtfNomeModelo.setEnabled(false);
+					jtfNomeCliente.setEnabled(false);
 					jckbxForaUso.setEnabled(false);
 					jckbxForaUso.setSelected(false);
 					jtfCodigoCarro.setText("");
@@ -475,6 +590,10 @@ public class CarroForm extends JFrame implements PreencherDados{
 					jtfPlacaCarro.setText("");
 					jtfCodigoModelo.setText("");
 					jtfNomeModelo.setText("");
+					jtfCodigoCliente.setText("");
+					jtfNomeCliente.setText("");
+					jtfCPFCliente.setText("");
+					jtfCNPJCliente.setText("");
 					jtfDataAlteracao.setText("");
 					jtfPesquisaCodigoCarro.setText("");
 					jtfPesquisaNomeCarro.setText("");
@@ -496,6 +615,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 					jtfNomeCarro.setEnabled(false);
 					jtfPlacaCarro.setEnabled(false);
 					jtfNomeModelo.setEnabled(false);
+					jtfNomeCliente.setEnabled(false);
 					jckbxForaUso.setEnabled(false);
 					jckbxForaUso.setSelected(false);
 					jtfCodigoCarro.setText("");
@@ -503,6 +623,10 @@ public class CarroForm extends JFrame implements PreencherDados{
 					jtfPlacaCarro.setText("");
 					jtfCodigoModelo.setText("");
 					jtfNomeModelo.setText("");
+					jtfCodigoCliente.setText("");
+					jtfNomeCliente.setText("");
+					jtfCPFCliente.setText("");
+					jtfCNPJCliente.setText("");
 					jtfDataAlteracao.setText("");
 					jtfPesquisaCodigoCarro.setText("");
 					jtfPesquisaNomeCarro.setText("");
@@ -524,6 +648,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 					jtfNomeCarro.setEnabled(false);
 					jtfPlacaCarro.setEnabled(false);
 					jtfNomeModelo.setEnabled(false);
+					jtfNomeCliente.setEnabled(false);
 					jckbxForaUso.setEnabled(false);
 					jckbxForaUso.setSelected(false);
 					jtfCodigoCarro.setText("");
@@ -531,6 +656,10 @@ public class CarroForm extends JFrame implements PreencherDados{
 					jtfPlacaCarro.setText("");
 					jtfCodigoModelo.setText("");
 					jtfNomeModelo.setText("");
+					jtfCodigoCliente.setText("");
+					jtfNomeCliente.setText("");
+					jtfCPFCliente.setText("");
+					jtfCNPJCliente.setText("");
 					jtfDataAlteracao.setText("");
 					jtfPesquisaCodigoCarro.setText("");
 					jtfPesquisaNomeCarro.setText("");
@@ -555,13 +684,28 @@ public class CarroForm extends JFrame implements PreencherDados{
 			}
 		});
 	}
+	
+	public void pesquisaNomeCliente() {
+		jtfNomeCliente.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					ListaClienteForm listaCliente = new ListaClienteForm(carroForm, null, jtfNomeCliente.getText(), null, null);
+					listaCliente.setVisible(true);
+					jtfCodigoCliente.setText("");
+					jtfNomeCliente.setText("");
+					jtfCPFCliente.setText("");
+					jtfCNPJCliente.setText("");
+				}
+			}
+		});
+	}
 		
 	public CarroForm() {
 		carroForm = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CarroForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro de Carros do Cliente | WashCar");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 665, 285);
+		setBounds(100, 100, 665, 335);
 		jpnCarro = new JPanel();
 		jpnCarro.setLayout(null);
 		setLocationRelativeTo(null);
@@ -573,14 +717,17 @@ public class CarroForm extends JFrame implements PreencherDados{
 		pesquisaPorNome();
 		pesquisaPorPlaca();
 		pesquisaNomeModelo();
+		pesquisaNomeCliente();
 	}
 
 	@Override
 	public void preencherCampos(Entidade entidade) {
-		if(!jtfNomeModelo.isEnabled()) {
-			this.preencherCamposCarro((Carro)entidade);
-		} else {
+		if((jtfNomeModelo.getText() == null || jtfNomeModelo.getText().equals("")) && (jtfNomeModelo.isEnabled())) {
 			this.preencherCamposModelo((Modelo)entidade);
+		} else if((jtfCPFCliente.getText().equals("   .   .   -  ")) && (jtfCNPJCliente.getText().equals("  .   .   /    -  ")) && (jtfNomeCliente.isEnabled())){
+			this.preencherCamposCliente((Cliente)entidade);
+		} else if((!jtfNomeModelo.isEnabled()) && (!jtfNomeCliente.isEnabled())){
+			this.preencherCamposCarro((Carro)entidade);
 		}
 	}
 }
