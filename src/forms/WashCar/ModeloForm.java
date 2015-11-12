@@ -9,6 +9,7 @@ import javax.swing.text.MaskFormatter;
 
 import daoFactory.WashCar.DaoFactory;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 import model.WashCar.Entidade;
 import model.WashCar.Marca;
 import model.WashCar.Modelo;
@@ -417,25 +418,30 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jtfPesquisaCodigoModelo.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					Integer codigo = null;
-					if(!jtfPesquisaCodigoModelo.getText().equals("")) {
-						codigo = Integer.valueOf(jtfPesquisaCodigoModelo.getText());
+					try {
+						Integer codigo = null;
+						if(!jtfPesquisaCodigoModelo.getText().equals("")) {
+							codigo = Integer.valueOf(jtfPesquisaCodigoModelo.getText());
+						}
+						ListaModeloForm listaModeloForm = new ListaModeloForm(modeloForm, null, codigo);
+						listaModeloForm.setVisible(true);
+						jbtEditar.setEnabled(true);
+						jbtNovo.setEnabled(true);
+						jbtCancelar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jtfCodigoModelo.setText("");
+						jtfNomeModelo.setText("");
+						jtfCodigoMarca.setText("");
+						jtfNomeMarca.setText("");
+						jtfDataAlteracao.setText("");
+						jckbForaUso.setSelected(false);
+						jckbForaUso.setEnabled(false);
+						jtfPesquisaCodigoModelo.setText("");
+						jtfPesquisaNomeModelo.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(modeloForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaCodigoModelo.setText("");
 					}
-					ListaModeloForm listaModeloForm = new ListaModeloForm(modeloForm, null, codigo);
-					listaModeloForm.setVisible(true);
-					jbtEditar.setEnabled(true);
-					jbtNovo.setEnabled(true);
-					jbtCancelar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-					jtfCodigoModelo.setText("");
-					jtfNomeModelo.setText("");
-					jtfCodigoMarca.setText("");
-					jtfNomeMarca.setText("");
-					jtfDataAlteracao.setText("");
-					jckbForaUso.setSelected(false);
-					jckbForaUso.setEnabled(false);
-					jtfPesquisaCodigoModelo.setText("");
-					jtfPesquisaNomeModelo.setText("");
 				}
 			}
 		});
@@ -445,21 +451,26 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jtfPesquisaNomeModelo.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaModeloForm listaModeloForm = new ListaModeloForm(modeloForm, jtfPesquisaNomeModelo.getText(), null);
-					listaModeloForm.setVisible(true);
-					jbtEditar.setEnabled(true);
-					jbtNovo.setEnabled(true);
-					jbtCancelar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-					jtfCodigoModelo.setText("");
-					jtfNomeModelo.setText("");
-					jtfCodigoMarca.setText("");
-					jtfNomeMarca.setText("");
-					jtfDataAlteracao.setText("");
-					jckbForaUso.setSelected(false);
-					jckbForaUso.setEnabled(false);
-					jtfPesquisaCodigoModelo.setText("");
-					jtfPesquisaNomeModelo.setText("");
+					try {
+						ListaModeloForm listaModeloForm = new ListaModeloForm(modeloForm, jtfPesquisaNomeModelo.getText(), null);
+						listaModeloForm.setVisible(true);
+						jbtEditar.setEnabled(true);
+						jbtNovo.setEnabled(true);
+						jbtCancelar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jtfCodigoModelo.setText("");
+						jtfNomeModelo.setText("");
+						jtfCodigoMarca.setText("");
+						jtfNomeMarca.setText("");
+						jtfDataAlteracao.setText("");
+						jckbForaUso.setSelected(false);
+						jckbForaUso.setEnabled(false);
+						jtfPesquisaCodigoModelo.setText("");
+						jtfPesquisaNomeModelo.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(modeloForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaNomeModelo.setText("");
+					}
 				}
 			}
 		});
@@ -469,10 +480,15 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		jtfNomeMarca.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaMarcaForm listaMarcaForm = new ListaMarcaForm(modeloForm, jtfNomeMarca.getText(), null);
-					listaMarcaForm.setVisible(true);
-					jtfCodigoMarca.setText("");
-					jtfNomeMarca.setText("");
+					try {
+						ListaMarcaForm listaMarcaForm = new ListaMarcaForm(modeloForm, jtfNomeMarca.getText(), null);
+						listaMarcaForm.setVisible(true);
+						jtfCodigoMarca.setText("");
+						jtfNomeMarca.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(modeloForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfNomeMarca.setText("");
+					}
 				}
 			}
 		});

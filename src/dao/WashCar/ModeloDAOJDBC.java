@@ -10,6 +10,7 @@ import java.util.List;
 
 import conexao.ConexaoUtil;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 import model.WashCar.Marca;
 import model.WashCar.Modelo;
 
@@ -85,6 +86,11 @@ public class ModeloDAOJDBC implements ModeloDAO{
 				modelo.setDataAltercacao(rs.getDate("dataAlteracaoModelo").toLocalDate());
 				modelo.setForaUso(rs.getBoolean("ModeloforaUso"));
 			}
+			if(modelo == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
+			}
 		} catch (SQLException buscaId) {
 			buscaId.printStackTrace();
 		}
@@ -94,6 +100,7 @@ public class ModeloDAOJDBC implements ModeloDAO{
 	@Override
 	public List<Modelo> buscarDescricao(String nome) {
 		List<Modelo>	 modelos = new ArrayList<>();
+		Modelo modelo = null;
 		sql = "select * from tb_modelo "
 				+ "inner join tb_marca "
 				+ "on tb_modelo.idMarca = tb_marca.idMarca "
@@ -103,13 +110,18 @@ public class ModeloDAOJDBC implements ModeloDAO{
 			pstmt.setString(1, "%" + nome + "%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Modelo modelo = new Modelo();
+				modelo = new Modelo();
 				modelo.setIdModelo(Integer.valueOf(rs.getInt("idModelo")));
 				modelo.setNome(rs.getString("nomeModelo"));
 				modelo.setMarca(new Marca(rs.getInt("idMarca"), rs.getString("nomeMarca")));
 				modelo.setDataAltercacao(rs.getDate("dataAlteracaoModelo").toLocalDate());
 				modelo.setForaUso(rs.getBoolean("ModeloforaUso"));
 				modelos.add(modelo);
+			}
+			if(modelo == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException buscaNome) {
 			buscaNome.printStackTrace();
@@ -120,6 +132,7 @@ public class ModeloDAOJDBC implements ModeloDAO{
 	@Override
 	public List<Modelo> todos() {
 		List<Modelo> modelos = new ArrayList<>();
+		Modelo modelo = null;
 		sql = "select * from tb_modelo "
 				+ "inner join tb_marca "
 				+ "on tb_modelo.idMarca = tb_marca.idMarca";
@@ -127,13 +140,18 @@ public class ModeloDAOJDBC implements ModeloDAO{
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Modelo modelo = new Modelo();
+				modelo = new Modelo();
 				modelo.setIdModelo(Integer.valueOf(rs.getInt("idModelo")));
 				modelo.setNome(rs.getString("nomeModelo"));
 				modelo.setMarca(new Marca(rs.getInt("idMarca"), rs.getString("nomeMarca")));
 				modelo.setDataAltercacao(rs.getDate("dataAlteracaoModelo").toLocalDate());
 				modelo.setForaUso(rs.getBoolean("ModeloforaUso"));
 				modelos.add(modelo);
+			}
+			if(modelo == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException buscaModelo) {
 			buscaModelo.printStackTrace();
