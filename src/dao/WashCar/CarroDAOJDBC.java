@@ -11,7 +11,10 @@ import java.util.List;
 import conexao.ConexaoUtil;
 import exception.WashCar.RegistroExistente;
 import model.WashCar.Carro;
+import model.WashCar.Cliente;
 import model.WashCar.Modelo;
+import model.WashCar.PessoaFisica;
+import model.WashCar.PessoaJuridica;
 
 public class CarroDAOJDBC implements CarroDAO{
 	
@@ -27,8 +30,8 @@ public class CarroDAOJDBC implements CarroDAO{
 	@SuppressWarnings("static-access")
 	@Override
 	public void inserir(Carro carro) throws RegistroExistente {
-		sql = "insert into tb_carro(nomeCarro, placaCarro, carroForaUso, dataAlteracaoCarro, idModelo) "
-				+ "values(?, ?, ?, ?, ?)";
+		sql = "insert into tb_carro(nomeCarro, placaCarro, carroForaUso, dataAlteracaoCarro, idModelo, idCliente) "
+				+ "values(?, ?, ?, ?, ?, ?)";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, carro.getNome());
@@ -36,6 +39,7 @@ public class CarroDAOJDBC implements CarroDAO{
 			pstmt.setBoolean(3, carro.isForaUso());
 			pstmt.setDate(4, Date.valueOf(carro.getDataAltercacao().now()));
 			pstmt.setInt(5, carro.getModelo().getIdModelo());
+			pstmt.setInt(6, carro.getCliente().getIdCliente());
 			pstmt.executeUpdate();
 			carro.setIdCarro(obterUltimoID(pstmt, rs));
 		} catch (SQLException e) {
@@ -47,7 +51,8 @@ public class CarroDAOJDBC implements CarroDAO{
 	@Override
 	public void alterar(Carro carro) throws RegistroExistente {
 		sql = "update tb_carro "
-				+ "set tb_carro.nomeCarro = ?, tb_carro.placaCarro = ?, tb_carro.carroForaUso = ?, tb_carro.dataAlteracaoCarro = ?, tb_carro.idModelo = ? "
+				+ "set tb_carro.nomeCarro = ?, tb_carro.placaCarro = ?, tb_carro.carroForaUso = ?, "
+				+ "tb_carro.dataAlteracaoCarro = ?, tb_carro.idModelo = ?, tb_carro.idCliente = ? "
 				+ "where tb_carro.idCarro = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -56,7 +61,8 @@ public class CarroDAOJDBC implements CarroDAO{
 			pstmt.setBoolean(3, carro.isForaUso());
 			pstmt.setDate(4, Date.valueOf(carro.getDataAltercacao().now()));
 			pstmt.setInt(5, carro.getModelo().getIdModelo());
-			pstmt.setInt(6, carro.getIdCarro());
+			pstmt.setInt(6, carro.getCliente().getIdCliente());
+			pstmt.setInt(7, carro.getIdCarro());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new RegistroExistente(e.getMessage());
@@ -68,12 +74,30 @@ public class CarroDAOJDBC implements CarroDAO{
 		// TODO Auto-generated method stub
 	}
 
+	/*
+	 * select * from tb_carro
+inner join tb_modelo
+on tb_carro.idModelo = tb_modelo.idModelo
+left join tb_cliente
+on tb_carro.idCliente = tb_cliente.idCliente
+left join tb_pessoaFisica
+on tb_cliente.idCliente = tb_pessoaFisica.idCliente
+left join tb_pessoaJuridica
+on tb_Cliente.idCliente = tb_pessoaJuridica.idCliente;
+	 *  
+	 *  */
 	@Override
 	public Carro buscarId(Integer id) {
 		Carro carro = null;
 		sql = "select * from tb_carro "
 				+ "inner join tb_modelo "
 				+ "on tb_carro.idModelo = tb_modelo.idModelo "
+				+ "left join tb_cliente "
+				+ "on tb_carro.idCliente = tb_cliente.idCliente "
+				+ "left join tb_pessoaFisica "
+				+ "on tb_cliente.idCliente = tb_pessoaFisica.idCliente "
+				+ "left join tb_pessoaJuridica "
+				+ "on tb_cliente.idCliente = tb_pessoaJuridica.idCliente "
 				+ "where tb_carro.idCarro = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -87,6 +111,10 @@ public class CarroDAOJDBC implements CarroDAO{
 				carro.setForaUso(rs.getBoolean("carroForaUso"));
 				carro.setDataAltercacao(rs.getDate("dataAlteracaoCarro").toLocalDate());
 				carro.setModelo(new Modelo(rs.getInt("idModelo"), rs.getString("nomeModelo")));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"));
+				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
+				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
+				carro.setCliente(cliente);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,7 +128,14 @@ public class CarroDAOJDBC implements CarroDAO{
 		sql = "select * from tb_carro "
 				+ "inner join tb_modelo "
 				+ "on tb_carro.idModelo = tb_modelo.idModelo "
-				+ "where tb_carro.nomeCarro like ?";
+				+ "left join tb_cliente "
+				+ "on tb_carro.idCliente = tb_cliente.idCliente "
+				+ "left join tb_pessoaFisica "
+				+ "on tb_cliente.idCliente = tb_pessoaFisica.idCliente "
+				+ "left join tb_pessoaJuridica "
+				+ "on tb_cliente.idCliente = tb_pessoaJuridica.idCliente "
+				+ "where tb_carro.nomeCarro like ? "
+				+ "order by tb_carro.nomeCarro";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, "%" + nome + "%");
@@ -113,6 +148,10 @@ public class CarroDAOJDBC implements CarroDAO{
 				carro.setForaUso(rs.getBoolean("carroForaUso"));
 				carro.setDataAltercacao(rs.getDate("dataAlteracaoCarro").toLocalDate());
 				carro.setModelo(new Modelo(rs.getInt("idModelo"), rs.getString("nomeModelo")));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"));
+				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
+				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
+				carro.setCliente(cliente);
 				carros.add(carro);
 			}
 		} catch (SQLException e) {
@@ -126,7 +165,14 @@ public class CarroDAOJDBC implements CarroDAO{
 		List<Carro> carros = new ArrayList<>();
 		sql = "select * from tb_carro "
 				+ "inner join tb_modelo "
-				+ "on tb_carro.idModelo = tb_modelo.idModelo";
+				+ "on tb_carro.idModelo = tb_modelo.idModelo "
+				+ "left join tb_cliente "
+				+ "on tb_carro.idCliente = tb_cliente.idCliente "
+				+ "left join tb_pessoaFisica "
+				+ "on tb_cliente.idCliente = tb_pessoaFisica.idCliente "
+				+ "left join tb_pessoaJuridica "
+				+ "on tb_cliente.idCliente = tb_pessoaJuridica.idCliente "
+				+ "order by tb_carro.nomeCarro";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -138,6 +184,10 @@ public class CarroDAOJDBC implements CarroDAO{
 				carro.setForaUso(rs.getBoolean("carroForaUso"));
 				carro.setDataAltercacao(rs.getDate("dataAlteracaoCarro").toLocalDate());
 				carro.setModelo(new Modelo(rs.getInt("idModelo"), rs.getString("nomeModelo")));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"));
+				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
+				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
+				carro.setCliente(cliente);
 				carros.add(carro);
 			}
 		} catch (SQLException e) {
@@ -150,8 +200,16 @@ public class CarroDAOJDBC implements CarroDAO{
 	public Carro pesquisaPorPlaca(String placa) {
 		Carro carro = null;
 		sql = "select * from tb_carro "
-				+ "inner join tb_modelo " + "on tb_carro.idModelo = tb_modelo.idModelo "
-				+ "where tb_carro.placaCarro = ?";
+				+ "inner join tb_modelo "
+				+ "on tb_carro.idModelo = tb_modelo.idModelo "
+				+ "left join tb_cliente "
+				+ "on tb_carro.idCliente = tb_cliente.idCliente "
+				+ "left join tb_pessoaFisica "
+				+ "on tb_cliente.idCliente = tb_pessoaFisica.idCliente "
+				+ "left join tb_pessoaJuridica "
+				+ "on tb_cliente.idCliente = tb_pessoaJuridica.idCliente "
+				+ "where tb_carro.placaCarro = ?"
+				+ "order by tb_carro.nomeCarro";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, placa);
@@ -164,6 +222,10 @@ public class CarroDAOJDBC implements CarroDAO{
 				carro.setForaUso(rs.getBoolean("carroForaUso"));
 				carro.setDataAltercacao(rs.getDate("dataAlteracaoCarro").toLocalDate());
 				carro.setModelo(new Modelo(rs.getInt("idModelo"), rs.getString("nomeModelo")));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"));
+				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
+				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
+				carro.setCliente(cliente);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
