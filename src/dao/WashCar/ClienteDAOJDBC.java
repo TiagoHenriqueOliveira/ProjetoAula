@@ -10,6 +10,7 @@ import java.util.List;
 
 import conexao.ConexaoUtil;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 import model.WashCar.Cidade;
 import model.WashCar.Cliente;
 import model.WashCar.Pais;
@@ -129,6 +130,11 @@ public class ClienteDAOJDBC implements ClienteDAO{
 				new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				cliente.setCidade(cidade);
 			}
+			if(cliente == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -138,6 +144,7 @@ public class ClienteDAOJDBC implements ClienteDAO{
 	@Override
 	public List<Cliente> buscarDescricao(String nome) {
 		List<Cliente> clientes = new ArrayList<>();
+		Cliente cliente = null;
 		query = "select * from tb_cliente "
 				+ "left join tb_pessoaFisica "
 				+ "on tb_cliente.idCliente = tb_pessoaFisica.idCliente "
@@ -157,7 +164,7 @@ public class ClienteDAOJDBC implements ClienteDAO{
 			pstmt.setString(2, "%" + nome + "%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Cliente cliente = new Cliente();
+				cliente = new Cliente();
 				cliente.setIdCliente(rs.getInt("idCliente"));
 				cliente.setTipoPessoa(rs.getInt("tipoPessoa"));
 				cliente.setEndereco(rs.getString("enderecoCliente"));
@@ -178,6 +185,11 @@ public class ClienteDAOJDBC implements ClienteDAO{
 				cliente.setCidade(cidade);
 				clientes.add(cliente);
 			}
+			if(cliente == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -187,6 +199,7 @@ public class ClienteDAOJDBC implements ClienteDAO{
 	@Override
 	public List<Cliente> todos() {
 		List<Cliente> clientes = new ArrayList<>();
+		Cliente cliente = null;
 		query = "select * from tb_cliente "
 				+ "left join tb_pessoaFisica "
 				+ "on tb_cliente.idCliente = tb_pessoaFisica.idCliente "
@@ -202,7 +215,7 @@ public class ClienteDAOJDBC implements ClienteDAO{
 			pstmt = connection.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Cliente cliente = new Cliente();
+				cliente = new Cliente();
 				cliente.setIdCliente(rs.getInt("idCliente"));
 				cliente.setTipoPessoa(rs.getInt("tipoPessoa"));
 				cliente.setEndereco(rs.getString("enderecoCliente"));
@@ -222,6 +235,11 @@ public class ClienteDAOJDBC implements ClienteDAO{
 				new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				cliente.setCidade(cidade);
 				clientes.add(cliente);
+			}
+			if(cliente == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -269,6 +287,11 @@ public class ClienteDAOJDBC implements ClienteDAO{
 				new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				cliente.setCidade(cidade);
 			}
+			if(cliente == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -314,6 +337,11 @@ public class ClienteDAOJDBC implements ClienteDAO{
 				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF"),
 				new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				cliente.setCidade(cidade);
+			}
+			if(cliente == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

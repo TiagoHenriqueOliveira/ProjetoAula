@@ -10,6 +10,7 @@ import java.util.List;
 
 
 import conexao.ConexaoUtil;
+import exception.WashCar.RegistroNotExistente;
 import model.WashCar.Cidade;
 import model.WashCar.Pais;
 import model.WashCar.UnidadeFederativa;
@@ -28,6 +29,7 @@ public class CidadeDAOJDBC implements CidadeDAO{
 	@Override
 	public List<Cidade> buscarNomeCidade(String descricao) {
 		List<Cidade> cidades = new ArrayList<>();
+		Cidade cidade = null;
 		sql = "select * from tb_cidade "
 				+ "inner join tb_UF "
 				+ "on tb_cidade.idUF = tb_UF.idUF "
@@ -40,12 +42,17 @@ public class CidadeDAOJDBC implements CidadeDAO{
 			pstmt.setString(1, "%" + descricao + "%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Cidade cidade = new Cidade();
+				cidade = new Cidade();
 				cidade.setIdCidade(rs.getInt("idCidade"));
 				cidade.setNome(rs.getString("nomeCidade"));
 				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF"), 
 																		new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				cidades.add(cidade);
+			}
+			if(cidade == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,6 +63,7 @@ public class CidadeDAOJDBC implements CidadeDAO{
 	@Override
 	public List<Cidade> todos() {
 		List<Cidade> cidades = new ArrayList<>();
+		Cidade cidade = null;
 		sql = "select * from tb_cidade "
 				+ "inner join tb_UF "
 				+ "on tb_cidade.idUF = tb_UF.idUF "
@@ -66,12 +74,17 @@ public class CidadeDAOJDBC implements CidadeDAO{
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Cidade cidade = new Cidade();
+				cidade = new Cidade();
 				cidade.setIdCidade(rs.getInt("idCidade"));
 				cidade.setNome(rs.getString("nomeCidade"));
 				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF"), 
-																			new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
+				new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				cidades.add(cidade);
+			}
+			if(cidade == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
