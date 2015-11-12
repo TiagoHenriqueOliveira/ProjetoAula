@@ -12,6 +12,7 @@ import conexao.ConexaoUtil;
 import model.WashCar.Marca;
 import dao.WashCar.MarcaDAO;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 
 public class MarcaDAOJDBC implements MarcaDAO{
 	
@@ -65,7 +66,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	}
 
 	@Override
-	public Marca buscarId(Integer id) {
+	public Marca buscarId(Integer id) throws RegistroNotExistente {
 		Marca marca = null;
 		sql = "select * from tb_marca "
 				+ "where tb_marca.idMarca = ?";
@@ -80,6 +81,11 @@ public class MarcaDAOJDBC implements MarcaDAO{
 				marca.setDataAltercacao(rs.getDate("dataAlteracaoMarca").toLocalDate());
 				marca.setForaUso(Boolean.valueOf(rs.getBoolean("marcaForaUso")));
 			}
+			if(marca == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -89,6 +95,7 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	@Override
 	public List<Marca> buscarDescricao(String nome) {
 		List<Marca> marcas = new ArrayList<>();
+		Marca marca = null;
 		sql = "select * from tb_marca "
 				+ "where tb_marca.nomeMarca like ?";
 		try {
@@ -96,12 +103,17 @@ public class MarcaDAOJDBC implements MarcaDAO{
 			pstmt.setString(1, "%" + nome + "%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Marca marca = new Marca();
+				marca = new Marca();
 				marca.setIdMarca(Integer.valueOf(rs.getInt("idMarca")));
 				marca.setNome(rs.getString("nomeMarca"));
 				marca.setDataAltercacao(rs.getDate("dataAlteracaoMarca").toLocalDate());
 				marca.setForaUso(Boolean.valueOf(rs.getBoolean("marcaForaUso")));
 				marcas.add(marca);
+			}
+			if(marca == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,17 +124,23 @@ public class MarcaDAOJDBC implements MarcaDAO{
 	@Override
 	public List<Marca> todos() {
 		List<Marca> marcas = new ArrayList<>();
+		Marca marca = null;
 		sql = "select * from tb_marca";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Marca marca = new Marca();
+				marca = new Marca();
 				marca.setIdMarca(rs.getInt("idMarca"));
 				marca.setNome(rs.getString("nomeMarca"));
 				marca.setForaUso(Boolean.valueOf(rs.getBoolean("marcaForaUso")));
 				marca.setDataAltercacao(rs.getDate("dataAlteracaoMarca").toLocalDate());
 				marcas.add(marca);
+			}
+			if(marca == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
