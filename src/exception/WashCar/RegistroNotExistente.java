@@ -1,6 +1,6 @@
 package exception.WashCar;
 
-public class RegistroNotExistente extends Exception {
+public class RegistroNotExistente extends NullPointerException {
 
 	private static final long serialVersionUID = 1L;
 	
