@@ -13,10 +13,10 @@ public interface GenericDAO<T> {
 	
 	void excluir(T entidade) throws RegistroExistente;
 	
-	T buscarId(Integer id) throws RegistroNotExistente;
+	T buscarId(Integer id);
 	
-	List<T> buscarDescricao(String nome) throws RegistroNotExistente;
+	List<T> buscarDescricao(String nome);
 	
-	List<T> todos() throws RegistroNotExistente;
+	List<T> todos();
 	
 }
