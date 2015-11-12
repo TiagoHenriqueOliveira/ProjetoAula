@@ -30,7 +30,6 @@ public class PrincipalForm extends JFrame {
 	private JMenuItem jmiMarca;
 	private JMenuItem jmiModelo;
 	private JMenuItem jmiTipoServico;
-	private static PrincipalForm principalForm = new PrincipalForm();
 	private static UsuarioForm usuarioForm = new UsuarioForm();
 	private static CarroForm carroForm = new CarroForm();
 	private static ClienteForm clienteForm = new ClienteForm();
@@ -91,8 +90,9 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiAgenda) {
 					if(agendaForm.isVisible()) {
-						JOptionPane.showMessageDialog(agendaForm, "Agenda de serviços, já está aberta!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Agenda de serviços, já está aberta!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						agendaForm.requestFocus();
+						agendaForm.setLocationRelativeTo(null);
 					} else {
 						agendaForm = new AgendaForm();
 						agendaForm.setVisible(true);
@@ -104,8 +104,9 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCarro) {
 					if(carroForm.isVisible()) {
-						JOptionPane.showMessageDialog(carroForm, "Cadastro de carro, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cadastro de carro, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						carroForm.requestFocus();
+						carroForm.setLocationRelativeTo(null);
 					} else {
 						carroForm = new CarroForm();
 						carroForm.setVisible(true);
@@ -118,8 +119,9 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCliente) {
 					if(clienteForm.isVisible()) {
-						JOptionPane.showMessageDialog(clienteForm, "Cadastro de cliente, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cadastro de cliente, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						clienteForm.requestFocus();
+						clienteForm.setLocationRelativeTo(null);
 					} else {
 						clienteForm = new ClienteForm();
 						clienteForm.setVisible(true);
@@ -132,8 +134,9 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCadastroUsuario) {
 					if(usuarioForm.isVisible()) {
-						JOptionPane.showMessageDialog(usuarioForm, "Cadastro de usuário, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cadastro de usuário, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						usuarioForm.requestFocus();
+						usuarioForm.setLocationRelativeTo(null);
 					} else {
 						usuarioForm = new UsuarioForm();
 						usuarioForm.setVisible(true);
@@ -146,8 +149,9 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiOrdemServico) {
 					if(ordemServicoForm.isVisible()) {
-						JOptionPane.showMessageDialog(ordemServicoForm, "Cadastro de Ordem de Serviço, já está aberta!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cadastro de Ordem de Serviço, já está aberta!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						ordemServicoForm.requestFocus();
+						ordemServicoForm.setLocationRelativeTo(null);
 					} else {
 						ordemServicoForm = new OrdemServicoForm();
 						ordemServicoForm.setVisible(true);
@@ -160,8 +164,9 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiEmpresa) {
 					if(empresaForm.isVisible()) {
-						JOptionPane.showMessageDialog(empresaForm, "Cadastro de empresa, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cadastro de empresa, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						empresaForm.requestFocus();
+						empresaForm.setLocationRelativeTo(null);
 					} else {
 						empresaForm = new EmpresaForm();
 						empresaForm.setVisible(true);
@@ -174,8 +179,9 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiMarca) {
 					if(marcaForm.isVisible()) {
-						JOptionPane.showMessageDialog(marcaForm, "Cadastro de marca, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cadastro de marca, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						marcaForm.requestFocus();
+						marcaForm.setLocationRelativeTo(null);
 					} else {
 						marcaForm = new MarcaForm();
 						marcaForm.setVisible(true);
@@ -188,8 +194,9 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiModelo) {
 					if(modeloForm.isVisible()) {
-						JOptionPane.showMessageDialog(modeloForm, "Cadastro de modelo, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cadastro de modelo, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						modeloForm.requestFocus();
+						modeloForm.setLocationRelativeTo(null);
 					} else {
 						modeloForm = new ModeloForm();
 						modeloForm.setVisible(true);
@@ -202,8 +209,9 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiTipoServico) {
 					if(tipoServicoForm.isVisible()) {
-						JOptionPane.showMessageDialog(usuarioForm, "Cadastro de tipo de serviço, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cadastro de tipo de serviço, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						tipoServicoForm.requestFocus();
+						tipoServicoForm.setLocationRelativeTo(null);
 					} else {
 						tipoServicoForm = new TipoServicoForm();
 						tipoServicoForm.setVisible(true);
@@ -215,7 +223,7 @@ public class PrincipalForm extends JFrame {
 		jmiSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiSair) {
-					Integer valor = JOptionPane.showConfirmDialog(principalForm, "Deseja sair do sistema", "Confirmação", JOptionPane.YES_NO_OPTION);
+					Integer valor = JOptionPane.showConfirmDialog(null, "Deseja sair do sistema", "Confirmação", JOptionPane.YES_NO_OPTION);
 					if(valor == 0) {
 						System.exit(0);
 					}
