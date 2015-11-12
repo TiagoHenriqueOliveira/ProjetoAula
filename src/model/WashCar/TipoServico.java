@@ -8,16 +8,15 @@ public class TipoServico implements Entidade {
 	private String nome;
 	private Double valor;
 	private LocalDate dataAltercacao;
-	private LocalDate dataInclusao;
+	private Boolean foraUso;
 	
 	//construtor com atributos
-	public TipoServico(Integer idTipoServico, String nome, Double valor, LocalDate dataAltercacao, LocalDate dataInclusao) {
-		super();
+	public TipoServico(Integer idTipoServico) {
 		this.idTipoServico = idTipoServico;
-		this.nome = nome;
-		this.valor = valor;
-		this.dataAltercacao = dataAltercacao;
-		this.dataInclusao = dataInclusao;
+	}
+	
+	public TipoServico(){
+		
 	}
 
 	//gets e sets das variaveis
@@ -52,12 +51,12 @@ public class TipoServico implements Entidade {
 	public void setDataAltercacao(LocalDate dataAltercacao) {
 		this.dataAltercacao = dataAltercacao;
 	}
-
-	public LocalDate getDataInclusao() {
-		return dataInclusao;
+	
+	public Boolean isForaUso() {
+		return foraUso;
 	}
 
-	public void setDataInclusao(LocalDate dataInclusao) {
-		this.dataInclusao = dataInclusao;
+	public void setForaUso(Boolean foraUso) {
+		this.foraUso = foraUso;
 	}
 }

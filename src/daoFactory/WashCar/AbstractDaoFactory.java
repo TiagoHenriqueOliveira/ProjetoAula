@@ -8,6 +8,7 @@ import dao.WashCar.ModeloDAO;
 import dao.WashCar.PessoaFisicaDAO;
 import dao.WashCar.PessoaJuridicaDAO;
 import dao.WashCar.UsuarioDAO;
+import dao.WashCar.TipoServicoDAO;
 
 public interface AbstractDaoFactory {
 
@@ -23,4 +24,5 @@ public interface AbstractDaoFactory {
 	CarroDAO carroDao();
 	PessoaFisicaDAO pessoaFisicaDao();
 	PessoaJuridicaDAO pessoaJuridicaDao();
+	TipoServicoDAO tipoServicoDao();
 }
