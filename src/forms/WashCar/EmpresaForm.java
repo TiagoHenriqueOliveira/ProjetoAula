@@ -8,6 +8,7 @@ import javax.swing.text.MaskFormatter;
 
 import daoFactory.WashCar.DaoFactory;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 
 import javax.swing.JLabel;
 
@@ -145,12 +146,12 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		}
 		jtfPesquisaCNPJEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaCNPJEmpresa.setColumns(10);
-		jtfPesquisaCNPJEmpresa.setBounds(371, 54, 165, 20);
+		jtfPesquisaCNPJEmpresa.setBounds(371, 54, 130, 20);
 		jpnPesquisaEmpresa.add(jtfPesquisaCNPJEmpresa);
 		
 		jlbPesquisaCNPJEmpresa = new JLabel("CNPJ da Empresa");
 		jlbPesquisaCNPJEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPesquisaCNPJEmpresa.setBounds(371, 38, 165, 14);
+		jlbPesquisaCNPJEmpresa.setBounds(371, 38, 130, 14);
 		jpnPesquisaEmpresa.add(jlbPesquisaCNPJEmpresa);
 		
 		jlbConsultaEmpresa = new JLabel("Consulta Cadastro da Empresa");
@@ -859,38 +860,43 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					Integer codigo = null;
-					if(!jtfPesquisaCodigoEmpresa.getText().equals("")) {
-						codigo = Integer.valueOf(jtfPesquisaCodigoEmpresa.getText());
+					try {
+						Integer codigo = null;
+						if(!jtfPesquisaCodigoEmpresa.getText().equals("")) {
+							codigo = Integer.valueOf(jtfPesquisaCodigoEmpresa.getText());
+						}
+						ListaEmpresaForm listaEmpresaForm = new ListaEmpresaForm(empresaForm, null, codigo, null);
+						listaEmpresaForm.setVisible(true);
+						jbtNovo.setEnabled(true);
+						jbtEditar.setEnabled(true);
+						jbtCancelar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jtfCodigo.setText("");
+						jtfDataAlteracao.setText("");
+						jtfNomeFantasia.setText("");
+						jtfRazaoSocial.setText("");
+						jtfCNPJ.setText("");
+						jtfInscricaoEstadual.setText("");
+						jtfInscricaoMunicipal.setText("");
+						jtfTelefoneCelular.setText("");
+						jtfTelefoneComercial.setText("");
+						jtfFax.setText("");
+						jtfEmail.setText("");
+						jtfEndereco.setText("");
+						jtfNumero.setText("");
+						jtfBairro.setText("");
+						jtfCodigoCidade.setText("");
+						jtfNomeCidade.setText("");
+						jtfCodigoUF.setText("");
+						jtfNomeUF.setText("");
+						jtfNomePais.setText("");
+						jtfPesquisaCodigoEmpresa.setText("");
+						jtfPesquisaNomeEmpresa.setText("");
+						jtfPesquisaCNPJEmpresa.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(empresaForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaCodigoEmpresa.setText("");
 					}
-					ListaEmpresaForm listaEmpresaForm = new ListaEmpresaForm(empresaForm, null, codigo, null);
-					listaEmpresaForm.setVisible(true);
-					jbtNovo.setEnabled(true);
-					jbtEditar.setEnabled(true);
-					jbtCancelar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-					jtfCodigo.setText("");
-					jtfDataAlteracao.setText("");
-					jtfNomeFantasia.setText("");
-					jtfRazaoSocial.setText("");
-					jtfCNPJ.setText("");
-					jtfInscricaoEstadual.setText("");
-					jtfInscricaoMunicipal.setText("");
-					jtfTelefoneCelular.setText("");
-					jtfTelefoneComercial.setText("");
-					jtfFax.setText("");
-					jtfEmail.setText("");
-					jtfEndereco.setText("");
-					jtfNumero.setText("");
-					jtfBairro.setText("");
-					jtfCodigoCidade.setText("");
-					jtfNomeCidade.setText("");
-					jtfCodigoUF.setText("");
-					jtfNomeUF.setText("");
-					jtfNomePais.setText("");
-					jtfPesquisaCodigoEmpresa.setText("");
-					jtfPesquisaNomeEmpresa.setText("");
-					jtfPesquisaCNPJEmpresa.setText("");
 				}
 			}
 		});
@@ -901,34 +907,39 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaEmpresaForm listaEmpresaForm = new ListaEmpresaForm(empresaForm, jtfPesquisaNomeEmpresa.getText(), null, null);
-					listaEmpresaForm.setVisible(true);
-					jbtNovo.setEnabled(true);
-					jbtEditar.setEnabled(true);
-					jbtCancelar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-					jtfCodigo.setText("");
-					jtfDataAlteracao.setText("");
-					jtfNomeFantasia.setText("");
-					jtfRazaoSocial.setText("");
-					jtfCNPJ.setText("");
-					jtfInscricaoEstadual.setText("");
-					jtfInscricaoMunicipal.setText("");
-					jtfTelefoneCelular.setText("");
-					jtfTelefoneComercial.setText("");
-					jtfFax.setText("");
-					jtfEmail.setText("");
-					jtfEndereco.setText("");
-					jtfNumero.setText("");
-					jtfBairro.setText("");
-					jtfCodigoCidade.setText("");
-					jtfNomeCidade.setText("");
-					jtfCodigoUF.setText("");
-					jtfNomeUF.setText("");
-					jtfNomePais.setText("");
-					jtfPesquisaCodigoEmpresa.setText("");
-					jtfPesquisaNomeEmpresa.setText("");
-					jtfPesquisaCNPJEmpresa.setText("");
+					try {
+						ListaEmpresaForm listaEmpresaForm = new ListaEmpresaForm(empresaForm, jtfPesquisaNomeEmpresa.getText(), null, null);
+						listaEmpresaForm.setVisible(true);
+						jbtNovo.setEnabled(true);
+						jbtEditar.setEnabled(true);
+						jbtCancelar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jtfCodigo.setText("");
+						jtfDataAlteracao.setText("");
+						jtfNomeFantasia.setText("");
+						jtfRazaoSocial.setText("");
+						jtfCNPJ.setText("");
+						jtfInscricaoEstadual.setText("");
+						jtfInscricaoMunicipal.setText("");
+						jtfTelefoneCelular.setText("");
+						jtfTelefoneComercial.setText("");
+						jtfFax.setText("");
+						jtfEmail.setText("");
+						jtfEndereco.setText("");
+						jtfNumero.setText("");
+						jtfBairro.setText("");
+						jtfCodigoCidade.setText("");
+						jtfNomeCidade.setText("");
+						jtfCodigoUF.setText("");
+						jtfNomeUF.setText("");
+						jtfNomePais.setText("");
+						jtfPesquisaCodigoEmpresa.setText("");
+						jtfPesquisaNomeEmpresa.setText("");
+						jtfPesquisaCNPJEmpresa.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(empresaForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaNomeEmpresa.setText("");
+					}
 				}
 			}
 		});
@@ -939,34 +950,39 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaEmpresaForm listaEmpresaForm = new ListaEmpresaForm(empresaForm, null, null, jtfPesquisaCNPJEmpresa.getText());
-					listaEmpresaForm.setVisible(true);
-					jbtNovo.setEnabled(true);
-					jbtEditar.setEnabled(true);
-					jbtCancelar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-					jtfCodigo.setText("");
-					jtfDataAlteracao.setText("");
-					jtfNomeFantasia.setText("");
-					jtfRazaoSocial.setText("");
-					jtfCNPJ.setText("");
-					jtfInscricaoEstadual.setText("");
-					jtfInscricaoMunicipal.setText("");
-					jtfTelefoneCelular.setText("");
-					jtfTelefoneComercial.setText("");
-					jtfFax.setText("");
-					jtfEmail.setText("");
-					jtfEndereco.setText("");
-					jtfNumero.setText("");
-					jtfBairro.setText("");
-					jtfCodigoCidade.setText("");
-					jtfNomeCidade.setText("");
-					jtfCodigoUF.setText("");
-					jtfNomeUF.setText("");
-					jtfNomePais.setText("");
-					jtfPesquisaCodigoEmpresa.setText("");
-					jtfPesquisaNomeEmpresa.setText("");
-					jtfPesquisaCNPJEmpresa.setText("");
+					try {
+						ListaEmpresaForm listaEmpresaForm = new ListaEmpresaForm(empresaForm, null, null, jtfPesquisaCNPJEmpresa.getText());
+						listaEmpresaForm.setVisible(true);
+						jbtNovo.setEnabled(true);
+						jbtEditar.setEnabled(true);
+						jbtCancelar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jtfCodigo.setText("");
+						jtfDataAlteracao.setText("");
+						jtfNomeFantasia.setText("");
+						jtfRazaoSocial.setText("");
+						jtfCNPJ.setText("");
+						jtfInscricaoEstadual.setText("");
+						jtfInscricaoMunicipal.setText("");
+						jtfTelefoneCelular.setText("");
+						jtfTelefoneComercial.setText("");
+						jtfFax.setText("");
+						jtfEmail.setText("");
+						jtfEndereco.setText("");
+						jtfNumero.setText("");
+						jtfBairro.setText("");
+						jtfCodigoCidade.setText("");
+						jtfNomeCidade.setText("");
+						jtfCodigoUF.setText("");
+						jtfNomeUF.setText("");
+						jtfNomePais.setText("");
+						jtfPesquisaCodigoEmpresa.setText("");
+						jtfPesquisaNomeEmpresa.setText("");
+						jtfPesquisaCNPJEmpresa.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(empresaForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaCNPJEmpresa.setText("");
+					}
 				}
 			}
 		});
@@ -976,13 +992,18 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		jtfNomeCidade.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaCidadeUFPaisForm listaCidadeUFPaisForm = new ListaCidadeUFPaisForm(empresaForm, jtfNomeCidade.getText());
-					listaCidadeUFPaisForm.setVisible(true);
-					jtfCodigoCidade.setText("");
-					jtfNomeCidade.setText("");
-					jtfCodigoUF.setText("");
-					jtfNomeUF.setText("");
-					jtfNomePais.setText("");
+					try {
+						ListaCidadeUFPaisForm listaCidadeUFPaisForm = new ListaCidadeUFPaisForm(empresaForm, jtfNomeCidade.getText());
+						listaCidadeUFPaisForm.setVisible(true);
+						jtfCodigoCidade.setText("");
+						jtfNomeCidade.setText("");
+						jtfCodigoUF.setText("");
+						jtfNomeUF.setText("");
+						jtfNomePais.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(empresaForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfNomeCidade.setText("");
+					}
 				}
 			}
 		});

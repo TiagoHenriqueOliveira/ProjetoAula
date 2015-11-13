@@ -10,6 +10,7 @@ import java.util.List;
 
 import conexao.ConexaoUtil;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 import model.WashCar.Cidade;
 import model.WashCar.Empresa;
 import model.WashCar.Pais;
@@ -132,8 +133,13 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 				empresa.setDataAltercacao(rs.getDate("dataAlteracaoEmpresa").toLocalDate());
 				Cidade cidade = new Cidade(rs.getInt("idCidade"), rs.getString("nomeCidade"));
 				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF"),
-																	new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
+				new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				empresa.setCidade(cidade);
+			}
+			if(empresa == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -144,6 +150,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	@Override
 	public List<Empresa> buscarDescricao(String descricao) {
 		List<Empresa> empresas = new ArrayList<>();
+		Empresa empresa = null;
 		sql = "select * from tb_empresa "
 				+ "inner join tb_cidade "
 				+ "on tb_empresa.idCidade = tb_cidade.idCidade "
@@ -159,7 +166,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 			pstmt.setString(2, "%" + descricao + "%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Empresa empresa = new Empresa();
+				empresa = new Empresa();
 				empresa.setIdEmpresa(rs.getInt("idEmpresa"));
 				empresa.setRazaoSocial(rs.getString("razaoSocialEmpresa"));
 				empresa.setNomeFantasia(rs.getString("nomeFantasiaEmpresa"));
@@ -178,9 +185,14 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 				empresa.setDataAltercacao(rs.getDate("dataAlteracaoEmpresa").toLocalDate());
 				Cidade cidade = new Cidade(rs.getInt("idCidade"), rs.getString("nomeCidade"));
 				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF"),
-																	new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
+				new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				empresa.setCidade(cidade);
 				empresas.add(empresa);
+			}
+			if(empresa == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -223,8 +235,13 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 				empresa.setDataAltercacao(rs.getDate("dataAlteracaoEmpresa").toLocalDate());
 				Cidade cidade = new Cidade(rs.getInt("idCidade"), rs.getString("nomeCidade"));
 				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF"),
-																	new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
+				new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				empresa.setCidade(cidade);
+			}
+			if(empresa == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -235,6 +252,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 	@Override
 	public List<Empresa> todos() {
 		List<Empresa> empresas = new ArrayList<>();
+		Empresa empresa = null;
 		sql = "select * from tb_empresa "
 				+ "inner join tb_cidade "
 				+ "on tb_empresa.idCidade = tb_cidade.idCidade "
@@ -246,7 +264,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Empresa empresa = new Empresa();
+				empresa = new Empresa();
 				empresa.setIdEmpresa(rs.getInt("idEmpresa"));
 				empresa.setRazaoSocial(rs.getString("razaoSocialEmpresa"));
 				empresa.setNomeFantasia(rs.getString("nomeFantasiaEmpresa"));
@@ -265,9 +283,14 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 				empresa.setDataAltercacao(rs.getDate("dataAlteracaoEmpresa").toLocalDate());
 				Cidade cidade = new Cidade(rs.getInt("idCidade"), rs.getString("nomeCidade"));
 				cidade.setUnidadeFederativa(new UnidadeFederativa(rs.getInt("idUF"), rs.getString("nomeUF"),
-																	new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
+				new Pais(rs.getInt("idPais"), rs.getString("nomePais"))));
 				empresa.setCidade(cidade);
 				empresas.add(empresa);
+			}
+			if(empresa == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
