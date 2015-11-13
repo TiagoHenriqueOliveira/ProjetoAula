@@ -10,6 +10,7 @@ import java.util.List;
 
 import conexao.ConexaoUtil;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 import model.WashCar.Carro;
 import model.WashCar.Cliente;
 import model.WashCar.Modelo;
@@ -74,18 +75,6 @@ public class CarroDAOJDBC implements CarroDAO{
 		// TODO Auto-generated method stub
 	}
 
-	/*
-	 * select * from tb_carro
-inner join tb_modelo
-on tb_carro.idModelo = tb_modelo.idModelo
-left join tb_cliente
-on tb_carro.idCliente = tb_cliente.idCliente
-left join tb_pessoaFisica
-on tb_cliente.idCliente = tb_pessoaFisica.idCliente
-left join tb_pessoaJuridica
-on tb_Cliente.idCliente = tb_pessoaJuridica.idCliente;
-	 *  
-	 *  */
 	@Override
 	public Carro buscarId(Integer id) {
 		Carro carro = null;
@@ -116,6 +105,11 @@ on tb_Cliente.idCliente = tb_pessoaJuridica.idCliente;
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				carro.setCliente(cliente);
 			}
+			if(carro == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -125,6 +119,7 @@ on tb_Cliente.idCliente = tb_pessoaJuridica.idCliente;
 	@Override
 	public List<Carro> buscarDescricao(String nome) {
 		List<Carro> carros = new ArrayList<>();
+		Carro carro = null;
 		sql = "select * from tb_carro "
 				+ "inner join tb_modelo "
 				+ "on tb_carro.idModelo = tb_modelo.idModelo "
@@ -141,7 +136,7 @@ on tb_Cliente.idCliente = tb_pessoaJuridica.idCliente;
 			pstmt.setString(1, "%" + nome + "%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Carro carro = new Carro();
+				carro = new Carro();
 				carro.setIdCarro(Integer.valueOf(rs.getInt("idCarro")));
 				carro.setNome(rs.getString("nomeCarro"));
 				carro.setPlaca(rs.getString("placaCarro"));
@@ -154,6 +149,11 @@ on tb_Cliente.idCliente = tb_pessoaJuridica.idCliente;
 				carro.setCliente(cliente);
 				carros.add(carro);
 			}
+			if(carro == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -163,6 +163,7 @@ on tb_Cliente.idCliente = tb_pessoaJuridica.idCliente;
 	@Override
 	public List<Carro> todos() {
 		List<Carro> carros = new ArrayList<>();
+		Carro carro = null;
 		sql = "select * from tb_carro "
 				+ "inner join tb_modelo "
 				+ "on tb_carro.idModelo = tb_modelo.idModelo "
@@ -177,7 +178,7 @@ on tb_Cliente.idCliente = tb_pessoaJuridica.idCliente;
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Carro carro = new Carro();
+				carro = new Carro();
 				carro.setIdCarro(Integer.valueOf(rs.getInt("idCarro")));
 				carro.setNome(rs.getString("nomeCarro"));
 				carro.setPlaca(rs.getString("placaCarro"));
@@ -189,6 +190,11 @@ on tb_Cliente.idCliente = tb_pessoaJuridica.idCliente;
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				carro.setCliente(cliente);
 				carros.add(carro);
+			}
+			if(carro == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -226,6 +232,11 @@ on tb_Cliente.idCliente = tb_pessoaJuridica.idCliente;
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				carro.setCliente(cliente);
+			}
+			if(carro == null) {
+				throw new RegistroNotExistente("Não foi possível encontrar nenhum registro "
+						+ "para o conteúdo de busca informado.\n"
+						+ "Por gentileza, efetue uma nova pesquisa.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

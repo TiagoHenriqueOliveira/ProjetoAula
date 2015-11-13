@@ -8,6 +8,7 @@ import javax.swing.text.MaskFormatter;
 
 import daoFactory.WashCar.DaoFactory;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
 import model.WashCar.Carro;
 import model.WashCar.Cliente;
 import model.WashCar.Entidade;
@@ -269,6 +270,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jpnCarro.add(jlbNomeCliente);
 		
 		jtfNomeCliente = new JTextField();
+		jtfNomeCliente.setDocument(new ValidaCampoAlfaNumerico());
 		jtfNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeCliente.setEnabled(false);
 		jtfNomeCliente.setColumns(10);
@@ -573,34 +575,39 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfPesquisaCodigoCarro.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					Integer codigo = null;
-					if(!jtfPesquisaCodigoCarro.getText().equals("")) {
-						codigo = Integer.valueOf(jtfPesquisaCodigoCarro.getText());
+					try {
+						Integer codigo = null;
+						if(!jtfPesquisaCodigoCarro.getText().equals("")) {
+							codigo = Integer.valueOf(jtfPesquisaCodigoCarro.getText());
+						}
+						ListaCarroForm listaCarro = new ListaCarroForm(carroForm, null, codigo, null);
+						listaCarro.setVisible(true);
+						jtfNomeCarro.setEnabled(false);
+						jtfPlacaCarro.setEnabled(false);
+						jtfNomeModelo.setEnabled(false);
+						jtfNomeCliente.setEnabled(false);
+						jckbxForaUso.setEnabled(false);
+						jckbxForaUso.setSelected(false);
+						jtfCodigoCarro.setText("");
+						jtfNomeCarro.setText("");
+						jtfPlacaCarro.setText("");
+						jtfCodigoModelo.setText("");
+						jtfNomeModelo.setText("");
+						jtfCodigoCliente.setText("");
+						jtfNomeCliente.setText("");
+						jtfCPFCliente.setText("");
+						jtfCNPJCliente.setText("");
+						jtfDataAlteracao.setText("");
+						jtfPesquisaCodigoCarro.setText("");
+						jtfPesquisaNomeCarro.setText("");
+						jtfPesquisaPlacaCarro.setText("");
+						jbtEditar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jbtCancelar.setEnabled(true);
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(carroForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaCodigoCarro.setText("");
 					}
-					ListaCarroForm listaCarro = new ListaCarroForm(carroForm, null, codigo, null);
-					listaCarro.setVisible(true);
-					jtfNomeCarro.setEnabled(false);
-					jtfPlacaCarro.setEnabled(false);
-					jtfNomeModelo.setEnabled(false);
-					jtfNomeCliente.setEnabled(false);
-					jckbxForaUso.setEnabled(false);
-					jckbxForaUso.setSelected(false);
-					jtfCodigoCarro.setText("");
-					jtfNomeCarro.setText("");
-					jtfPlacaCarro.setText("");
-					jtfCodigoModelo.setText("");
-					jtfNomeModelo.setText("");
-					jtfCodigoCliente.setText("");
-					jtfNomeCliente.setText("");
-					jtfCPFCliente.setText("");
-					jtfCNPJCliente.setText("");
-					jtfDataAlteracao.setText("");
-					jtfPesquisaCodigoCarro.setText("");
-					jtfPesquisaNomeCarro.setText("");
-					jtfPesquisaPlacaCarro.setText("");
-					jbtEditar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-					jbtCancelar.setEnabled(true);
 				}
 			}
 		});
@@ -610,30 +617,35 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfPesquisaNomeCarro.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaCarroForm listaCarro = new ListaCarroForm(carroForm, jtfPesquisaNomeCarro.getText(), null, null);
-					listaCarro.setVisible(true);
-					jtfNomeCarro.setEnabled(false);
-					jtfPlacaCarro.setEnabled(false);
-					jtfNomeModelo.setEnabled(false);
-					jtfNomeCliente.setEnabled(false);
-					jckbxForaUso.setEnabled(false);
-					jckbxForaUso.setSelected(false);
-					jtfCodigoCarro.setText("");
-					jtfNomeCarro.setText("");
-					jtfPlacaCarro.setText("");
-					jtfCodigoModelo.setText("");
-					jtfNomeModelo.setText("");
-					jtfCodigoCliente.setText("");
-					jtfNomeCliente.setText("");
-					jtfCPFCliente.setText("");
-					jtfCNPJCliente.setText("");
-					jtfDataAlteracao.setText("");
-					jtfPesquisaCodigoCarro.setText("");
-					jtfPesquisaNomeCarro.setText("");
-					jtfPesquisaPlacaCarro.setText("");
-					jbtEditar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-					jbtCancelar.setEnabled(true);
+					try {
+						ListaCarroForm listaCarro = new ListaCarroForm(carroForm, jtfPesquisaNomeCarro.getText(), null, null);
+						listaCarro.setVisible(true);
+						jtfNomeCarro.setEnabled(false);
+						jtfPlacaCarro.setEnabled(false);
+						jtfNomeModelo.setEnabled(false);
+						jtfNomeCliente.setEnabled(false);
+						jckbxForaUso.setEnabled(false);
+						jckbxForaUso.setSelected(false);
+						jtfCodigoCarro.setText("");
+						jtfNomeCarro.setText("");
+						jtfPlacaCarro.setText("");
+						jtfCodigoModelo.setText("");
+						jtfNomeModelo.setText("");
+						jtfCodigoCliente.setText("");
+						jtfNomeCliente.setText("");
+						jtfCPFCliente.setText("");
+						jtfCNPJCliente.setText("");
+						jtfDataAlteracao.setText("");
+						jtfPesquisaCodigoCarro.setText("");
+						jtfPesquisaNomeCarro.setText("");
+						jtfPesquisaPlacaCarro.setText("");
+						jbtEditar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jbtCancelar.setEnabled(true);
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(carroForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaNomeCarro.setText("");
+					}
 				}
 			}
 		});
@@ -643,30 +655,35 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfPesquisaPlacaCarro.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaCarroForm listaCarro = new ListaCarroForm(carroForm, null, null, jtfPesquisaPlacaCarro.getText());
-					listaCarro.setVisible(true);
-					jtfNomeCarro.setEnabled(false);
-					jtfPlacaCarro.setEnabled(false);
-					jtfNomeModelo.setEnabled(false);
-					jtfNomeCliente.setEnabled(false);
-					jckbxForaUso.setEnabled(false);
-					jckbxForaUso.setSelected(false);
-					jtfCodigoCarro.setText("");
-					jtfNomeCarro.setText("");
-					jtfPlacaCarro.setText("");
-					jtfCodigoModelo.setText("");
-					jtfNomeModelo.setText("");
-					jtfCodigoCliente.setText("");
-					jtfNomeCliente.setText("");
-					jtfCPFCliente.setText("");
-					jtfCNPJCliente.setText("");
-					jtfDataAlteracao.setText("");
-					jtfPesquisaCodigoCarro.setText("");
-					jtfPesquisaNomeCarro.setText("");
-					jtfPesquisaPlacaCarro.setText("");
-					jbtEditar.setEnabled(true);
-					jbtSalvar.setEnabled(false);
-					jbtCancelar.setEnabled(true);
+					try {
+						ListaCarroForm listaCarro = new ListaCarroForm(carroForm, null, null, jtfPesquisaPlacaCarro.getText());
+						listaCarro.setVisible(true);
+						jtfNomeCarro.setEnabled(false);
+						jtfPlacaCarro.setEnabled(false);
+						jtfNomeModelo.setEnabled(false);
+						jtfNomeCliente.setEnabled(false);
+						jckbxForaUso.setEnabled(false);
+						jckbxForaUso.setSelected(false);
+						jtfCodigoCarro.setText("");
+						jtfNomeCarro.setText("");
+						jtfPlacaCarro.setText("");
+						jtfCodigoModelo.setText("");
+						jtfNomeModelo.setText("");
+						jtfCodigoCliente.setText("");
+						jtfNomeCliente.setText("");
+						jtfCPFCliente.setText("");
+						jtfCNPJCliente.setText("");
+						jtfDataAlteracao.setText("");
+						jtfPesquisaCodigoCarro.setText("");
+						jtfPesquisaNomeCarro.setText("");
+						jtfPesquisaPlacaCarro.setText("");
+						jbtEditar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jbtCancelar.setEnabled(true);
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(carroForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaPlacaCarro.setText("");
+					}
 				}
 			}
 		});
@@ -676,10 +693,15 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfNomeModelo.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaModeloForm listaModelo = new ListaModeloForm(carroForm, jtfNomeModelo.getText(), null);
-					listaModelo.setVisible(true);
-					jtfCodigoModelo.setText("");
-					jtfNomeModelo.setText("");
+					try {
+						ListaModeloForm listaModelo = new ListaModeloForm(carroForm, jtfNomeModelo.getText(), null);
+						listaModelo.setVisible(true);
+						jtfCodigoModelo.setText("");
+						jtfNomeModelo.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(carroForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfNomeModelo.setText("");
+					}
 				}
 			}
 		});
@@ -689,12 +711,17 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfNomeCliente.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-					ListaClienteForm listaCliente = new ListaClienteForm(carroForm, null, jtfNomeCliente.getText(), null, null);
-					listaCliente.setVisible(true);
-					jtfCodigoCliente.setText("");
-					jtfNomeCliente.setText("");
-					jtfCPFCliente.setText("");
-					jtfCNPJCliente.setText("");
+					try {
+						ListaClienteForm listaCliente = new ListaClienteForm(carroForm, null, jtfNomeCliente.getText(), null, null);
+						listaCliente.setVisible(true);
+						jtfCodigoCliente.setText("");
+						jtfNomeCliente.setText("");
+						jtfCPFCliente.setText("");
+						jtfCNPJCliente.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(carroForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfNomeCliente.setText("");
+					}
 				}
 			}
 		});
