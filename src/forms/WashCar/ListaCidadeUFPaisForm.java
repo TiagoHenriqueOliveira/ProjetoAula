@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import preencherDados.WashCar.PreencherDados;
 import dao.WashCar.CidadeDAOJDBC;
 import model.WashCar.Cidade;
+import javax.swing.ScrollPaneConstants;
 
 public class ListaCidadeUFPaisForm extends JFrame {
 
@@ -35,6 +36,7 @@ public class ListaCidadeUFPaisForm extends JFrame {
 	private PreencherDados preencheDados;
 	private String descricao;
 
+	@SuppressWarnings("static-access")
 	public void componentesListaCidadeUFPais() {
 		dados = new Vector<String>();
 		dados.add("Cód. Cidade");
@@ -47,7 +49,7 @@ public class ListaCidadeUFPaisForm extends JFrame {
 		jttListaCidadeUFPais.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jttListaCidadeUFPais.setModel(dtmListaCidadeUFPais);
 		jttListaCidadeUFPais.getColumnModel().getColumn(0).setResizable(false);
-		jttListaCidadeUFPais.getColumnModel().getColumn(0).setPreferredWidth(20);
+		jttListaCidadeUFPais.getColumnModel().getColumn(0).setPreferredWidth(100);
 		jttListaCidadeUFPais.getColumnModel().getColumn(1).setResizable(false);
 		jttListaCidadeUFPais.getColumnModel().getColumn(1).setPreferredWidth(200);
 		jttListaCidadeUFPais.getColumnModel().getColumn(2).setResizable(false);
@@ -55,7 +57,9 @@ public class ListaCidadeUFPaisForm extends JFrame {
 		jttListaCidadeUFPais.getColumnModel().getColumn(3).setResizable(false);
 		jttListaCidadeUFPais.getColumnModel().getColumn(3).setPreferredWidth(100);
 		jspListaCidadeUFPais = new JScrollPane(jttListaCidadeUFPais);
-		jspListaCidadeUFPais.setBounds(10, 10, 774, 300);
+		jspListaCidadeUFPais.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		jttListaCidadeUFPais.setAutoResizeMode(jttListaCidadeUFPais.AUTO_RESIZE_OFF);
+		jspListaCidadeUFPais.setBounds(10, 10, 426, 300);
 		jpnListaCidadeUFPais.add(jspListaCidadeUFPais);
 		
 		jbtSelecionarCidadeUFPais = new JButton("Selecionar");
@@ -130,7 +134,7 @@ public class ListaCidadeUFPaisForm extends JFrame {
 		setResizable(false);
 		setTitle("Lista de Cidades/Estados/País");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 400);
+		setBounds(100, 100, 455, 400);
 		setLocationRelativeTo(null);
 		jpnListaCidadeUFPais = new JPanel();
 		jpnListaCidadeUFPais.setLayout(null);
