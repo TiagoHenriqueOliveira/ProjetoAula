@@ -3,7 +3,6 @@ package dao.WashCar;
 import java.util.List;
 
 import exception.WashCar.RegistroExistente;
-import exception.WashCar.RegistroNotExistente;
 
 public interface GenericDAO<T> {
 
