@@ -6,6 +6,7 @@ public class OrdemServico {
 	
 	private Integer idOrdemServico;
 	private LocalDate dataAgendamento;
+	private LocalDate dataAlteracao;
 	private Double valorTotal;
 	private Boolean ordemServicoCancelada;
 	private Cliente cliente;
@@ -58,5 +59,13 @@ public class OrdemServico {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public LocalDate getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(LocalDate dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
 	}
 }
