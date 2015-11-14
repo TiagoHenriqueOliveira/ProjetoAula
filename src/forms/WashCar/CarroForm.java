@@ -749,11 +749,11 @@ public class CarroForm extends JFrame implements PreencherDados{
 
 	@Override
 	public void preencherCampos(Entidade entidade) {
-		if((jtfNomeModelo.getText() == null || jtfNomeModelo.getText().equals("")) && (jtfNomeModelo.isEnabled())) {
+		if(entidade instanceof Modelo) {
 			this.preencherCamposModelo((Modelo)entidade);
-		} else if((jtfCPFCliente.getText().equals("   .   .   -  ")) && (jtfCNPJCliente.getText().equals("  .   .   /    -  ")) && (jtfNomeCliente.isEnabled())){
+		} else if(entidade instanceof Cliente) {
 			this.preencherCamposCliente((Cliente)entidade);
-		} else if((!jtfNomeModelo.isEnabled()) && (!jtfNomeCliente.isEnabled())){
+		} else if(entidade instanceof Carro) {
 			this.preencherCamposCarro((Carro)entidade);
 		}
 	}

@@ -514,9 +514,9 @@ public class ModeloForm extends JFrame implements PreencherDados{
 
 	@Override
 	public void preencherCampos(Entidade entidade) {
-		if(!jtfNomeMarca.isEnabled()) {
+		if(entidade instanceof Modelo) {
 			this.preencherCamposModelo((Modelo)entidade);
-		} else {
+		} else if(entidade instanceof Marca) {
 			this.preencherCamposMarca((Marca)entidade);
 		}
 	}

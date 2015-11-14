@@ -1459,9 +1459,9 @@ public class ClienteForm extends JFrame implements PreencherDados {
 
 	@Override
 	public void preencherCampos(Entidade entidade) {
-		if(jtfNomeCidade.isEnabled() && !jtfNomeUF.isEnabled() && !jtfNomePais.isEnabled()) {
+		if(entidade instanceof Cidade) {
 			this.preencherCamposCidadeUFPais((Cidade)entidade);
-		} else {
+		} else if(entidade instanceof Cliente) {
 			this.preencherCamposCliente((Cliente)entidade);
 		}
 	}
