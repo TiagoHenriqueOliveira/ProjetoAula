@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import dao.WashCar.CarroDAOJDBC;
 import model.WashCar.Carro;
 import preencherDados.WashCar.PreencherDados;
+import javax.swing.ScrollPaneConstants;
 
 public class ListaCarroForm extends JFrame {
 	
@@ -37,23 +38,29 @@ public class ListaCarroForm extends JFrame {
 	private String descricao;
 	private String placa; 
 
+	@SuppressWarnings("static-access")
 	public void componentesListaCarro() {
 		dados = new Vector<String>();
 		dados.add("Código");
 		dados.add("Nome do Carro");
 		dados.add("Placa do Carro");
+		dados.add("Nome do Cliente");
 		dtmListaCarro = new DefaultTableModel();
 		dtmListaCarro.setColumnIdentifiers(dados);
 		jttListaCarro = new JTable();
 		jttListaCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jttListaCarro.setModel(dtmListaCarro);
 		jttListaCarro.getColumnModel().getColumn(0).setResizable(false);
-		jttListaCarro.getColumnModel().getColumn(0).setPreferredWidth(10);
+		jttListaCarro.getColumnModel().getColumn(0).setPreferredWidth(60);
 		jttListaCarro.getColumnModel().getColumn(1).setResizable(false);
 		jttListaCarro.getColumnModel().getColumn(1).setPreferredWidth(300);
 		jttListaCarro.getColumnModel().getColumn(2).setResizable(false);
-		jttListaCarro.getColumnModel().getColumn(2).setPreferredWidth(50);
+		jttListaCarro.getColumnModel().getColumn(2).setPreferredWidth(100);
+		jttListaCarro.getColumnModel().getColumn(3).setResizable(false);
+		jttListaCarro.getColumnModel().getColumn(3).setPreferredWidth(250);
 		jspListaCarro = new JScrollPane(jttListaCarro);
+		jspListaCarro.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		jttListaCarro.setAutoResizeMode(jttListaCarro.AUTO_RESIZE_OFF);
 		jspListaCarro.setBounds(10, 10, 500, 300);
 		jpnListaCarro.add(jspListaCarro);
 		
@@ -71,7 +78,11 @@ public class ListaCarroForm extends JFrame {
 	public void preencherDadosTabelaSemFiltro() {
 		listaCarros = new CarroDAOJDBC().todos();
 		for(Carro todos : listaCarros) {
-			dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca()});
+			if(todos.getCliente().getTipoPessoa() == 1) {
+				dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca(), todos.getCliente().getPessoaFisica().getNome()});
+			} else {
+				dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca(), todos.getCliente().getPessoaJuridica().getNomeFantasia()});
+			}
 		}
 	}
 	
@@ -80,14 +91,22 @@ public class ListaCarroForm extends JFrame {
 		carro = new CarroDAOJDBC().buscarId(codigo);
 		listaCarros.add(carro);
 		for(Carro todos : listaCarros) {
-			dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca()});
+			if(todos.getCliente().getTipoPessoa() == 1) {
+				dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca(), todos.getCliente().getPessoaFisica().getNome()});
+			} else {
+				dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca(), todos.getCliente().getPessoaJuridica().getNomeFantasia()});
+			}
 		}
 	}
 	
 	public void preencherDadosTabelaFiltroNome() {
 		listaCarros.addAll(new CarroDAOJDBC().buscarDescricao(descricao));
 		for(Carro todos : listaCarros) {
-			dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca()});
+			if(todos.getCliente().getTipoPessoa() == 1) {
+				dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca(), todos.getCliente().getPessoaFisica().getNome()});
+			} else {
+				dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca(), todos.getCliente().getPessoaJuridica().getNomeFantasia()});
+			}
 		}		
 	}
 	
@@ -96,7 +115,11 @@ public class ListaCarroForm extends JFrame {
 		carro = new CarroDAOJDBC().pesquisaPorPlaca(placa);
 		listaCarros.add(carro);
 		for(Carro todos : listaCarros) {
-			dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca()});
+			if(todos.getCliente().getTipoPessoa() == 1) {
+				dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca(), todos.getCliente().getPessoaFisica().getNome()});
+			} else {
+				dtmListaCarro.addRow(new String[] {String.valueOf(todos.getIdCarro()), todos.getNome(), todos.getPlaca(), todos.getCliente().getPessoaJuridica().getNomeFantasia()});
+			}
 		}
 	}
 	
