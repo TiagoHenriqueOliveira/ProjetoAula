@@ -8,7 +8,6 @@ public class OrdemServico {
 	private LocalDate dataAgendamento;
 	private Double valorTotal;
 	private Boolean ordemServicoCancelada;
-	private LocalDate dataAlteracao;
 	private Cliente cliente;
 	
 	//construtor com atributos
@@ -43,14 +42,6 @@ public class OrdemServico {
 
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
-	}
-
-	public LocalDate getDataInclusao() {
-		return dataAlteracao;
-	}
-
-	public void setDataInclusao(LocalDate dataInclusao) {
-		this.dataAlteracao = dataInclusao;
 	}
 
 	public Boolean isOrdemServicoCancelada() {
