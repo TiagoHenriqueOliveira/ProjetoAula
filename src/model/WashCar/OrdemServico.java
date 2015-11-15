@@ -2,7 +2,7 @@ package model.WashCar;
 
 import java.time.LocalDate;
 
-public class OrdemServico {
+public class OrdemServico implements Entidade {
 	
 	private Integer idOrdemServico;
 	private LocalDate dataAgendamento;
