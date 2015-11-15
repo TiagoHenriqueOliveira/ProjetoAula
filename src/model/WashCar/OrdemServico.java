@@ -10,6 +10,7 @@ public class OrdemServico {
 	private Double valorTotal;
 	private Boolean ordemServicoCancelada;
 	private Cliente cliente;
+	private Carro carro;
 	
 	//construtor com atributos
 	public OrdemServico(Integer idOrdemServico) {
@@ -67,5 +68,13 @@ public class OrdemServico {
 
 	public void setDataAlteracao(LocalDate dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
+	}
+
+	public Carro getCarro() {
+		return carro;
+	}
+
+	public void setCarro(Carro carro) {
+		this.carro = carro;
 	}
 }
