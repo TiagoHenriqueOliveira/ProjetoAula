@@ -566,6 +566,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jtfNumero.setEnabled(true);
 		jtfBairro.setEnabled(true);
 		jtfNomeCidade.setEnabled(true);
+		jtfCodigoCliente.setText("");
 		jtfNomeCliente.setText("");
 		jtfCPF.setText("");
 		jtfRG.setText("");
