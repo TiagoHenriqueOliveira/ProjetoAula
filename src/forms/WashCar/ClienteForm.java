@@ -670,12 +670,9 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			} else if (jtfNomeFantasia.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar nome Fantasia!!!", "Aviso",	JOptionPane.INFORMATION_MESSAGE);
 				jtfNomeFantasia.requestFocus();
-			} else if (jtfInscricaoEstadual.getText().equals("")) {
+			} else if ((jtfInscricaoEstadual.getText().equals("")) && (!jckbxIsento.isSelected())) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar a inscrição estadual!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfInscricaoEstadual.requestFocus();
-				if (jckbxIsento.isSelected()) {
-					jtfInscricaoEstadual.setText("ISENTO");
-				}
 			} else if (jtfEmail.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o email!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfEmail.requestFocus();
@@ -712,6 +709,9 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			this.pessoaJuridica.setRazaoSocial(jtfRazaoSocial.getText());
 			this.pessoaJuridica.setNomeFantasia(jtfNomeFantasia.getText());
 			this.pessoaJuridica.setCnpj(jtfCNPJ.getText());
+			if(jckbxIsento.isSelected()) {
+				jtfInscricaoEstadual.setText("ISENTO");
+			}
 			this.pessoaJuridica.setInscricaoEstadual(jtfInscricaoEstadual.getText());
 			this.pessoaJuridica.setInscricaoMunicipal(jtfInscricaoMunicipal.getText());
 			this.pessoaJuridica.setIdCliente(Integer.valueOf(jtfCodigoCliente.getText()));
