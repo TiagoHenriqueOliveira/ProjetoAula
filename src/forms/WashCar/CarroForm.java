@@ -103,7 +103,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 		jtfPesquisaCodigoCarro.setBounds(10, 54, 50, 20);
 		jpnPesquisaCarro.add(jtfPesquisaCodigoCarro);
 		
-		jlbPesquisaNomeCarro = new JLabel("Nome do Cliente / Nome Fantasia");
+		jlbPesquisaNomeCarro = new JLabel("Nome do Carro");
 		jlbPesquisaNomeCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbPesquisaNomeCarro.setBounds(86, 38, 275, 14);
 		jpnPesquisaCarro.add(jlbPesquisaNomeCarro);
