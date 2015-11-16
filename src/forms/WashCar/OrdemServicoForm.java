@@ -1,39 +1,48 @@
 package forms.WashCar;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.border.SoftBevelBorder;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
-import javax.swing.JLabel;
 
-import java.awt.Font;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Vector;
-
-import javax.swing.JCheckBox;
-
+import daoFactory.WashCar.DaoFactory;
+import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
+import model.WashCar.Carro;
+import model.WashCar.Cliente;
+import model.WashCar.Entidade;
+import model.WashCar.OrdemServico;
+import preencherDados.WashCar.PreencherDados;
 import validacaoCampos.WashCar.ValidaCampoAlfaNumerico;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
-import validacaoCampos.WashCar.ValidaCampoValor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-import java.awt.Toolkit;
-import javax.swing.SwingConstants;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-
-public class OrdemServicoForm extends JFrame {
+public class OrdemServicoForm extends JFrame implements PreencherDados {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnOrdemServico;
@@ -56,11 +65,10 @@ public class OrdemServicoForm extends JFrame {
 	private JTextField jtfValorTotal;
 	private JTextField jtfDescricaoTipoServico;
 	private JTextField jtfCodigoTipoServico;
-	private JTextField jtfQuantidade;
-	private JTextField jtfValorUnitario;
 	private JTextField jtfValorTotalItemServico;
 	private JTextField jtfCodigoOSV;
 	private JTextField jtfCodigoCarro;
+	private JFormattedTextField jtfDataAgendamento;
 	private JLabel jlbValorTotal;
 	private JLabel jlbTelefoneCelular;
 	private JLabel jlbTelefoneResidencial;
@@ -77,8 +85,6 @@ public class OrdemServicoForm extends JFrame {
 	private JLabel jlbConsultaOrdemServico;
 	private JLabel jlbPesquisaNomeClienteOrdemServico;
 	private JLabel jlbPesquisaCodigoOrdemServico;
-	private JLabel jlbValorUnitario;
-	private JLabel jlbQuantidade;
 	private JLabel jlbCodigoTipoServico;
 	private JLabel jlbValorTotalItemServico;
 	private JLabel jlbDataServico;
@@ -94,6 +100,7 @@ public class OrdemServicoForm extends JFrame {
 	private JButton jbtSalvarItemServico;
 	private JButton jbtEditarItemServico;
 	private JButton jbtNovoItemServico;
+	private JButton jbtFecharItemServico;
 	private JTabbedPane jtbOrdemServico;
 	private JTable jttGridItensServico;
 	private DefaultTableModel dtmGridItensServico;
@@ -101,8 +108,10 @@ public class OrdemServicoForm extends JFrame {
 	private JScrollPane jspGridItensServico;
 	private JMenuBar jmbOrdemServico;
 	private JMenu jmnRelatorio;
-	private JFormattedTextField jtfDataAgendamento;
+	private OrdemServico ordemServico;
+	private static OrdemServicoForm ordemServicoForm;
 
+	@SuppressWarnings("static-access")
 	public void componentesTelaOrdemServico() {
 		jmbOrdemServico = new JMenuBar();
 		jmbOrdemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -123,8 +132,6 @@ public class OrdemServicoForm extends JFrame {
 		dados = new Vector<String>();
 		dados.add("Código");
 		dados.add("Descrição");
-		dados.add("Quantidade");
-		dados.add("Valor Unitário");
 		dados.add("Valor Total");
 		dtmGridItensServico = new DefaultTableModel();
 		dtmGridItensServico.setColumnIdentifiers(dados);
@@ -296,13 +303,13 @@ public class OrdemServicoForm extends JFrame {
 		jbtEditar = new JButton("Editar");
 		jbtEditar.setEnabled(false);
 		jbtEditar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditar.setBounds(140, 302, 120, 25);
+		jbtEditar.setBounds(271, 302, 120, 25);
 		jpnDadosOrdemServico.add(jbtEditar);
 		
 		jbtSalvar = new JButton("Salvar");
 		jbtSalvar.setEnabled(false);
 		jbtSalvar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvar.setBounds(270, 302, 120, 25);
+		jbtSalvar.setBounds(140, 302, 120, 25);
 		jpnDadosOrdemServico.add(jbtSalvar);
 		
 		jbtFechar = new JButton("Fechar");
@@ -359,12 +366,11 @@ public class OrdemServicoForm extends JFrame {
 		jpnDadosOrdemServico.add(jtfTelefoneCelular);
 		
 		jtfValorTotal = new JTextField();
-		jtfValorTotal.setDocument(new ValidaCampoValor());
+		jtfValorTotal.setEnabled(false);
 		jtfValorTotal.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfValorTotal.setEditable(false);
 		jtfValorTotal.setColumns(10);
 		jtfValorTotal.setBackground(Color.YELLOW);
-		jtfValorTotal.setBounds(140, 121, 130, 20);
+		jtfValorTotal.setBounds(140, 121, 75, 20);
 		jpnDadosOrdemServico.add(jtfValorTotal);
 		
 		jlbValorTotal = new JLabel("Valor Total");
@@ -421,22 +427,19 @@ public class OrdemServicoForm extends JFrame {
 		jttGridItensServico.setModel(dtmGridItensServico);
 		jttGridItensServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jttGridItensServico.getColumnModel().getColumn(0).setResizable(false);
-		jttGridItensServico.getColumnModel().getColumn(0).setPreferredWidth(20);
+		jttGridItensServico.getColumnModel().getColumn(0).setPreferredWidth(70);
 		jttGridItensServico.getColumnModel().getColumn(1).setResizable(false);
-		jttGridItensServico.getColumnModel().getColumn(1).setPreferredWidth(210);
+		jttGridItensServico.getColumnModel().getColumn(1).setPreferredWidth(467);
 		jttGridItensServico.getColumnModel().getColumn(2).setResizable(false);
-		jttGridItensServico.getColumnModel().getColumn(2).setPreferredWidth(50);
-		jttGridItensServico.getColumnModel().getColumn(3).setResizable(false);
-		jttGridItensServico.getColumnModel().getColumn(3).setPreferredWidth(50);
-		jttGridItensServico.getColumnModel().getColumn(4).setResizable(false);
-		jttGridItensServico.getColumnModel().getColumn(4).setPreferredWidth(50);
+		jttGridItensServico.getColumnModel().getColumn(2).setPreferredWidth(100);
 		jspGridItensServico = new JScrollPane(jttGridItensServico);
+		jttGridItensServico.setAutoResizeMode(jttGridItensServico.AUTO_RESIZE_OFF);
 		jpnCadastroServico.add(jspGridItensServico);
-		jspGridItensServico.setBounds(10, 10, 640, 190);
+		jspGridItensServico.setBounds(10, 10, 640, 235);
 		
 		jlbDescricaoServico = new JLabel("Descri\u00E7\u00E3o do Servi\u00E7o");
 		jlbDescricaoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbDescricaoServico.setBounds(170, 211, 324, 14);
+		jlbDescricaoServico.setBounds(170, 256, 324, 14);
 		jpnCadastroServico.add(jlbDescricaoServico);
 		
 		jtfDescricaoTipoServico = new JTextField();
@@ -444,59 +447,34 @@ public class OrdemServicoForm extends JFrame {
 		jtfDescricaoTipoServico.setEnabled(false);
 		jtfDescricaoTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfDescricaoTipoServico.setColumns(10);
-		jtfDescricaoTipoServico.setBounds(170, 226, 324, 20);
+		jtfDescricaoTipoServico.setBounds(170, 271, 324, 20);
 		jpnCadastroServico.add(jtfDescricaoTipoServico);
 		
 		jtfCodigoTipoServico = new JTextField();
+		jtfCodigoTipoServico.setHorizontalAlignment(SwingConstants.CENTER);
 		jtfCodigoTipoServico.setDocument(new ValidaCampoNumeroInteiro());
 		jtfCodigoTipoServico.setEnabled(false);
 		jtfCodigoTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfCodigoTipoServico.setColumns(10);
-		jtfCodigoTipoServico.setBounds(10, 226, 50, 20);
+		jtfCodigoTipoServico.setBounds(10, 271, 50, 20);
 		jpnCadastroServico.add(jtfCodigoTipoServico);
 		
 		jlbCodigoTipoServico = new JLabel("C\u00F3d. Tipo de Servi\u00E7o");
 		jlbCodigoTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbCodigoTipoServico.setBounds(10, 211, 160, 14);
+		jlbCodigoTipoServico.setBounds(10, 256, 160, 14);
 		jpnCadastroServico.add(jlbCodigoTipoServico);
 		
-		jtfQuantidade = new JTextField();
-		jtfQuantidade.setDocument(new ValidaCampoNumeroInteiro());
-		jtfQuantidade.setEnabled(false);
-		jtfQuantidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfQuantidade.setColumns(10);
-		jtfQuantidade.setBounds(10, 271, 50, 20);
-		jpnCadastroServico.add(jtfQuantidade);
-		
-		jlbQuantidade = new JLabel("Quantidade");
-		jlbQuantidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbQuantidade.setBounds(10, 257, 120, 14);
-		jpnCadastroServico.add(jlbQuantidade);
-		
-		jtfValorUnitario = new JTextField();
-		jtfValorUnitario.setDocument(new ValidaCampoValor());
-		jtfValorUnitario.setEnabled(false);
-		jtfValorUnitario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfValorUnitario.setColumns(10);
-		jtfValorUnitario.setBounds(130, 271, 135, 20);
-		jpnCadastroServico.add(jtfValorUnitario);
-		
-		jlbValorUnitario = new JLabel("Valor Unit\u00E1rio");
-		jlbValorUnitario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbValorUnitario.setBounds(130, 257, 135, 14);
-		jpnCadastroServico.add(jlbValorUnitario);
-		
 		jtfValorTotalItemServico = new JTextField();
-		jtfValorTotalItemServico.setDocument(new ValidaCampoValor());
+		jtfValorTotalItemServico.setHorizontalAlignment(SwingConstants.RIGHT);
 		jtfValorTotalItemServico.setEnabled(false);
 		jtfValorTotalItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfValorTotalItemServico.setColumns(10);
-		jtfValorTotalItemServico.setBounds(275, 271, 135, 20);
+		jtfValorTotalItemServico.setBounds(515, 271, 80, 20);
 		jpnCadastroServico.add(jtfValorTotalItemServico);
 		
 		jlbValorTotalItemServico = new JLabel("Valor Total");
 		jlbValorTotalItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbValorTotalItemServico.setBounds(275, 257, 135, 14);
+		jlbValorTotalItemServico.setBounds(515, 257, 135, 14);
 		jpnCadastroServico.add(jlbValorTotalItemServico);
 		
 		jbtNovoItemServico = new JButton("Novo");
@@ -507,13 +485,13 @@ public class OrdemServicoForm extends JFrame {
 		jbtEditarItemServico = new JButton("Editar");
 		jbtEditarItemServico.setEnabled(false);
 		jbtEditarItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtEditarItemServico.setBounds(140, 302, 120, 25);
+		jbtEditarItemServico.setBounds(270, 302, 120, 25);
 		jpnCadastroServico.add(jbtEditarItemServico);
 		
 		jbtSalvarItemServico = new JButton("Salvar");
 		jbtSalvarItemServico.setEnabled(false);
 		jbtSalvarItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jbtSalvarItemServico.setBounds(270, 302, 120, 25);
+		jbtSalvarItemServico.setBounds(140, 302, 120, 25);
 		jpnCadastroServico.add(jbtSalvarItemServico);
 		
 		jbtCancelarItemServico = new JButton("Cancelar");
@@ -521,73 +499,225 @@ public class OrdemServicoForm extends JFrame {
 		jbtCancelarItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtCancelarItemServico.setBounds(400, 302, 120, 25);
 		jpnCadastroServico.add(jbtCancelarItemServico);
+		
+		jbtFecharItemServico = new JButton("Fechar");
+		jbtFecharItemServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jbtFecharItemServico.setBounds(530, 302, 120, 25);
+		jpnCadastroServico.add(jbtFecharItemServico);
+		
+		jtfPesquisaCodigoOrdemServico.requestFocus();
 	}
 	
 	public void acionarBotaoNovoCadastroOsv() {
-		jckbxOrdemServicoCancelada.setEnabled(true);
+		jckbxOrdemServicoCancelada.setEnabled(false);
+		jckbxOrdemServicoCancelada.setSelected(false);
+		jtfDataAgendamento.setEnabled(true);
 		jtfNomeCliente.setEnabled(true);
 		jtfNomeCarro.setEnabled(true);
+		jtfPlaca.setEnabled(true);
+		jtfCodigoOSV.setText("");
+		jtfValorTotal.setText("");
+		jtfDataAgendamento.setText("");
+		jtfDataAlteracao.setText("");
+		jtfCodigoCliente.setText("");
+		jtfTelefoneComercial.setText("");
+		jtfTelefoneResidencial.setText("");
+		jtfTelefoneCelular.setText("");
+		jtfNomeCliente.setText("");
+		jtfCpf.setText("");
+		jtfCnpj.setText("");
+		jtfCodigoCarro.setText("");
+		jtfNomeCarro.setText("");
+		jtfPlaca.setText("");
+		jbtNovo.setEnabled(false);
+		jbtSalvar.setEnabled(true);
+		jbtCancelar.setEnabled(true);
+		jbtEditar.setEnabled(false);
+	}
+	
+	public void acionarBotaoNovoCadastroItemOsv() {
+		jtfCodigoTipoServico.setEnabled(true);
+		jtfDescricaoTipoServico.setEnabled(true);
+		jbtNovoItemServico.setEnabled(false);
+		jbtSalvarItemServico.setEnabled(true);
+		jbtCancelarItemServico.setEnabled(true);
+	}
+	
+	@SuppressWarnings("static-access")
+	public void salvarCadastroOsv() throws RegistroExistente {
+		if(jtfDataAgendamento.getText().equals("  /  /  ")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar uma data de agendamento do serviço!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfDataAgendamento.requestFocus();
+		} else if(jtfCodigoCliente.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar nome do cliente!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeCliente.requestFocus();
+		} else {
+			this.ordemServico = new OrdemServico();
+			this.ordemServico.setValorTotal(Double.valueOf(jtfValorTotal.getText().replace(",", ".")));
+			this.ordemServico.setOrdemServicoCancelada(jckbxOrdemServicoCancelada.isSelected());
+			this.ordemServico.setDataAgendamento(Date.valueOf(jtfDataAgendamento.getText()).toLocalDate());
+			this.ordemServico.setDataAlteracao(Date.valueOf(ordemServico.getDataAlteracao().now()).toLocalDate());
+			this.ordemServico.setCliente(new Cliente(Integer.valueOf(jtfCodigoCliente.getText()), null));
+			DaoFactory.getFactory().ordemServicoDao().inserir(ordemServico);
+			jtfCodigoOSV.setText(String.valueOf(this.ordemServico.getIdOrdemServico()));
+			jtfDataAlteracao.setText(this.ordemServico.getDataAlteracao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			jtfDataAgendamento.setEnabled(false);
+			jtfNomeCliente.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void salvarEdicaoCadastroOsv() throws RegistroExistente {
+		if(jtfDataAgendamento.getText().equals("  /  /  ")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar uma data de agendamento do serviço!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfDataAgendamento.requestFocus();
+		} else if(jtfCodigoCliente.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar nome do cliente!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeCliente.requestFocus();
+		} else {
+			this.ordemServico = new OrdemServico();
+			this.ordemServico.setValorTotal(Double.valueOf(jtfValorTotal.getText().replace(",", ".")));
+			this.ordemServico.setOrdemServicoCancelada(jckbxOrdemServicoCancelada.isSelected());
+			this.ordemServico.setDataAgendamento(Date.valueOf(jtfDataAgendamento.getText()).toLocalDate());
+			this.ordemServico.setDataAlteracao(Date.valueOf(ordemServico.getDataAlteracao().now()).toLocalDate());
+			this.ordemServico.setCliente(new Cliente(Integer.valueOf(jtfCodigoCliente.getText()), null));
+			DaoFactory.getFactory().ordemServicoDao().inserir(ordemServico);
+			jtfDataAlteracao.setText(this.ordemServico.getDataAlteracao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+			jtfDataAgendamento.setEnabled(false);
+			jtfNomeCliente.setEnabled(false);
+			jbtSalvar.setEnabled(false);
+			jbtEditar.setEnabled(true);
+			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
+		}
+	}
+	
+	public void salvarCadastroItemOSV() {
+		
+	}
+	
+	public void salvarEdicaoItemOSV() {
+		
+	}
+	
+	public void acionarBotaoEditar() {
+		jckbxOrdemServicoCancelada.setEnabled(true);
 		jtfDataAgendamento.setEnabled(true);
+		jtfNomeCliente.setEnabled(true);
+		jtfNomeCarro.setEnabled(true);
+		jtfPlaca.setEnabled(true);
 		jbtNovo.setEnabled(false);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
 	}
 	
-	public void acionarBotaoNovoCadastroItemOsv() {
-		jbtNovoItemServico.setEnabled(false);
-		jtfCodigoTipoServico.setEnabled(true);
-		jtfDescricaoTipoServico.setEnabled(true);
-		jtfQuantidade.setEnabled(true);
-		jtfValorUnitario.setEnabled(true);
-		jtfValorTotalItemServico.setEnabled(true);
-		jbtSalvarItemServico.setEnabled(true);
-		jbtCancelarItemServico.setEnabled(true);
-	}
-	
-	public void salvarCadastroOsv() {
-		
-	}
-	
-	public void salvarEdicaoCadastroOsv() {
-		
-	}
-	
-	public void acionarBotaoEditar() {
+	public void acionarBotaoEditarItemOSV() {
 		
 	}
 	
 	public void acionarBotaoCancelarCadastroOsv() {
 		jckbxOrdemServicoCancelada.setEnabled(false);
+		jckbxOrdemServicoCancelada.setSelected(false);
+		jtfDataAgendamento.setEnabled(false);
 		jtfNomeCliente.setEnabled(false);
 		jtfNomeCarro.setEnabled(false);
-		jtfDataAgendamento.setEnabled(false);
+		jtfPlaca.setEnabled(false);
+		jtfCodigoOSV.setText("");
+		jtfValorTotal.setText("");
+		jtfDataAgendamento.setText("");
+		jtfDataAlteracao.setText("");
+		jtfCodigoCliente.setText("");
+		jtfTelefoneComercial.setText("");
+		jtfTelefoneResidencial.setText("");
+		jtfTelefoneCelular.setText("");
 		jtfNomeCliente.setText("");
 		jtfCpf.setText("");
 		jtfCnpj.setText("");
-		jtfTelefoneCelular.setText("");
-		jtfTelefoneComercial.setText("");
-		jtfTelefoneResidencial.setText("");
+		jtfCodigoCarro.setText("");
 		jtfNomeCarro.setText("");
 		jtfPlaca.setText("");
 		jbtNovo.setEnabled(true);
-		jbtSalvar.setEnabled(false);
 		jbtCancelar.setEnabled(false);
+		jbtSalvar.setEnabled(false);
+		jbtEditar.setEnabled(false);
 	}
 	
 	public void acionarBotaoCancelarCadastroItemOsv() {
 		jbtNovoItemServico.setEnabled(true);
 		jtfCodigoTipoServico.setEnabled(false);
 		jtfDescricaoTipoServico.setEnabled(false);
-		jtfQuantidade.setEnabled(false);
-		jtfValorUnitario.setEnabled(false);
-		jtfValorTotalItemServico.setEnabled(false);
 		jtfCodigoTipoServico.setText("");
 		jtfDescricaoTipoServico.setText("");
-		jtfQuantidade.setText("");
-		jtfValorUnitario.setText("");
 		jtfValorTotalItemServico.setText("");
 		jbtSalvarItemServico.setEnabled(false);
 		jbtCancelarItemServico.setEnabled(false);
+	}
+	
+	public void peencherCamposOrdemServico(OrdemServico ordemServico) {
+		jtfCodigoOSV.setText(String.valueOf(ordemServico.getIdOrdemServico()));
+		jtfValorTotal.setText(String.valueOf(new DecimalFormat("R$ #,##0.00").format(ordemServico.getValorTotal())));
+		jtfDataAgendamento.setText(ordemServico.getDataAgendamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		jtfDataAlteracao.setText(ordemServico.getDataAlteracao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		if(ordemServico.isOrdemServicoCancelada()) {
+			jckbxOrdemServicoCancelada.setSelected(true);
+		} else {
+			jckbxOrdemServicoCancelada.setSelected(false);
+		}
+		if(ordemServico.getCliente().getTipoPessoa() == 1) {
+			jtfCodigoCliente.setText(String.valueOf(ordemServico.getCliente().getIdCliente()));
+			jtfNomeCliente.setText(ordemServico.getCliente().getPessoaFisica().getNome());
+			jtfCpf.setText(ordemServico.getCliente().getPessoaFisica().getCpf());
+		} else {
+			jtfCodigoCliente.setText(String.valueOf(ordemServico.getCliente().getIdCliente()));
+			jtfNomeCliente.setText(ordemServico.getCliente().getPessoaJuridica().getNomeFantasia());
+			jtfCnpj.setText(ordemServico.getCliente().getPessoaJuridica().getCnpj());
+		}
+		jtfCodigoCarro.setText(String.valueOf(ordemServico.getCarro().getIdCarro()));
+		jtfNomeCarro.setText(ordemServico.getCarro().getNome());
+		jtfPlaca.setText(ordemServico.getCarro().getPlaca());
+	}
+	
+	public void preencherCamposCliente(Cliente cliente) {
+		if(cliente.getTipoPessoa() == 1) {
+			if(cliente.isForaUso()) {
+				JOptionPane.showMessageDialog(null, "O cliente selecionado está fora de uso.\n"
+				+ "Por gentileza, entre em contato com o responsável!\n"
+				+ "Após a confirmação o cadastro será cancelado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				this.acionarBotaoCancelarCadastroItemOsv();
+			} else {
+				jtfCodigoCliente.setText(String.valueOf(cliente.getIdCliente()));
+				jtfNomeCliente.setText(cliente.getPessoaFisica().getNome());
+				jtfCpf.setText(cliente.getPessoaFisica().getCpf());
+			}
+		} else {
+			if(cliente.isForaUso()) {
+				JOptionPane.showMessageDialog(null, "O cliente selecionado está fora de uso.\n"
+				+ "Por gentileza, entre em contato com o responsável!\n"
+				+ "Após a confirmação o cadastro será cancelado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+				this.acionarBotaoCancelarCadastroItemOsv();
+			} else {
+				jtfCodigoCliente.setText(String.valueOf(cliente.getIdCliente()));
+				jtfNomeCliente.setText(cliente.getPessoaJuridica().getNomeFantasia());
+				jtfCnpj.setText(cliente.getPessoaJuridica().getCnpj());
+			}
+		}
+	}
+	
+	public void preencherCamposCarro(Carro carro) {
+		if(carro.isForaUso()) {
+			JOptionPane.showMessageDialog(null, "O carro selecionado está fora de uso.\n"
+			+ "Por gentileza, entre em contato com o responsável!\n"
+			+ "Após a confirmação o cadastro será cancelado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			this.acionarBotaoCancelarCadastroItemOsv();
+		} else {
+			jtfCodigoCarro.setText(String.valueOf(carro.getIdCarro()));
+			jtfNomeCarro.setText(carro.getNome());
+			jtfPlaca.setText(carro.getPlaca());
+		}
 	}
 	
 	public void acoesDosBotoes() {
@@ -664,6 +794,214 @@ public class OrdemServicoForm extends JFrame {
 				}
 			}
 		});
+		
+		jbtFecharItemServico.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent acvt) {
+				if(acvt.getSource() == jbtFecharItemServico) {
+					if(jtfCodigoOSV.getText() == null || jtfCodigoOSV.getText().equals("")) {
+						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro da Ordem de serviço.\n"
+								+ "Deseja realmente fechar sem concluir o cadastro?\n"
+								+ "SIM - Cadastro da Ordem de Serviço será cancelado!\n"
+								+ "NÃO - Por gentileza, conclua o cadastro da Ordem de Serviço!", "Atenção", JOptionPane.YES_NO_OPTION);
+						if(valor == 0) {
+							dispose();
+						}
+					}
+				}
+			}
+		});
+	}
+	
+	public void pesquisaPorCodigo() {
+		jtfPesquisaCodigoOrdemServico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					try {
+						Integer codigo = null;
+						if(!jtfPesquisaCodigoOrdemServico.getText().equals("")) {
+							codigo = Integer.valueOf(jtfPesquisaCodigoOrdemServico.getText());
+						}
+						ListaOrdemServicoForm listaOrdemServico = new ListaOrdemServicoForm(ordemServicoForm, null, codigo, null);
+						listaOrdemServico.setVisible(true);
+						jckbxOrdemServicoCancelada.setEnabled(false);
+						jckbxOrdemServicoCancelada.setSelected(false);
+						jtfDataAgendamento.setEnabled(false);
+						jtfNomeCliente.setEnabled(false);
+						jtfCodigoOSV.setText("");
+						jtfValorTotal.setText("");
+						jtfDataAgendamento.setText("");
+						jtfDataAlteracao.setText("");
+						jtfCodigoCliente.setText("");
+						jtfTelefoneComercial.setText("");
+						jtfTelefoneResidencial.setText("");
+						jtfTelefoneCelular.setText("");
+						jtfNomeCliente.setText("");
+						jtfCpf.setText("");
+						jtfCnpj.setText("");
+						jtfCodigoCarro.setText("");
+						jtfNomeCarro.setText("");
+						jtfPlaca.setText("");
+						jtfPesquisaPlacaCarroOrdemServico.setText("");
+						jtfPesquisaNomeClienteOrdemServico.setText("");
+						jtfPesquisaCodigoOrdemServico.setText("");
+						jbtEditar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jbtCancelar.setEnabled(true);
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaCodigoOrdemServico.setText("");
+					}
+				}
+			}
+		});
+	}
+	
+	public void pesquisaPorNome() {
+		jtfPesquisaNomeClienteOrdemServico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					try {
+						ListaOrdemServicoForm listaOrdemServico = new ListaOrdemServicoForm(ordemServicoForm, jtfPesquisaNomeClienteOrdemServico.getText(), null, null);
+						listaOrdemServico.setVisible(true);
+						jckbxOrdemServicoCancelada.setEnabled(false);
+						jckbxOrdemServicoCancelada.setSelected(false);
+						jtfDataAgendamento.setEnabled(false);
+						jtfNomeCliente.setEnabled(false);
+						jtfCodigoOSV.setText("");
+						jtfValorTotal.setText("");
+						jtfDataAgendamento.setText("");
+						jtfDataAlteracao.setText("");
+						jtfCodigoCliente.setText("");
+						jtfTelefoneComercial.setText("");
+						jtfTelefoneResidencial.setText("");
+						jtfTelefoneCelular.setText("");
+						jtfNomeCliente.setText("");
+						jtfCpf.setText("");
+						jtfCnpj.setText("");
+						jtfCodigoCarro.setText("");
+						jtfNomeCarro.setText("");
+						jtfPlaca.setText("");
+						jtfPesquisaPlacaCarroOrdemServico.setText("");
+						jtfPesquisaNomeClienteOrdemServico.setText("");
+						jtfPesquisaCodigoOrdemServico.setText("");
+						jbtEditar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jbtCancelar.setEnabled(true);
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaNomeClienteOrdemServico.setText("");
+					}
+				}
+			}
+		});
+	}
+	
+	public void pesquisaPorPlaca() {
+		jtfPesquisaPlacaCarroOrdemServico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					try {
+						ListaOrdemServicoForm listaOrdemServico = new ListaOrdemServicoForm(ordemServicoForm, null, null, jtfPesquisaPlacaCarroOrdemServico.getText());
+						listaOrdemServico.setVisible(true);
+						jckbxOrdemServicoCancelada.setEnabled(false);
+						jckbxOrdemServicoCancelada.setSelected(false);
+						jtfDataAgendamento.setEnabled(false);
+						jtfNomeCliente.setEnabled(false);
+						jtfCodigoOSV.setText("");
+						jtfValorTotal.setText("");
+						jtfDataAgendamento.setText("");
+						jtfDataAlteracao.setText("");
+						jtfCodigoCliente.setText("");
+						jtfTelefoneComercial.setText("");
+						jtfTelefoneResidencial.setText("");
+						jtfTelefoneCelular.setText("");
+						jtfNomeCliente.setText("");
+						jtfCpf.setText("");
+						jtfCnpj.setText("");
+						jtfCodigoCarro.setText("");
+						jtfNomeCarro.setText("");
+						jtfPlaca.setText("");
+						jtfPesquisaPlacaCarroOrdemServico.setText("");
+						jtfPesquisaNomeClienteOrdemServico.setText("");
+						jtfPesquisaCodigoOrdemServico.setText("");
+						jbtEditar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jbtCancelar.setEnabled(true);
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaPlacaCarroOrdemServico.setText("");
+					}
+				}
+			}
+		});
+	}
+	
+	public void pesquisaNomeCliente() {
+		jtfNomeCliente.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					try {
+						ListaClienteForm listaCliente = new ListaClienteForm(ordemServicoForm, null, jtfNomeCliente.getText(), null, null);
+						listaCliente.setVisible(true);
+						jtfCodigoCliente.setText("");
+						jtfTelefoneComercial.setText("");
+						jtfTelefoneResidencial.setText("");
+						jtfTelefoneCelular.setText("");
+						jtfNomeCliente.setText("");
+						jtfCpf.setText("");
+						jtfCnpj.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfNomeCliente.setText("");
+					}
+				}
+			}
+		});
+	}
+
+	public void pesquisaNomeCarro() {
+		jtfNomeCarro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					try {
+						ListaCarroForm listaCarro = new ListaCarroForm(ordemServicoForm, jtfNomeCarro.getText(), null, null);
+						listaCarro.setVisible(true);
+						jtfCodigoCarro.setText("");
+						jtfNomeCarro.setText("");
+						jtfPlaca.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfNomeCarro.setText("");
+					}
+				}
+			}
+		});
+	}
+	
+	public void pesquisaPlacaCarro() {
+		jtfPlaca.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					try {
+						ListaCarroForm listaCarro = new ListaCarroForm(ordemServicoForm, null, null, jtfPlaca.getText());
+						listaCarro.setVisible(true);
+						jtfCodigoCarro.setText("");
+						jtfNomeCarro.setText("");
+						jtfPlaca.setText("");
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPlaca.setText("");
+					}
+				}
+			}
+		});
 	}
 	
 	public OrdemServicoForm() {
@@ -671,12 +1009,29 @@ public class OrdemServicoForm extends JFrame {
 		setTitle("Ordem de Serviço | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 699, 445); //700 - 575
+		setBounds(100, 100, 699, 445);
 		jpnOrdemServico = new JPanel();
 		jpnOrdemServico.setLayout(null);
 		setLocationRelativeTo(null);
 		
 		componentesTelaOrdemServico();
 		acoesDosBotoes();
+		pesquisaPorCodigo();
+		pesquisaPorNome();
+		pesquisaPorPlaca();
+		pesquisaNomeCarro();
+		pesquisaPlacaCarro();
+		pesquisaNomeCliente();
+	}
+
+	@Override
+	public void preencherCampos(Entidade entidade) {
+		if(entidade instanceof OrdemServico) {
+			this.peencherCamposOrdemServico((OrdemServico)entidade);
+		} else if(entidade instanceof Cliente) {
+			this.preencherCamposCliente((Cliente)entidade);
+		} else if(entidade instanceof Carro) {
+			this.preencherCamposCarro((Carro)entidade);
+		}
 	}
 }
