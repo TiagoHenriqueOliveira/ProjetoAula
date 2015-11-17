@@ -2,7 +2,7 @@ package model.WashCar;
 
 import java.time.LocalDate;
 
-public class ItemOrdemServico {
+public class ItemOrdemServico implements Entidade {
 	
 	private Integer idItemServico;
 	private Double valorUnitario;
