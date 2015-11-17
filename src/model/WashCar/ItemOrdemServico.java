@@ -5,27 +5,14 @@ import java.time.LocalDate;
 public class ItemOrdemServico implements Entidade {
 	
 	private Integer idItemServico;
-	private Double valorUnitario;
-	private Integer quantidade;
-	private String Observacoes;
+	private Double valorTotalItem;
 	private OrdemServico ordemServico;
 	private TipoServico tipoServico;
 	private LocalDate dataAltercacao;
-	private LocalDate dataInclusao;
 	
 	//construtor com atributos
-	public ItemOrdemServico(Integer idItemServico, Double valorUnitario,
-			Integer quantidade, String observacoes, OrdemServico ordemServico,
-			TipoServico tipoServico, LocalDate dataAltercacao, LocalDate dataInclusao) {
-		super();
+	public ItemOrdemServico(Integer idItemServico) {
 		this.idItemServico = idItemServico;
-		this.valorUnitario = valorUnitario;
-		this.quantidade = quantidade;
-		this.Observacoes = observacoes;
-		this.ordemServico = ordemServico;
-		this.tipoServico = tipoServico;
-		this.dataAltercacao = dataAltercacao;
-		this.dataInclusao = dataInclusao;
 	}
 
 	//gets e sets das variaveis
@@ -38,27 +25,11 @@ public class ItemOrdemServico implements Entidade {
 	}
 
 	public Double getValorUnitario() {
-		return valorUnitario;
+		return valorTotalItem;
 	}
 
 	public void setValorUnitario(Double valorUnitario) {
-		this.valorUnitario = valorUnitario;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public String getObservacoes() {
-		return Observacoes;
-	}
-
-	public void setObservacoes(String observacoes) {
-		Observacoes = observacoes;
+		this.valorTotalItem = valorUnitario;
 	}
 
 	public OrdemServico getOrdemServico() {
@@ -83,13 +54,5 @@ public class ItemOrdemServico implements Entidade {
 
 	public void setDataAltercacao(LocalDate dataAltercacao) {
 		this.dataAltercacao = dataAltercacao;
-	}
-
-	public LocalDate getDataInclusao() {
-		return dataInclusao;
-	}
-
-	public void setDataInclusao(LocalDate dataInclusao) {
-		this.dataInclusao = dataInclusao;
 	}
 }
