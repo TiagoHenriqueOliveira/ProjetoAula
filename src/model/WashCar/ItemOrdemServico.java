@@ -14,6 +14,10 @@ public class ItemOrdemServico implements Entidade {
 	public ItemOrdemServico(Integer idItemServico) {
 		this.idItemServico = idItemServico;
 	}
+	
+	public ItemOrdemServico() {
+
+	}
 
 	//gets e sets das variaveis
 	public Integer getIdItemServico() {
