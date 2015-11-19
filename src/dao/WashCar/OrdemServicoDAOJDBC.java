@@ -99,7 +99,8 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
 				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
-				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"), 
+				rs.getString("telefoneComercialCliente"), rs.getString("telefoneResidencialCliente"), rs.getString("telefoneCelularCliente"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				ordemServico.setCarro(new Carro(rs.getInt("idCarro"), rs.getString("nomeCarro"), rs.getString("placaCarro")));
@@ -145,7 +146,8 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
 				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
-				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"), 
+				rs.getString("telefoneComercialCliente"), rs.getString("telefoneResidencialCliente"), rs.getString("telefoneCelularCliente"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				ordemServico.setCarro(new Carro(rs.getInt("idCarro"), rs.getString("nomeCarro"), rs.getString("placaCarro")));
@@ -188,7 +190,8 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
 				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
-				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"), 
+				rs.getString("telefoneComercialCliente"), rs.getString("telefoneResidencialCliente"), rs.getString("telefoneCelularCliente"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				ordemServico.setCarro(new Carro(rs.getInt("idCarro"), rs.getString("nomeCarro"), rs.getString("placaCarro")));
@@ -245,7 +248,8 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
 				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
-				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"), 
+				rs.getString("telefoneComercialCliente"), rs.getString("telefoneResidencialCliente"), rs.getString("telefoneCelularCliente"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				ordemServico.setCarro(new Carro(rs.getInt("idCarro"), rs.getString("nomeCarro"), rs.getString("placaCarro")));
