@@ -30,15 +30,15 @@ public class PrincipalForm extends JFrame {
 	private JMenuItem jmiMarca;
 	private JMenuItem jmiModelo;
 	private JMenuItem jmiTipoServico;
-	private static UsuarioForm usuarioForm = new UsuarioForm();
-	private static CarroForm carroForm = new CarroForm();
-	private static ClienteForm clienteForm = new ClienteForm();
-	private static AgendaForm agendaForm = new AgendaForm();
-	private static OrdemServicoForm ordemServicoForm = new OrdemServicoForm();
-	private static EmpresaForm empresaForm = new EmpresaForm();
-	private static ModeloForm modeloForm = new ModeloForm();
-	private static MarcaForm marcaForm = new MarcaForm();
-	private static TipoServicoForm tipoServicoForm = new TipoServicoForm();
+	private UsuarioForm usuarioForm = new UsuarioForm();
+	private CarroForm carroForm = new CarroForm();
+	private ClienteForm clienteForm = new ClienteForm();
+	private AgendaForm agendaForm = new AgendaForm();
+	private OrdemServicoForm ordemServicoForm = new OrdemServicoForm();
+	private EmpresaForm empresaForm = new EmpresaForm();
+	private ModeloForm modeloForm = new ModeloForm();
+	private MarcaForm marcaForm = new MarcaForm();
+	private TipoServicoForm tipoServicoForm = new TipoServicoForm();
 	
 	public void componentesTelaPrincipal() {
 		jmbPrincipal = new JMenuBar();
