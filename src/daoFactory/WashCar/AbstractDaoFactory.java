@@ -3,6 +3,7 @@ package daoFactory.WashCar;
 import dao.WashCar.CarroDAO;
 import dao.WashCar.ClienteDAO;
 import dao.WashCar.EmpresaDAO;
+import dao.WashCar.ItemOrdemServicoDAO;
 import dao.WashCar.MarcaDAO;
 import dao.WashCar.ModeloDAO;
 import dao.WashCar.OrdemServicoDAO;
@@ -27,4 +28,5 @@ public interface AbstractDaoFactory {
 	PessoaJuridicaDAO pessoaJuridicaDao();
 	TipoServicoDAO tipoServicoDao();
 	OrdemServicoDAO ordemServicoDao();
+	ItemOrdemServicoDAO itemOrdemServicoDao();
 }

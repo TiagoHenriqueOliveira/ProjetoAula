@@ -6,6 +6,8 @@ import dao.WashCar.ClienteDAO;
 import dao.WashCar.ClienteDAOJDBC;
 import dao.WashCar.EmpresaDAO;
 import dao.WashCar.EmpresaDAOJDBC;
+import dao.WashCar.ItemOrdemServicoDAO;
+import dao.WashCar.ItemOrdemServicoDAOJDBC;
 import dao.WashCar.MarcaDAO;
 import dao.WashCar.UsuarioDAO;
 import dao.WashCar.UsuarioDAOJDBC;
@@ -70,5 +72,10 @@ public class DaoFactoryJDBC implements AbstractDaoFactory{
 	@Override
 	public OrdemServicoDAO ordemServicoDao() {
 		return new OrdemServicoDAOJDBC();
+	}
+
+	@Override
+	public ItemOrdemServicoDAO itemOrdemServicoDao() {
+		return new ItemOrdemServicoDAOJDBC();
 	}
 }

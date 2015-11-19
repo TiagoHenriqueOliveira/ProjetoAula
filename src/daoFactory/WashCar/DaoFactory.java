@@ -3,6 +3,7 @@ package daoFactory.WashCar;
 import dao.WashCar.CarroDAO;
 import dao.WashCar.ClienteDAO;
 import dao.WashCar.EmpresaDAO;
+import dao.WashCar.ItemOrdemServicoDAO;
 import dao.WashCar.MarcaDAO;
 import dao.WashCar.TipoServicoDAO;
 import dao.WashCar.ModeloDAO;
@@ -77,5 +78,9 @@ public class DaoFactory {
 	
 	public OrdemServicoDAO ordemServicoDao() {
 		return daoFactory.ordemServicoDao();
+	}
+	
+	public ItemOrdemServicoDAO itemOrdemServicoDao() {
+		return daoFactory.itemOrdemServicoDao();
 	}
 }
