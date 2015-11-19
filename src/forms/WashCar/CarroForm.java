@@ -363,7 +363,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 			this.carro.setNome(jtfNomeCarro.getText());
 			this.carro.setPlaca(jtfPlacaCarro.getText());
 			this.carro.setModelo(new Modelo(Integer.valueOf(jtfCodigoModelo.getText()), null));
-			this.carro.setCliente(new Cliente(Integer.valueOf(jtfCodigoCliente.getText()), null));
+			this.carro.setCliente(new Cliente(Integer.valueOf(jtfCodigoCliente.getText()), null, null, null, null));
 			this.carro.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
 			this.carro.setDataAltercacao(Date.valueOf(carro.getDataAltercacao().now()).toLocalDate());
 			DaoFactory.getFactory().carroDao().inserir(carro);
@@ -400,7 +400,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 			this.carro.setNome(jtfNomeCarro.getText());
 			this.carro.setPlaca(jtfPlacaCarro.getText());
 			this.carro.setModelo(new Modelo(Integer.valueOf(jtfCodigoModelo.getText()), null));
-			this.carro.setCliente(new Cliente(Integer.valueOf(jtfCodigoCliente.getText()), null));
+			this.carro.setCliente(new Cliente(Integer.valueOf(jtfCodigoCliente.getText()), null, null, null, null));
 			this.carro.setForaUso(Boolean.valueOf(jckbxForaUso.isSelected()));
 			this.carro.setDataAltercacao(Date.valueOf(carro.getDataAltercacao().now()).toLocalDate());
 			this.carro.setIdCarro(Integer.valueOf(jtfCodigoCarro.getText()));
