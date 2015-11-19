@@ -100,7 +100,8 @@ public class CarroDAOJDBC implements CarroDAO{
 				carro.setForaUso(rs.getBoolean("carroForaUso"));
 				carro.setDataAltercacao(rs.getDate("dataAlteracaoCarro").toLocalDate());
 				carro.setModelo(new Modelo(rs.getInt("idModelo"), rs.getString("nomeModelo")));
-				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"), 
+				rs.getString("telefoneComercialCliente"), rs.getString("telefoneResidencialCliente"), rs.getString("telefoneCelularCliente"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				carro.setCliente(cliente);
@@ -143,7 +144,8 @@ public class CarroDAOJDBC implements CarroDAO{
 				carro.setForaUso(rs.getBoolean("carroForaUso"));
 				carro.setDataAltercacao(rs.getDate("dataAlteracaoCarro").toLocalDate());
 				carro.setModelo(new Modelo(rs.getInt("idModelo"), rs.getString("nomeModelo")));
-				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"), 
+				rs.getString("telefoneComercialCliente"), rs.getString("telefoneResidencialCliente"), rs.getString("telefoneCelularCliente"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				carro.setCliente(cliente);
@@ -185,7 +187,8 @@ public class CarroDAOJDBC implements CarroDAO{
 				carro.setForaUso(rs.getBoolean("carroForaUso"));
 				carro.setDataAltercacao(rs.getDate("dataAlteracaoCarro").toLocalDate());
 				carro.setModelo(new Modelo(rs.getInt("idModelo"), rs.getString("nomeModelo")));
-				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"), 
+				rs.getString("telefoneComercialCliente"), rs.getString("telefoneResidencialCliente"), rs.getString("telefoneCelularCliente"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				carro.setCliente(cliente);
@@ -228,7 +231,8 @@ public class CarroDAOJDBC implements CarroDAO{
 				carro.setForaUso(rs.getBoolean("carroForaUso"));
 				carro.setDataAltercacao(rs.getDate("dataAlteracaoCarro").toLocalDate());
 				carro.setModelo(new Modelo(rs.getInt("idModelo"), rs.getString("nomeModelo")));
-				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
+				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"), 
+				rs.getString("telefoneComercialCliente"), rs.getString("telefoneResidencialCliente"), rs.getString("telefoneCelularCliente"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
 				carro.setCliente(cliente);
