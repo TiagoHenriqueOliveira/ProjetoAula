@@ -8,7 +8,7 @@ public class OrdemServico implements Entidade {
 	private LocalDate dataAgendamento;
 	private LocalDate dataAlteracao;
 	private Double valorTotal;
-	private Boolean ordemServicoCancelada;
+	private Integer statusOSV;
 	private Cliente cliente;
 	private Carro carro;
 	
@@ -46,14 +46,6 @@ public class OrdemServico implements Entidade {
 		this.valorTotal = valorTotal;
 	}
 
-	public Boolean isOrdemServicoCancelada() {
-		return ordemServicoCancelada;
-	}
-
-	public void setOrdemServicoCancelada(Boolean ordemServicoCancelada) {
-		this.ordemServicoCancelada = ordemServicoCancelada;
-	}
-
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -76,5 +68,13 @@ public class OrdemServico implements Entidade {
 
 	public void setCarro(Carro carro) {
 		this.carro = carro;
+	}
+
+	public Integer getStatusOSV() {
+		return statusOSV;
+	}
+
+	public void setStatusOSV(Integer statusOSV) {
+		this.statusOSV = statusOSV;
 	}
 }
