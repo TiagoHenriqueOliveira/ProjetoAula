@@ -31,16 +31,15 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 	@SuppressWarnings("static-access")
 	@Override
 	public void inserir(OrdemServico ordemServico) throws RegistroExistente {
-		query = "insert into tb_ordemServico(valorTotalOrdemServico, ordemServicoCancelada, dataAgendamentoOrdemServico, dataAlteracaoOrdemServico, idCliente, idCarro) "
-				+ "values(?,?,?,?,?,?)";
+		query = "insert into tb_ordemServico(statusOrdemServico, dataAgendamentoOrdemServico, dataAlteracaoOrdemServico, idCliente, idCarro) "
+				+ "values(?,?,?,?,?)";
 		try {
 			pstmt = connection.prepareStatement(query);
-			pstmt.setDouble(1, ordemServico.getValorTotal());
-			pstmt.setBoolean(2, ordemServico.isOrdemServicoCancelada());
-			pstmt.setDate(3, Date.valueOf(ordemServico.getDataAgendamento().toString()));
-			pstmt.setDate(4, Date.valueOf(ordemServico.getDataAlteracao().now().toString()));
-			pstmt.setInt(5, ordemServico.getCliente().getIdCliente());
-			pstmt.setInt(6, ordemServico.getCarro().getIdCarro());
+			pstmt.setInt(1, ordemServico.getStatusOSV());
+			pstmt.setDate(2, Date.valueOf(ordemServico.getDataAgendamento().toString()));
+			pstmt.setDate(3, Date.valueOf(ordemServico.getDataAlteracao().now().toString()));
+			pstmt.setInt(4, ordemServico.getCliente().getIdCliente());
+			pstmt.setInt(5, ordemServico.getCarro().getIdCarro());
 			pstmt.executeUpdate();
 			ordemServico.setIdOrdemServico(obterUltimoID(pstmt, rs));
 		} catch (SQLException e) {
@@ -52,19 +51,17 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 	@Override
 	public void alterar(OrdemServico ordemServico) throws RegistroExistente {
 		query = "update tb_ordemServico "
-				+ "set  tb_ordemServico.valorTotalOrdemServico = ?,  tb_ordemServico.ordemServicoCancelada = ?, "
+				+ "set  tb_ordemServico.statusOrdemServico = ?, tb_ordemServico.idCliente = ?, tb_ordemServico.idCarro = ? "
 				+ " tb_ordemServico.dataAgendamentoOrdemServico = ?,  tb_ordemServico.dataAlteracaoOrdemServico = ?"
-				+ " tb_ordemServico.idCliente = ?, tb_ordemServico.idCarro = ? "
 				+ "where  tb_ordemServico.idOrdemServico = ?";
 		try {
 			pstmt = connection.prepareStatement(query);
-			pstmt.setDouble(1, ordemServico.getValorTotal());
-			pstmt.setBoolean(2, ordemServico.isOrdemServicoCancelada());
-			pstmt.setDate(3, Date.valueOf(ordemServico.getDataAgendamento().toString()));
-			pstmt.setDate(4, Date.valueOf(ordemServico.getDataAlteracao().now().toString()));
-			pstmt.setInt(5, ordemServico.getCliente().getIdCliente());
-			pstmt.setInt(6, ordemServico.getCarro().getIdCarro());
-			pstmt.setInt(7, ordemServico.getIdOrdemServico());
+			pstmt.setInt(1, ordemServico.getStatusOSV());
+			pstmt.setDate(2, Date.valueOf(ordemServico.getDataAgendamento().toString()));
+			pstmt.setDate(3, Date.valueOf(ordemServico.getDataAlteracao().now().toString()));
+			pstmt.setInt(4, ordemServico.getCliente().getIdCliente());
+			pstmt.setInt(5, ordemServico.getCarro().getIdCarro());
+			pstmt.setInt(6, ordemServico.getIdOrdemServico());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,7 +98,7 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 				ordemServico.setValorTotal(rs.getDouble("valorTotalOrdemServico"));
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
-				ordemServico.setOrdemServicoCancelada(rs.getBoolean("ordemServicoCancelada"));
+				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
 				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
@@ -147,7 +144,7 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 				ordemServico.setValorTotal(rs.getDouble("valorTotalOrdemServico"));
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
-				ordemServico.setOrdemServicoCancelada(rs.getBoolean("ordemServicoCancelada"));
+				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
 				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
@@ -190,7 +187,7 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 				ordemServico.setValorTotal(rs.getDouble("valorTotalOrdemServico"));
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
-				ordemServico.setOrdemServicoCancelada(rs.getBoolean("ordemServicoCancelada"));
+				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
 				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
@@ -247,7 +244,7 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 				ordemServico.setValorTotal(rs.getDouble("valorTotalOrdemServico"));
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
-				ordemServico.setOrdemServicoCancelada(rs.getBoolean("ordemServicoCancelada"));
+				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
 				Cliente cliente = new Cliente(rs.getInt("idCliente"), rs.getInt("tipoPessoa"));
 				cliente.setPessoaFisica(new PessoaFisica(rs.getString("nomeCliente"), rs.getString("cpfCliente"), null));
 				cliente.setPessoaJuridica(new PessoaJuridica(null, rs.getString("nomeFantasiaCliente"), rs.getString("cnpjCliente"), null, null));
