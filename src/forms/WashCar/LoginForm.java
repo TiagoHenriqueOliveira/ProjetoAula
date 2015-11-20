@@ -107,10 +107,7 @@ public class LoginForm extends JFrame {
 	public void acoesDosBotoes() {
 		jbtLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//acesso(usuario);
-				principal = new PrincipalForm();
-				principal.setVisible(true);
-				dispose();
+				acesso(usuario);
 			}
 		});
 		
@@ -122,7 +119,7 @@ public class LoginForm extends JFrame {
 	}
 	/*
 	 * Usuario: ADMIN
-	 * Senha: 452758
+	 * Senha: 201265
 	 */
 	public LoginForm() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/Imagens/washCar.jpeg")));
