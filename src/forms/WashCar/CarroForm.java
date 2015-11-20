@@ -192,7 +192,7 @@ public class CarroForm extends JFrame implements PreencherDados{
 		
 		jlbPlacaCarro = new JLabel("Placa do Carro");
 		jlbPlacaCarro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jlbPlacaCarro.setBounds(440, 107, 110, 14);
+		jlbPlacaCarro.setBounds(415, 107, 110, 14);
 		jpnCarro.add(jlbPlacaCarro);
 		
 		jbtNovo = new JButton("Novo");
