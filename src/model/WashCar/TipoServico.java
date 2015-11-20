@@ -11,8 +11,9 @@ public class TipoServico implements Entidade {
 	private Boolean foraUso;
 	
 	//construtor com atributos
-	public TipoServico(Integer idTipoServico) {
+	public TipoServico(Integer idTipoServico, String nome) {
 		this.idTipoServico = idTipoServico;
+		this.nome = nome;
 	}
 	
 	public TipoServico(){
