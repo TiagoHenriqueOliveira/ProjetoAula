@@ -1143,7 +1143,15 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jbtFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent acvt) {
 				if(acvt.getSource() == jbtFechar) {
-					dispose();
+					if(jtfCodigoCliente.getText() == null || jtfCodigoCliente.getText().equals("")) {
+						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro do Tipo de Serviço.\n"
+								+ "Deseja realmente fechar sem concluir o cadastro?\n"
+								+ "SIM - Cadastro da Ordem de Serviço será cancelado!\n"
+								+ "NÃO - Por gentileza, conclua o cadastro da Ordem de Serviço!", "Atenção", JOptionPane.YES_NO_OPTION);
+						if(valor == 0) {
+							dispose();
+						}
+					}
 				}
 			}
 		});
