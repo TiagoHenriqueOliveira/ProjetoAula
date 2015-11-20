@@ -252,8 +252,9 @@ public class ModeloForm extends JFrame implements PreencherDados{
 		if(jtfNomeModelo.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do modelo!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeModelo.requestFocus();
-		} else if(jtfNomeMarca.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if(jtfCodigoMarca.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca válido!\n"
+					+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeMarca.requestFocus();
 		} else {
 			this.modelo.setNome(jtfNomeModelo.getText());
@@ -280,7 +281,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do modelo!!!",
 					"Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeModelo.requestFocus();
-		} else if(jtfNomeMarca.equals("")) {
+		} else if(jtfCodigoMarca.equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome da marca!!!",
 					"Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeMarca.requestFocus();

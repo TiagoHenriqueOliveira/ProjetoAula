@@ -609,8 +609,9 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			} else if (jtfBairro.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfBairro.requestFocus();
-			} else if (jtfNomeCidade.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			} else if (jtfCodigoCidade.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o nome de cidade válido!\n"
+						+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfNomeCidade.requestFocus();
 			} else {
 				//Tipo de pessoa igual a 1 é Física 2 Jurídica
@@ -685,8 +686,9 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			} else if (jtfBairro.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!", "Aviso",	JOptionPane.INFORMATION_MESSAGE);
 				jtfBairro.requestFocus();
-			} else if (jtfNomeCidade.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			} else if (jtfCodigoCidade.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o nome de cidade válido!\n"
+						+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfNomeCidade.requestFocus();
 			} else {
 			//Tipo de pessoa igual a 1 é Física 2 Jurídica
@@ -765,8 +767,9 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			} else if (jtfBairro.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfBairro.requestFocus();
-			} else if (jtfNomeCidade.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			} else if (jtfCodigoCidade.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o nome de cidade válido!\n"
+						+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfNomeCidade.requestFocus();
 			} else {
 				//Tipo de pessoa igual a 1 é Física 2 Jurídica
@@ -843,8 +846,9 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			} else if (jtfBairro.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Obrigatório informar o bairro!!!", "Aviso",	JOptionPane.INFORMATION_MESSAGE);
 				jtfBairro.requestFocus();
-			} else if (jtfNomeCidade.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			} else if (jtfCodigoCidade.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Obrigatório informar o nome de cidade válido!\n"
+						+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 				jtfNomeCidade.requestFocus();
 			} else {
 			//Tipo de pessoa igual a 1 é Física 2 Jurídica

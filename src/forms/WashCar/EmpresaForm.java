@@ -538,8 +538,9 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		} else if(jtfEmail.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o email da empresa!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfEmail.requestFocus();
-		} else if(jtfNomeCidade.getText().equals("") || jtfCodigoCidade.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if (jtfCodigoCidade.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome de cidade válido!\n"
+					+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeCidade.requestFocus();
 		} else {
 			this.empresa.setRegimeTributario(regimeTributario);
@@ -614,8 +615,9 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 		} else if(jtfEmail.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar o email da empresa!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfEmail.requestFocus();
-		} else if(jtfNomeCidade.getText().equals("") || jtfCodigoCidade.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar uma cidade!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if (jtfCodigoCidade.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome de cidade válido!\n"
+					+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeCidade.requestFocus();
 		} else {
 			this.empresa.setRegimeTributario(regimeTributario);

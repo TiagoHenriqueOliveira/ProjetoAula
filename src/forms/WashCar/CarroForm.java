@@ -356,9 +356,14 @@ public class CarroForm extends JFrame implements PreencherDados{
 		} else if(jtfPlacaCarro.getText().equals("   -    ")) {
 			JOptionPane.showMessageDialog(null, "Obrigatório informar a placa do carro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfPlacaCarro.requestFocus();
-		} else if(jtfNomeModelo.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o modelo do carro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+		} else if(jtfCodigoModelo.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do modelo válido!\n"
+					+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeModelo.requestFocus();
+		} else if(jtfCodigoCliente.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome de cliente válido!\n"
+					+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeCliente.requestFocus();
 		} else {
 			this.carro.setNome(jtfNomeCarro.getText());
 			this.carro.setPlaca(jtfPlacaCarro.getText());
@@ -385,17 +390,19 @@ public class CarroForm extends JFrame implements PreencherDados{
 	public void salvarEdicaoCarro() throws RegistroExistente {
 		this.carro = new Carro();
 		if (jtfNomeCarro.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do carro!!!", "Aviso",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do carro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeCarro.requestFocus();
 		} else if (jtfPlacaCarro.getText().equals("   -    ")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar a placa do carro!!!", "Aviso",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Obrigatório informar a placa do carro!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfPlacaCarro.requestFocus();
-		} else if (jtfNomeModelo.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Obrigatório informar o modelo do carro!!!", "Aviso",
-					JOptionPane.INFORMATION_MESSAGE);
+		} else if (jtfCodigoModelo.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome do modelo válido!\n"
+					+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeModelo.requestFocus();
+		} else if(jtfCodigoCliente.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o nome de cliente válido!\n"
+					+ "Por gentileza, efetue uma nova consulta.\nA consulta é feita acionando o" + " Enter!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jtfNomeCliente.requestFocus();
 		} else {
 			this.carro.setNome(jtfNomeCarro.getText());
 			this.carro.setPlaca(jtfPlacaCarro.getText());
