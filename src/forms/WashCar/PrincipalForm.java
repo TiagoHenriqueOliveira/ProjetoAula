@@ -90,7 +90,6 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiAgenda) {
 					if(agendaForm.isVisible()) {
-						JOptionPane.showMessageDialog(null, "Agenda de serviços, já está aberta!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						agendaForm.requestFocus();
 						agendaForm.setLocationRelativeTo(null);
 					} else {
@@ -104,7 +103,6 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCarro) {
 					if(carroForm.isVisible()) {
-						JOptionPane.showMessageDialog(null, "Cadastro de carro, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						carroForm.requestFocus();
 						carroForm.setLocationRelativeTo(null);
 					} else {
@@ -119,7 +117,6 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCliente) {
 					if(clienteForm.isVisible()) {
-						JOptionPane.showMessageDialog(null, "Cadastro de cliente, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						clienteForm.requestFocus();
 						clienteForm.setLocationRelativeTo(null);
 					} else {
@@ -134,7 +131,6 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCadastroUsuario) {
 					if(usuarioForm.isVisible()) {
-						JOptionPane.showMessageDialog(null, "Cadastro de usuário, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						usuarioForm.requestFocus();
 						usuarioForm.setLocationRelativeTo(null);
 					} else {
@@ -149,7 +145,6 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiOrdemServico) {
 					if(ordemServicoForm.isVisible()) {
-						JOptionPane.showMessageDialog(null, "Cadastro de Ordem de Serviço, já está aberta!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						ordemServicoForm.requestFocus();
 						ordemServicoForm.setLocationRelativeTo(null);
 					} else {
@@ -164,7 +159,6 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiEmpresa) {
 					if(empresaForm.isVisible()) {
-						JOptionPane.showMessageDialog(null, "Cadastro de empresa, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						empresaForm.requestFocus();
 						empresaForm.setLocationRelativeTo(null);
 					} else {
@@ -179,7 +173,6 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiMarca) {
 					if(marcaForm.isVisible()) {
-						JOptionPane.showMessageDialog(null, "Cadastro de marca, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						marcaForm.requestFocus();
 						marcaForm.setLocationRelativeTo(null);
 					} else {
@@ -194,7 +187,6 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiModelo) {
 					if(modeloForm.isVisible()) {
-						JOptionPane.showMessageDialog(null, "Cadastro de modelo, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						modeloForm.requestFocus();
 						modeloForm.setLocationRelativeTo(null);
 					} else {
@@ -209,7 +201,6 @@ public class PrincipalForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiTipoServico) {
 					if(tipoServicoForm.isVisible()) {
-						JOptionPane.showMessageDialog(null, "Cadastro de tipo de serviço, já está aberto!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 						tipoServicoForm.requestFocus();
 						tipoServicoForm.setLocationRelativeTo(null);
 					} else {
