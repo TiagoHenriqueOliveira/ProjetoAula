@@ -59,7 +59,7 @@ public class ListaCidadeUFPaisForm extends JFrame {
 		jspListaCidadeUFPais = new JScrollPane(jttListaCidadeUFPais);
 		jspListaCidadeUFPais.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jttListaCidadeUFPais.setAutoResizeMode(jttListaCidadeUFPais.AUTO_RESIZE_OFF);
-		jspListaCidadeUFPais.setBounds(10, 10, 426, 300);
+		jspListaCidadeUFPais.setBounds(10, 10, 444, 300);
 		jpnListaCidadeUFPais.add(jspListaCidadeUFPais);
 		
 		jbtSelecionarCidadeUFPais = new JButton("Selecionar");
@@ -132,9 +132,10 @@ public class ListaCidadeUFPaisForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaCidadeUFPaisForm.class.getResource("/Imagens/washCar.jpeg")));
 		setFont(new Font("Tahoma", Font.PLAIN, 12));
 		setResizable(false);
+		setType(Type.UTILITY);
 		setTitle("Lista de Cidades/Estados/País");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 455, 400);
+		setBounds(100, 100, 470, 400);
 		setLocationRelativeTo(null);
 		jpnListaCidadeUFPais = new JPanel();
 		jpnListaCidadeUFPais.setLayout(null);

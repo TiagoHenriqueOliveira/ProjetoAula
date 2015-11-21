@@ -184,6 +184,7 @@ public class ListaClienteForm extends JFrame {
 		listaCliente = new ArrayList<>();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaClienteForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Lista de Clientes");
+		setType(Type.UTILITY);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 637, 461);
 		setLocationRelativeTo(null);

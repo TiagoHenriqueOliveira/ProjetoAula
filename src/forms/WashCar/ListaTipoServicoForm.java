@@ -140,6 +140,7 @@ public class ListaTipoServicoForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaTipoServicoForm.class.getResource("/Imagens/washCar.jpeg")));
 		setFont(new Font("Tahoma", Font.PLAIN, 12));
 		setResizable(false);
+		setType(Type.UTILITY);
 		setTitle("Lista de Serviços Prestados");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 525, 400);
