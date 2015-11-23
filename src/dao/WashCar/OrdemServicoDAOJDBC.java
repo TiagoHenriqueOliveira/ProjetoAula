@@ -51,8 +51,8 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 	@Override
 	public void alterar(OrdemServico ordemServico) throws RegistroExistente {
 		query = "update tb_ordemServico "
-				+ "set  tb_ordemServico.statusOrdemServico = ?, tb_ordemServico.idCliente = ?, tb_ordemServico.idCarro = ? "
-				+ " tb_ordemServico.dataAgendamentoOrdemServico = ?,  tb_ordemServico.dataAlteracaoOrdemServico = ?"
+				+ "set  tb_ordemServico.statusOrdemServico = ?, tb_ordemServico.dataAgendamentoOrdemServico = ?, "
+				+ " tb_ordemServico.dataAlteracaoOrdemServico = ?,  tb_ordemServico.idCliente = ?, tb_ordemServico.idCarro = ? "
 				+ "where  tb_ordemServico.idOrdemServico = ?";
 		try {
 			pstmt = connection.prepareStatement(query);
