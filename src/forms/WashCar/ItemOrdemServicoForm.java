@@ -167,7 +167,7 @@ public class ItemOrdemServicoForm extends JFrame implements PreencherDados {
 		jpnItemOrdemServico.add(jftfSubTotal);
 		
 		jlbSubTotal = new JLabel("Sub. Total");
-		jlbSubTotal.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jlbSubTotal.setFont(new Font("Tahoma", Font.BOLD, 12));
 		jlbSubTotal.setBounds(570, 257, 100, 14);
 		jpnItemOrdemServico.add(jlbSubTotal);
 	}
