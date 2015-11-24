@@ -9,7 +9,10 @@ import javax.swing.text.MaskFormatter;
 
 import daoFactory.WashCar.DaoFactory;
 import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
+import model.WashCar.Entidade;
 import model.WashCar.TipoServico;
+import preencherDados.WashCar.PreencherDados;
 
 import javax.swing.JTextField;
 
@@ -22,20 +25,25 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
+import validacaoCampos.WashCar.ValidaCampoAlfaNumerico;
 import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
-import validacaoCampos.WashCar.ValidaCampoValor;
 import java.awt.Toolkit;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import javax.swing.SwingConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class TipoServicoForm extends JFrame {
+public class TipoServicoForm extends JFrame implements PreencherDados {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jpnTipoServico;
@@ -45,7 +53,7 @@ public class TipoServicoForm extends JFrame {
 	private JTextField jtfCodigo;
 	private JTextField jtfNomeTipoServico;
 	private JTextField jtfDataAlteracao;
-	private JTextField jtfValor;
+	private JFormattedTextField jftfValor;
 	private JLabel jlbCodigo;
 	private JLabel jlbNomeTipoServico;
 	private JLabel jlbDataAlteracao;
@@ -53,7 +61,6 @@ public class TipoServicoForm extends JFrame {
 	private JLabel jlbConsultaTipoServico;
 	private JLabel jlbPesquisaCodigoTipoServico;
 	private JLabel jlbPesquisaNomeTipoServico;
-	private JButton jbtPesquisarTipoServico;
 	private JButton jbtNovo;
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
@@ -63,7 +70,7 @@ public class TipoServicoForm extends JFrame {
 	private JMenu mnRelatrios;
 	private JMenuBar jmbTipoServico;
 	private TipoServico tipoServico;
-	
+	private static TipoServicoForm tipoServicoForm;
 
 	public void componenteTelaTipoServico() {		
 		jmbTipoServico = new JMenuBar();
@@ -89,6 +96,7 @@ public class TipoServicoForm extends JFrame {
 		jpnPesquisaTipoServico.add(jtfPesquisaCodigoTipoServico);
 		
 		jtfPesquisaNomeTipoServico = new JTextField();
+		jtfPesquisaNomeTipoServico.setDocument(new ValidaCampoAlfaNumerico());		
 		jtfPesquisaNomeTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfPesquisaNomeTipoServico.setColumns(10);
 		jtfPesquisaNomeTipoServico.setBounds(86, 52, 334, 20);
@@ -103,11 +111,6 @@ public class TipoServicoForm extends JFrame {
 		jlbPesquisaNomeTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbPesquisaNomeTipoServico.setBounds(86, 36, 275, 14);
 		jpnPesquisaTipoServico.add(jlbPesquisaNomeTipoServico);
-		
-		jbtPesquisarTipoServico = new JButton("");
-		jbtPesquisarTipoServico.setIcon(new ImageIcon(TipoServicoForm.class.getResource("/Imagens/lupaPesquisa.jpeg")));
-		jbtPesquisarTipoServico.setBounds(430, 40, 40, 32);
-		jpnPesquisaTipoServico.add(jbtPesquisarTipoServico);
 		
 		jlbConsultaTipoServico = new JLabel("Consulta Tipos de Servi\u00E7o");
 		jlbConsultaTipoServico.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -152,7 +155,8 @@ public class TipoServicoForm extends JFrame {
 		jpnTipoServico.add(jtfCodigo);
 		
 		jtfNomeTipoServico = new JTextField();
-		jtfNomeTipoServico.setEnabled(false);
+		jtfNomeTipoServico.setDocument(new ValidaCampoAlfaNumerico());
+		jtfNomeTipoServico.setEditable(false);
 		jtfNomeTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jtfNomeTipoServico.setColumns(10);
 		jtfNomeTipoServico.setBounds(10, 166, 414, 20);
@@ -178,22 +182,13 @@ public class TipoServicoForm extends JFrame {
 		jtfDataAlteracao.setEditable(false);
 		jtfDataAlteracao.setColumns(10);
 		jtfDataAlteracao.setBackground(Color.YELLOW);
-		jtfDataAlteracao.setBounds(549, 120, 101, 20);
+		jtfDataAlteracao.setBounds(549, 120, 75, 20);
 		jpnTipoServico.add(jtfDataAlteracao);
 		
 		jlbDataAlteracao = new JLabel("Data Altera\u00E7\u00E3o");
 		jlbDataAlteracao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jlbDataAlteracao.setBounds(549, 107, 101, 14);
 		jpnTipoServico.add(jlbDataAlteracao);
-		
-		jtfValor = new JTextField();
-		jtfValor.setEnabled(false);
-		jtfValor.setDocument(new ValidaCampoValor());
-		jtfValor.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		jtfValor.setColumns(10);
-		jtfValor.setBackground(Color.WHITE);
-		jtfValor.setBounds(434, 166, 120, 20);
-		jpnTipoServico.add(jtfValor);
 		
 		jlbValor = new JLabel("Valor do Tipo de Servi\u00E7o");
 		jlbValor.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -205,87 +200,127 @@ public class TipoServicoForm extends JFrame {
 		jckbForaUso.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jckbForaUso.setBounds(260, 119, 130, 23);
 		jpnTipoServico.add(jckbForaUso);
+		
+		jftfValor = new JFormattedTextField();
+		jftfValor.setHorizontalAlignment(SwingConstants.RIGHT);
+		jftfValor.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jftfValor.setEditable(false);
+		jftfValor.setBounds(434, 166, 80, 20);
+		jpnTipoServico.add(jftfValor);
 	}
 	
 	public void acionarBotaoNovo() {
+		jtfNomeTipoServico.requestFocus();
+		jckbForaUso.setSelected(false);
+		jtfNomeTipoServico.setEditable(true);
+		jftfValor.setEditable(true);
+		jtfCodigo.setText("");
+		jtfNomeTipoServico.setText("");
+		jftfValor.setText("");
+		jtfDataAlteracao.setText("");
 		jbtNovo.setEnabled(false);
-		jtfNomeTipoServico.setEnabled(true);
-		jtfValor.setEnabled(true);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
+		jbtEditar.setEnabled(false);
 	}
 	
 	@SuppressWarnings("static-access")
-	public void salvarCadastro() throws Exception {
-		this.tipoServico = new TipoServico();
-		if(jtfNomeTipoServico.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Obrigatï¿½rio informar o tipo de serviÃ§o!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+	public void salvarCadastro() throws RegistroExistente, ParseException {
+		if(jtfNomeTipoServico.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o tipo de serviço!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeTipoServico.requestFocus();
-		}else if(jtfValor.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Obrigatï¿½rio informar o valor!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
-			jtfValor.requestFocus();
-		}else{
+		}else if(jftfValor.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o valor!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jftfValor.requestFocus();
+		} else {
+			this.tipoServico = new TipoServico();
 			this.tipoServico.setNome(jtfNomeTipoServico.getText());
+			Locale locBrazil = new Locale("pt", "BR");
+			NumberFormat nf = NumberFormat.getInstance(locBrazil);
+			String n = nf.format(Double.valueOf(jftfValor.getText().replace(",", ".")));
+			this.tipoServico.setValor(Double.valueOf(n));
 			this.tipoServico.setDataAltercacao(Date.valueOf(tipoServico.getDataAltercacao().now()).toLocalDate());
-			this.tipoServico.setValor(Double.valueOf(jtfValor.getText()));
-			//this.tipoServico.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
+			this.tipoServico.setForaUso(jckbForaUso.isSelected());
 			DaoFactory.getFactory().tipoServicoDao().inserir(tipoServico);
 			jtfCodigo.setText(String.valueOf(this.tipoServico.getIdTipoServico()));
+			jftfValor.setText(String.valueOf(new DecimalFormat("R$ #,##0.00").format(this.tipoServico.getValor())));
 			jtfDataAlteracao.setText(this.tipoServico.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
-			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "ConfirmaÃ§Ã£o", JOptionPane.INFORMATION_MESSAGE);
-			jtfNomeTipoServico.setEnabled(false);
-			jtfValor.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			jckbForaUso.setEnabled(false);
+			jtfNomeTipoServico.setEditable(false);
+			jftfValor.setEditable(false);
 			jbtSalvar.setEnabled(false);
 			jbtEditar.setEnabled(true);
 			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
 		}
 	}
 	
-	public void salvarEdicaoCadastro() throws Exception{
-		this.tipoServico = new TipoServico();
-		if(jtfNomeTipoServico.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Obrigatï¿½rio informar o tipo de serviÃ§o!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
+	@SuppressWarnings("static-access")
+	public void salvarEdicaoCadastro() throws RegistroExistente, ParseException {
+		if(jtfNomeTipoServico.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o tipo de serviço!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 			jtfNomeTipoServico.requestFocus();
-		}else if(jtfValor.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Obrigatï¿½rio informar o valor!!!",
-					"Aviso", JOptionPane.INFORMATION_MESSAGE);
-			jtfValor.requestFocus();
-		}else{
+		} else if(jftfValor.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Obrigatório informar o valor!!!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jftfValor.requestFocus();
+		} else {
+			this.tipoServico = new TipoServico();
 			this.tipoServico.setNome(jtfNomeTipoServico.getText());
+			Locale locBrazil = new Locale("pt", "BR");
+			NumberFormat nf = NumberFormat.getInstance(locBrazil);
+			String n = nf.format(Double.valueOf(jftfValor.getText().replace(",", ".").substring(3)));
+			this.tipoServico.setValor(Double.valueOf(n));
 			this.tipoServico.setDataAltercacao(Date.valueOf(tipoServico.getDataAltercacao().now()).toLocalDate());
-			this.tipoServico.setValor(Double.valueOf(jtfValor.getText()));
-			this.tipoServico.setForaUso(Boolean.valueOf(jckbForaUso.isSelected()));
+			this.tipoServico.setForaUso(jckbForaUso.isSelected());
+			this.tipoServico.setIdTipoServico(Integer.valueOf(jtfCodigo.getText()));
 			DaoFactory.getFactory().tipoServicoDao().alterar(tipoServico);
-			jtfCodigo.setText(String.valueOf(this.tipoServico.getIdTipoServico()));
+			jftfValor.setText(String.valueOf(new DecimalFormat("R$ #,##0.00").format(this.tipoServico.getValor())));
 			jtfDataAlteracao.setText(this.tipoServico.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
-			JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso!!!", "ConfirmaÃ§Ã£o", JOptionPane.INFORMATION_MESSAGE);
-			jtfNomeTipoServico.setEnabled(false);
-			jtfValor.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Cadastro alterado com sucesso!!!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			jckbForaUso.setEnabled(false);
+			jtfNomeTipoServico.setEditable(false);
+			jftfValor.setEditable(false);
 			jbtSalvar.setEnabled(false);
 			jbtEditar.setEnabled(true);
 			jbtNovo.setEnabled(true);
+			jbtCancelar.setEnabled(false);
 		}
 	}
 	
 	public void acionarBotaoEditar() {
+		jckbForaUso.setEnabled(true);
+		jtfNomeTipoServico.setEditable(true);
+		jftfValor.setEditable(true);
 		jbtNovo.setEnabled(false);
-		jtfNomeTipoServico.setEnabled(true);
-		jtfValor.setEnabled(true);
 		jbtSalvar.setEnabled(true);
 		jbtCancelar.setEnabled(true);
 	}
 	
 	public void acionarBotaoCancelar() {
-		jbtNovo.setEnabled(true);
-		jtfNomeTipoServico.setEnabled(false);
-		jtfValor.setEnabled(false);
+		jckbForaUso.setEnabled(false);
+		jtfNomeTipoServico.setEditable(false);
+		jftfValor.setEditable(false);
+		jckbForaUso.setSelected(false);
 		jtfNomeTipoServico.setText("");
-		jtfValor.setText("");
-		jbtSalvar.setEnabled(false);
+		jftfValor.setText("");
+		jbtNovo.setEnabled(true);
 		jbtCancelar.setEnabled(false);
+		jbtSalvar.setEnabled(false);
+		jbtEditar.setEnabled(false);
+	}
+	
+	public void preencheCamposTipoServico(TipoServico tipoServico) {
+		jtfCodigo.setText(String.valueOf(tipoServico.getIdTipoServico()));
+		jtfNomeTipoServico.setText(tipoServico.getNome());
+		jftfValor.setText(String.valueOf(new DecimalFormat("R$ #,##0.00").format(tipoServico.getValor())));
+		jtfDataAlteracao.setText(tipoServico.getDataAltercacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		if(tipoServico.isForaUso()) {
+			jckbForaUso.setSelected(true);
+		} else {
+			jckbForaUso.setSelected(false);
+		}
+		jtfPesquisaCodigoTipoServico.requestFocus();
 	}
 	
 	public void acoesDosBotoes() {
@@ -304,18 +339,17 @@ public class TipoServicoForm extends JFrame {
 						if(jbtSalvar.isEnabled() && jbtEditar.isEnabled()) {
 							try {
 								salvarEdicaoCadastro();
-							} catch (Exception salvarEdicao) {
+							} catch (RegistroExistente | ParseException salvarEdicao) {
 								salvarEdicao.printStackTrace();
 							}
 						} else {
 							try {
 								salvarCadastro();
-							} catch (Exception salvarCadastro) {
+							} catch (RegistroExistente | ParseException salvarCadastro) {
 								salvarCadastro.printStackTrace();
 							}
 						}
 					}
-				
 				}
 			}
 		});
@@ -339,15 +373,84 @@ public class TipoServicoForm extends JFrame {
 		jbtFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent acvt) {
 				if(acvt.getSource() == jbtFechar) {
-					dispose();
+					if(jtfCodigo.getText() == null || jtfCodigo.getText().equals("")) {
+						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro do Tipo de Serviço.\n"
+								+ "Deseja realmente fechar sem concluir o cadastro?\n"
+								+ "SIM - Cadastro da Ordem de Serviço será cancelado!\n"
+								+ "NÃO - Por gentileza, conclua o cadastro da Ordem de Serviço!", "Atenção", JOptionPane.YES_NO_OPTION);
+						if(valor == 0) {
+							dispose();
+						}
+					}
+				}
+			}
+		});
+	}
+	
+	public void pesquisaPorCodigo() {
+		jtfPesquisaCodigoTipoServico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					try {
+						Integer codigo = null;
+						if(!jtfPesquisaCodigoTipoServico.getText().equals("")) {
+							codigo = Integer.valueOf(jtfPesquisaCodigoTipoServico.getText());
+						}
+						ListaTipoServicoForm listaTipoServico = new ListaTipoServicoForm(tipoServicoForm, null, codigo);
+						listaTipoServico.setVisible(true);
+						jckbForaUso.setEnabled(false);
+						jtfNomeTipoServico.setEditable(false);
+						jftfValor.setEditable(false);
+						jckbForaUso.setSelected(false);
+						jtfCodigo.setText("");
+						jtfNomeTipoServico.setText("");
+						jftfValor.setText("");
+						jbtEditar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jbtCancelar.setEnabled(true);
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(tipoServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaCodigoTipoServico.setText("");
+						jtfPesquisaCodigoTipoServico.requestFocus();
+					}
+				}
+			}
+		});
+	}
+	
+	public void pesquisaPorNome() {
+		jtfPesquisaNomeTipoServico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					try {
+						ListaTipoServicoForm listaTipoServico = new ListaTipoServicoForm(tipoServicoForm, jtfPesquisaNomeTipoServico.getText(), null);
+						listaTipoServico.setVisible(true);
+						jckbForaUso.setEnabled(false);
+						jtfNomeTipoServico.setEditable(false);
+						jftfValor.setEditable(false);
+						jckbForaUso.setSelected(false);
+						jtfCodigo.setText("");
+						jtfNomeTipoServico.setText("");
+						jftfValor.setText("");
+						jbtEditar.setEnabled(true);
+						jbtSalvar.setEnabled(false);
+						jbtCancelar.setEnabled(true);
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(tipoServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaNomeTipoServico.setText("");
+						jtfPesquisaNomeTipoServico.requestFocus();
+					}
 				}
 			}
 		});
 	}
 
 	public TipoServicoForm() {
+		tipoServicoForm = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TipoServicoForm.class.getResource("/Imagens/washCar.jpeg")));
-		setTitle("Cadastrar Tipos de Serviï¿½o | WashCar");
+		setTitle("Cadastrar Tipos de Serviço | WashCar");
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 669, 284);
@@ -357,6 +460,12 @@ public class TipoServicoForm extends JFrame {
 			
 		componenteTelaTipoServico();
 		acoesDosBotoes();
-		
+		pesquisaPorCodigo();
+		pesquisaPorNome();
+	}
+
+	@Override
+	public void preencherCampos(Entidade entidade) {
+		this.preencheCamposTipoServico((TipoServico)entidade);
 	}
 }
