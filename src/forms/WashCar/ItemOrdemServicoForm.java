@@ -59,9 +59,7 @@ public class ItemOrdemServicoForm extends JFrame implements PreencherDados {
 	private JButton jbtFechar;
 	private JButton jbtNovo;
 	private Integer codigoOSV;
-	@SuppressWarnings("unused")
 	private PreencherDados preencherDados;
-	@SuppressWarnings("unused")
 	private OrdemServicoForm ordemServicoForm;
 	private ItemOrdemServico itemOrdemServico;
 	private static ItemOrdemServicoForm itemOrdemServicoForm;

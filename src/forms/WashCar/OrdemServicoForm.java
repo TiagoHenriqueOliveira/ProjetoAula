@@ -687,7 +687,7 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 						+ "Por gentileza, conclua o cadastro antes de inserir os Serviços.", "Atenção", JOptionPane.WARNING_MESSAGE);
 						jftfDataAgendamento.requestFocus();
 					} else {
-						ItemOrdemServicoForm itemOrdemServico = new ItemOrdemServicoForm(ordemServicoForm, Integer.valueOf(jtfCodigoOSV.getText()), null);
+						ItemOrdemServicoForm itemOrdemServico = new ItemOrdemServicoForm(ordemServicoForm, Integer.valueOf(jtfCodigoOSV.getText()));
 						itemOrdemServico.setVisible(true);
 					}
 				}
