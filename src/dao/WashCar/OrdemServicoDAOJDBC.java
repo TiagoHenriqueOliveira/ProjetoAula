@@ -95,7 +95,6 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 			while(rs.next()) {
 				ordemServico = new OrdemServico();
 				ordemServico.setIdOrdemServico(rs.getInt("idOrdemServico"));
-				ordemServico.setValorTotal(rs.getDouble("valorTotalOrdemServico"));
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
 				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
@@ -142,7 +141,6 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 			while(rs.next()) {
 				ordemServico = new OrdemServico();
 				ordemServico.setIdOrdemServico(rs.getInt("idOrdemServico"));
-				ordemServico.setValorTotal(rs.getDouble("valorTotalOrdemServico"));
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
 				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
@@ -186,7 +184,6 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 			while(rs.next()) {
 				ordemServico = new OrdemServico();
 				ordemServico.setIdOrdemServico(rs.getInt("idOrdemServico"));
-				ordemServico.setValorTotal(rs.getDouble("valorTotalOrdemServico"));
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
 				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
@@ -244,7 +241,6 @@ public class OrdemServicoDAOJDBC implements OrdemServicoDAO {
 			while(rs.next()) {
 				ordemServico = new OrdemServico();
 				ordemServico.setIdOrdemServico(rs.getInt("idOrdemServico"));
-				ordemServico.setValorTotal(rs.getDouble("valorTotalOrdemServico"));
 				ordemServico.setDataAgendamento(rs.getDate("dataAgendamentoOrdemServico").toLocalDate());
 				ordemServico.setDataAlteracao(rs.getDate("dataAlteracaoOrdemServico").toLocalDate());
 				ordemServico.setStatusOSV(rs.getInt("statusOrdemServico"));
