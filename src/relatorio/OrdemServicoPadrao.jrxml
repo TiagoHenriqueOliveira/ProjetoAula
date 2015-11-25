@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2015-11-25T19:49:24 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OrdemServicoPadrao" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#EEEFF0"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#CACED0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#D8D8D8"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="tableDataset" uuid="f13e6d36-5148-4ecc-bbe3-3035def80980">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<subDataset name="ListaItens" uuid="056cb287-5a81-4b92-b1d4-5206ef932b33">
+		<property name="com.jaspersoft.studio.data.sql.tables" value="d2FzaGNhci50Yl90aXBvc2VydmljbyBBUyAsNDI2LDQ4LDYzMTBjOWU4LTFhOGEtNGZhNS1iMWQ2&#xA;LTU4NzVmNTFmMDk0NTt3YXNoY2FyLnRiX2l0ZW1vcmRlbXNlcnZpY28gQVMgLDEyMCw1OCxkYTg5&#xA;YzU2My1kMzlmLTQ0MDAtOTg3OC04NjYyMDY4MjUyZjg7"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="WashCar"/>
+		<queryString>
+			<![CDATA[SELECT washcar.tb_itemordemservico.`valorItemOrdemServico`,
+	washcar.tb_itemordemservico.`idTipoServico`,
+	washcar.tb_tiposervico.`nomeTipoServico`
+FROM washcar.tb_itemordemservico
+	INNER JOIN washcar.tb_tiposervico ON 
+	 washcar.tb_itemordemservico.`idTipoServico` = washcar.tb_tiposervico.`idTipoServico`]]>
+		</queryString>
+	</subDataset>
+	<parameter name="idOrdemServico" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT washcar.tb_itemordemservico.`idTipoServico`,
+	washcar.tb_itemordemservico.`valorItemOrdemServico`,
+	washcar.tb_tiposervico.`nomeTipoServico`,
+	washcar.tb_itemordemservico.`idOrdemServico`
+FROM washcar.tb_itemordemservico
+	INNER JOIN washcar.tb_tiposervico ON 
+	 washcar.tb_itemordemservico.`idTipoServico` = washcar.tb_tiposervico.`idTipoServico` 
+	INNER JOIN washcar.tb_ordemservico ON 
+	 washcar.tb_itemordemservico.`idOrdemServico` = washcar.tb_ordemservico.`idOrdemServico`
+	 WHERE washcar.tb_ordemservico.idOrdemServico = $P{idOrdemServico}]]>
+	</queryString>
+	<field name="idTipoServico" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorItemOrdemServico" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeTipoServico" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idOrdemServico" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="valorItemOrdemServico1" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorItemOrdemServico}]]></variableExpression>
+	</variable>
+	<variable name="idTipoServico1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{idTipoServico}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="93" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="445" y="63" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<image hAlign="Center">
+				<reportElement x="0" y="0" width="65" height="60" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
+				<imageExpression><![CDATA["washcar.jpeg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="95" y="0" width="274" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RICHCAR LAVAGENS LTDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="55" width="205" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
+				<text><![CDATA[49-3433-6623 / 49-3562-2958]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="25" width="205" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
+				<text><![CDATA[RUA BENEDITO FERAZ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="40" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
+				<text><![CDATA[Xanxerê, SC, 89820-000 - BR]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="495" y="63" width="58" height="20" uuid="6039fae7-797c-40aa-87e2-142533d73073"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="56">
+			<rectangle>
+				<reportElement x="0" y="6" width="555" height="20" forecolor="#E0E0E0" backcolor="#D9D9D9" uuid="33bfd799-150a-43e8-9e01-a56ae6735d04"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="6" y="9" width="66" height="20" uuid="096eba8a-ad23-4f7d-983e-9dde2b9b84c7"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[Cód. Serviço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="9" width="300" height="20" uuid="e055bbea-bc24-456d-b445-b61162553e0b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[Descrição do Serviço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="9" width="134" height="20" uuid="05185e72-d466-4f8e-a092-c1d3336a18ba"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<text><![CDATA[Valor do Serviço]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22">
+			<textField>
+				<reportElement x="15" y="0" width="20" height="20" uuid="4b2f5881-3b2f-4ef5-9a28-76aee2bfd5f0">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idTipoServico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="0" width="300" height="20" uuid="65ee04e0-754b-4c27-ba97-3a0aa16ca438">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeTipoServico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$ #,##0.00">
+				<reportElement x="420" y="0" width="134" height="20" uuid="230bb891-435e-4733-9a9b-9ac040e2d50d"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorItemOrdemServico}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="177">
+			<rectangle>
+				<reportElement x="0" y="124" width="555" height="16" forecolor="#E0E0E0" backcolor="#D9D9D9" uuid="98835a57-b625-40a9-b7d1-7ec26a07131e">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="147" width="556" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="11" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[RichCar Lavagens - Sempre valorizando seu patrimonio!]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="140" width="555" height="1" uuid="2f52719a-5c2a-4dbd-9438-a463179b866f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</line>
+			<textField pattern="R$ #,##0.00">
+				<reportElement x="495" y="124" width="58" height="16" uuid="82b6171d-8760-4b1a-a36e-2b546a36fd35"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{valorItemOrdemServico1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="427" y="124" width="74" height="16" uuid="e116cd2c-0556-4dc7-9322-3370a5665a91"/>
+				<textElement>
+					<font fontName="Tahoma" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="65" y="125" width="24" height="16" uuid="66795fad-631f-48e2-9f4f-54d9e163bf07"/>
+				<textElement>
+					<font fontName="Tahoma" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{idTipoServico1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="124" width="64" height="16" uuid="b038dd04-5f93-4d6d-89d5-d714576e02e7"/>
+				<textElement>
+					<font fontName="Tahoma" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qtd. Serv.: ]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>
