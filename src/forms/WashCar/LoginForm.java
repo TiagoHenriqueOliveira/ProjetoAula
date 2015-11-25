@@ -39,13 +39,9 @@ public class LoginForm extends JFrame {
 	private Usuario usuario;
 	private static PrincipalForm principal;
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) {
 		LoginForm login = new LoginForm();
 		login.setVisible(true);
-		HashSet conj = new HashSet(login.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS)); 
-		conj.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0)); 
-		login.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conj);
 	}
 	
 	public void componentesTelaLogin() {
