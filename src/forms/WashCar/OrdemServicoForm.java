@@ -1,40 +1,12 @@
 package forms.WashCar;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import model.WashCar.Carro;
-import model.WashCar.Cliente;
-import model.WashCar.Entidade;
-import model.WashCar.ItemOrdemServico;
-import model.WashCar.OrdemServico;
-import preencherDados.WashCar.PreencherDados;
-import relatorio.RelatorioUtil;
-import validacaoCampos.WashCar.ValidaCampoAlfaNumerico;
-import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
-
-import java.awt.Toolkit;
-import javax.swing.border.BevelBorder;
-import javax.swing.text.MaskFormatter;
-
-import conexao.ConexaoUtil;
-import daoFactory.WashCar.DaoFactory;
-import exception.WashCar.RegistroExistente;
-import exception.WashCar.RegistroNotExistente;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.JComboBox;
-import javax.management.relation.RelationException;
-import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Desktop;
-
-import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -43,11 +15,32 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.awt.event.ItemEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.text.MaskFormatter;
+
+import conexao.ConexaoUtil;
+import daoFactory.WashCar.DaoFactory;
+import exception.WashCar.RegistroExistente;
+import exception.WashCar.RegistroNotExistente;
+import model.WashCar.Carro;
+import model.WashCar.Cliente;
+import model.WashCar.Entidade;
+import model.WashCar.OrdemServico;
+import preencherDados.WashCar.PreencherDados;
+import relatorio.RelatorioUtil;
+import validacaoCampos.WashCar.ValidaCampoAlfaNumerico;
+import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
 
 public class OrdemServicoForm extends JFrame implements PreencherDados {
 
