@@ -36,7 +36,7 @@ CREATE TABLE `tb_carro` (
   KEY `fk_tb_Carro_tb_Cliente1_idx` (`idCliente`),
   CONSTRAINT `fk_tb_Carro_tb_Cliente1` FOREIGN KEY (`idCliente`) REFERENCES `tb_cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_Carro_tb_Modelo1` FOREIGN KEY (`idModelo`) REFERENCES `tb_modelo` (`idModelo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `tb_carro` (
 
 LOCK TABLES `tb_carro` WRITE;
 /*!40000 ALTER TABLE `tb_carro` DISABLE KEYS */;
-INSERT INTO `tb_carro` VALUES (1,'CHEVROLET CRUZE 1.8 LT 4P AUTOMÁTICO','DEG-5854',0,'2015-11-11',2,2),(2,'VOLKSWAGEM JETTA 2.0 HIGHLINE 4P TIPTRONIC','GDF-6954',0,'2015-11-11',3,1),(3,'VOLKSWAGEM GOLF 1.4 HIGHLINE 4P AUTOMÁTICO','HUG-3412',0,'2015-11-11',4,1),(5,'FIAT PALIO 1.0 FIRE 4P MANUAL','VEG-5854',0,'2015-11-11',5,1);
+INSERT INTO `tb_carro` VALUES (1,'CHEVROLET CRUZE 1.8 LT 4P AUTOMÁTICO','DEG-5854',0,'2015-11-11',2,2),(2,'VOLKSWAGEM JETTA 2.0 HIGHLINE 4P TIPTRONIC','GDF-6954',0,'2015-11-11',3,1),(3,'VOLKSWAGEM GOLF 1.4 HIGHLINE 4P AUTOMÁTICO','HUG-3412',0,'2015-11-11',4,1),(5,'FIAT PALIO 1.0 FIRE 4P MANUAL','VEG-5854',0,'2015-11-11',5,1),(6,'FIAT PALIO 1.0 FIRE 4P MANUAL','FFE-3342',0,'2015-11-14',5,3),(7,'FRONTIER 2.5 TD CD 4X4 SL (AUT) 2015','KAI-3245',0,'2015-11-20',6,12);
 /*!40000 ALTER TABLE `tb_carro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,7 +102,7 @@ CREATE TABLE `tb_cliente` (
   KEY `fk_tb_Cliente_tb_Empresa1_idx` (`idEmpresa`),
   CONSTRAINT `fk_tb_Cliente_tb_Cidade1` FOREIGN KEY (`idCidade`) REFERENCES `tb_cidade` (`idCidade`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_Cliente_tb_Empresa1` FOREIGN KEY (`idEmpresa`) REFERENCES `tb_empresa` (`idEmpresa`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `tb_cliente` (
 
 LOCK TABLES `tb_cliente` WRITE;
 /*!40000 ALTER TABLE `tb_cliente` DISABLE KEYS */;
-INSERT INTO `tb_cliente` VALUES (1,1,'RUA DAS PALMEIRAS','SUFIATTI',20,'','','','tiago_murtosa@yahoo.com.br',0,'2015-11-10',4702,1),(2,2,'RUA DOS PILARES','CENTRO',33,'','','','limatecnologia@limatecnologia.com.br',0,'2015-11-10',4413,1);
+INSERT INTO `tb_cliente` VALUES (1,1,'RUA DAS PALMEIRAS','SUFIATTI',20,'','','','tiago_murtosa@yahoo.com.br',0,'2015-11-10',4702,1),(2,2,'RUA DOS PILARES','CENTRO',33,'','','','limatecnologia@limatecnologia.com.br',0,'2015-11-10',4413,1),(3,1,'RUA SAO SEBASTIAO','VILA MARIA',54,'','49-9145-3452','49-3322-5422','maria_leite@hotmail.com',0,'2015-11-14',4702,1),(6,2,'RUA CANDIDO LIMA VIEIRA','LIMEIRA',34,'','','','ferragemmelo@ferragemmelo.com.br',0,'2015-11-15',49,1),(10,2,'RUA TREZE QUEIJOS','LAPA',5783,'','','','viacaomoura@viacaomoura.com.br',0,'2015-11-15',1844,1),(11,2,'RUA LIMEIRA DIAS','SAO CRISTOVAO',9922,'','','','viacaomoura@viacaomoura.com.br',0,'2015-11-15',3501,1),(12,1,'RUA JACINTO PINTO','DOS PINTO',135,'3433-1456','9889-8998','3433-1565','kaiopinto@juniot.com.br',0,'2015-11-20',4714,1);
 /*!40000 ALTER TABLE `tb_cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,11 +142,9 @@ CREATE TABLE `tb_empresa` (
   `idCidade` int(11) NOT NULL,
   PRIMARY KEY (`idEmpresa`),
   UNIQUE KEY `cnpjEmpresa_UNIQUE` (`cnpjEmpresa`),
-  UNIQUE KEY `inscricaoEstadualEmpresa_UNIQUE` (`inscricaoEstadualEmpresa`),
-  UNIQUE KEY `inscricaoMunicipalEmpresa_UNIQUE` (`inscricaoMunicipalEmpresa`),
   KEY `fk_tb_Empresa_tb_Cidade1_idx` (`idCidade`),
   CONSTRAINT `fk_tb_Empresa_tb_Cidade1` FOREIGN KEY (`idCidade`) REFERENCES `tb_cidade` (`idCidade`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +153,7 @@ CREATE TABLE `tb_empresa` (
 
 LOCK TABLES `tb_empresa` WRITE;
 /*!40000 ALTER TABLE `tb_empresa` DISABLE KEYS */;
-INSERT INTO `tb_empresa` VALUES (1,'PILOTO & COMANDANTE','RICHCAR LAVAGENS LTDA','76.114.112/0001-35','954.695/21','514.658/9','RUA BENEDITO FERAZ','MARIA CLARA',254,'','','','richcar@richcarlavagens.com.br',2,0,'2015-11-07',4702),(7,'SS LAVAGENS','SS LAVAGENS','78.114.112/0001-36','ISENTO','','D','W',3,'','','','w',2,0,'2015-11-07',2784);
+INSERT INTO `tb_empresa` VALUES (1,'PILOTO & COMANDANTE','RICHCAR LAVAGENS LTDA','76.114.112/0001-35','954.695/21','514.658/9','RUA BENEDITO FERAZ','MARIA CLARA',254,'','','','richcar@richcarlavagens.com.br',2,0,'2015-11-07',4702),(7,'SS LAVAGENS','SS LAVAGENS','78.114.112/0001-36','ISENTO','','D','W',3,'','','','w',2,0,'2015-11-07',2784),(9,'ANNA LTDA','AROTO LAVAGENS LTDA','15.647.984/5564-56','ISENTO','','RUA DOMINIQUE TORETO','LETI AU AU',4789,'3433-7070','9999-9999','3431-7070','arotolavagens4789@letiauau.com.br',0,0,'2015-11-20',3187);
 /*!40000 ALTER TABLE `tb_empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,14 +168,13 @@ CREATE TABLE `tb_itemordemservico` (
   `idItemOrdemServico` int(11) NOT NULL AUTO_INCREMENT,
   `idOrdemServico` int(11) NOT NULL,
   `idTipoServico` int(11) NOT NULL,
-  `valorUnitarioItemOrdemServico` double(10,2) NOT NULL,
-  `quantidadeItemOrdemServico` int(11) NOT NULL,
+  `valorItemOrdemServico` double(10,2) NOT NULL,
   PRIMARY KEY (`idItemOrdemServico`,`idOrdemServico`,`idTipoServico`),
   KEY `fk_tb_OrdemServico_has_tb_TipoServico_tb_TipoServico1_idx` (`idTipoServico`),
   KEY `fk_tb_OrdemServico_has_tb_TipoServico_tb_OrdemServico1_idx` (`idOrdemServico`),
   CONSTRAINT `fk_tb_OrdemServico_has_tb_TipoServico_tb_OrdemServico1` FOREIGN KEY (`idOrdemServico`) REFERENCES `tb_ordemservico` (`idOrdemServico`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tb_OrdemServico_has_tb_TipoServico_tb_TipoServico1` FOREIGN KEY (`idTipoServico`) REFERENCES `tb_tiposervico` (`id_TipoServico`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_tb_OrdemServico_has_tb_TipoServico_tb_TipoServico1` FOREIGN KEY (`idTipoServico`) REFERENCES `tb_tiposervico` (`idTipoServico`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,6 +183,7 @@ CREATE TABLE `tb_itemordemservico` (
 
 LOCK TABLES `tb_itemordemservico` WRITE;
 /*!40000 ALTER TABLE `tb_itemordemservico` DISABLE KEYS */;
+INSERT INTO `tb_itemordemservico` VALUES (51,4,3,20.00),(57,2,1,35.00),(62,3,1,35.00),(63,6,3,20.00),(65,6,2,50.00),(67,7,3,20.00),(68,7,2,50.00),(73,4,3,20.00),(75,7,2,50.00),(76,7,2,50.00),(77,3,2,50.00),(79,6,2,50.00),(80,6,3,20.00),(82,1,3,20.00),(83,1,2,50.00),(84,1,1,35.00),(86,2,1,35.00),(88,2,2,50.00),(89,3,2,50.00);
 /*!40000 ALTER TABLE `tb_itemordemservico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +201,7 @@ CREATE TABLE `tb_marca` (
   `dataAlteracaoMarca` date NOT NULL,
   PRIMARY KEY (`idMarca`),
   UNIQUE KEY `nomeMarca_UNIQUE` (`nomeMarca`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +210,7 @@ CREATE TABLE `tb_marca` (
 
 LOCK TABLES `tb_marca` WRITE;
 /*!40000 ALTER TABLE `tb_marca` DISABLE KEYS */;
-INSERT INTO `tb_marca` VALUES (1,'CHEVROLET GM',0,'2015-10-17'),(2,'VOLKSWAGEN',0,'2015-11-02'),(3,'FIAT',0,'2015-11-11');
+INSERT INTO `tb_marca` VALUES (1,'CHEVROLET GM',0,'2015-10-17'),(2,'VOLKSWAGEN',0,'2015-11-02'),(3,'FIAT',0,'2015-11-11'),(4,'NISSAN',0,'2015-11-20');
 /*!40000 ALTER TABLE `tb_marca` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +231,7 @@ CREATE TABLE `tb_modelo` (
   UNIQUE KEY `nomeModelo_UNIQUE` (`nomeModelo`),
   KEY `fk_tb_Modelo_tb_Marca1_idx` (`idMarca`),
   CONSTRAINT `fk_tb_Modelo_tb_Marca1` FOREIGN KEY (`idMarca`) REFERENCES `tb_marca` (`idMarca`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,7 +240,7 @@ CREATE TABLE `tb_modelo` (
 
 LOCK TABLES `tb_modelo` WRITE;
 /*!40000 ALTER TABLE `tb_modelo` DISABLE KEYS */;
-INSERT INTO `tb_modelo` VALUES (1,'CHEVROLET S10',1,'2015-11-11',1),(2,'CHEVROLET CRUZE',0,'2015-11-02',1),(3,'VOLKSWAGEN JETTA',0,'2015-11-11',2),(4,'VOLKSWAGEM GOLF',0,'2015-11-11',2),(5,'FIAT PALIO',0,'2015-11-11',3);
+INSERT INTO `tb_modelo` VALUES (1,'CHEVROLET S10',1,'2015-11-11',1),(2,'CHEVROLET CRUZE',0,'2015-11-02',1),(3,'VOLKSWAGEN JETTA',0,'2015-11-11',2),(4,'VOLKSWAGEM GOLF',0,'2015-11-11',2),(5,'FIAT PALIO',0,'2015-11-11',3),(6,'NISSAN FRONTIER',0,'2015-11-20',4);
 /*!40000 ALTER TABLE `tb_modelo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,15 +253,18 @@ DROP TABLE IF EXISTS `tb_ordemservico`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_ordemservico` (
   `idOrdemServico` int(11) NOT NULL AUTO_INCREMENT,
-  `valorTotalOrdemServico` double(10,2) NOT NULL,
-  `OrdemServicoCancelada` tinyint(1) NOT NULL,
+  `statusOrdemServico` int(11) NOT NULL,
   `dataAgendamentoOrdemServico` date NOT NULL,
   `dataAlteracaoOrdemServico` date NOT NULL,
   `idCliente` int(11) NOT NULL,
+  `idCarro` int(11) NOT NULL,
   PRIMARY KEY (`idOrdemServico`),
   KEY `IdCliente_idx` (`idCliente`),
-  CONSTRAINT `IdCliente` FOREIGN KEY (`idCliente`) REFERENCES `tb_cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `idCarro_idx` (`idCarro`),
+  KEY `idCarro_idx1` (`idCarro`),
+  CONSTRAINT `IdCliente` FOREIGN KEY (`idCliente`) REFERENCES `tb_cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idCarroOSV` FOREIGN KEY (`idCarro`) REFERENCES `tb_carro` (`idCarro`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,6 +273,7 @@ CREATE TABLE `tb_ordemservico` (
 
 LOCK TABLES `tb_ordemservico` WRITE;
 /*!40000 ALTER TABLE `tb_ordemservico` DISABLE KEYS */;
+INSERT INTO `tb_ordemservico` VALUES (1,1,'2015-11-16','2015-11-23',1,2),(2,1,'2015-11-24','2015-11-20',3,6),(3,1,'2015-11-20','2015-11-19',2,1),(4,1,'2015-11-20','2015-11-19',1,5),(5,3,'2016-03-08','2015-11-20',12,7),(6,1,'2015-11-26','2015-11-22',12,7),(7,1,'2015-11-29','2015-11-20',2,1);
 /*!40000 ALTER TABLE `tb_ordemservico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +327,7 @@ CREATE TABLE `tb_pessoafisica` (
 
 LOCK TABLES `tb_pessoafisica` WRITE;
 /*!40000 ALTER TABLE `tb_pessoafisica` DISABLE KEYS */;
-INSERT INTO `tb_pessoafisica` VALUES ('TIAGO HENRIQUE DE OLIVEIRA','111.111.111-11','22.222.222-2',1);
+INSERT INTO `tb_pessoafisica` VALUES ('TIAGO HENRIQUE DE OLIVEIRA','111.111.111-11','22.222.222-2',1),('MARIA JUDITE LEITE','304.958.029-82','848.842-42',3),('KAIO PINTO JUNIOR','153.768.735-43','1564864',12);
 /*!40000 ALTER TABLE `tb_pessoafisica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,8 +347,6 @@ CREATE TABLE `tb_pessoajuridica` (
   `idCliente` int(11) NOT NULL,
   PRIMARY KEY (`idCliente`),
   UNIQUE KEY `cnpjCliente_UNIQUE` (`cnpjCliente`),
-  UNIQUE KEY `inscricaoEstadualCliente_UNIQUE` (`inscricaoEstadualCliente`),
-  UNIQUE KEY `inscricaoMunicipalCliente_UNIQUE` (`inscricaoMunicipalCliente`),
   KEY `fk_tb_PessoaJuridica_tb_Cliente1_idx` (`idCliente`),
   CONSTRAINT `fk_tb_PessoaJuridica_tb_Cliente1` FOREIGN KEY (`idCliente`) REFERENCES `tb_cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -358,7 +358,7 @@ CREATE TABLE `tb_pessoajuridica` (
 
 LOCK TABLES `tb_pessoajuridica` WRITE;
 /*!40000 ALTER TABLE `tb_pessoajuridica` DISABLE KEYS */;
-INSERT INTO `tb_pessoajuridica` VALUES ('LIMA TECNOLOGIA','LIMA TECNOLOGIA','44.444.444/4444-44','444.666.847-9','',2);
+INSERT INTO `tb_pessoajuridica` VALUES ('LIMA TECNOLOGIA','LIMA TECNOLOGIA','44.444.444/4444-44','444.666.847-9','',2),('FERRAGEM MELO LTDA','FERRAGEM MELO LTDA','33.333.333/3333-33','ISENTO','345.234/8',6),('AUTO VIACAO MOURA S/A','AUTO VIACAO MOURA S/A','55.555.555/5555-55','ISENTO','5666',10),('AUTO VIACAO MOURA S/A','AUTO VIACAO MOURA S/A','54.545.454/5454-54','ISENTO','',11);
 /*!40000 ALTER TABLE `tb_pessoajuridica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,13 +370,13 @@ DROP TABLE IF EXISTS `tb_tiposervico`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_tiposervico` (
-  `id_TipoServico` int(11) NOT NULL AUTO_INCREMENT,
+  `idTipoServico` int(11) NOT NULL AUTO_INCREMENT,
   `nomeTipoServico` varchar(100) NOT NULL,
   `valorTipoServico` double(10,2) NOT NULL,
   `tipoServicoForaUso` tinyint(1) NOT NULL,
-  `dataAltercacaoTipoServico` date NOT NULL,
-  PRIMARY KEY (`id_TipoServico`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `dataAlteracaoTipoServico` date NOT NULL,
+  PRIMARY KEY (`idTipoServico`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -385,6 +385,7 @@ CREATE TABLE `tb_tiposervico` (
 
 LOCK TABLES `tb_tiposervico` WRITE;
 /*!40000 ALTER TABLE `tb_tiposervico` DISABLE KEYS */;
+INSERT INTO `tb_tiposervico` VALUES (1,'LAVAGEM COMPLETA',35.00,0,'2015-11-15'),(2,'LAVAGEM COMPLETA + MOTOR',50.00,0,'2015-11-15'),(3,'LAVAGEM EXTERNA',20.00,0,'2015-11-20'),(4,'LAVAGEM SIMPLES',24.00,0,'2015-11-24'),(5,'LIMPEZA INTERNA',75.00,0,'2015-11-24');
 /*!40000 ALTER TABLE `tb_tiposervico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -434,7 +435,7 @@ CREATE TABLE `tb_usuario` (
   UNIQUE KEY `loginUsuario_UNIQUE` (`loginUsuario`),
   KEY `fk_tb_Usuario_tb_Empresa1_idx` (`idEmpresa`),
   CONSTRAINT `fk_tb_Usuario_tb_Empresa1` FOREIGN KEY (`idEmpresa`) REFERENCES `tb_empresa` (`idEmpresa`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -443,7 +444,7 @@ CREATE TABLE `tb_usuario` (
 
 LOCK TABLES `tb_usuario` WRITE;
 /*!40000 ALTER TABLE `tb_usuario` DISABLE KEYS */;
-INSERT INTO `tb_usuario` VALUES (1,'ADMIN','ADMIN','452758',0,'2015-09-10',1),(2,'TIAGO HENRIQUE','TIAGO','123',0,'2015-11-03',1),(9,'TIAGO MOURA','TIAGOM','123',1,'2015-11-07',1),(11,'TIAGO LUIZ','TIAGOL','123',1,'2015-11-07',1),(14,'TIAGO LIMA','TIAGO LIMA','123',1,'2015-11-07',1),(16,'TIAGO GUSTAVO','TIAGOG','123',1,'2015-11-07',1),(18,'TIAGO SANTO','TIAGOS','123',1,'2015-11-07',1),(19,'FERNANDO LIMA','FERNANDO','1234',0,'2015-11-11',1),(21,'FERNANDO BELINI','FERNANDOB','123',0,'2015-11-05',1);
+INSERT INTO `tb_usuario` VALUES (1,'ADMIN','ADMIN','452758',0,'2015-09-10',1),(2,'TIAGO HENRIQUE','TIAGO','123',0,'2015-11-03',1),(9,'TIAGO MOURA','TIAGOM','123',1,'2015-11-07',1),(11,'TIAGO LUIZ','TIAGOL','123',1,'2015-11-07',1),(14,'TIAGO LIMA','TIAGO LIMA','123',1,'2015-11-07',1),(16,'TIAGO GUSTAVO','TIAGOG','123',1,'2015-11-07',1),(18,'TIAGO SANTO','TIAGOS','123',1,'2015-11-07',1),(19,'FERNANDO LIMA','FERNANDO','1234',0,'2015-11-11',1),(21,'FERNANDO BELINI','FERNANDOB','123',0,'2015-11-05',1),(22,'ANNA CAROLINE DE OLIVEIRA','ARROTO','1234',0,'2015-11-20',1);
 /*!40000 ALTER TABLE `tb_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -456,4 +457,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-12 12:40:27
+-- Dump completed on 2015-11-26 19:39:30

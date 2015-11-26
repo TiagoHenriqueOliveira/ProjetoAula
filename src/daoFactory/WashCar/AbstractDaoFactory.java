@@ -14,10 +14,6 @@ import dao.WashCar.TipoServicoDAO;
 
 public interface AbstractDaoFactory {
 
-	/**
-	 * Retorna uma implementação valida de
-	 * @return 
-	 */
 	UsuarioDAO usuarioDao();
 	EmpresaDAO empresaDao();
 	MarcaDAO marcaDao();
