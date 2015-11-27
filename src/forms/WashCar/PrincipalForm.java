@@ -24,7 +24,6 @@ public class PrincipalForm extends JFrame {
 	private JMenuItem jmiCliente;
 	private JMenuItem jmiCadastroUsuario;
 	private JMenuItem jmiSair;
-	private JMenuItem jmiAgenda;
 	private JMenuItem jmiOrdemServico;
 	private JMenuItem jmiEmpresa;
 	private JMenuItem jmiMarca;
@@ -69,9 +68,6 @@ public class PrincipalForm extends JFrame {
 		
 		jmnServios = new JMenu("Servi\u00E7os");
 		jmbPrincipal.add(jmnServios);
-		
-		jmiAgenda = new JMenuItem("Agenda");
-		jmnServios.add(jmiAgenda);
 		
 		jmiOrdemServico = new JMenuItem("Ordem de Servi\u00E7o");
 		jmnServios.add(jmiOrdemServico);
