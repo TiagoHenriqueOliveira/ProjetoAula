@@ -91,6 +91,8 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 	private JButton jbtRelatorioPadrao;
 	private static OrdemServicoForm ordemServicoForm;
 	private OrdemServico ordemServico;
+	private ListaOrdemServicoForm listaOrdemServico = new ListaOrdemServicoForm(null, null, null, null);
+	private ListaCarroForm listaCarro = new ListaCarroForm(null, null, null, null);
 	
 	public void componentesOrdemServicoForm() {
 		jpnPesquisaOrdemServico = new JPanel();
@@ -579,7 +581,7 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtFechar) {
 					if(jtfCodigoOSV.getText() == null || jtfCodigoOSV.getText().equals("")) {
-						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro da Ordem de serviço.\n"
+						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro.\n"
 								+ "Deseja realmente fechar sem concluir o cadastro?\n"
 								+ "SIM - Cadastro da Ordem de Serviço será cancelado!\n"
 								+ "NÃO - Por gentileza, conclua o cadastro da Ordem de Serviço!", "Atenção", JOptionPane.YES_NO_OPTION);
@@ -720,35 +722,40 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						Integer codigo = null;
-						if(!jtfPesquisaCodigoOSV.getText().equals("")) {
-							codigo = Integer.valueOf(jtfPesquisaCodigoOSV.getText());
+						if(listaOrdemServico.isVisible()) {
+							listaOrdemServico.requestFocus();
+							listaOrdemServico.setLocationRelativeTo(ordemServicoForm);
+						} else {
+							Integer codigo = null;
+							if(!jtfPesquisaCodigoOSV.getText().equals("")) {
+								codigo = Integer.valueOf(jtfPesquisaCodigoOSV.getText());
+							}
+							listaOrdemServico = new ListaOrdemServicoForm(ordemServicoForm, null, codigo, null);
+							listaOrdemServico.setVisible(true);
+							jcbxStatusOSV.setEditable(false);
+							jftfDataAgendamento.setEditable(false);
+							jtfNomeCarro.setEditable(false);
+							jftfPlacaCarro.setEditable(false);
+							jtfCodigoOSV.setText("");
+							jftfDataAgendamento.setText("");
+							jftfDataAlteracao.setText("");
+							jtfCodigoCliente.setText("");
+							jtfTelefoneComercial.setText("");
+							jtfTelefoneResidencial.setText("");
+							jtfTelefoneCelular.setText("");
+							jtfNomeCliente.setText("");
+							jftfCPFCliente.setText("");
+							jftfCNPJCliente.setText("");
+							jtfCodigoCarro.setText("");
+							jtfNomeCarro.setText("");
+							jftfPlacaCarro.setText("");
+							jftfPesquisaPlaca.setText("");
+							jtfPesquisaNomeClienteOSV.setText("");
+							jtfPesquisaCodigoOSV.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
 						}
-						ListaOrdemServicoForm listaOrdemServico = new ListaOrdemServicoForm(ordemServicoForm, null, codigo, null);
-						listaOrdemServico.setVisible(true);
-						jcbxStatusOSV.setEditable(false);
-						jftfDataAgendamento.setEditable(false);
-						jtfNomeCarro.setEditable(false);
-						jftfPlacaCarro.setEditable(false);
-						jtfCodigoOSV.setText("");
-						jftfDataAgendamento.setText("");
-						jftfDataAlteracao.setText("");
-						jtfCodigoCliente.setText("");
-						jtfTelefoneComercial.setText("");
-						jtfTelefoneResidencial.setText("");
-						jtfTelefoneCelular.setText("");
-						jtfNomeCliente.setText("");
-						jftfCPFCliente.setText("");
-						jftfCNPJCliente.setText("");
-						jtfCodigoCarro.setText("");
-						jtfNomeCarro.setText("");
-						jftfPlacaCarro.setText("");
-						jftfPesquisaPlaca.setText("");
-						jtfPesquisaNomeClienteOSV.setText("");
-						jtfPesquisaCodigoOSV.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaCodigoOSV.setText("");
@@ -764,31 +771,36 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaOrdemServicoForm listaOrdemServico = new ListaOrdemServicoForm(ordemServicoForm, jtfPesquisaNomeClienteOSV.getText(), null, null);
-						listaOrdemServico.setVisible(true);
-						jcbxStatusOSV.setEditable(false);
-						jftfDataAgendamento.setEditable(false);
-						jtfNomeCarro.setEditable(false);
-						jftfPlacaCarro.setEditable(false);
-						jtfCodigoOSV.setText("");
-						jftfDataAgendamento.setText("");
-						jftfDataAlteracao.setText("");
-						jtfCodigoCliente.setText("");
-						jtfTelefoneComercial.setText("");
-						jtfTelefoneResidencial.setText("");
-						jtfTelefoneCelular.setText("");
-						jtfNomeCliente.setText("");
-						jftfCPFCliente.setText("");
-						jftfCNPJCliente.setText("");
-						jtfCodigoCarro.setText("");
-						jtfNomeCarro.setText("");
-						jftfPlacaCarro.setText("");
-						jftfPesquisaPlaca.setText("");
-						jtfPesquisaNomeClienteOSV.setText("");
-						jtfPesquisaCodigoOSV.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
+						if(listaOrdemServico.isVisible()) {
+							listaOrdemServico.requestFocus();
+							listaOrdemServico.setLocationRelativeTo(ordemServicoForm);
+						} else {
+							listaOrdemServico = new ListaOrdemServicoForm(ordemServicoForm, jtfPesquisaNomeClienteOSV.getText(), null, null);
+							listaOrdemServico.setVisible(true);
+							jcbxStatusOSV.setEditable(false);
+							jftfDataAgendamento.setEditable(false);
+							jtfNomeCarro.setEditable(false);
+							jftfPlacaCarro.setEditable(false);
+							jtfCodigoOSV.setText("");
+							jftfDataAgendamento.setText("");
+							jftfDataAlteracao.setText("");
+							jtfCodigoCliente.setText("");
+							jtfTelefoneComercial.setText("");
+							jtfTelefoneResidencial.setText("");
+							jtfTelefoneCelular.setText("");
+							jtfNomeCliente.setText("");
+							jftfCPFCliente.setText("");
+							jftfCNPJCliente.setText("");
+							jtfCodigoCarro.setText("");
+							jtfNomeCarro.setText("");
+							jftfPlacaCarro.setText("");
+							jftfPesquisaPlaca.setText("");
+							jtfPesquisaNomeClienteOSV.setText("");
+							jtfPesquisaCodigoOSV.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaNomeClienteOSV.setText("");
@@ -804,31 +816,36 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaOrdemServicoForm listaOrdemServico = new ListaOrdemServicoForm(ordemServicoForm, null, null, jftfPesquisaPlaca.getText());
-						listaOrdemServico.setVisible(true);
-						jcbxStatusOSV.setEditable(false);
-						jftfDataAgendamento.setEditable(false);
-						jtfNomeCarro.setEditable(false);
-						jftfPlacaCarro.setEditable(false);
-						jtfCodigoOSV.setText("");
-						jftfDataAgendamento.setText("");
-						jftfDataAlteracao.setText("");
-						jtfCodigoCliente.setText("");
-						jtfTelefoneComercial.setText("");
-						jtfTelefoneResidencial.setText("");
-						jtfTelefoneCelular.setText("");
-						jtfNomeCliente.setText("");
-						jftfCPFCliente.setText("");
-						jftfCNPJCliente.setText("");
-						jtfCodigoCarro.setText("");
-						jtfNomeCarro.setText("");
-						jftfPlacaCarro.setText("");
-						jftfPesquisaPlaca.setText("");
-						jtfPesquisaNomeClienteOSV.setText("");
-						jtfPesquisaCodigoOSV.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
+						if(listaOrdemServico.isVisible()) {
+							listaOrdemServico.requestFocus();
+							listaOrdemServico.setLocationRelativeTo(ordemServicoForm);
+						} else {
+							listaOrdemServico = new ListaOrdemServicoForm(ordemServicoForm, null, null, jftfPesquisaPlaca.getText());
+							listaOrdemServico.setVisible(true);
+							jcbxStatusOSV.setEditable(false);
+							jftfDataAgendamento.setEditable(false);
+							jtfNomeCarro.setEditable(false);
+							jftfPlacaCarro.setEditable(false);
+							jtfCodigoOSV.setText("");
+							jftfDataAgendamento.setText("");
+							jftfDataAlteracao.setText("");
+							jtfCodigoCliente.setText("");
+							jtfTelefoneComercial.setText("");
+							jtfTelefoneResidencial.setText("");
+							jtfTelefoneCelular.setText("");
+							jtfNomeCliente.setText("");
+							jftfCPFCliente.setText("");
+							jftfCNPJCliente.setText("");
+							jtfCodigoCarro.setText("");
+							jtfNomeCarro.setText("");
+							jftfPlacaCarro.setText("");
+							jftfPesquisaPlaca.setText("");
+							jtfPesquisaNomeClienteOSV.setText("");
+							jtfPesquisaCodigoOSV.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jftfPesquisaPlaca.setText("");
@@ -844,11 +861,16 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaCarroForm listaCarro = new ListaCarroForm(ordemServicoForm, jtfNomeCarro.getText(), null, null);
-						listaCarro.setVisible(true);
-						jtfCodigoCarro.setText("");
-						jtfNomeCarro.setText("");
-						jftfPlacaCarro.setText("");
+						if(listaCarro.isVisible()) {
+							listaCarro.requestFocus();
+							listaCarro.setLocationRelativeTo(ordemServicoForm);
+						} else {
+							listaCarro = new ListaCarroForm(ordemServicoForm, jtfNomeCarro.getText(), null, null);
+							listaCarro.setVisible(true);
+							jtfCodigoCarro.setText("");
+							jtfNomeCarro.setText("");
+							jftfPlacaCarro.setText("");
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfNomeCarro.setText("");
@@ -864,11 +886,16 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaCarroForm listaCarro = new ListaCarroForm(ordemServicoForm, null, null, jftfPlacaCarro.getText());
-						listaCarro.setVisible(true);
-						jtfCodigoCarro.setText("");
-						jtfNomeCarro.setText("");
-						jftfPlacaCarro.setText("");
+						if(listaCarro.isVisible()) {
+							listaCarro.requestFocus();
+							listaCarro.setLocationRelativeTo(ordemServicoForm);
+						} else {
+							listaCarro = new ListaCarroForm(ordemServicoForm, null, null, jftfPlacaCarro.getText());
+							listaCarro.setVisible(true);
+							jtfCodigoCarro.setText("");
+							jtfNomeCarro.setText("");
+							jftfPlacaCarro.setText("");
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(ordemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jftfPlacaCarro.setText("");

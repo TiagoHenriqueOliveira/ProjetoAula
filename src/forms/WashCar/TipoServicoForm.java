@@ -71,6 +71,7 @@ public class TipoServicoForm extends JFrame implements PreencherDados {
 	private JMenuBar jmbTipoServico;
 	private TipoServico tipoServico;
 	private static TipoServicoForm tipoServicoForm;
+	private ListaTipoServicoForm listaTipoServico = new ListaTipoServicoForm(null, null, null);
 
 	public void componenteTelaTipoServico() {		
 		jmbTipoServico = new JMenuBar();
@@ -374,7 +375,7 @@ public class TipoServicoForm extends JFrame implements PreencherDados {
 			public void actionPerformed(ActionEvent acvt) {
 				if(acvt.getSource() == jbtFechar) {
 					if(jtfCodigo.getText() == null || jtfCodigo.getText().equals("")) {
-						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro do Tipo de Serviço.\n"
+						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro.\n"
 								+ "Deseja realmente fechar sem concluir o cadastro?\n"
 								+ "SIM - Cadastro da Ordem de Serviço será cancelado!\n"
 								+ "NÃO - Por gentileza, conclua o cadastro da Ordem de Serviço!", "Atenção", JOptionPane.YES_NO_OPTION);
@@ -393,22 +394,27 @@ public class TipoServicoForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						Integer codigo = null;
-						if(!jtfPesquisaCodigoTipoServico.getText().equals("")) {
-							codigo = Integer.valueOf(jtfPesquisaCodigoTipoServico.getText());
+						if(listaTipoServico.isVisible()) {
+							listaTipoServico.requestFocus();
+							listaTipoServico.setLocationRelativeTo(tipoServicoForm);
+						} else {
+							Integer codigo = null;
+							if(!jtfPesquisaCodigoTipoServico.getText().equals("")) {
+								codigo = Integer.valueOf(jtfPesquisaCodigoTipoServico.getText());
+							}
+							listaTipoServico = new ListaTipoServicoForm(tipoServicoForm, null, codigo);
+							listaTipoServico.setVisible(true);
+							jckbForaUso.setEnabled(false);
+							jtfNomeTipoServico.setEditable(false);
+							jftfValor.setEditable(false);
+							jckbForaUso.setSelected(false);
+							jtfCodigo.setText("");
+							jtfNomeTipoServico.setText("");
+							jftfValor.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
 						}
-						ListaTipoServicoForm listaTipoServico = new ListaTipoServicoForm(tipoServicoForm, null, codigo);
-						listaTipoServico.setVisible(true);
-						jckbForaUso.setEnabled(false);
-						jtfNomeTipoServico.setEditable(false);
-						jftfValor.setEditable(false);
-						jckbForaUso.setSelected(false);
-						jtfCodigo.setText("");
-						jtfNomeTipoServico.setText("");
-						jftfValor.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(tipoServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaCodigoTipoServico.setText("");
@@ -425,18 +431,23 @@ public class TipoServicoForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaTipoServicoForm listaTipoServico = new ListaTipoServicoForm(tipoServicoForm, jtfPesquisaNomeTipoServico.getText(), null);
-						listaTipoServico.setVisible(true);
-						jckbForaUso.setEnabled(false);
-						jtfNomeTipoServico.setEditable(false);
-						jftfValor.setEditable(false);
-						jckbForaUso.setSelected(false);
-						jtfCodigo.setText("");
-						jtfNomeTipoServico.setText("");
-						jftfValor.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
+						if(listaTipoServico.isVisible()) {
+							listaTipoServico.requestFocus();
+							listaTipoServico.setLocationRelativeTo(tipoServicoForm);
+						} else {
+							listaTipoServico = new ListaTipoServicoForm(tipoServicoForm, jtfPesquisaNomeTipoServico.getText(), null);
+							listaTipoServico.setVisible(true);
+							jckbForaUso.setEnabled(false);
+							jtfNomeTipoServico.setEditable(false);
+							jftfValor.setEditable(false);
+							jckbForaUso.setSelected(false);
+							jtfCodigo.setText("");
+							jtfNomeTipoServico.setText("");
+							jftfValor.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(tipoServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaNomeTipoServico.setText("");

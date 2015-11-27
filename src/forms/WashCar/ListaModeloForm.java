@@ -134,7 +134,6 @@ public class ListaModeloForm extends JFrame {
 		listaModelos = new ArrayList<>();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaModeloForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Lista de Modelos");
-		setType(Type.UTILITY);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);

@@ -68,6 +68,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 	private JMenuItem jmiUsuarioCadastradoTodos;
 	private Usuario usuario;
 	private static UsuarioForm usuarioForm;
+	private ListaUsuarioForm listaUsuario = new ListaUsuarioForm(null, null, null);;
 
 	public void componentesUsuarioForm() {
 		jpnPesquisaUsuario = new JPanel();
@@ -409,7 +410,7 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 			public void actionPerformed(ActionEvent acvt) {
 				if(acvt.getSource() == jbtFechar) {
 					if(jtfCodigo.getText() == null || jtfCodigo.getText().equals("")) {
-						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro do Tipo de Serviço.\n"
+						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro.\n"
 								+ "Deseja realmente fechar sem concluir o cadastro?\n"
 								+ "SIM - Cadastro da Ordem de Serviço será cancelado!\n"
 								+ "NÃO - Por gentileza, conclua o cadastro da Ordem de Serviço!", "Atenção", JOptionPane.YES_NO_OPTION);
@@ -422,29 +423,81 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 		});
 	}
 	
+	public void pesquisarPorCodigo() throws RegistroNotExistente {
+		jtfPesquisaCodigoUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent keyevt) {
+				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
+					try{
+						if(listaUsuario.isVisible()) {
+							listaUsuario.requestFocus();
+							listaUsuario.setLocationRelativeTo(usuarioForm);
+						} else {
+							Integer codigo = null;
+							if(!jtfPesquisaCodigoUsuario.getText().equals("")) {
+								codigo = Integer.valueOf(jtfPesquisaCodigoUsuario.getText());
+							}
+							listaUsuario = new ListaUsuarioForm(usuarioForm, null, codigo);
+							listaUsuario.setVisible(true);
+							jtfNome.setEnabled(false);
+							jtfLogin.setEnabled(false);
+							jpfSenha.setEnabled(false);
+							jckbForaUso.setEnabled(false);
+							jckbForaUso.setSelected(false);
+							jtfCodigo.setText("");
+							jtfNome.setText("");
+							jtfLogin.setText("");
+							jpfSenha.setText("");
+							jtfDataAlteracao.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+							jtfPesquisaCodigoUsuario.setText("");
+							jtfPesquisaNomeUsuario.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+						}
+					} catch (RegistroNotExistente e) {
+						JOptionPane.showMessageDialog(usuarioForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaCodigoUsuario.setText("");
+					}
+				}
+			}
+		});
+	}
+	
 	public void pesquisarPorNome() throws RegistroNotExistente {
 		jtfPesquisaNomeUsuario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm, jtfPesquisaNomeUsuario.getText(), null);
-						listaUsuario.setVisible(true);
-						jtfNome.setEnabled(false);
-						jtfLogin.setEnabled(false);
-						jpfSenha.setEnabled(false);
-						jckbForaUso.setEnabled(false);
-						jckbForaUso.setSelected(false);
-						jtfCodigo.setText("");
-						jtfNome.setText("");
-						jtfLogin.setText("");
-						jpfSenha.setText("");
-						jtfDataAlteracao.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
-						jtfPesquisaCodigoUsuario.setText("");
-						jtfPesquisaNomeUsuario.setText("");
+						if(listaUsuario.isVisible()) {
+							listaUsuario.requestFocus();
+							listaUsuario.setLocationRelativeTo(usuarioForm);
+						} else {
+							listaUsuario = new ListaUsuarioForm(usuarioForm, jtfPesquisaNomeUsuario.getText(), null);
+							listaUsuario.setVisible(true);
+							jtfNome.setEnabled(false);
+							jtfLogin.setEnabled(false);
+							jpfSenha.setEnabled(false);
+							jckbForaUso.setEnabled(false);
+							jckbForaUso.setSelected(false);
+							jtfCodigo.setText("");
+							jtfNome.setText("");
+							jtfLogin.setText("");
+							jpfSenha.setText("");
+							jtfDataAlteracao.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+							jtfPesquisaCodigoUsuario.setText("");
+							jtfPesquisaNomeUsuario.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+						}						
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(usuarioForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaNomeUsuario.setText("");
@@ -452,43 +505,6 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 				}
 			}
 		});
-	}
-	
-	public void pesquisarPorCodigo() throws RegistroNotExistente {
-			jtfPesquisaCodigoUsuario.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyPressed(KeyEvent keyevt) {
-					if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
-						try{
-						Integer codigo = null;
-						if(!jtfPesquisaCodigoUsuario.getText().equals("")) {
-							codigo = Integer.valueOf(jtfPesquisaCodigoUsuario.getText());
-						}
-						ListaUsuarioForm listaUsuario = new ListaUsuarioForm(usuarioForm, null, codigo);
-						listaUsuario.setVisible(true);
-						jtfNome.setEnabled(false);
-						jtfLogin.setEnabled(false);
-						jpfSenha.setEnabled(false);
-						jckbForaUso.setEnabled(false);
-						jckbForaUso.setSelected(false);
-						jtfCodigo.setText("");
-						jtfNome.setText("");
-						jtfLogin.setText("");
-						jpfSenha.setText("");
-						jtfDataAlteracao.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
-						jtfPesquisaCodigoUsuario.setText("");
-						jtfPesquisaNomeUsuario.setText("");
-						} catch (RegistroNotExistente e) {
-							JOptionPane.showMessageDialog(usuarioForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
-							jtfPesquisaCodigoUsuario.setText("");
-						}
-					}
-				}
-			});
-		
 	}
 	
 	public UsuarioForm() {

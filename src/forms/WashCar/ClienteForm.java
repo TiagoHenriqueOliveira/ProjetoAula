@@ -124,6 +124,8 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	private PessoaFisica pessoaFisica;
 	private PessoaJuridica pessoaJuridica;
 	private static ClienteForm clienteForm;
+	private ListaCidadeUFPaisForm listaCidadeUFPaisForm = new ListaCidadeUFPaisForm(null, null);
+	private ListaClienteForm listaCliente = new ListaClienteForm(null, null, null, null, null);
 
 	public void componentesTelaCliente() {
 		jmbCadastroCliente = new JMenuBar();
@@ -1144,7 +1146,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			public void actionPerformed(ActionEvent acvt) {
 				if(acvt.getSource() == jbtFechar) {
 					if(jtfCodigoCliente.getText() == null || jtfCodigoCliente.getText().equals("")) {
-						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro do Tipo de Serviço.\n"
+						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro.\n"
 								+ "Deseja realmente fechar sem concluir o cadastro?\n"
 								+ "SIM - Cadastro da Ordem de Serviço será cancelado!\n"
 								+ "NÃO - Por gentileza, conclua o cadastro da Ordem de Serviço!", "Atenção", JOptionPane.YES_NO_OPTION);
@@ -1163,62 +1165,67 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						Integer codigo = null;
-						if(!jtfPesquisaCodigoCliente.getText().equals("")) {
-							codigo = Integer.valueOf(jtfPesquisaCodigoCliente.getText());
+						if(listaCliente.isVisible()) {
+							listaCliente.requestFocus();
+							listaCliente.setLocationRelativeTo(clienteForm);
+						} else {
+							Integer codigo = null;
+							if(!jtfPesquisaCodigoCliente.getText().equals("")) {
+								codigo = Integer.valueOf(jtfPesquisaCodigoCliente.getText());
+							}
+							listaCliente = new ListaClienteForm(clienteForm, codigo, null, null, null);
+							listaCliente.setVisible(true);
+							jcbxTipoPessoa.setEnabled(false);
+							jcbxTipoPessoa.setSelectedIndex(0);
+							jckbxForaUso.setSelected(false);
+							jckbxIsento.setEnabled(false);
+							jckbxIsento.setSelected(false);
+							jtfNomeCliente.setEnabled(false);
+							jtfCPF.setEnabled(false);
+							jtfRG.setEnabled(false);
+							jtfRazaoSocial.setEnabled(false);
+							jtfNomeFantasia.setEnabled(false);
+							jtfCNPJ.setEnabled(false);
+							jtfInscricaoEstadual.setEnabled(false);
+							jtfInscricaoMunicipal.setEnabled(false);
+							jtfEmail.setEnabled(false);
+							jtfTelefoneCelular.setEnabled(false);
+							jtfTelefoneComercial.setEnabled(false);
+							jtfTelefoneResidencial.setEnabled(false);
+							jtfEndereco.setEnabled(false);
+							jtfNumero.setEnabled(false);
+							jtfBairro.setEnabled(false);
+							jtfNomeCidade.setEnabled(false);
+							jtfCodigoCliente.setText("");
+							jtfNomeCliente.setText("");
+							jtfCPF.setText("");
+							jtfRG.setText("");
+							jtfRazaoSocial.setText("");
+							jtfNomeFantasia.setText("");
+							jtfCNPJ.setText("");
+							jtfInscricaoEstadual.setText("");
+							jtfInscricaoMunicipal.setText("");
+							jtfEmail.setText("");
+							jtfTelefoneCelular.setText("");
+							jtfTelefoneComercial.setText("");
+							jtfTelefoneResidencial.setText("");
+							jtfEndereco.setText("");
+							jtfNumero.setText("");
+							jtfBairro.setText("");
+							jtfCodigoUF.setText("");
+							jtfNomeUF.setText("");
+							jtfNomeCidade.setText("");
+							jtfCodigoCidade.setText("");
+							jtfNomePais.setText("");
+							jtfDataAlteracao.setText("");
+							jtfPesquisaCodigoCliente.setText("");
+							jtfPesquisaNomeCliente.setText("");
+							jtfPesquisaCnpjCliente.setText("");
+							jtfPesquisaCPFCliente.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
 						}
-						ListaClienteForm listaCliente = new ListaClienteForm(clienteForm, codigo, null, null, null);
-						listaCliente.setVisible(true);
-						jcbxTipoPessoa.setEnabled(false);
-						jcbxTipoPessoa.setSelectedIndex(0);
-						jckbxForaUso.setSelected(false);
-						jckbxIsento.setEnabled(false);
-						jckbxIsento.setSelected(false);
-						jtfNomeCliente.setEnabled(false);
-						jtfCPF.setEnabled(false);
-						jtfRG.setEnabled(false);
-						jtfRazaoSocial.setEnabled(false);
-						jtfNomeFantasia.setEnabled(false);
-						jtfCNPJ.setEnabled(false);
-						jtfInscricaoEstadual.setEnabled(false);
-						jtfInscricaoMunicipal.setEnabled(false);
-						jtfEmail.setEnabled(false);
-						jtfTelefoneCelular.setEnabled(false);
-						jtfTelefoneComercial.setEnabled(false);
-						jtfTelefoneResidencial.setEnabled(false);
-						jtfEndereco.setEnabled(false);
-						jtfNumero.setEnabled(false);
-						jtfBairro.setEnabled(false);
-						jtfNomeCidade.setEnabled(false);
-						jtfCodigoCliente.setText("");
-						jtfNomeCliente.setText("");
-						jtfCPF.setText("");
-						jtfRG.setText("");
-						jtfRazaoSocial.setText("");
-						jtfNomeFantasia.setText("");
-						jtfCNPJ.setText("");
-						jtfInscricaoEstadual.setText("");
-						jtfInscricaoMunicipal.setText("");
-						jtfEmail.setText("");
-						jtfTelefoneCelular.setText("");
-						jtfTelefoneComercial.setText("");
-						jtfTelefoneResidencial.setText("");
-						jtfEndereco.setText("");
-						jtfNumero.setText("");
-						jtfBairro.setText("");
-						jtfCodigoUF.setText("");
-						jtfNomeUF.setText("");
-						jtfNomeCidade.setText("");
-						jtfCodigoCidade.setText("");
-						jtfNomePais.setText("");
-						jtfDataAlteracao.setText("");
-						jtfPesquisaCodigoCliente.setText("");
-						jtfPesquisaNomeCliente.setText("");
-						jtfPesquisaCnpjCliente.setText("");
-						jtfPesquisaCPFCliente.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(clienteForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaCodigoCliente.setText("");
@@ -1234,58 +1241,63 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaClienteForm listaCliente = new ListaClienteForm(clienteForm, null, jtfPesquisaNomeCliente.getText(), null, null);
-						listaCliente.setVisible(true);
-						jcbxTipoPessoa.setEnabled(false);
-						jcbxTipoPessoa.setSelectedIndex(0);
-						jckbxForaUso.setSelected(false);
-						jckbxIsento.setEnabled(false);
-						jckbxIsento.setSelected(false);
-						jtfNomeCliente.setEnabled(false);
-						jtfCPF.setEnabled(false);
-						jtfRG.setEnabled(false);
-						jtfRazaoSocial.setEnabled(false);
-						jtfNomeFantasia.setEnabled(false);
-						jtfCNPJ.setEnabled(false);
-						jtfInscricaoEstadual.setEnabled(false);
-						jtfInscricaoMunicipal.setEnabled(false);
-						jtfEmail.setEnabled(false);
-						jtfTelefoneCelular.setEnabled(false);
-						jtfTelefoneComercial.setEnabled(false);
-						jtfTelefoneResidencial.setEnabled(false);
-						jtfEndereco.setEnabled(false);
-						jtfNumero.setEnabled(false);
-						jtfBairro.setEnabled(false);
-						jtfNomeCidade.setEnabled(false);
-						jtfCodigoCliente.setText("");
-						jtfNomeCliente.setText("");
-						jtfCPF.setText("");
-						jtfRG.setText("");
-						jtfRazaoSocial.setText("");
-						jtfNomeFantasia.setText("");
-						jtfCNPJ.setText("");
-						jtfInscricaoEstadual.setText("");
-						jtfInscricaoMunicipal.setText("");
-						jtfEmail.setText("");
-						jtfTelefoneCelular.setText("");
-						jtfTelefoneComercial.setText("");
-						jtfTelefoneResidencial.setText("");
-						jtfEndereco.setText("");
-						jtfNumero.setText("");
-						jtfBairro.setText("");
-						jtfCodigoUF.setText("");
-						jtfNomeUF.setText("");
-						jtfNomeCidade.setText("");
-						jtfCodigoCidade.setText("");
-						jtfNomePais.setText("");
-						jtfDataAlteracao.setText("");
-						jtfPesquisaCodigoCliente.setText("");
-						jtfPesquisaNomeCliente.setText("");
-						jtfPesquisaCnpjCliente.setText("");
-						jtfPesquisaCPFCliente.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
+						if(listaCliente.isVisible()) {
+							listaCliente.requestFocus();
+							listaCliente.setLocationRelativeTo(clienteForm);
+						} else {
+							listaCliente = new ListaClienteForm(clienteForm, null, jtfPesquisaNomeCliente.getText(), null, null);
+							listaCliente.setVisible(true);
+							jcbxTipoPessoa.setEnabled(false);
+							jcbxTipoPessoa.setSelectedIndex(0);
+							jckbxForaUso.setSelected(false);
+							jckbxIsento.setEnabled(false);
+							jckbxIsento.setSelected(false);
+							jtfNomeCliente.setEnabled(false);
+							jtfCPF.setEnabled(false);
+							jtfRG.setEnabled(false);
+							jtfRazaoSocial.setEnabled(false);
+							jtfNomeFantasia.setEnabled(false);
+							jtfCNPJ.setEnabled(false);
+							jtfInscricaoEstadual.setEnabled(false);
+							jtfInscricaoMunicipal.setEnabled(false);
+							jtfEmail.setEnabled(false);
+							jtfTelefoneCelular.setEnabled(false);
+							jtfTelefoneComercial.setEnabled(false);
+							jtfTelefoneResidencial.setEnabled(false);
+							jtfEndereco.setEnabled(false);
+							jtfNumero.setEnabled(false);
+							jtfBairro.setEnabled(false);
+							jtfNomeCidade.setEnabled(false);
+							jtfCodigoCliente.setText("");
+							jtfNomeCliente.setText("");
+							jtfCPF.setText("");
+							jtfRG.setText("");
+							jtfRazaoSocial.setText("");
+							jtfNomeFantasia.setText("");
+							jtfCNPJ.setText("");
+							jtfInscricaoEstadual.setText("");
+							jtfInscricaoMunicipal.setText("");
+							jtfEmail.setText("");
+							jtfTelefoneCelular.setText("");
+							jtfTelefoneComercial.setText("");
+							jtfTelefoneResidencial.setText("");
+							jtfEndereco.setText("");
+							jtfNumero.setText("");
+							jtfBairro.setText("");
+							jtfCodigoUF.setText("");
+							jtfNomeUF.setText("");
+							jtfNomeCidade.setText("");
+							jtfCodigoCidade.setText("");
+							jtfNomePais.setText("");
+							jtfDataAlteracao.setText("");
+							jtfPesquisaCodigoCliente.setText("");
+							jtfPesquisaNomeCliente.setText("");
+							jtfPesquisaCnpjCliente.setText("");
+							jtfPesquisaCPFCliente.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(clienteForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaNomeCliente.setText("");
@@ -1301,58 +1313,63 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaClienteForm listaCliente = new ListaClienteForm(clienteForm, null, null, jtfPesquisaCnpjCliente.getText(), null);
-						listaCliente.setVisible(true);
-						jcbxTipoPessoa.setEnabled(false);
-						jcbxTipoPessoa.setSelectedIndex(0);
-						jckbxForaUso.setSelected(false);
-						jckbxIsento.setEnabled(false);
-						jckbxIsento.setSelected(false);
-						jtfNomeCliente.setEnabled(false);
-						jtfCPF.setEnabled(false);
-						jtfRG.setEnabled(false);
-						jtfRazaoSocial.setEnabled(false);
-						jtfNomeFantasia.setEnabled(false);
-						jtfCNPJ.setEnabled(false);
-						jtfInscricaoEstadual.setEnabled(false);
-						jtfInscricaoMunicipal.setEnabled(false);
-						jtfEmail.setEnabled(false);
-						jtfTelefoneCelular.setEnabled(false);
-						jtfTelefoneComercial.setEnabled(false);
-						jtfTelefoneResidencial.setEnabled(false);
-						jtfEndereco.setEnabled(false);
-						jtfNumero.setEnabled(false);
-						jtfBairro.setEnabled(false);
-						jtfNomeCidade.setEnabled(false);
-						jtfCodigoCliente.setText("");
-						jtfNomeCliente.setText("");
-						jtfCPF.setText("");
-						jtfRG.setText("");
-						jtfRazaoSocial.setText("");
-						jtfNomeFantasia.setText("");
-						jtfCNPJ.setText("");
-						jtfInscricaoEstadual.setText("");
-						jtfInscricaoMunicipal.setText("");
-						jtfEmail.setText("");
-						jtfTelefoneCelular.setText("");
-						jtfTelefoneComercial.setText("");
-						jtfTelefoneResidencial.setText("");
-						jtfEndereco.setText("");
-						jtfNumero.setText("");
-						jtfBairro.setText("");
-						jtfCodigoUF.setText("");
-						jtfNomeUF.setText("");
-						jtfNomeCidade.setText("");
-						jtfCodigoCidade.setText("");
-						jtfNomePais.setText("");
-						jtfDataAlteracao.setText("");
-						jtfPesquisaCodigoCliente.setText("");
-						jtfPesquisaNomeCliente.setText("");
-						jtfPesquisaCnpjCliente.setText("");
-						jtfPesquisaCPFCliente.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
+						if(listaCliente.isVisible()) {
+							listaCliente.requestFocus();
+							listaCliente.setLocationRelativeTo(clienteForm);
+						} else {
+							listaCliente = new ListaClienteForm(clienteForm, null, null, jtfPesquisaCnpjCliente.getText(), null);
+							listaCliente.setVisible(true);
+							jcbxTipoPessoa.setEnabled(false);
+							jcbxTipoPessoa.setSelectedIndex(0);
+							jckbxForaUso.setSelected(false);
+							jckbxIsento.setEnabled(false);
+							jckbxIsento.setSelected(false);
+							jtfNomeCliente.setEnabled(false);
+							jtfCPF.setEnabled(false);
+							jtfRG.setEnabled(false);
+							jtfRazaoSocial.setEnabled(false);
+							jtfNomeFantasia.setEnabled(false);
+							jtfCNPJ.setEnabled(false);
+							jtfInscricaoEstadual.setEnabled(false);
+							jtfInscricaoMunicipal.setEnabled(false);
+							jtfEmail.setEnabled(false);
+							jtfTelefoneCelular.setEnabled(false);
+							jtfTelefoneComercial.setEnabled(false);
+							jtfTelefoneResidencial.setEnabled(false);
+							jtfEndereco.setEnabled(false);
+							jtfNumero.setEnabled(false);
+							jtfBairro.setEnabled(false);
+							jtfNomeCidade.setEnabled(false);
+							jtfCodigoCliente.setText("");
+							jtfNomeCliente.setText("");
+							jtfCPF.setText("");
+							jtfRG.setText("");
+							jtfRazaoSocial.setText("");
+							jtfNomeFantasia.setText("");
+							jtfCNPJ.setText("");
+							jtfInscricaoEstadual.setText("");
+							jtfInscricaoMunicipal.setText("");
+							jtfEmail.setText("");
+							jtfTelefoneCelular.setText("");
+							jtfTelefoneComercial.setText("");
+							jtfTelefoneResidencial.setText("");
+							jtfEndereco.setText("");
+							jtfNumero.setText("");
+							jtfBairro.setText("");
+							jtfCodigoUF.setText("");
+							jtfNomeUF.setText("");
+							jtfNomeCidade.setText("");
+							jtfCodigoCidade.setText("");
+							jtfNomePais.setText("");
+							jtfDataAlteracao.setText("");
+							jtfPesquisaCodigoCliente.setText("");
+							jtfPesquisaNomeCliente.setText("");
+							jtfPesquisaCnpjCliente.setText("");
+							jtfPesquisaCPFCliente.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(clienteForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaCnpjCliente.setText("");
@@ -1368,58 +1385,63 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaClienteForm listaCliente = new ListaClienteForm(clienteForm, null, null, null, jtfPesquisaCPFCliente.getText());
-						listaCliente.setVisible(true);
-						jcbxTipoPessoa.setEnabled(false);
-						jcbxTipoPessoa.setSelectedIndex(0);
-						jckbxForaUso.setSelected(false);
-						jckbxIsento.setEnabled(false);
-						jckbxIsento.setSelected(false);
-						jtfNomeCliente.setEnabled(false);
-						jtfCPF.setEnabled(false);
-						jtfRG.setEnabled(false);
-						jtfRazaoSocial.setEnabled(false);
-						jtfNomeFantasia.setEnabled(false);
-						jtfCNPJ.setEnabled(false);
-						jtfInscricaoEstadual.setEnabled(false);
-						jtfInscricaoMunicipal.setEnabled(false);
-						jtfEmail.setEnabled(false);
-						jtfTelefoneCelular.setEnabled(false);
-						jtfTelefoneComercial.setEnabled(false);
-						jtfTelefoneResidencial.setEnabled(false);
-						jtfEndereco.setEnabled(false);
-						jtfNumero.setEnabled(false);
-						jtfBairro.setEnabled(false);
-						jtfNomeCidade.setEnabled(false);
-						jtfCodigoCliente.setText("");
-						jtfNomeCliente.setText("");
-						jtfCPF.setText("");
-						jtfRG.setText("");
-						jtfRazaoSocial.setText("");
-						jtfNomeFantasia.setText("");
-						jtfCNPJ.setText("");
-						jtfInscricaoEstadual.setText("");
-						jtfInscricaoMunicipal.setText("");
-						jtfEmail.setText("");
-						jtfTelefoneCelular.setText("");
-						jtfTelefoneComercial.setText("");
-						jtfTelefoneResidencial.setText("");
-						jtfEndereco.setText("");
-						jtfNumero.setText("");
-						jtfBairro.setText("");
-						jtfCodigoUF.setText("");
-						jtfNomeUF.setText("");
-						jtfNomeCidade.setText("");
-						jtfCodigoCidade.setText("");
-						jtfNomePais.setText("");
-						jtfDataAlteracao.setText("");
-						jtfPesquisaCodigoCliente.setText("");
-						jtfPesquisaNomeCliente.setText("");
-						jtfPesquisaCnpjCliente.setText("");
-						jtfPesquisaCPFCliente.setText("");
-						jbtEditar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jbtCancelar.setEnabled(true);
+						if(listaCliente.isVisible()) {
+							listaCliente.requestFocus();
+							listaCliente.setLocationRelativeTo(clienteForm);
+						} else {
+							listaCliente = new ListaClienteForm(clienteForm, null, null, null, jtfPesquisaCPFCliente.getText());
+							listaCliente.setVisible(true);
+							jcbxTipoPessoa.setEnabled(false);
+							jcbxTipoPessoa.setSelectedIndex(0);
+							jckbxForaUso.setSelected(false);
+							jckbxIsento.setEnabled(false);
+							jckbxIsento.setSelected(false);
+							jtfNomeCliente.setEnabled(false);
+							jtfCPF.setEnabled(false);
+							jtfRG.setEnabled(false);
+							jtfRazaoSocial.setEnabled(false);
+							jtfNomeFantasia.setEnabled(false);
+							jtfCNPJ.setEnabled(false);
+							jtfInscricaoEstadual.setEnabled(false);
+							jtfInscricaoMunicipal.setEnabled(false);
+							jtfEmail.setEnabled(false);
+							jtfTelefoneCelular.setEnabled(false);
+							jtfTelefoneComercial.setEnabled(false);
+							jtfTelefoneResidencial.setEnabled(false);
+							jtfEndereco.setEnabled(false);
+							jtfNumero.setEnabled(false);
+							jtfBairro.setEnabled(false);
+							jtfNomeCidade.setEnabled(false);
+							jtfCodigoCliente.setText("");
+							jtfNomeCliente.setText("");
+							jtfCPF.setText("");
+							jtfRG.setText("");
+							jtfRazaoSocial.setText("");
+							jtfNomeFantasia.setText("");
+							jtfCNPJ.setText("");
+							jtfInscricaoEstadual.setText("");
+							jtfInscricaoMunicipal.setText("");
+							jtfEmail.setText("");
+							jtfTelefoneCelular.setText("");
+							jtfTelefoneComercial.setText("");
+							jtfTelefoneResidencial.setText("");
+							jtfEndereco.setText("");
+							jtfNumero.setText("");
+							jtfBairro.setText("");
+							jtfCodigoUF.setText("");
+							jtfNomeUF.setText("");
+							jtfNomeCidade.setText("");
+							jtfCodigoCidade.setText("");
+							jtfNomePais.setText("");
+							jtfDataAlteracao.setText("");
+							jtfPesquisaCodigoCliente.setText("");
+							jtfPesquisaNomeCliente.setText("");
+							jtfPesquisaCnpjCliente.setText("");
+							jtfPesquisaCPFCliente.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(clienteForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaCPFCliente.setText("");
@@ -1434,13 +1456,18 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaCidadeUFPaisForm listaCidadeUFPaisForm = new ListaCidadeUFPaisForm(clienteForm, jtfNomeCidade.getText());
-						listaCidadeUFPaisForm.setVisible(true);
-						jtfCodigoCidade.setText("");
-						jtfNomeCidade.setText("");
-						jtfCodigoUF.setText("");
-						jtfNomeUF.setText("");
-						jtfNomePais.setText("");
+						if(listaCidadeUFPaisForm.isVisible()) {
+							listaCidadeUFPaisForm.requestFocus();
+							listaCidadeUFPaisForm.setLocationRelativeTo(clienteForm);
+						} else {
+							listaCidadeUFPaisForm = new ListaCidadeUFPaisForm(clienteForm, jtfNomeCidade.getText());
+							listaCidadeUFPaisForm.setVisible(true);
+							jtfCodigoCidade.setText("");
+							jtfNomeCidade.setText("");
+							jtfCodigoUF.setText("");
+							jtfNomeUF.setText("");
+							jtfNomePais.setText("");
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(clienteForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfNomeCidade.setText("");

@@ -73,6 +73,8 @@ public class ModeloForm extends JFrame implements PreencherDados{
 	private JMenuBar jmbModelo;
 	private Modelo modelo;
 	private static ModeloForm modeloForm;
+	private ListaModeloForm listaModeloForm = new ListaModeloForm(null, null, null);
+	private ListaMarcaForm listaMarcaForm = new ListaMarcaForm(null, null, null);
 
 	public void componentesTelaModelo() {
 		jpnPesquisaModelo = new JPanel();
@@ -410,7 +412,7 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			public void actionPerformed(ActionEvent acvt) {
 				if(acvt.getSource() == jbtFechar) {
 					if(jtfCodigoMarca.getText() == null || jtfCodigoMarca.getText().equals("")) {
-						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro do Tipo de Serviço.\n"
+						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro.\n"
 								+ "Deseja realmente fechar sem concluir o cadastro?\n"
 								+ "SIM - Cadastro da Ordem de Serviço será cancelado!\n"
 								+ "NÃO - Por gentileza, conclua o cadastro da Ordem de Serviço!", "Atenção", JOptionPane.YES_NO_OPTION);
@@ -428,25 +430,33 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						Integer codigo = null;
-						if(!jtfPesquisaCodigoModelo.getText().equals("")) {
-							codigo = Integer.valueOf(jtfPesquisaCodigoModelo.getText());
+						if(listaModeloForm.isVisible()) {
+							listaModeloForm.requestFocus();
+							listaModeloForm.setLocationRelativeTo(modeloForm);
+						} else {
+							Integer codigo = null;
+							if(!jtfPesquisaCodigoModelo.getText().equals("")) {
+								codigo = Integer.valueOf(jtfPesquisaCodigoModelo.getText());
+							}
+							listaModeloForm = new ListaModeloForm(modeloForm, null, codigo);
+							listaModeloForm.setVisible(true);
+							jbtEditar.setEnabled(true);
+							jbtNovo.setEnabled(true);
+							jbtCancelar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jtfCodigoModelo.setText("");
+							jtfNomeModelo.setText("");
+							jtfCodigoMarca.setText("");
+							jtfNomeMarca.setText("");
+							jtfDataAlteracao.setText("");
+							jckbForaUso.setSelected(false);
+							jckbForaUso.setEnabled(false);
+							jtfPesquisaCodigoModelo.setText("");
+							jtfPesquisaNomeModelo.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
 						}
-						ListaModeloForm listaModeloForm = new ListaModeloForm(modeloForm, null, codigo);
-						listaModeloForm.setVisible(true);
-						jbtEditar.setEnabled(true);
-						jbtNovo.setEnabled(true);
-						jbtCancelar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jtfCodigoModelo.setText("");
-						jtfNomeModelo.setText("");
-						jtfCodigoMarca.setText("");
-						jtfNomeMarca.setText("");
-						jtfDataAlteracao.setText("");
-						jckbForaUso.setSelected(false);
-						jckbForaUso.setEnabled(false);
-						jtfPesquisaCodigoModelo.setText("");
-						jtfPesquisaNomeModelo.setText("");
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(modeloForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaCodigoModelo.setText("");
@@ -461,21 +471,29 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaModeloForm listaModeloForm = new ListaModeloForm(modeloForm, jtfPesquisaNomeModelo.getText(), null);
-						listaModeloForm.setVisible(true);
-						jbtEditar.setEnabled(true);
-						jbtNovo.setEnabled(true);
-						jbtCancelar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jtfCodigoModelo.setText("");
-						jtfNomeModelo.setText("");
-						jtfCodigoMarca.setText("");
-						jtfNomeMarca.setText("");
-						jtfDataAlteracao.setText("");
-						jckbForaUso.setSelected(false);
-						jckbForaUso.setEnabled(false);
-						jtfPesquisaCodigoModelo.setText("");
-						jtfPesquisaNomeModelo.setText("");
+						if(listaModeloForm.isVisible()) {
+							listaModeloForm.requestFocus();
+							listaModeloForm.setLocationRelativeTo(modeloForm);
+						} else {
+							listaModeloForm = new ListaModeloForm(modeloForm, jtfPesquisaNomeModelo.getText(), null);
+							listaModeloForm.setVisible(true);
+							jbtEditar.setEnabled(true);
+							jbtNovo.setEnabled(true);
+							jbtCancelar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jtfCodigoModelo.setText("");
+							jtfNomeModelo.setText("");
+							jtfCodigoMarca.setText("");
+							jtfNomeMarca.setText("");
+							jtfDataAlteracao.setText("");
+							jckbForaUso.setSelected(false);
+							jckbForaUso.setEnabled(false);
+							jtfPesquisaCodigoModelo.setText("");
+							jtfPesquisaNomeModelo.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(modeloForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaNomeModelo.setText("");
@@ -490,10 +508,15 @@ public class ModeloForm extends JFrame implements PreencherDados{
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaMarcaForm listaMarcaForm = new ListaMarcaForm(modeloForm, jtfNomeMarca.getText(), null);
-						listaMarcaForm.setVisible(true);
-						jtfCodigoMarca.setText("");
-						jtfNomeMarca.setText("");
+						if(listaMarcaForm.isVisible()) {
+							listaMarcaForm.requestFocus();
+							listaMarcaForm.setLocationRelativeTo(modeloForm);
+						} else {
+							listaMarcaForm = new ListaMarcaForm(modeloForm, jtfNomeMarca.getText(), null);
+							listaMarcaForm.setVisible(true);
+							jtfCodigoMarca.setText("");
+							jtfNomeMarca.setText("");
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(modeloForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfNomeMarca.setText("");

@@ -64,6 +64,7 @@ public class ItemOrdemServicoForm extends JFrame implements PreencherDados {
 	private ItemOrdemServico itemOrdemServico;
 	private static ItemOrdemServicoForm itemOrdemServicoForm;
 	private List<ItemOrdemServico> listaItensDaOrdemServico;
+	private ListaTipoServicoForm listaTipoServico = new ListaTipoServicoForm(null, null, null);
 
 	@SuppressWarnings("static-access")
 	public void componentesItemOrdemServicoForm() {
@@ -269,8 +270,13 @@ public class ItemOrdemServicoForm extends JFrame implements PreencherDados {
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaTipoServicoForm listaTipoServico = new ListaTipoServicoForm(itemOrdemServicoForm, jtfDescricaoServico.getText(), null);
-						listaTipoServico.setVisible(true);
+						if(listaTipoServico.isVisible()) {
+							listaTipoServico.requestFocus();
+							listaTipoServico.setLocationRelativeTo(itemOrdemServicoForm);
+						} else {
+							listaTipoServico = new ListaTipoServicoForm(itemOrdemServicoForm, jtfDescricaoServico.getText(), null);
+							listaTipoServico.setVisible(true);
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(itemOrdemServicoForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfDescricaoServico.requestFocus();

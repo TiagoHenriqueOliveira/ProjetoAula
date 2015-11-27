@@ -21,6 +21,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Window.Type;
 
 public class ListaClienteForm extends JFrame {
 
@@ -184,7 +185,6 @@ public class ListaClienteForm extends JFrame {
 		listaCliente = new ArrayList<>();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaClienteForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Lista de Clientes");
-		setType(Type.UTILITY);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 637, 461);
 		setLocationRelativeTo(null);

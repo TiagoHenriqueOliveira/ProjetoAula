@@ -133,7 +133,6 @@ public class ListaMarcaForm extends JFrame {
 		listaMarcas = new ArrayList<>();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaMarcaForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Lista de Marcas");
-		setType(Type.UTILITY);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);

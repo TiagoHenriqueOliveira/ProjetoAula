@@ -63,6 +63,7 @@ public class MarcaForm extends JFrame implements PreencherDados{
 	private JMenuBar jmbMarcas;
 	private Marca marca;
 	private static MarcaForm marcaForm;
+	private ListaMarcaForm listaMarca = new ListaMarcaForm(null, null, null);
 	
 	public void componentesTelaMarca() {
 		jpnPesquisaMarcas = new JPanel();
@@ -337,7 +338,7 @@ public class MarcaForm extends JFrame implements PreencherDados{
 			public void actionPerformed(ActionEvent acvt) {
 				if(acvt.getSource() == jbtFechar) {
 					if(jtfCodigoMarca.getText() == null || jtfCodigoMarca.getText().equals("")) {
-						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro do Tipo de Serviço.\n"
+						Integer valor = JOptionPane.showConfirmDialog(null, "Você NÃO concluiu o cadastro.\n"
 								+ "Deseja realmente fechar sem concluir o cadastro?\n"
 								+ "SIM - Cadastro da Ordem de Serviço será cancelado!\n"
 								+ "NÃO - Por gentileza, conclua o cadastro da Ordem de Serviço!", "Atenção", JOptionPane.YES_NO_OPTION);
@@ -355,25 +356,33 @@ public class MarcaForm extends JFrame implements PreencherDados{
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						Integer codigo = null;
-						if(! jtfPesquisaCodigoMarca.getText().equals("")) {
-							codigo = Integer.valueOf(jtfPesquisaCodigoMarca.getText());
+						if(listaMarca.isVisible()) {
+							listaMarca.requestFocus();
+							listaMarca.setLocationRelativeTo(marcaForm);
+						} else {
+							Integer codigo = null;
+							if(! jtfPesquisaCodigoMarca.getText().equals("")) {
+								codigo = Integer.valueOf(jtfPesquisaCodigoMarca.getText());
+							}
+							jtfPesquisaCodigoMarca.setText(null);
+							ListaMarcaForm listaMarca = new ListaMarcaForm(marcaForm, null, codigo);
+							listaMarca.setVisible(true);
+							jtfNomeMarca.setEnabled(false);
+							jtfNomeMarca.setText(null);
+							jtfCodigoMarca.setText(null);
+							jtfDataAlteracao.setText(null);
+							jckbxForaUso.setSelected(false);
+							jckbxForaUso.setEnabled(false);
+							jbtEditar.setEnabled(true);
+							jbtNovo.setEnabled(true);
+							jbtCancelar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jtfPesquisaCodigoMarca.setText("");
+							jtfPesquisaNomeMarca.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
 						}
-						jtfPesquisaCodigoMarca.setText(null);
-						ListaMarcaForm listaMarca = new ListaMarcaForm(marcaForm, null, codigo);
-						listaMarca.setVisible(true);
-						jtfNomeMarca.setEnabled(false);
-						jtfNomeMarca.setText(null);
-						jtfCodigoMarca.setText(null);
-						jtfDataAlteracao.setText(null);
-						jckbxForaUso.setSelected(false);
-						jckbxForaUso.setEnabled(false);
-						jbtEditar.setEnabled(true);
-						jbtNovo.setEnabled(true);
-						jbtCancelar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jtfPesquisaCodigoMarca.setText("");
-						jtfPesquisaNomeMarca.setText("");
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(marcaForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaCodigoMarca.setText("");
@@ -388,20 +397,28 @@ public class MarcaForm extends JFrame implements PreencherDados{
 			public void keyPressed(KeyEvent keyevt) {
 				if(keyevt.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						ListaMarcaForm listaMarca = new ListaMarcaForm(marcaForm, jtfPesquisaNomeMarca.getText(), null);
-						listaMarca.setVisible(true);
-						jtfNomeMarca.setEnabled(false);
-						jtfNomeMarca.setText(null);
-						jtfCodigoMarca.setText(null);
-						jtfDataAlteracao.setText(null);
-						jckbxForaUso.setSelected(false);
-						jckbxForaUso.setEnabled(false);
-						jbtEditar.setEnabled(true);
-						jbtNovo.setEnabled(true);
-						jbtCancelar.setEnabled(true);
-						jbtSalvar.setEnabled(false);
-						jtfPesquisaCodigoMarca.setText("");
-						jtfPesquisaNomeMarca.setText("");
+						if(listaMarca.isVisible()) {
+							listaMarca.requestFocus();
+							listaMarca.setLocationRelativeTo(marcaForm);
+						} else {
+							listaMarca = new ListaMarcaForm(marcaForm, jtfPesquisaNomeMarca.getText(), null);
+							listaMarca.setVisible(true);
+							jtfNomeMarca.setEnabled(false);
+							jtfNomeMarca.setText(null);
+							jtfCodigoMarca.setText(null);
+							jtfDataAlteracao.setText(null);
+							jckbxForaUso.setSelected(false);
+							jckbxForaUso.setEnabled(false);
+							jbtEditar.setEnabled(true);
+							jbtNovo.setEnabled(true);
+							jbtCancelar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jtfPesquisaCodigoMarca.setText("");
+							jtfPesquisaNomeMarca.setText("");
+							jbtEditar.setEnabled(true);
+							jbtSalvar.setEnabled(false);
+							jbtCancelar.setEnabled(true);
+						}
 					} catch (RegistroNotExistente e) {
 						JOptionPane.showMessageDialog(marcaForm, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 						jtfPesquisaNomeMarca.setText("");
