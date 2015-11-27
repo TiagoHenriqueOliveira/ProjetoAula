@@ -33,7 +33,6 @@ public class PrincipalForm extends JFrame {
 	private UsuarioForm usuarioForm = new UsuarioForm();
 	private CarroForm carroForm = new CarroForm();
 	private ClienteForm clienteForm = new ClienteForm();
-	private AgendaForm agendaForm = new AgendaForm();
 	private OrdemServicoForm ordemServicoForm = new OrdemServicoForm();
 	private EmpresaForm empresaForm = new EmpresaForm();
 	private ModeloForm modeloForm = new ModeloForm();
@@ -85,20 +84,6 @@ public class PrincipalForm extends JFrame {
 	}
 	
 	public void acoesDosMenus() {
-		jmiAgenda.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jmiAgenda) {
-					if(agendaForm.isVisible()) {
-						agendaForm.requestFocus();
-						agendaForm.setLocationRelativeTo(null);
-					} else {
-						agendaForm = new AgendaForm();
-						agendaForm.setVisible(true);
-					}
-				}
-			}
-		});
 		jmiCarro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jmiCarro) {
