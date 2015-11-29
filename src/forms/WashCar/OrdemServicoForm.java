@@ -95,6 +95,10 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 	private ListaCarroForm listaCarro = new ListaCarroForm(null, null, null, null);
 	
 	public void componentesOrdemServicoForm() {
+		jpnOrdemServico = new JPanel();
+		jpnOrdemServico.setLayout(null);
+		setContentPane(jpnOrdemServico);
+		
 		jpnPesquisaOrdemServico = new JPanel();
 		jpnPesquisaOrdemServico.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		jpnPesquisaOrdemServico.setBounds(10, 11, 812, 85);
@@ -366,7 +370,6 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 		jpnOrdemServico.add(jbtNovo);
 		
 		jbtInserirServicos = new JButton("INSERIR SERVIÇOS");
-		jbtInserirServicos.setEnabled(false);
 		jbtInserirServicos.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jbtInserirServicos.setBounds(652, 199, 170, 35);
 		jpnOrdemServico.add(jbtInserirServicos);
@@ -385,8 +388,6 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 		jftfDataAgendamento.setEditable(true);
 		jtfNomeCarro.setEditable(true);
 		jftfPlacaCarro.setEditable(true);
-		jbtInserirServicos.setEnabled(true);
-		jbtRelatorioPadrao.setEnabled(true);
 		jtfCodigoOSV.setText("");
 		jftfDataAgendamento.setText("");
 		jftfDataAlteracao.setText("");
@@ -493,15 +494,40 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 	
 	public void acionarBotaoEditar() {
 		this.selecionarStatusOSV();
-		jftfDataAgendamento.requestFocus();
-		jcbxStatusOSV.setEnabled(true);
-		jbtInserirServicos.setEnabled(true);
-		jftfDataAgendamento.setEditable(true);
-		jtfNomeCarro.setEditable(true);
-		jftfPlacaCarro.setEditable(true);
-		jbtNovo.setEnabled(false);
-		jbtSalvar.setEnabled(true);
-		jbtCancelar.setEnabled(true);
+		if(jcbxStatusOSV.getSelectedIndex() == 0) {
+			jcbxStatusOSV.setEnabled(true);
+			jftfDataAgendamento.requestFocus();
+			jftfDataAgendamento.setEditable(true);
+			jtfNomeCarro.setEditable(true);
+			jftfPlacaCarro.setEditable(true);
+			jbtNovo.setEnabled(false);
+			jbtSalvar.setEnabled(true);
+			jbtCancelar.setEnabled(true);
+		} else if(jcbxStatusOSV.getSelectedIndex() ==1) {
+			JOptionPane.showMessageDialog(ordemServicoForm, "A ordem de serviço está como CONFIRMADA.\n"
+			+ "Não poderá ser mais alterada, somente poderá consultar as informações pelo relatório.\n"
+			+ "Caso deseje alterar, favor mudar o status para EM ABERTO.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jcbxStatusOSV.setEnabled(true);
+			jftfDataAgendamento.requestFocus();
+			jftfDataAgendamento.setEditable(false);
+			jtfNomeCarro.setEditable(false);
+			jftfPlacaCarro.setEditable(false);
+			jbtNovo.setEnabled(false);
+			jbtSalvar.setEnabled(true);
+			jbtCancelar.setEnabled(true);
+		} else if(jcbxStatusOSV.getSelectedIndex() == 2) {
+			JOptionPane.showMessageDialog(ordemServicoForm, "A ordem de serviço está como CANCELADA.\n"
+			+ "Não poderá ser mais alterada, somente poderá consultar as informações pelo relatório.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+			jcbxStatusOSV.setEnabled(false);
+			jftfDataAgendamento.requestFocus();
+			jftfDataAgendamento.setEditable(false);
+			jtfNomeCarro.setEditable(false);
+			jftfPlacaCarro.setEditable(false);
+			jbtNovo.setEnabled(true);
+			jbtSalvar.setEnabled(false);
+			jbtCancelar.setEnabled(false);
+			jbtEditar.setEnabled(false);
+		}
 	}
 	
 	public void acionarBotaoCancelar() {
@@ -511,8 +537,6 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 		jftfDataAgendamento.setEditable(false);
 		jtfNomeCarro.setEditable(false);
 		jftfPlacaCarro.setEditable(false);
-		jbtInserirServicos.setEnabled(false);
-		jbtRelatorioPadrao.setEnabled(false);
 		jtfCodigoOSV.setText("");
 		jftfDataAgendamento.setText("");
 		jftfDataAlteracao.setText("");
@@ -598,13 +622,43 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 		jbtRelatorioPadrao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == jbtRelatorioPadrao) {
-					Map<String, Object> parametros = new HashMap<String, Object>();
-					parametros.put("idOrdemServico", Integer.valueOf(jtfCodigoOSV.getText()));
-					new RelatorioUtil().gerarPdf("src/relatorio/OrdemServicoPadrao.jasper", ConexaoUtil.openConnection(), parametros);
-					try {
-						Desktop.getDesktop().open(new File("Ordem_de_Servico.pdf"));
-					} catch (IOException relatorio) {
-						relatorio.printStackTrace();
+					if(jtfCodigoOSV.getText() == null || jtfCodigoOSV.getText().equals("")) {
+						JOptionPane.showMessageDialog(ordemServicoForm, "Não é possível gerar o relatório, pois não há nenhuma\n"
+						+ "ordem de serviço selecionada.\nPor gentileza, selecione uma ordem de serviço.", "Aviso", JOptionPane.WARNING_MESSAGE);
+						jtfPesquisaCodigoOSV.requestFocus();
+					} else {
+						Map<String, Object> parametros = new HashMap<String, Object>();
+						parametros.put("idOrdemServico", Integer.valueOf(jtfCodigoOSV.getText()));
+						new RelatorioUtil().gerarPdf("src/relatorio/OrdemServicoPadrao.jasper", ConexaoUtil.openConnection(), parametros);
+						try {
+							Desktop.getDesktop().open(new File("Ordem_de_Servico.pdf"));
+						} catch (IOException relatorio) {
+							relatorio.printStackTrace();
+						}
+					}
+				}
+			}
+		});
+		
+		jbtInserirServicos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == jbtInserirServicos) {
+					if(jtfCodigoOSV == null || jtfCodigoOSV.getText().equals("")) {
+						JOptionPane.showMessageDialog(ordemServicoForm, "O cadastro da Ordem de Serviço não foi concluído!\n"
+						+ "Por gentileza, conclua o cadastro antes de inserir os Serviços.", "Atenção", JOptionPane.WARNING_MESSAGE);
+						jftfDataAgendamento.requestFocus();
+					} else if(jcbxStatusOSV.getSelectedIndex() == 2) {
+						JOptionPane.showMessageDialog(ordemServicoForm, "A ordem de serviço está cancelada.\n"
+						+ "Não poderá ser mais alterada, somente poderá consultar as informações pelo relatório.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						jtfPesquisaCodigoOSV.requestFocus();
+					} else if(jcbxStatusOSV.getSelectedIndex() == 1) {
+						JOptionPane.showMessageDialog(ordemServicoForm, "A ordem de serviço está como CONFIRMADA.\n"
+						+ "Não poderá ser mais alterada, somente poderá consultar as informações pelo relatório.\n"
+						+ "Caso deseje alterar, favor mudar o status para EM ABERTO.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+						jcbxStatusOSV.requestFocus();
+					} else {
+						ItemOrdemServicoForm itemOrdemServico = new ItemOrdemServicoForm(ordemServicoForm, Integer.valueOf(jtfCodigoOSV.getText()));
+						itemOrdemServico.setVisible(true);
 					}
 				}
 			}
@@ -624,7 +678,6 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 						jftfDataAgendamento.setEditable(false);
 						jtfNomeCarro.setEditable(false);
 						jftfPlacaCarro.setEditable(false);
-						jbtInserirServicos.setEnabled(false);
 					} else if(jcbxStatusOSV.getSelectedIndex() == 2) {
 						jftfDataAgendamento.setEditable(false);
 						jtfNomeCarro.setEditable(false);
@@ -697,23 +750,6 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 				jtfTelefoneResidencial.setText(carro.getCliente().getTelefoneResidencial());
 			}
 		}
-	}
-	
-	public void inserirItemServico() {
-		jbtInserirServicos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == jbtInserirServicos) {
-					if(jtfCodigoOSV == null || jtfCodigoOSV.getText().equals("")) {
-						JOptionPane.showMessageDialog(ordemServicoForm, "O cadastro da Ordem de Serviço não foi concluído!\n"
-						+ "Por gentileza, conclua o cadastro antes de inserir os Serviços.", "Atenção", JOptionPane.WARNING_MESSAGE);
-						jftfDataAgendamento.requestFocus();
-					} else {
-						ItemOrdemServicoForm itemOrdemServico = new ItemOrdemServicoForm(ordemServicoForm, Integer.valueOf(jtfCodigoOSV.getText()));
-						itemOrdemServico.setVisible(true);
-					}
-				}
-			}
-		});
 	}
 	
 	public void pesquisaPorCodigo() {
@@ -910,12 +946,9 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OrdemServicoForm.class.getResource("/Imagens/washCar.jpeg")));
 		setTitle("Cadastro de Ordem de Serviço");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 841, 360);
+		setBounds(100, 100, 841, 355);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		jpnOrdemServico = new JPanel();
-		jpnOrdemServico.setLayout(null);
-		setContentPane(jpnOrdemServico);
 		
 		componentesOrdemServicoForm();
 		acaoDosBotoes();
@@ -924,7 +957,6 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 		pesquisaPorPlaca();
 		pesquisaNomeCarro();
 		pesquisaPlacaCarro();
-		inserirItemServico();
 	}
 
 	@Override
