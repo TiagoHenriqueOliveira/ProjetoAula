@@ -420,6 +420,8 @@ public class ModeloForm extends JFrame implements PreencherDados{
 							dispose();
 						}
 					}
+				} else {
+					dispose();
 				}
 			}
 		});

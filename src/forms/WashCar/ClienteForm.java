@@ -1186,6 +1186,8 @@ public class ClienteForm extends JFrame implements PreencherDados {
 							dispose();
 						}
 					}
+				} else {
+					dispose();
 				}
 			}
 		});

@@ -383,6 +383,8 @@ public class TipoServicoForm extends JFrame implements PreencherDados {
 							dispose();
 						}
 					}
+				} else {
+					dispose();
 				}
 			}
 		});

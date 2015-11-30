@@ -418,6 +418,8 @@ public class UsuarioForm extends JFrame implements PreencherDados{
 							dispose();
 						}
 					}
+				} else {
+					dispose();
 				}
 			}
 		});

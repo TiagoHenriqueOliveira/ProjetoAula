@@ -583,6 +583,8 @@ public class CarroForm extends JFrame implements PreencherDados{
 							dispose();
 						}
 					}
+				} else {
+					dispose();
 				}
 			}
 		});

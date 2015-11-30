@@ -346,6 +346,8 @@ public class MarcaForm extends JFrame implements PreencherDados{
 							dispose();
 						}
 					}
+				} else {
+					dispose();
 				}
 			}
 		});

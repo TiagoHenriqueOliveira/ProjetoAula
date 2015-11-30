@@ -862,6 +862,8 @@ public class EmpresaForm extends JFrame implements PreencherDados{
 							dispose();
 						}
 					}
+				} else {
+					dispose();
 				}
 			}
 		});
