@@ -631,7 +631,7 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 						parametros.put("idOrdemServico", Integer.valueOf(jtfCodigoOSV.getText()));
 						new RelatorioUtil().gerarPdf("src/relatorio/OrdemServicoPadrao.jasper", ConexaoUtil.openConnection(), parametros);
 						try {
-							Desktop.getDesktop().open(new File("Ordem_de_Servico.pdf"));
+							Desktop.getDesktop().open(new File("relatorio.pdf"));
 						} catch (IOException relatorio) {
 							relatorio.printStackTrace();
 						}
