@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.MaskFormatter;
+
+import conexao.ConexaoUtil;
+
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -13,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,11 +35,13 @@ import exception.WashCar.RegistroExistente;
 import exception.WashCar.RegistroNotExistente;
 import model.WashCar.Cidade;
 import model.WashCar.Cliente;
+import model.WashCar.Data;
 import model.WashCar.Empresa;
 import model.WashCar.Entidade;
 import model.WashCar.PessoaFisica;
 import model.WashCar.PessoaJuridica;
 import preencherDados.WashCar.PreencherDados;
+import relatorio.RelatorioUtil;
 
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
@@ -47,8 +53,12 @@ import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.event.ItemEvent;
 
 public class ClienteForm extends JFrame implements PreencherDados {
@@ -119,22 +129,29 @@ public class ClienteForm extends JFrame implements PreencherDados {
 	private JButton jbtSalvar;
 	private JButton jbtEditar;
 	private JMenuBar jmbCadastroCliente;
-	private JMenuItem jmnRelatorio;
+	private JMenu jmnRelatorio;
+	private JMenuItem jmiTotalFaturadoCliente;
 	private Cliente cliente;
 	private PessoaFisica pessoaFisica;
 	private PessoaJuridica pessoaJuridica;
 	private static ClienteForm clienteForm;
 	private ListaCidadeUFPaisForm listaCidadeUFPaisForm = new ListaCidadeUFPaisForm(null, null);
 	private ListaClienteForm listaCliente = new ListaClienteForm(null, null, null, null, null);
+	private GenericSearchDataForm dataForm;
+	private Date dataInicial, dataFinal;
 
 	public void componentesTelaCliente() {
 		jmbCadastroCliente = new JMenuBar();
 		jmbCadastroCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		setJMenuBar(jmbCadastroCliente);
 		
-		jmnRelatorio = new JMenu("Relat\u00F3rios");
+		jmnRelatorio = new JMenu("Relatórios");
 		jmnRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jmbCadastroCliente.add(jmnRelatorio);
+		
+		jmiTotalFaturadoCliente = new JMenuItem("Total Faturado - Por Cliente");
+		jmiTotalFaturadoCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		jmnRelatorio.add(jmiTotalFaturadoCliente);
 		setContentPane(jpnCliente);
 		
 		jpnPesquisaCliente = new JPanel();
@@ -1097,6 +1114,21 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		});
 	}
 	
+	public void setData(Data data) {
+		dataInicial = Date.valueOf(data.getDataInicial());
+		dataFinal = Date.valueOf(data.getDataFinal());
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		parametros.put("idCliente", Integer.valueOf(jtfCodigoCliente.getText()));
+		parametros.put("dataInicial", dataInicial);
+		parametros.put("dataFinal", dataFinal);
+		new RelatorioUtil().gerarPdf("src/relatorio/TotalFaturadoCliente.jasper", ConexaoUtil.openConnection(), parametros);
+		try {
+			Desktop.getDesktop().open(new File("relatorio.pdf"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void acoesDosBotoes() {
 		jbtNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent acvt) {
@@ -1153,6 +1185,21 @@ public class ClienteForm extends JFrame implements PreencherDados {
 						if(valor == 0) {
 							dispose();
 						}
+					}
+				}
+			}
+		});
+		
+		jmiTotalFaturadoCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(evt.getSource() == jmiTotalFaturadoCliente) {
+					if(jtfCodigoCliente.getText() == null || jtfCodigoCliente.getText().equals("")) {
+						JOptionPane.showMessageDialog(clienteForm, "É necessário primeiro ter um cliente válido selecionado.\n"
+								+ "Por gentileza, faça uma pesquisa primeiro.", "Atenção", JOptionPane.WARNING_MESSAGE);
+					} else {
+						dataForm = new GenericSearchDataForm(clienteForm);
+						dataForm.setLocationRelativeTo(clienteForm);
+						dataForm.setVisible(true);
 					}
 				}
 			}
@@ -1503,6 +1550,8 @@ public class ClienteForm extends JFrame implements PreencherDados {
 			this.preencherCamposCidadeUFPais((Cidade)entidade);
 		} else if(entidade instanceof Cliente) {
 			this.preencherCamposCliente((Cliente)entidade);
+		} else if(entidade instanceof Data) {
+			this.setData((Data)entidade);
 		}
 	}
 }
