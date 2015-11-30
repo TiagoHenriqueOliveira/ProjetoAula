@@ -1,35 +1,37 @@
 package forms.WashCar;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.SoftBevelBorder;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.text.MaskFormatter;
 
 import conexao.ConexaoUtil;
-
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-
-import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JFormattedTextField;
-import javax.swing.JCheckBox;
-
-import validacaoCampos.WashCar.ValidaCampoAlfaNumerico;
-import validacaoCampos.WashCar.ValidaCampoDocumentoFisico;
-import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
-import validacaoCampos.WashCar.ValidaCampoDocumentoJuridico;
-import validacaoCampos.WashCar.ValidaCampoString;
-import validacaoCampos.WashCar.ValidaCampoTelefone;
-
 import daoFactory.WashCar.DaoFactory;
 import exception.WashCar.RegistroExistente;
 import exception.WashCar.RegistroNotExistente;
@@ -42,24 +44,12 @@ import model.WashCar.PessoaFisica;
 import model.WashCar.PessoaJuridica;
 import preencherDados.WashCar.PreencherDados;
 import relatorio.RelatorioUtil;
-
-import java.awt.Toolkit;
-import javax.swing.SwingConstants;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JMenu;
-import javax.swing.JComboBox;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
-import java.sql.Date;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.awt.event.ItemEvent;
+import validacaoCampos.WashCar.ValidaCampoAlfaNumerico;
+import validacaoCampos.WashCar.ValidaCampoDocumentoFisico;
+import validacaoCampos.WashCar.ValidaCampoDocumentoJuridico;
+import validacaoCampos.WashCar.ValidaCampoNumeroInteiro;
+import validacaoCampos.WashCar.ValidaCampoString;
+import validacaoCampos.WashCar.ValidaCampoTelefone;
 
 public class ClienteForm extends JFrame implements PreencherDados {
 
@@ -1121,12 +1111,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		parametros.put("idCliente", Integer.valueOf(jtfCodigoCliente.getText()));
 		parametros.put("dataInicial", dataInicial);
 		parametros.put("dataFinal", dataFinal);
-		new RelatorioUtil().gerarPdf("src/relatorio/TotalFaturadoCliente.jasper", ConexaoUtil.openConnection(), parametros);
-		try {
-			Desktop.getDesktop().open(new File("relatorio.pdf"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		new RelatorioUtil().viewReport("src/relatorio/TotalFaturadoCliente.jasper", ConexaoUtil.openConnection(), parametros);
 	}
 	
 	public void acoesDosBotoes() {

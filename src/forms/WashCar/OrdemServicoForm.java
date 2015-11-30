@@ -1,7 +1,6 @@
 package forms.WashCar;
 
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -10,8 +9,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -629,12 +626,7 @@ public class OrdemServicoForm extends JFrame implements PreencherDados {
 					} else {
 						Map<String, Object> parametros = new HashMap<String, Object>();
 						parametros.put("idOrdemServico", Integer.valueOf(jtfCodigoOSV.getText()));
-						new RelatorioUtil().gerarPdf("src/relatorio/OrdemServicoPadrao.jasper", ConexaoUtil.openConnection(), parametros);
-						try {
-							Desktop.getDesktop().open(new File("relatorio.pdf"));
-						} catch (IOException relatorio) {
-							relatorio.printStackTrace();
-						}
+						new RelatorioUtil().viewReport("src/relatorio/OrdemServicoPadrao.jasper", ConexaoUtil.openConnection(), parametros);
 					}
 				}
 			}

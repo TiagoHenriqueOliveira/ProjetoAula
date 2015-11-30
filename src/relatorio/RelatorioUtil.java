@@ -15,7 +15,7 @@ public class RelatorioUtil {
 			Map<String, Object> parametros) {
 		try {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(pathRelatorio, parametros, con);
-			JasperViewer.viewReport(jasperPrint);
+			JasperViewer.viewReport(jasperPrint, false);
 		} catch (JRException e) {
 			e.printStackTrace();
 		}
