@@ -25,7 +25,7 @@ public class RelatorioUtil {
 		try {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(pathRelatorio, parametros, con);
 
-			JasperExportManager.exportReportToPdfFile(jasperPrint, "Ordem_de_Servico.pdf");
+			JasperExportManager.exportReportToPdfFile(jasperPrint, "relatorio.pdf");
 		} catch (JRException e) {
 			e.printStackTrace();
 		}
