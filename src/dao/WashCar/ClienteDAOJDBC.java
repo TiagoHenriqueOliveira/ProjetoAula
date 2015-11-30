@@ -157,8 +157,7 @@ public class ClienteDAOJDBC implements ClienteDAO{
 				+ "inner join tb_pais "
 				+ "on tb_uf.idPais = tb_pais.idPais "
 				+ "where tb_pessoaFisica.nomeCliente like ? "
-				+ "or tb_pessoaJuridica.nomeFantasiaCliente like ?"
-				+ "order by tb_pessoaFisica.nomeCliente ";
+				+ "or tb_pessoaJuridica.nomeFantasiaCliente like ?";
 		try {
 			pstmt = connection.prepareStatement(query);
 			pstmt.setString(1, "%" + nome + "%");
@@ -211,8 +210,7 @@ public class ClienteDAOJDBC implements ClienteDAO{
 				+ "inner join tb_UF "
 				+ "on tb_cidade.idUF = tb_uf.idUF "
 				+ "inner join tb_pais "
-				+ "on tb_UF.idPais = tb_pais.idPais "
-				+ "order by tb_pessoaFisica.nomeCliente ";
+				+ "on tb_UF.idPais = tb_pais.idPais ";
 		try {
 			pstmt = connection.prepareStatement(query);
 			rs = pstmt.executeQuery();
