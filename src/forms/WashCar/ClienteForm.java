@@ -139,7 +139,7 @@ public class ClienteForm extends JFrame implements PreencherDados {
 		jmnRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jmbCadastroCliente.add(jmnRelatorio);
 		
-		jmiTotalFaturadoCliente = new JMenuItem("Total Faturado - Por Cliente");
+		jmiTotalFaturadoCliente = new JMenuItem("Faturamento - Por Cliente");
 		jmiTotalFaturadoCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jmnRelatorio.add(jmiTotalFaturadoCliente);
 		setContentPane(jpnCliente);
